@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SyftVision2._0"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:prism="http://prismlibrary.com/"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}" Height="450" Width="800" ResizeMode="CanMinimize">
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="Normal" ProgressValue="{Binding taskBarProcess}"/>
+    </Window.TaskbarItemInfo>
     <Grid>
-
+        
     </Grid>
 </Window>
