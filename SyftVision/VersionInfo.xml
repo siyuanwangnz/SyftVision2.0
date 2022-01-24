@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<item>
+	<version>1.0.0.1</version>
+	<url>http://tools.syft.com:3453/downloads/syft-vision/Release.zip</url>
+	<changelog>https://github.com/syft-tech/SyftVision-CS_WPF_Prism_MVVM/releases</changelog>
+	<mandatory>false</mandatory>
+</item>

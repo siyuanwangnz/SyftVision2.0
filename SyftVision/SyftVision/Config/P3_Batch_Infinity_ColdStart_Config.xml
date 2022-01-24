@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+	<Methods>
+		<!--validation-->
+		<Method name="Reset Quadrupoles"/>
+		<Method name="Ups scanline calibration"/>
+		<Method name="Dws scanline calibration"/>
+		<Method name="Detector Linearity Validation"/>
+		<Method name="Syft (+-) Standard Validation"/>
+		<Method name="Validation injection scan Pos"/>
+		<Method name="Validation injection scan Neg Wet"/>
+		<Method name="Validation injection scan Neg Dry"/>
+		<Method name="Validation Mass Scan Syft Standard (+-)"/>
+		<Method name="Background"/>
+		<!--performance-->
+		<Method name="infinity +- performance check_V5">
+			<Mark main="Cold Start" sub="Performance"/>
+		</Method>
+		<!--first check-->
+		<Method name="calLowConc product settle test (PortOpen)">
+			<Mark main="Cold Start" sub="CallowConc"/>
+			<Mark main="Cold Start" sub="Both Ends Mark"/>
+		</Method>
+		<!--5*10 check-->
+		<Group repeat="5">
+			<Method name="SF+Linearity_Measure.js"/>
+			<Method name="calLowConc product settle test (PortOpen)" repeat="10">
+				<Mark main="Cold Start" sub="CallowConc"/>
+			</Method>
+		</Group>
+		<!--3hrs mark-->
+		<Method name="SF+Linearity_Measure.js"/>
+		<Method name="calLowConc product settle test (PortOpen)" repeat="9">
+			<Mark main="Cold Start" sub="CallowConc"/>
+		</Method>
+		<Method name="calLowConc product settle test (PortOpen)">
+			<Mark main="Cold Start" sub="CallowConc"/>
+			<Mark main="Cold Start" sub="3hr And 4hr Mark"/>
+		</Method>
+		<!--10 check-->
+		<Method name="SF+Linearity_Measure.js"/>
+		<Method name="calLowConc product settle test (PortOpen)" repeat="10">
+			<Mark main="Cold Start" sub="CallowConc"/>
+		</Method>
+		<!--4hrs mark-->
+		<Method name="SF+Linearity_Measure.js"/>
+		<Method name="calLowConc product settle test (PortOpen)" repeat="9">
+			<Mark main="Cold Start" sub="CallowConc"/>
+		</Method>
+		<Method name="calLowConc product settle test (PortOpen)">
+			<Mark main="Cold Start" sub="CallowConc"/>
+			<Mark main="Cold Start" sub="3hr And 4hr Mark"/>
+			<Mark main="Cold Start" sub="Both Ends Mark"/>
+		</Method>
+		<!--validation-->
+		<Method name="Reset Quadrupoles"/>
+		<Method name="Ups scanline calibration"/>
+		<Method name="Dws scanline calibration"/>
+		<Method name="Detector Linearity Validation"/>
+		<Method name="Syft (+-) Standard Validation"/>
+		<Method name="Validation injection scan Pos"/>
+		<Method name="Validation injection scan Neg Wet"/>
+		<Method name="Validation injection scan Neg Dry"/>
+		<Method name="Validation Mass Scan Syft Standard (+-)"/>
+		<Method name="Background"/>
+		<!--performance-->
+		<Method name="infinity +- performance check_V5">
+			<Mark main="Cold Start" sub="Performance"/>
+		</Method>
+	</Methods>
+
+	<Charts>
+		<Chart name="Cold Start">
+			<SubChart name="Sensitiveties" phase="Sample" accept="Above">
+				<Mark main="Cold Start" sub="Performance"/>
+				<Components>
+					<Component reagent="O-" product="183" min="80" />
+					<Component reagent="OH-" product="233" min="150" />
+					<Component reagent="H3O+" product="93" min="465"/>
+					<Component reagent="NO+" product="92" min="321"/>
+					<Component reagent="O2+" product="28" min="55"/>
+					<Component reagent="O2+" product="92" min="300"/>
+					<Component reagent="O2+" product="236" min="330"/>
+				</Components>
+			</SubChart>
+			<SubChart name="Sensitiveties Deviation" phase="Sample" accept="Under">
+				<Mark main="Cold Start" sub="Performance"/>
+				<Components>
+					<Component reagent="O-" product="183" max="0.15"/>
+					<Component reagent="OH-" product="233" max="0.15"/>
+					<Component reagent="H3O+" product="93" max="0.15"/>
+					<Component reagent="NO+" product="92" max="0.15"/>
+					<Component reagent="O2+" product="28" max="0.15"/>
+					<Component reagent="O2+" product="92" max="0.15"/>
+					<Component reagent="O2+" product="236" max="0.15"/>
+				</Components>
+			</SubChart>
+			<SubChart name="Reagent Ions" phase="Sample">
+				<Mark main="Cold Start" sub="CallowConc"/>
+				<Components>
+					<Component reagent="O-" product="16"/>
+					<Component reagent="OH-" product="17"/>
+					<Component reagent="O2-" product="32"/>
+					<Component reagent="NO2-" product="46"/>
+					<Component reagent="H3O+" product="19"/>
+					<Component reagent="NO+" product="30"/>
+					<Component reagent="O2+" product="32"/>
+				</Components>
+			</SubChart>
+			<SubChart name="3hr And 4hr Mark Deviation" phase="Sample" accept="Under">
+				<Mark main="Cold Start" sub="3hr And 4hr Mark"/>
+				<Components>
+					<Component reagent="O-" product="16" max="0.1"/>
+					<Component reagent="OH-" product="17" max="0.1"/>
+					<Component reagent="O2-" product="32" max="0.1"/>
+					<Component reagent="NO2-" product="46" max="0.1"/>
+					<Component reagent="H3O+" product="19" max="0.1"/>
+					<Component reagent="NO+" product="30" max="0.1"/>
+					<Component reagent="O2+" product="32" max="0.1"/>
+				</Components>
+			</SubChart>
+			<SubChart name="Both Ends Mark Deviation" phase="Sample">
+				<Mark main="Cold Start" sub="Both Ends Mark"/>
+				<Components>
+					<Component reagent="O-" product="16"/>
+					<Component reagent="OH-" product="17"/>
+					<Component reagent="O2-" product="32"/>
+					<Component reagent="NO2-" product="46"/>
+					<Component reagent="H3O+" product="19"/>
+					<Component reagent="NO+" product="30"/>
+					<Component reagent="O2+" product="32"/>
+				</Components>
+			</SubChart>
+		</Chart>
+	</Charts>
+</Config>

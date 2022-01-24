@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AC8C55E6-3DA2-4D62-8DE0-7E0CD6E871C6}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SettingCheck</RootNamespace>
+    <AssemblyName>SettingCheck</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Models\Lens\DPISLens.cs" />
+    <Compile Include="Models\Setting\DetectionSetting.cs" />
+    <Compile Include="Models\Setting\DetectionSettings.cs" />
+    <Compile Include="Models\PDF\PDFGenerator.cs" />
+    <Compile Include="Models\PDF\PNGGeneratorExtension.cs" />
+    <Compile Include="Models\Setting\SourceSettings.cs" />
+    <Compile Include="Models\Chart\ChartGenerator.cs" />
+    <Compile Include="Models\Setting\SourcePhaseSettings.cs" />
+    <Compile Include="Models\Setting\DWSSettings.cs" />
+    <Compile Include="Models\Setting\DWSSpecificMassSettings.cs" />
+    <Compile Include="Models\Setting\DWSSpecificSettings.cs" />
+    <Compile Include="Models\Setting\UPSPhaseSettings.cs" />
+    <Compile Include="Models\Setting\Setting.cs" />
+    <Compile Include="Models\Lens\SPISLens.cs" />
+    <Compile Include="Services\GetConfigData.cs" />
+    <Compile Include="Services\Setting\GetDWSSpecificDataExtension.cs" />
+    <Compile Include="Services\GetRootNode.cs" />
+    <Compile Include="Services\Setting\GetSourceDataExtension.cs" />
+    <Compile Include="Services\Setting\GetDetectionDataExtension.cs" />
+    <Compile Include="Services\Setting\GetDWSDataExtension.cs" />
+    <Compile Include="Services\Setting\GetUPSPhaseDataExtension.cs" />
+    <Compile Include="Services\Setting\GetSetting.cs" />
+    <Compile Include="SettingCheckModule.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="ViewModels\ThreePhase\SICFViewModel.cs" />
+    <Compile Include="ViewModels\ThreePhase\DetectionViewModel.cs" />
+    <Compile Include="ViewModels\ThreePhase\SourceViewModel.cs" />
+    <Compile Include="ViewModels\ThreePhase\DWSSpecificViewModel.cs" />
+    <Compile Include="ViewModels\ThreePhase\DWSViewModel.cs" />
+    <Compile Include="ViewModels\ThreePhase\NegDryViewModel.cs" />
+    <Compile Include="ViewModels\ThreePhase\NegWetViewModel.cs" />
+    <Compile Include="ViewModels\ThreePhase\PosWetViewModel.cs" />
+    <Compile Include="ViewModels\SettingCheckViewModel.cs" />
+    <Compile Include="Views\ThreePhase\DetectionView.xaml.cs">
+      <DependentUpon>DetectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThreePhase\SICFView.cs">
+      <DependentUpon>SICFView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThreePhase\SourceView.cs">
+      <DependentUpon>SourceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThreePhase\DWSSpecificView.cs">
+      <DependentUpon>DWSSpecificView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThreePhase\DWSView.cs">
+      <DependentUpon>DWSView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThreePhase\NegDryView.cs">
+      <DependentUpon>NegDryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThreePhase\NegWetView.cs">
+      <DependentUpon>NegWetView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ThreePhase\PosWetView.cs">
+      <DependentUpon>PosWetView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingCheckView.xaml.cs">
+      <DependentUpon>SettingCheckView.xaml</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\ThreePhase\DetectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ThreePhase\SICFView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ThreePhase\SourceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ThreePhase\DWSSpecificView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ThreePhase\DWSView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ThreePhase\NegDryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ThreePhase\NegWetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ThreePhase\PosWetView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingCheckView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Autoupdater.NET.Official">
+      <Version>1.6.4</Version>
+    </PackageReference>
+    <PackageReference Include="ChartDirector.Net.Desktop.Controls">
+      <Version>6.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="itext7">
+      <Version>7.1.14</Version>
+    </PackageReference>
+    <PackageReference Include="MaterialDesignThemes">
+      <Version>4.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="MathNet.Numerics">
+      <Version>4.15.0</Version>
+    </PackageReference>
+    <PackageReference Include="Prism.DryIoc">
+      <Version>8.0.0.1909</Version>
+    </PackageReference>
+    <PackageReference Include="Prism.Wpf" Version="8.0.0.1909" />
+    <PackageReference Include="SSH.NET">
+      <Version>2020.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="System.Drawing.Common">
+      <Version>5.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="System.IO.Compression.ZipFile">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="WindowsAPICodePack-Shell">
+      <Version>1.1.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Public\Public.csproj">
+      <Project>{332efbaa-ec66-4479-a4e4-0a8cdbf77099}</Project>
+      <Name>Public</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SyftXML\SyftXML.csproj">
+      <Project>{e820431d-ffde-4c49-8747-b01b116618e6}</Project>
+      <Name>SyftXML</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

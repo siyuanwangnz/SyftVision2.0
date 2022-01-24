@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+	<Methods>
+		<Group repeat="20">
+			<Method name="Ultra +- performance check"/>
+			<Method name="Ups scanline calibration"/>
+			<Method name="Dws scanline calibration"/>
+			<Method name="Syft (+-) Standard Validation Ultra"/>
+			<Method name="Ultra SIM Syft Standard 4min" repeat="3">
+				<Mark main="Effect of Validation" sub="Soak"/>
+			</Method>
+		</Group>
+	</Methods>
+
+	<Charts>
+		<Chart name="Effect of Validation">
+			<SubChart name="Concentrations RSD" phase="Sample" accept="Under">
+				<Mark main="Effect of Validation" sub="Soak"/>
+				<Components>
+					<Component reagent="O-" product="183" max="0.05"/>
+					<Component reagent="OH-" product="183" max="0.05"/>
+					<Component reagent="OH-" product="233" max="0.05"/>
+					<Component reagent="H3O+" product="93" max="0.05"/>
+					<Component reagent="NO+" product="92" max="0.05"/>
+					<Component reagent="O2+" product="28" max="0.05"/>
+					<Component reagent="O2+" product="92" max="0.05"/>
+					<Component reagent="O2+" product="236" max="0.05"/>
+				</Components>
+			</SubChart>
+			<SubChart name="Concentrations" phase="Sample">
+				<Mark main="Effect of Validation" sub="Soak"/>
+				<Components>
+					<Component reagent="O-" product="183"/>
+					<Component reagent="OH-" product="183"/>
+					<Component reagent="OH-" product="233"/>
+					<Component reagent="H3O+" product="93"/>
+					<Component reagent="NO+" product="92"/>
+					<Component reagent="O2+" product="28"/>
+					<Component reagent="O2+" product="92"/>
+					<Component reagent="O2+" product="236"/>
+				</Components>
+			</SubChart>
+			<SubChart name="Reagent Ions" phase="Sample">
+				<Mark main="Effect of Validation" sub="Soak"/>
+				<Components>
+					<Component reagent="OH-" product="17"/>
+					<Component reagent="O2-" product="32"/>
+					<Component reagent="O-" product="16"/>
+					<Component reagent="NO2-" product="46"/>
+					<Component reagent="NO3-" product="62"/>
+					<Component reagent="H3O+" product="19"/>
+					<Component reagent="H3O+" product="37"/>
+					<Component reagent="H3O+" product="55"/>
+					<Component reagent="NO+" product="30"/>
+					<Component reagent="O2+" product="32"/>
+				</Components>
+			</SubChart>
+			<SubChart name="Product Ions" phase="Sample">
+				<Mark main="Effect of Validation" sub="Soak"/>
+				<Components>
+					<Component reagent="OH-" product="91"/>
+					<Component reagent="OH-" product="233"/>
+					<Component reagent="O2-" product="124"/>
+					<Component reagent="O2-" product="236"/>
+					<Component reagent="O-" product="183"/>
+					<Component reagent="O-" product="233"/>
+					<Component reagent="H3O+" product="79"/>
+					<Component reagent="H3O+" product="93"/>
+					<Component reagent="NO+" product="92"/>
+					<Component reagent="O2+" product="28"/>
+					<Component reagent="O2+" product="78"/>
+					<Component reagent="O2+" product="92"/>
+					<Component reagent="O2+" product="150"/>
+					<Component reagent="O2+" product="236"/>
+				</Components>
+			</SubChart>
+		</Chart>
+	</Charts>
+</Config>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Config>
+	<Methods>
+		<Method name="Ultra +- performance check">
+			<Mark main="Performance Check" sub="Three Phase"/>
+		</Method>
+	</Methods>
+
+	<Charts>
+		<Chart name="Sensitiveties and Impurities">
+			<SubChart name="Sensitiveties" phase="Sample" accept="Above">
+				<Mark main="Performance Check" sub="Three Phase"/>
+				<Components>
+					<Component reagent="O-" product="183" min="2.4"/>
+					<Component reagent="O-" product="233" min="0.3"/>
+					<Component reagent="OH-" product="91" min="10.5"/>
+					<Component reagent="OH-" product="233" min="3.75"/>
+					<Component reagent="O2-" product="124" min="3"/>
+					<Component reagent="O2-" product="236" min="0.3"/>
+					<Component reagent="H3O+" product="93" min="30"/>
+					<Component reagent="NO+" product="92" min="45"/>
+					<Component reagent="O2+" product="92" min="30"/>
+					<Component reagent="O2+" product="236" min="15"/>
+				</Components>
+			</SubChart>
+			<SubChart name="Impurities" phase="Background" accept="Under">
+				<Mark main="Performance Check" sub="Three Phase"/>
+				<Components>
+					<Component reagent="O-" product="17" max="0.05"/>
+					<Component reagent="O-" product="32" max="0.05"/>
+					<Component reagent="OH-" product="16" max="0.05"/>
+					<Component reagent="OH-" product="32" max="0.05"/>
+					<Component reagent="O2-" product="17" max="0.05"/>
+					<Component reagent="NO2-" product="16" max="0.05"/>
+					<Component reagent="NO2-" product="62" max="0.05"/>
+					<Component reagent="NO3-" product="46" max="0.05"/>
+					<Component reagent="H3O+" product="18" max="0.05"/>
+					<Component reagent="H3O+" product="28" max="0.05"/>
+					<Component reagent="H3O+" product="29" max="0.05"/>
+					<Component reagent="H3O+" product="32" max="0.05"/>
+					<Component reagent="H3O+" product="57" max="0.05"/>
+					<Component reagent="NO+" product="32" max="0.05"/>
+					<Component reagent="O2+" product="29" max="0.05"/>
+					<Component reagent="O2+" product="30" max="0.05"/>
+					<Component reagent="O2+" product="56" max="0.05"/>
+				</Components>
+			</SubChart>
+		</Chart>
+	</Charts>
+</Config>

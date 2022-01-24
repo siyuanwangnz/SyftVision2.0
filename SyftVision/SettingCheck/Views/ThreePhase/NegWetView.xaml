@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="SettingCheck.Views.ThreePhase.NegWetView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ChartDirector="clr-namespace:ChartDirector;assembly=netchartdir"
+             xmlns:at="clr-namespace:SettingCheck.ViewModels.ThreePhase"
+             mc:Ignorable="d" 
+             d:DesignHeight="735" d:DesignWidth="1130">
+    <Grid>
+        <ChartDirector:WPFChartViewer x:Name="NegWetChartChartChartViewer" at:NegWetViewModel.AttachedChart="{Binding NegWetChart}" HorizontalAlignment="Left" Height="100" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="-0.705,0.225" Loaded="NegWetChartChartChartViewer_Loaded" ToolTipService.ShowDuration="30000"/>
+    </Grid>
+</UserControl>

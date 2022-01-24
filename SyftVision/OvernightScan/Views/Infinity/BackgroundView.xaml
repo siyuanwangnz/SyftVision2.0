@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="OvernightScan.Views.Infinity.BackgroundView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:ChartDirector="clr-namespace:ChartDirector;assembly=netchartdir"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:at="clr-namespace:OvernightScan.ViewModels.Infinity"
+             xmlns:local="clr-namespace:OvernightScan.Views.Infinity"
+             mc:Ignorable="d" 
+             d:DesignHeight="735" d:DesignWidth="1130">
+    <Grid>
+        <TabControl Style="{StaticResource MaterialDesignNavigatilRailTabControl}" TabStripPlacement="Top" materialDesign:ColorZoneAssist.Mode="PrimaryMid">
+            <TabItem Height="45" Width="150" Style="{StaticResource MaterialDesignNavigationRailTabItem}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TabItem.Header>
+                    <TextBlock Text="{Binding TabItemName}" FontSize="16" FontWeight="Normal" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                </TabItem.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <materialDesign:ColorZone Mode="PrimaryLight">
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton Content="75 Compounds" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" Checked="Compounds75Btn_Checked" IsChecked="True"/>
+                                <RadioButton Content="51 Compounds" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" Checked="Compounds51Btn_Checked"/>
+                                <RadioButton Content="52 Compounds" Style="{StaticResource MaterialDesignTabRadioButton}" Margin="4" Checked="Compounds52Btn_Checked"/>
+                            </StackPanel>
+                        </materialDesign:ColorZone>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ChartDirector:WPFChartViewer x:Name="Compounds75Chartviewer" at:BackgroundViewModel.AttachedChart="{Binding Compounds75Chart}" HorizontalAlignment="Left" Height="100" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="-0.705,0.225" Visibility="Visible" Loaded="ChartViewer_Loaded" ToolTipService.ShowDuration="30000"/>
+                        <ChartDirector:WPFChartViewer x:Name="Compounds51Chartviewer" at:BackgroundViewModel.AttachedChart="{Binding Compounds51Chart}" HorizontalAlignment="Left" Height="100" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="-0.705,0.225" Visibility="Collapsed" Loaded="ChartViewer_Loaded" ToolTipService.ShowDuration="30000"/>
+                        <ChartDirector:WPFChartViewer x:Name="Compounds52Chartviewer" at:BackgroundViewModel.AttachedChart="{Binding Compounds52Chart}" HorizontalAlignment="Left" Height="100" Margin="0,0,0,0" VerticalAlignment="Top" Width="100" RenderTransformOrigin="-0.705,0.225" Visibility="Collapsed" Loaded="ChartViewer_Loaded" ToolTipService.ShowDuration="30000"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

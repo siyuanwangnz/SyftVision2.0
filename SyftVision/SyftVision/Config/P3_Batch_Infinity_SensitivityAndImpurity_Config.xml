@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+	<Methods>
+		<Method name="infinity +- performance check_V5">
+			<Mark main="Performance Check" sub="Three Phase"/>
+		</Method>
+	</Methods>
+
+	<Charts>
+		<Chart name="Sensitiveties and Impurities" >
+			<SubChart name="Sensitiveties" phase="Sample" accept="Above">
+				<Mark main="Performance Check" sub="Three Phase"/>
+				<Components>
+					<Component reagent="O-" product="183" min="80" />
+					<Component reagent="OH-" product="233" min="150" />
+					<Component reagent="H3O+" product="93" min="465"/>
+					<Component reagent="NO+" product="92" min="321"/>
+					<Component reagent="O2+" product="28" min="55"/>
+					<Component reagent="O2+" product="92" min="300"/>
+					<Component reagent="O2+" product="236" min="330"/>
+				</Components>
+			</SubChart>
+			<SubChart name="Impurities" phase="Background" accept="Under">
+				<Mark main="Performance Check" sub="Three Phase"/>
+				<Components>
+					<Component reagent="O-" product="17" max="0.01" />
+					<Component reagent="OH-" product="16" max="0.05" />
+					<Component reagent="OH-" product="19" max="0.01" />
+					<Component reagent="O2-" product="16" max="0.01" />
+					<Component reagent="NO2-" product="16" max="0.01" />
+					<Component reagent="H3O+" product="29" max="0.09" />
+					<Component reagent="H3O+" product="32" max="0.05" />
+					<Component reagent="H3O+" product="57" max="0.09" />
+					<Component reagent="NO+" product="32" max="0.05" />
+					<Component reagent="O2+" product="19" max="0.01" />
+					<Component reagent="O2+" product="30" max="0.04" />
+					<Component reagent="O2+" product="56" max="0.02" />
+				</Components>
+			</SubChart>
+		</Chart>>
+	</Charts>
+</Config>
+

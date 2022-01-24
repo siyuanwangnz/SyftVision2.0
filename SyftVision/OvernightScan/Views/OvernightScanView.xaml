@@ -1,0 +1,625 @@
+﻿<UserControl x:Class="OvernightScan.Views.OvernightScanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:OvernightScan.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+             xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+             mc:Ignorable="d" 
+             d:DesignHeight="850" d:DesignWidth="1400"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <materialDesignConverters:BooleanToVisibilityConverter x:Key="InvertedBooleanToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="#FFFFFF">
+            <Border.Effect>
+                <DropShadowEffect Color="#BEBEBE" BlurRadius="20" ShadowDepth="20" Opacity="0.1"></DropShadowEffect>
+            </Border.Effect>
+        </Border>
+
+        <Grid Grid.Column="0" Background="#E6E6FA">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="P3 Batch Analysis" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" ></TextBlock>
+            <Border Margin="30 0 30 0" BorderBrush="#673BB7" BorderThickness="0 0 0 0.3"></Border>
+            <StackPanel Grid.Row="1">
+                <!--Cold Start-->
+                <RadioButton x:Name="BtnColdStart" Command="{Binding Open_ColdStart_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnColdStart}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Cold Start" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <!--SPIS-->
+                <RadioButton x:Name="BtnOvernight" Command="{Binding Open_Overnight_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnOvernight}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Overnight" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton x:Name="BtnOnOff" Command="{Binding Open_OnOff_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnOnOff}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="On/Off Cycle" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton x:Name="BtnEffectofValidation" Command="{Binding Open_EffectofValidation_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnEffectofValidation}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Effect of Validation" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <!--ThreePhase Common-->
+                <RadioButton x:Name="BtnSensitiveAndImpurity" Command="{Binding Open_SensitiveAndImpurity_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnSensitiveAndImpurity}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Sensitivity &amp; Impurity" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <!--DPIS Common-->
+                <RadioButton x:Name="BtnLongTermStability" Command="{Binding Open_LongTermStability_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnLongTermStability}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Long Term Stability" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <!--DPIS-->
+                <RadioButton x:Name="BtnUPSAndDWSCurrent" Command="{Binding Open_UPSAndDWSCurrent_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnUPSAndDWSCurrent}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="UPS &amp; DWS Current" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <!--DPIS Common-->
+                <RadioButton x:Name="BtnShortTermStability" Command="{Binding Open_ShortTermStability_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnShortTermStability}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Short Term Stability" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <!--DPIS-->
+                <RadioButton x:Name="BtnSourceSwitchStability" Command="{Binding Open_SourceSwitchStability_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnSourceSwitchStability}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Source Switch Stability" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <!--DPIS Common-->
+                <RadioButton x:Name="BtnSourceSwitchAndSettleTime" Command="{Binding Open_SourceSwitchAndSettleTime_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnSourceSwitchAndSettleTime}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Source Switch &amp; Settle" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <!--Infinity-->
+                <RadioButton x:Name="BtnStability" Command="{Binding Open_Stability_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnStability}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Stability" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton x:Name="BtnLODs" Command="{Binding Open_LODs_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnLODs}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="LODs" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton x:Name="BtnBackground" Command="{Binding Open_Background_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnBackground}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Background" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <!--ThreePhase Common-->
+                <RadioButton x:Name="BtnInjectionScan" Command="{Binding Open_InjectionScan_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnInjectionScan}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Injection Scan" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton x:Name="BtnICF" Command="{Binding Open_ICF_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left" Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnICF}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="ICF" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+                <RadioButton Name="BtnBatchStatus" Command="{Binding Open_BatchStatus_Command}" Style="{DynamicResource MaterialDesignRaisedButton}" Height="40" Margin="15 20 15 0" materialDesign:ShadowAssist.ShadowDepth="Depth3" HorizontalContentAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Height="20" Width="20" Foreground="White">
+                            <materialDesign:PackIcon.Style>
+                                <Style TargetType="materialDesign:PackIcon">
+                                    <Setter Property="Kind" Value="ArrowRight" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsChecked, ElementName=BtnBatchStatus}" Value="True">
+                                            <Setter Property="Kind" Value="Check" />
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.8" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </materialDesign:PackIcon.Style>
+                        </materialDesign:PackIcon>
+                        <TextBlock Text="Batch Status" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                    </StackPanel>
+                </RadioButton>
+            </StackPanel>
+            <TextBlock FontSize="100" Grid.Row="2" Text="{Binding InstrumentShowNumebr}" Height="110" FontWeight="Bold" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Opacity="0.5" Color="#CCCCFF"/>
+                </TextBlock.Foreground>
+            </TextBlock>
+            <TextBlock FontSize="20" Grid.Row="3" Text="{Binding ProcessTimeStemp}" FontWeight="Bold" Margin="0 0 0 5" VerticalAlignment="Bottom" HorizontalAlignment="Center">
+                <TextBlock.Foreground>
+                    <SolidColorBrush Opacity="0.5" Color="#CCCCFF"/>
+                </TextBlock.Foreground>
+            </TextBlock>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="55"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Border Margin="20 0 20 0" BorderBrush="#673BB7" BorderThickness="0 0 0 0.3"></Border>
+
+            <Grid Grid.Row="0">
+                <StackPanel Margin="10 0 10 0" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            materialDesign:ComboBoxAssist.ShowSelectedItem="True"
+                            materialDesign:TextFieldAssist.UnderlineBrush="#673BB7"
+                            materialDesign:ColorZoneAssist.Mode="Standard"
+                            materialDesign:HintAssist.Hint="Batch Type"
+                            MaxDropDownHeight="Auto"
+                            MinWidth="115"
+                            Margin="10 0 10 0" SelectionChanged="ComboBox_SelectionChanged">
+                        <ComboBoxItem Content="SPIS-Overnight" IsSelected="{Binding SPISOvernightSelected}"/>
+                        <ComboBoxItem Content="SPIS-On/Off" IsSelected="{Binding SPISOnOffSelected}" />
+                        <ComboBoxItem Content="SPIS-EOV" IsSelected="{Binding SPISEOVSelected}" />
+                        <ComboBoxItem Content="SPIS-Weekend" IsSelected="{Binding SPISWeekendSelected}" />
+                        <Separator/>
+                        <ComboBoxItem Content="DPIS-Coarse" IsSelected="{Binding DPISCoarseSelected}"/>
+                        <ComboBoxItem Content="DPIS-Fine" IsSelected="{Binding DPISFineSelected}"/>
+                        <ComboBoxItem Content="DPIS-EOV" IsSelected="{Binding DPISEOVSelected}"/>
+                        <ComboBoxItem Content="DPIS-ColdStart" IsSelected="{Binding DPISColdStartSelected}"/>
+                        <ComboBoxItem Content="DPIS-Sensitivity&amp;Impurity" IsSelected="{Binding DPISSensAndImpuSelected}"/>
+                        <Separator/>
+                        <ComboBoxItem Content="Infinity" IsSelected="{Binding InfinitySelected}"/>
+                        <ComboBoxItem Content="Infinity-ColdStart" IsSelected="{Binding InfinityColdStartSelected}"/>
+                        <ComboBoxItem Content="Infinity-EOB" IsSelected="{Binding InfinityEOBSelected}"/>
+                        <ComboBoxItem Content="Infinity-Sensitivity&amp;Impurity" IsSelected="{Binding InfinitySensAndImpuSelected}"/>
+                    </ComboBox>
+                    <ComboBox x:Name="CbxNumberofScan" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                            materialDesign:ComboBoxAssist.ShowSelectedItem="True"
+                            materialDesign:TextFieldAssist.UnderlineBrush="#673BB7"
+                            materialDesign:ColorZoneAssist.Mode="Standard"
+                            materialDesign:HintAssist.Hint="Number of Batch"
+                            MinWidth="115"
+                            Margin="10 0 10 0"
+                            Visibility="Collapsed">
+                        <ComboBoxItem Content="1" IsSelected="{Binding OneSelected}"/>
+                        <ComboBoxItem Content="2" IsSelected="{Binding TwoSelected}" />
+                        <ComboBoxItem x:Name="Number3" Content="3" IsSelected="{Binding ThreeSelected}" Visibility="Visible"/>
+                        <ComboBoxItem x:Name="Number4" Content="4" IsSelected="{Binding FourSelected}" Visibility="Visible"/>
+                        <ComboBoxItem x:Name="Number5" Content="5" IsSelected="{Binding FiveSelected}" Visibility="Visible"/>
+                    </ComboBox>
+                    <DatePicker Width="115" Margin="10 0 10 0" materialDesign:HintAssist.Hint="Start Date" 
+                                Style="{StaticResource MaterialDesignFloatingHintDatePicker}"  Focusable="False"
+                                SelectedDate="{Binding StartDate}" />
+                    <materialDesign:TimePicker Width="115" Margin="10 0 10 0" materialDesign:HintAssist.Hint="Start Time"
+                                               Style="{StaticResource MaterialDesignFloatingHintTimePicker}" Focusable="False" WithSeconds="True" Is24Hours="True"
+                                               SelectedTime="{Binding StartTime}"/>
+                    <materialDesign:PopupBox x:Name="PPBMatchConfig"  StaysOpen="True" Margin="10 0 10 0">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <Grid>
+                                <Border BorderBrush="#673BB7" Height="35" Width="115"  BorderThickness="1 1 1 1" CornerRadius="2"></Border>
+                                <TextBlock Text="Match Config" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#673BB7"></TextBlock>
+                            </Grid>
+                        </materialDesign:PopupBox.ToggleContent>
+                        <Grid Width="250" Margin="8,0,8,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone Grid.Row="0" Mode="SecondaryMid" Padding="10" Background="#673BB7" materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Cog" Margin="4,0,0,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <TextBlock Margin="10,0,0,0" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Match Configuration" Foreground="White"/>
+                                </StackPanel>
+                            </materialDesign:ColorZone>
+                            <GroupBox Grid.Row="1" Margin="0 15 0 0">
+                                <GroupBox.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Match Intensity Level:"  Foreground="White"></TextBlock>
+                                        <TextBlock Text="{Binding SliderValue}" Foreground="White" Margin="10 0 0 0"></TextBlock>
+                                    </StackPanel>
+                                </GroupBox.Header>
+                                <Slider Margin="20 0 20 0" Value="{Binding SliderValue}" Minimum="0" Maximum="2" TickFrequency="1" Style="{StaticResource MaterialDesignDiscreteSlider}" TickPlacement="TopLeft" ></Slider>
+                            </GroupBox>
+                            <GroupBox Grid.Row="2" Margin="0 15 0 0">
+                                <GroupBox.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Position of Batches Selection:" Foreground="White"></TextBlock>
+                                        <TextBlock Foreground="White" Margin="10 0 0 0">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock" >
+                                                    <Setter Property="Text" Value="Head" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding TailSelected}" Value="True">
+                                                            <Setter Property="Text" Value="Tail" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </GroupBox.Header>
+                                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Center">
+                                    <RadioButton Width="125" Style="{StaticResource MaterialDesignTabRadioButton}"  Content="Head">
+                                        <RadioButton.ToolTip>
+                                            <TextBlock Text="Select Patches From Head (The Earliest)" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
+                                        </RadioButton.ToolTip>
+                                    </RadioButton>
+                                    <RadioButton Width="125" Style="{StaticResource MaterialDesignTabRadioButton}"  IsChecked="{Binding TailSelected}" Content="Tail" >
+                                        <RadioButton.ToolTip>
+                                            <TextBlock Text="Select Patches From Tail (The Latest)" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
+                                        </RadioButton.ToolTip>
+                                    </RadioButton>
+                                </StackPanel>
+                            </GroupBox>
+                        </Grid>
+                    </materialDesign:PopupBox>
+                    <TextBox materialDesign:HintAssist.Hint="IP Address" 
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                                 VerticalAlignment="Center" MinWidth="115" Margin="10 0 10 0"
+                                 Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding ProcessCommand}" Key="Enter"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Button Command="{Binding ProcessCommand}"
+                            Style="{StaticResource MaterialDesignRaisedButton}"
+                            HorizontalAlignment="Center"
+                            materialDesign:ButtonProgressAssist.Value="{Binding ProcessButtonProgress}"
+                            materialDesign:ButtonProgressAssist.IsIndicatorVisible="True"
+                            MinWidth="128"
+                            Margin="10 0 10 0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ChartBar" Height="20" Width="20" Visibility="{Binding ShowProcessButtonProcess, Converter={StaticResource InvertedBooleanToVisibilityConverter}}"/>
+                            <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" Foreground="White" Height="20" Width="20" Visibility="{Binding ShowProcessButtonProcess, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                            <TextBlock Text="Process" VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" ></TextBlock>
+                        </StackPanel>
+                    </Button>
+                    <materialDesign:PopupBox  StaysOpen="True" Margin="10 0 10 0">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <Grid>
+                                <materialDesign:ColorZone Mode="PrimaryMid"  Padding="16" CornerRadius="2" materialDesign:ShadowAssist.ShadowDepth="Depth1" ClipToBounds="False" Height="32" Width="128"/>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <materialDesign:PackIcon Kind="ContentSaveAllOutline" Height="20" Width="20" Visibility="{Binding ShowSaveButtonProcess, Converter={StaticResource InvertedBooleanToVisibilityConverter}}" Foreground="White"/>
+                                    <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" Foreground="White" Height="20" Width="20" Visibility="{Binding ShowSaveButtonProcess, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                    <TextBlock Text="Save" FontWeight="Medium"  VerticalAlignment="Center" Margin="5 0 0 0" FontSize="15" Foreground="White" />
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:PopupBox.ToggleContent>
+                        <Grid Width="250" Margin="8,0,8,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <materialDesign:ColorZone Grid.Row="0" Mode="SecondaryMid" Padding="10" Background="#673BB7">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="Cog" Margin="4,0,0,0" VerticalAlignment="Center" Foreground="White"/>
+                                    <TextBlock Margin="10,0,0,0" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Text="Save Configuration" Foreground="White"/>
+                                </StackPanel>
+                            </materialDesign:ColorZone>
+                            <CheckBox Grid.Row="1" Content="Save Scan Files" Margin="0 15 0 0" IsChecked="{Binding SaveScanFilesEnable}"/>
+                            <TextBox Grid.Row="2" Text="{Binding Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0 15 0 0" Style="{StaticResource MaterialDesignOutlinedTextBox}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Instrument Comments" SpellCheck.IsEnabled="True"/>
+                            <Button Grid.Row="3" Margin="0 15 0 0" Style="{StaticResource MaterialDesignFlatButton}" Content="Save" Command="{Binding SaveCommand}"/>
+                        </Grid>
+                    </materialDesign:PopupBox>
+                </StackPanel>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <ContentControl prism:RegionManager.RegionName="OvernightScanContentRegion" Margin="10 10 10 10"/>
+                <Image gif:AnimationBehavior.SourceUri="/Image/giphy.gif" Margin="100" Visibility="{Binding ShowProcessButtonProcess, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBlock Text="{Binding ProcessButtonProgress, StringFormat={}{0:F2}%}" Margin="100" HorizontalAlignment="Center" FontWeight="Bold" Foreground="White" FontSize="60" Visibility="{Binding ShowProcessButtonProcess, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
