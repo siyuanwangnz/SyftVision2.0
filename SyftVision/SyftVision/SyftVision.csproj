@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>SV2_logo.ico</ApplicationIcon>
+    <ApplicationIcon>Icon\SV2_logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -190,12 +190,11 @@
     <Content Include="Config\P3_SettingCheck_Config.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Config\User_Config.xml">
+    <Content Include="Config\Options_Config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="SV2_logo.ico" />
-    <Resource Include="Image\giphy.gif" />
     <Resource Include="Icon\SV2_logo.ico" />
+    <Resource Include="Image\giphy.gif" />
     <Content Include="Image\Syft Logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

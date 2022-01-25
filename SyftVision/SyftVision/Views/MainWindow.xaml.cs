@@ -10,6 +10,8 @@ using System.Windows.Media.Imaging;
 using System;
 using Public.Global;
 using System.Windows.Controls;
+using System.Xml.Linq;
+using MaterialDesignThemes.Wpf;
 
 namespace SyftVision.Views
 {
@@ -36,8 +38,21 @@ namespace SyftVision.Views
             _moduleManager.LoadModule("SettingCheckModule");
             //Load Setting Overnight Module
             _moduleManager.LoadModule("OvernightScanModule");
-            //Set Password
-            PasswordBox.Password = Global.Password;
+            //Get options settings
+            try
+            {
+                XElement RootNode = XElement.Load($"./Config/Options_Config.xml");
+
+                userText.Text = RootNode.Element("User")?.Value;
+                portText.Text=  RootNode.Element("Port")?.Value;
+                passwordPSD.Password = RootNode.Element("Password")?.Value;
+                operatorText.Text = RootNode.Element("Operator")?.Value;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR");
+            }
+            
         }
 
         private void Button_SettingCheck_Click(object sender, RoutedEventArgs e)
@@ -52,36 +67,36 @@ namespace SyftVision.Views
             _regionManager.RequestNavigate("ContentRegion", "OvernightScanView");
         }
 
-        private void CopyBtn_Click(object sender, RoutedEventArgs e)
+        private void optionsSaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            FrameworkElement element = ShowArea as FrameworkElement;
-            CopyUIElementToClipboard(element);
-        }
-
-        private static void CopyUIElementToClipboard(FrameworkElement element)
-        {
-            double width = element.ActualWidth;
-            double height = element.ActualHeight;
-            RenderTargetBitmap bmpCopied = new RenderTargetBitmap((int)Math.Round(width), (int)Math.Round(height), 96, 96, PixelFormats.Default);
-            DrawingVisual dv = new DrawingVisual();
-            using (DrawingContext dc = dv.RenderOpen())
+            try
             {
-                VisualBrush vb = new VisualBrush(element);
-                dc.DrawRectangle(vb, null, new Rect(new System.Windows.Point(), new System.Windows.Size(width, height)));
+                XElement RootNode = XElement.Load($"./Config/Options_Config.xml");
+
+                RootNode.Element("User")?.SetValue(userText.Text); 
+                RootNode.Element("Port")?.SetValue(portText.Text); 
+                RootNode.Element("Password")?.SetValue(passwordPSD.Password); 
+                RootNode.Element("Operator")?.SetValue(operatorText.Text);
+
+                RootNode.Save($"./Config/Options_Config.xml");
+
+                //Close popup dialog
+                PopupBox.ClosePopupCommand.Execute(new object(), null);
             }
-            bmpCopied.Render(dv);
-            Clipboard.SetImage(bmpCopied);
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR");
+            }
         }
 
-        private void ResetBtn_Click(object sender, RoutedEventArgs e)
+        private void optionsResetBtn_Click(object sender, RoutedEventArgs e)
         {
-            PasswordBox.Password = Global.PASSWORD;
-            Global.Password = Global.PASSWORD;
-        }
+            userText.Text = Global.USER;
+            portText.Text = Global.PORT;
+            passwordPSD.Password = Global.PASSWORD;
+            operatorText.Text = Global.OPERATOR;
 
-        private void SaveBtn_Click(object sender, RoutedEventArgs e)
-        {
-            Global.Password = PasswordBox.Password;
+            optionsSaveBtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
         }
     }
 }

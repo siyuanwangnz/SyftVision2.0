@@ -39,7 +39,10 @@ namespace Public.Global
 
         public static string UserName { get; set; }
 
+        public const string USER = "root";
+        public const string PORT = "22";
         public const string PASSWORD = "Syft2002";
+        public const string OPERATOR = "Syft";
         public static string Password { get; set; } = PASSWORD;
     }
 }
