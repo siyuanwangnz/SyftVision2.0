@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyftVision", "SyftVision\SyftVision.csproj", "{A774EC85-FE99-43D7-960D-74DB1E19B079}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SettingCheck", "SettingCheck\SettingCheck.csproj", "{AC8C55E6-3DA2-4D62-8DE0-7E0CD6E871C6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OvernightScan", "OvernightScan\OvernightScan.csproj", "{844DBE46-5A3E-40EA-8EED-449B0BF93A2A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Public", "Public\Public.csproj", "{332EFBAA-EC66-4479-A4E4-0A8CDBF77099}"
 EndProject
@@ -17,6 +13,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyftXML", "SyftXML\SyftXML.csproj", "{E820431D-FFDE-4C49-8747-B01B116618E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChartConfig", "ChartConfig\ChartConfig.csproj", "{5B6C3BA8-C8FA-4E0A-8BF1-F2D63CC295AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConfig", "BatchConfig\BatchConfig.csproj", "{3C6E6E9B-736E-4263-9BD6-E6F7B4EDF6ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchAnalysis", "BatchAnalysis\BatchAnalysis.csproj", "{3AEC638C-EBAE-4EE7-ACA0-6BBA1A3D84A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,14 +30,6 @@ Global
 		{A774EC85-FE99-43D7-960D-74DB1E19B079}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A774EC85-FE99-43D7-960D-74DB1E19B079}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A774EC85-FE99-43D7-960D-74DB1E19B079}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC8C55E6-3DA2-4D62-8DE0-7E0CD6E871C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC8C55E6-3DA2-4D62-8DE0-7E0CD6E871C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC8C55E6-3DA2-4D62-8DE0-7E0CD6E871C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC8C55E6-3DA2-4D62-8DE0-7E0CD6E871C6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{844DBE46-5A3E-40EA-8EED-449B0BF93A2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{844DBE46-5A3E-40EA-8EED-449B0BF93A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{844DBE46-5A3E-40EA-8EED-449B0BF93A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{844DBE46-5A3E-40EA-8EED-449B0BF93A2A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{332EFBAA-EC66-4479-A4E4-0A8CDBF77099}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{332EFBAA-EC66-4479-A4E4-0A8CDBF77099}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{332EFBAA-EC66-4479-A4E4-0A8CDBF77099}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -44,6 +38,18 @@ Global
 		{E820431D-FFDE-4C49-8747-B01B116618E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E820431D-FFDE-4C49-8747-B01B116618E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E820431D-FFDE-4C49-8747-B01B116618E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6C3BA8-C8FA-4E0A-8BF1-F2D63CC295AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6C3BA8-C8FA-4E0A-8BF1-F2D63CC295AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6C3BA8-C8FA-4E0A-8BF1-F2D63CC295AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6C3BA8-C8FA-4E0A-8BF1-F2D63CC295AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C6E6E9B-736E-4263-9BD6-E6F7B4EDF6ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C6E6E9B-736E-4263-9BD6-E6F7B4EDF6ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C6E6E9B-736E-4263-9BD6-E6F7B4EDF6ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C6E6E9B-736E-4263-9BD6-E6F7B4EDF6ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AEC638C-EBAE-4EE7-ACA0-6BBA1A3D84A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEC638C-EBAE-4EE7-ACA0-6BBA1A3D84A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEC638C-EBAE-4EE7-ACA0-6BBA1A3D84A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEC638C-EBAE-4EE7-ACA0-6BBA1A3D84A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

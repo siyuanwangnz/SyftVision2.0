@@ -2,8 +2,9 @@
 using Prism.Ioc;
 using Prism.Modularity;
 using System.Windows;
-using SettingCheck;
-using OvernightScan;
+using ChartConfig;
+using BatchAnalysis;
+using BatchConfig;
 
 namespace SyftVision
 {
@@ -24,20 +25,25 @@ namespace SyftVision
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            //Add Setting Check Module
-            var moduleSettingCheckType = typeof(SettingCheckModule);
+            //Add Chart Config Module
             moduleCatalog.AddModule(new ModuleInfo()
             {
-                ModuleName = moduleSettingCheckType.Name,
-                ModuleType = moduleSettingCheckType.AssemblyQualifiedName,
+                ModuleName = typeof(ChartConfigModule).Name,
+                ModuleType = typeof(ChartConfigModule).AssemblyQualifiedName,
                 InitializationMode = InitializationMode.OnDemand
             });
-            //Add Overnight Scan Module
-            var moduleOvernightScanType = typeof(OvernightScanModule);
+            //Add Batch Config Module
             moduleCatalog.AddModule(new ModuleInfo()
             {
-                ModuleName = moduleOvernightScanType.Name,
-                ModuleType = moduleOvernightScanType.AssemblyQualifiedName,
+                ModuleName = typeof(BatchConfigModule).Name,
+                ModuleType = typeof(BatchConfigModule).AssemblyQualifiedName,
+                InitializationMode = InitializationMode.OnDemand
+            });
+            //Add Batch Analysis Module
+            moduleCatalog.AddModule(new ModuleInfo()
+            {
+                ModuleName = typeof(BatchAnalysisModule).Name,
+                ModuleType = typeof(BatchAnalysisModule).AssemblyQualifiedName,
                 InitializationMode = InitializationMode.OnDemand
             });
         }

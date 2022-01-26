@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="ChartConfig.Views.ChartConfigView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:ChartConfig.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+             xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+             mc:Ignorable="d" 
+             d:DesignHeight="850" d:DesignWidth="1400"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True" >
+    <Grid Background="DarkGreen">
+        <Button Style="{StaticResource MaterialDesignRaisedLightButton}" Height="70" Width="200" Content="Chart Config"/>
+    </Grid>
+</UserControl>

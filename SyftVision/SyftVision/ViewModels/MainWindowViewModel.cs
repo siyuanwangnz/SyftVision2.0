@@ -16,7 +16,7 @@ namespace SyftVision.ViewModels
             //Subscribe event message
             _eventAggregator.GetEvent<Public.Event.MessageEvent>().Subscribe((m) => taskProcess = m / 100);
             //Set dialog title
-            mainTitle = $"Syft Vision V{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
+            mainTitle = $"SyftVision V{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
         }
         private readonly IEventAggregator _eventAggregator;
 

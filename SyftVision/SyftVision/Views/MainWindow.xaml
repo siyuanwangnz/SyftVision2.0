@@ -45,9 +45,9 @@
                             </StackPanel>
                         </Grid>
                     </materialDesign:PopupBox>
-                    <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" HorizontalAlignment="Left" IsChecked="True" Height="35" Width="150" Margin="2" Content="P3 Setting Check" Click="Button_SettingCheck_Click"/>
-                    <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="P3 Batch Analysis" Click="Button_OvernightScan_Click"/>
-                   
+                    <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" HorizontalAlignment="Left" IsChecked="True" Height="35" Width="150" Margin="2" Content="Chart Config" Click="C_Btn_Click"/>
+                    <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Batch Config" Click="B_Btn_Click"/>
+                    <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Batch Analysis" Click="BA_Btn_Click"/>
                 </DockPanel>
             </materialDesign:ColorZone>
         </Grid>

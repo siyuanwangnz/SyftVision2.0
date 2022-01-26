@@ -1,12 +1,7 @@
 ﻿using System.Windows;
 using AutoUpdaterDotNET;
-using OvernightScan.Views;
 using Prism.Modularity;
 using Prism.Regions;
-using SettingCheck.Views;
-using SyftVision.ViewModels;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System;
 using Public.Global;
 using System.Windows.Controls;
@@ -20,24 +15,24 @@ namespace SyftVision.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Module Manager
         private readonly IModuleManager _moduleManager;
-        //Region Manager
         private readonly IRegionManager _regionManager;
 
         public MainWindow(IModuleManager moduleManager, IRegionManager regionManager)
         {
             InitializeComponent();
+
             //Version check
             AutoUpdater.Start("http://tools.syft.com:3453/downloads/syft-vision/VersionInfo.xml");
-            //Get Module Manager
+
             _moduleManager = moduleManager;
-            //get Region Manager
             _regionManager = regionManager;
-            //Load Setting Check Module
-            _moduleManager.LoadModule("SettingCheckModule");
-            //Load Setting Overnight Module
-            _moduleManager.LoadModule("OvernightScanModule");
+
+            //Load modules
+            _moduleManager.LoadModule("ChartConfigModule");
+            _moduleManager.LoadModule("BatchConfigModule");
+            _moduleManager.LoadModule("BatchAnalysisModule");
+
             //Get options settings
             try
             {
@@ -53,18 +48,6 @@ namespace SyftVision.Views
                 MessageBox.Show($"{ex.Message}", "ERROR");
             }
             
-        }
-
-        private void Button_SettingCheck_Click(object sender, RoutedEventArgs e)
-        {
-            //Navigate to Setting Check View
-            _regionManager.RequestNavigate("ContentRegion", "SettingCheckView");
-        }
-
-        private void Button_OvernightScan_Click(object sender, RoutedEventArgs e)
-        {
-            //Navigate to Overnight Scan view
-            _regionManager.RequestNavigate("ContentRegion", "OvernightScanView");
         }
 
         private void optionsSaveBtn_Click(object sender, RoutedEventArgs e)
@@ -97,6 +80,24 @@ namespace SyftVision.Views
             operatorText.Text = Global.OPERATOR;
 
             optionsSaveBtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        }
+
+        private void C_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            //Navigate to chart config view
+            _regionManager.RequestNavigate("ContentRegion", "ChartConfigView");
+        }
+
+        private void B_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            //Navigate to batch config view
+            _regionManager.RequestNavigate("ContentRegion", "BatchConfigView");
+        }
+
+        private void BA_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            //Navigare to batch analysis view
+            _regionManager.RequestNavigate("ContentRegion", "BatchAnalysisView");
         }
     }
 }
