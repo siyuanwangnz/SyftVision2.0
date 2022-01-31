@@ -72,6 +72,9 @@ namespace SyftVision.Views
                 Options.Reset();
 
                 SetOptions();
+
+                //Close popup dialog
+                PopupBox.ClosePopupCommand.Execute(new object(), null);
             }
             catch (Exception ex)
             {
