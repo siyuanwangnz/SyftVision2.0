@@ -4,9 +4,9 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding mainTitle}" Height="680" Width="1000" ResizeMode="CanMinimize">
+        Title="{Binding MainTitle}" Height="680" Width="1000" ResizeMode="CanMinimize">
     <Window.TaskbarItemInfo>
-        <TaskbarItemInfo ProgressState="Normal" ProgressValue="{Binding taskProcess}"/>
+        <TaskbarItemInfo ProgressState="Normal" ProgressValue="{Binding TaskProcess}"/>
     </Window.TaskbarItemInfo>
     <Grid>
         <Grid.RowDefinitions>
@@ -35,13 +35,13 @@
                                     <TextBlock Margin="5,0,0,0" Style="{StaticResource MaterialDesignSubtitle2TextBlock}" Text="Options" VerticalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </materialDesign:ColorZone>
-                            <TextBox Grid.Row="1" Width="130" materialDesign:HintAssist.Hint="SFTP User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="userText"/>
-                            <TextBox Grid.Row="2" Width="130" materialDesign:HintAssist.Hint="SFTP Port" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="portText"/>
-                            <PasswordBox Grid.Row="3"  Width="130" materialDesign:HintAssist.Hint="SFTP Password" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" x:Name="passwordPSD"/>
-                            <TextBox Grid.Row="4" Width="130" materialDesign:HintAssist.Hint="Operator" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="operatorText"/>
+                            <TextBox Grid.Row="1" Width="130" materialDesign:HintAssist.Hint="SFTP User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="UserText"/>
+                            <TextBox Grid.Row="2" Width="130" materialDesign:HintAssist.Hint="SFTP Port" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="PortText"/>
+                            <PasswordBox Grid.Row="3"  Width="130" materialDesign:HintAssist.Hint="SFTP Password" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" x:Name="PasswordPSD"/>
+                            <TextBox Grid.Row="4" Width="130" materialDesign:HintAssist.Hint="Operator" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="OperatorText"/>
                             <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
-                                <Button  Width="70" Style="{StaticResource MaterialDesignFlatButton}" Content="Save" x:Name="optionsSaveBtn" Click="optionsSaveBtn_Click" />
-                                <Button Width="70" Style="{StaticResource MaterialDesignFlatButton}" Content="Reset" x:Name="optionsResetBtn" Click="optionsResetBtn_Click" />
+                                <Button  Width="70" Style="{StaticResource MaterialDesignFlatButton}" Content="Save" Click="OptionsSaveBtn_Click" />
+                                <Button Width="70" Style="{StaticResource MaterialDesignFlatButton}" Content="Reset" Click="OptionsResetBtn_Click" />
                             </StackPanel>
                         </Grid>
                     </materialDesign:PopupBox>

@@ -17,6 +17,7 @@ namespace SyftVision.Views
     {
         private readonly IModuleManager _moduleManager;
         private readonly IRegionManager _regionManager;
+        private Options Options;
 
         public MainWindow(IModuleManager moduleManager, IRegionManager regionManager)
         {
@@ -36,32 +37,24 @@ namespace SyftVision.Views
             //Get options settings
             try
             {
-                XElement RootNode = XElement.Load($"./Config/Options_Config.xml");
-
-                userText.Text = RootNode.Element("User")?.Value;
-                portText.Text=  RootNode.Element("Port")?.Value;
-                passwordPSD.Password = RootNode.Element("Password")?.Value;
-                operatorText.Text = RootNode.Element("Operator")?.Value;
+                Options = new Options();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"{ex.Message}", "ERROR");
             }
-            
+            finally
+            {
+                SetOptions();
+            }
+
         }
 
-        private void optionsSaveBtn_Click(object sender, RoutedEventArgs e)
+        private void OptionsSaveBtn_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                XElement RootNode = XElement.Load($"./Config/Options_Config.xml");
-
-                RootNode.Element("User")?.SetValue(userText.Text); 
-                RootNode.Element("Port")?.SetValue(portText.Text); 
-                RootNode.Element("Password")?.SetValue(passwordPSD.Password); 
-                RootNode.Element("Operator")?.SetValue(operatorText.Text);
-
-                RootNode.Save($"./Config/Options_Config.xml");
+                Options.Set(UserText.Text, PortText.Text, PasswordPSD.Password, OperatorText.Text);
 
                 //Close popup dialog
                 PopupBox.ClosePopupCommand.Execute(new object(), null);
@@ -72,14 +65,18 @@ namespace SyftVision.Views
             }
         }
 
-        private void optionsResetBtn_Click(object sender, RoutedEventArgs e)
+        private void OptionsResetBtn_Click(object sender, RoutedEventArgs e)
         {
-            userText.Text = Global.USER;
-            portText.Text = Global.PORT;
-            passwordPSD.Password = Global.PASSWORD;
-            operatorText.Text = Global.OPERATOR;
+            try
+            {
+                Options.Reset();
 
-            optionsSaveBtn.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                SetOptions();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex.Message}", "ERROR");
+            }
         }
 
         private void C_Btn_Click(object sender, RoutedEventArgs e)
@@ -98,6 +95,14 @@ namespace SyftVision.Views
         {
             //Navigare to batch analysis view
             _regionManager.RequestNavigate("ContentRegion", "BatchAnalysisView");
+        }
+
+        private void SetOptions()
+        {
+            UserText.Text = Options.User;
+            PortText.Text = Options.Port;
+            PasswordPSD.Password = Options.Password;
+            OperatorText.Text = Options.Operator;
         }
     }
 }

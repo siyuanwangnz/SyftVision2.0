@@ -14,21 +14,21 @@ namespace SyftVision.ViewModels
         {
             _eventAggregator = eventAggregator;
             //Subscribe event message
-            _eventAggregator.GetEvent<Public.Event.MessageEvent>().Subscribe((m) => taskProcess = m / 100);
+            _eventAggregator.GetEvent<Public.Event.MessageEvent>().Subscribe((m) => TaskProcess = m / 100);
             //Set dialog title
-            mainTitle = $"SyftVision V{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
+            MainTitle = $"SyftVision V{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
         }
         private readonly IEventAggregator _eventAggregator;
 
         private string _mainTitle;
-        public string mainTitle
+        public string MainTitle
         {
             get { return _mainTitle; }
             set { SetProperty(ref _mainTitle, value); }
         }
 
         private double _taskProcess;
-        public double taskProcess
+        public double TaskProcess
         {
             get { return _taskProcess; }
             set { SetProperty(ref _taskProcess, value); }

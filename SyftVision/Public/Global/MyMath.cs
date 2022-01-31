@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Public.Global
 {
-    public class MyMath
+    public static class MyMath
     {
         public static double RSD(List<double> sample)
         {
