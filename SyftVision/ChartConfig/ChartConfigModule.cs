@@ -1,4 +1,5 @@
 ﻿using ChartConfig.Views;
+using ChartConfig.Views.Components;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -15,7 +16,8 @@ namespace ChartConfig
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            containerRegistry.RegisterForNavigation<ACComponentsView>();
+            containerRegistry.RegisterForNavigation<RPComponentsView>();
         }
     }
 }

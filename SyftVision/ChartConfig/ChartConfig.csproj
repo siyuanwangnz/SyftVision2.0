@@ -50,6 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChartConfigModule.cs" />
+    <Compile Include="Models\Components\AC.cs" />
+    <Compile Include="Models\Components\ACComponent.cs" />
+    <Compile Include="Models\Components\Limit.cs" />
+    <Compile Include="Models\Components\RP.cs" />
+    <Compile Include="Models\Components\RPComponent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -64,6 +69,14 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ViewModels\ChartConfigViewModel.cs" />
+    <Compile Include="ViewModels\Components\ACComponentsViewModel.cs" />
+    <Compile Include="ViewModels\Components\RPComponentsViewModel.cs" />
+    <Compile Include="Views\Components\ACComponentsView.xaml.cs">
+      <DependentUpon>ACComponentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Components\RPComponentsView.xaml.cs">
+      <DependentUpon>RPComponentsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ChartConfigView.cs">
       <DependentUpon>ChartConfigView.xaml</DependentUpon>
     </Compile>
@@ -88,6 +101,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\Components\ACComponentsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Components\RPComponentsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ChartConfigView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -127,7 +148,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,4 +1,7 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Markup;
 
 namespace ChartConfig.Views
 {
@@ -11,6 +14,5 @@ namespace ChartConfig.Views
         {
             InitializeComponent();
         }
-
     }
 }

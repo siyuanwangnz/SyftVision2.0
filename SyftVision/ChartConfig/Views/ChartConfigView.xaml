@@ -11,7 +11,21 @@
              d:DesignHeight="850" d:DesignWidth="1400"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True" >
-    <Grid Background="DarkGreen">
-        <Button Style="{StaticResource MaterialDesignRaisedLightButton}" Height="70" Width="200" Content="Chart Config"/>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Border BorderBrush="#3F51B5" BorderThickness="0 0 0 1"/>
+
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                <ComboBox ItemsSource="{Binding ChartTypeList}" SelectedItem="{Binding SelectedItem}" Style="{StaticResource MaterialDesignOutlinedComboBox}" Width="256" materialDesign:HintAssist.Hint="Chart Type"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <ContentControl prism:RegionManager.RegionName="ComponentsContentRegion"/>
+        </Grid>
     </Grid>
 </UserControl>

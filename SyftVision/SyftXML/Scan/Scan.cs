@@ -115,7 +115,14 @@ namespace SyftXML
                 //Get xxx,xxx;
                 string temp = massTable.Substring(0, massTable.IndexOf(";") + 1);
                 //Add xxx,xxx; to dictionary
-                ICF.Add(Double.Parse(temp.Substring(0, temp.IndexOf(","))), Double.Parse(temp.Substring(temp.IndexOf(",") + 1, temp.IndexOf(";") - temp.IndexOf(",") - 1)));
+                try
+                {
+                    ICF.Add(double.Parse(temp.Substring(0, temp.IndexOf(","))), double.Parse(temp.Substring(temp.IndexOf(",") + 1, temp.IndexOf(";") - temp.IndexOf(",") - 1)));
+                }
+                catch (Exception)
+                {
+
+                }
                 //Trim off front xxx,xxx;
                 massTable = massTable.Remove(0, massTable.IndexOf(";") + 1);
             }
