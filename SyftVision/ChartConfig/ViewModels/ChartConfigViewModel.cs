@@ -30,13 +30,29 @@ namespace ChartConfig.ViewModels
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
 
-            ChartTypeList = new ObservableCollection<string> {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"
+            ChartTypeList = new ObservableCollection<ChartProp> {
+                new ChartProp(ChartProp.Type.Bar,"Sensitivities"),
+                new ChartProp(ChartProp.Type.Bar,"Impurities"),
+                new ChartProp(ChartProp.Type.Bar,"LODs_Conc"),
+                new ChartProp(ChartProp.Type.Bar,"LODs_AConc"),
+                new ChartProp(ChartProp.Type.Bar,"AConc"),
 
+                new ChartProp(ChartProp.Type.Bar,"RSD_Conc"),
+                new ChartProp(ChartProp.Type.Bar,"RSD_CPS"),
+
+                new ChartProp(ChartProp.Type.Bar,"DEV_CPS"),
+                new ChartProp(ChartProp.Type.Bar,"DEV_Conc"),
+
+                new ChartProp(ChartProp.Type.Line,"Overlap_Conc"),
+                new ChartProp(ChartProp.Type.Line,"Overlap_CPS"),
+                new ChartProp(ChartProp.Type.Line,"Trace_Conc"),
+                new ChartProp(ChartProp.Type.Line,"Trace_CPS"),
+
+                new ChartProp(ChartProp.Type.Line,"Current_UPS"),
+                new ChartProp(ChartProp.Type.Line,"Current_DWS"),
+                new ChartProp(ChartProp.Type.Line,"Injection"),
+                new ChartProp(ChartProp.Type.Line,"ReactionTime"),
+                new ChartProp(ChartProp.Type.Line,"Mass")
             };
         }
 
@@ -44,31 +60,18 @@ namespace ChartConfig.ViewModels
 
         private readonly IRegionManager _regionManager;
 
-        private ObservableCollection<string> _chartTypeList;
-        public ObservableCollection<string> ChartTypeList
+        private ObservableCollection<ChartProp> _chartTypeList;
+        public ObservableCollection<ChartProp> ChartTypeList
         {
             get { return _chartTypeList; }
             set { SetProperty(ref _chartTypeList, value); }
         }
 
-        private string _selectedChartType;
-        public string SelectedChartType
+        private ChartProp _selectedChartType;
+        public ChartProp SelectedChartType
         {
             get { return _selectedChartType; }
-            set
-            {
-                SetProperty(ref _selectedChartType, value);
-                if (_selectedChartType == "1")
-                {
-                    NavigationParameters param = new NavigationParameters();
-                    _regionManager.RequestNavigate("ComponentsContentRegion", "ACComponentsView", param);
-                }
-                else if (_selectedChartType == "2")
-                {
-                    NavigationParameters param = new NavigationParameters();
-                    _regionManager.RequestNavigate("ComponentsContentRegion", "RPComponentsView", param);
-                }
-            }
+            set { SetProperty(ref _selectedChartType, value); }
         }
 
     }

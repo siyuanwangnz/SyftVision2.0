@@ -18,7 +18,7 @@
                     <Button ToolTip="Open" Content="{materialDesign:PackIcon Kind=FolderOpenOutline}"/>
                     <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}"/>
                     <Separator />
-                    <ComboBox ItemsSource="{Binding ChartTypeList}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectedItem="{Binding SelectedChartType}"  materialDesign:HintAssist.Hint="Chart Type" Width="150" Margin="15 0 0 0"/>
+                    <ComboBox ItemsSource="{Binding ChartTypeList}" DisplayMemberPath="FullName" SelectedItem="{Binding SelectedChartType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Chart Type" Width="150" Margin="15 0 0 0"/>
                     <Button ToolTip="New" Content="{materialDesign:PackIcon Kind=FolderPlusOutline}" />
                 </ToolBar>
             </ToolBarTray>

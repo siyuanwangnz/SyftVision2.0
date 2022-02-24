@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChartConfigModule.cs" />
+    <Compile Include="Models\ChartProp.cs" />
     <Compile Include="Models\Components\AC.cs" />
     <Compile Include="Models\Components\ACComponent.cs" />
     <Compile Include="Models\Components\Limit.cs" />
