@@ -8,72 +8,83 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DataGrid AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserSortColumns="False"
+        <StackPanel>
+            <materialDesign:ColorZone>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox materialDesign:HintAssist.Hint="Tittle" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" Margin="5"/>
+                    <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="150" Margin="5"/>
+                    <ComboBox ItemsSource="{Binding ExpectedRangeList}" SelectedItem="{Binding SelectedExpectedRange}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Expected Range" Width="150" Margin="5"/>
+                    <ComboBox ItemsSource="{Binding PhaseList}" SelectedItem="{Binding SelectedPhase}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Phase" Width="150" Margin="5"/>
+                </StackPanel>
+            </materialDesign:ColorZone>
+            
+            <DataGrid AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="True" CanUserDeleteRows="True" CanUserSortColumns="False"
                   ItemsSource="{Binding ComponentsList}"
-                  SelectedItem="{Binding SelectedItem}">
-            <DataGrid.Columns>
+                  SelectedItem="{Binding SelectedComponent}">
+                <DataGrid.Columns>
 
-                <DataGridTemplateColumn Header="Reagent" DisplayIndex="0">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Reagent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Reagent" DisplayIndex="0">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Reagent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Production" DisplayIndex="1">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Production, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Production" DisplayIndex="1">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Production, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Limit" DisplayIndex="2">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBox Text="{Binding Limit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding LimitEnable}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Limit" DisplayIndex="2">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Limit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding LimitEnable}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Limit Enable" DisplayIndex="3" >
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox IsChecked="{Binding LimitEnable}" IsEnabled="False" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Limit Enable" DisplayIndex="3" >
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding LimitEnable}" IsEnabled="False" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Delete" DisplayIndex="4">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Command="{Binding Path=DataContext.Delete, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                    <DataGridTemplateColumn Header="Delete" DisplayIndex="4">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="{Binding Path=DataContext.Delete, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
                                     Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
-                                <materialDesign:PackIcon Kind="DeleteOutline" Width="25" Height="25"/>
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                                    <materialDesign:PackIcon Kind="DeleteOutline" Width="25" Height="25"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Add" DisplayIndex="5">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Command="{Binding Path=DataContext.AddUp, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                    <DataGridTemplateColumn Header="Add" DisplayIndex="5">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Command="{Binding Path=DataContext.AddUp, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
-                                    <materialDesign:PackIcon Kind="TableRowPlusBefore" Width="25" Height="25"/>
-                                </Button>
-                                <Button Command="{Binding Path=DataContext.AddDown, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                        <materialDesign:PackIcon Kind="TableRowPlusBefore" Width="25" Height="25"/>
+                                    </Button>
+                                    <Button Command="{Binding Path=DataContext.AddDown, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
                                         Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Margin="5 0 0 0">
-                                    <materialDesign:PackIcon Kind="TableRowPlusAfter" Width="25" Height="25"/>
-                                </Button>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                                        <materialDesign:PackIcon Kind="TableRowPlusAfter" Width="25" Height="25"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-            </DataGrid.Columns>
-        </DataGrid>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </UserControl>

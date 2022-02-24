@@ -39,7 +39,7 @@ namespace ChartConfig.ViewModels.Components
             {
                 return new DelegateCommand(() =>
                 {
-                    ComponentsList.Remove(SelectedItem);
+                    ComponentsList.Remove(_selectedComponent);
                     if (ComponentsList.Count == 0)
                         ComponentsList.Add(new RPComponent("rt", "", false));
                 });
@@ -52,7 +52,7 @@ namespace ChartConfig.ViewModels.Components
             {
                 return new DelegateCommand(() =>
                 {
-                    ComponentsList.Insert(ComponentsList.IndexOf(SelectedItem), new RPComponent("rt", "", false));
+                    ComponentsList.Insert(ComponentsList.IndexOf(_selectedComponent), new RPComponent("rt", "", false));
                 });
             }
         }
@@ -63,7 +63,7 @@ namespace ChartConfig.ViewModels.Components
             {
                 return new DelegateCommand(() =>
                 {
-                    ComponentsList.Insert(ComponentsList.IndexOf(SelectedItem) + 1, new RPComponent("rtr", "", false));
+                    ComponentsList.Insert(ComponentsList.IndexOf(_selectedComponent) + 1, new RPComponent("rtr", "", false));
                 });
             }
         }
@@ -74,11 +74,11 @@ namespace ChartConfig.ViewModels.Components
             set { SetProperty(ref _componentsList, value); }
         }
 
-        private RPComponent _selectedItem;
-        public RPComponent SelectedItem
+        private RPComponent _selectedComponent;
+        public RPComponent SelectedComponent
         {
-            get { return _selectedItem; }
-            set { SetProperty(ref _selectedItem, value); }
+            get { return _selectedComponent; }
+            set { SetProperty(ref _selectedComponent, value); }
         }
     }
 }

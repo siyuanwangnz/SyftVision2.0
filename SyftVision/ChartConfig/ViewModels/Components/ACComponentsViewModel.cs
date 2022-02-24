@@ -40,7 +40,7 @@ namespace ChartConfig.ViewModels.Components
             {
                 return new DelegateCommand(() =>
                 {
-                    ComponentsList.Remove(SelectedItem);
+                    ComponentsList.Remove(SelectedComponent);
                     if (ComponentsList.Count == 0)
                         ComponentsList.Add(new ACComponent("acsd", false));
                 });
@@ -53,7 +53,7 @@ namespace ChartConfig.ViewModels.Components
             {
                 return new DelegateCommand(() =>
                 {
-                    ComponentsList.Insert(ComponentsList.IndexOf(SelectedItem), new ACComponent("acasd", false));
+                    ComponentsList.Insert(ComponentsList.IndexOf(SelectedComponent), new ACComponent("acasd", false));
                 });
             }
         }
@@ -64,7 +64,7 @@ namespace ChartConfig.ViewModels.Components
             {
                 return new DelegateCommand(() =>
                 {
-                    ComponentsList.Insert(ComponentsList.IndexOf(SelectedItem) + 1, new ACComponent("acasd", false));
+                    ComponentsList.Insert(ComponentsList.IndexOf(SelectedComponent) + 1, new ACComponent("acasd", false));
                 });
             }
         }
@@ -75,11 +75,11 @@ namespace ChartConfig.ViewModels.Components
             set { SetProperty(ref _componentsList, value); }
         }
 
-        private ACComponent _selectedItem;
-        public ACComponent SelectedItem
+        private ACComponent _selectedComponent;
+        public ACComponent SelectedComponent
         {
-            get { return _selectedItem; }
-            set { SetProperty(ref _selectedItem, value); }
+            get { return _selectedComponent; }
+            set { SetProperty(ref _selectedComponent, value); }
         }
     }
 }

@@ -51,19 +51,19 @@ namespace ChartConfig.ViewModels
             set { SetProperty(ref _chartTypeList, value); }
         }
 
-        private string _selectedItem;
-        public string SelectedItem
+        private string _selectedChartType;
+        public string SelectedChartType
         {
-            get { return _selectedItem; }
+            get { return _selectedChartType; }
             set
             {
-                SetProperty(ref _selectedItem, value);
-                if (_selectedItem == "1")
+                SetProperty(ref _selectedChartType, value);
+                if (_selectedChartType == "1")
                 {
                     NavigationParameters param = new NavigationParameters();
                     _regionManager.RequestNavigate("ComponentsContentRegion", "ACComponentsView", param);
                 }
-                else if (_selectedItem == "2")
+                else if (_selectedChartType == "2")
                 {
                     NavigationParameters param = new NavigationParameters();
                     _regionManager.RequestNavigate("ComponentsContentRegion", "RPComponentsView", param);
