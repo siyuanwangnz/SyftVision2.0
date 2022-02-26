@@ -28,5 +28,14 @@ namespace ChartConfig.Models
         public double Limit { get; set; } = 0;
         public bool LimitEnable { get; }
         public Type ComponentType { get; }
+        public Component Copy()
+        {
+            Component tarComponent = new Component(LimitEnable, ComponentType);
+            tarComponent.Compound = Compound;
+            tarComponent.Reagent = Reagent;
+            tarComponent.Production = Production;
+            tarComponent.Limit = Limit;
+            return tarComponent;
+        }
     }
 }

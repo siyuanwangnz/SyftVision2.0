@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChartConfigModule.cs" />
+    <Compile Include="Models\ChartProp.cs" />
     <Compile Include="Models\ChartType.cs" />
     <Compile Include="Models\Component.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

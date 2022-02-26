@@ -37,7 +37,6 @@ namespace Public.SFTP
             }
             catch (Exception ex)
             {
-                //TxtLog.WriteTxt(CommonMethod.GetProgramName(), $"Connection failed，Reason：{ex.Message}");
                 throw new Exception($"Connection failed，Reason：{ex.Message}");
             }
         }
@@ -53,8 +52,34 @@ namespace Public.SFTP
             }
             catch (Exception ex)
             {
-                //TxtLog.WriteTxt(CommonMethod.GetProgramName(), $"Disconnection failed，Reason：{ex.Message}");
                 throw new Exception($"Disconnection failed，Reason：{ex.Message}");
+            }
+        }
+
+        public bool Exist(string path)
+        {
+            try
+            {
+                return sftp.Exists(path);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"File/directory existing check failed，Reason：{ex.Message}");
+            }
+        }
+
+        public void UploadFile(string remotePath, string localPath)
+        {
+            try
+            {
+                using (var file = File.OpenRead(localPath))
+                {
+                    sftp.UploadFile(file, remotePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"File upload failed，Reason：{ex.Message}");
             }
         }
 
@@ -67,12 +92,23 @@ namespace Public.SFTP
             }
             catch (Exception ex)
             {
-                //TxtLog.WriteTxt(CommonMethod.GetProgramName(), $"Download failed，Reason：{ex.Message}");
-                throw new Exception($"Download File failed，Reason：{ex.Message}");
+                throw new Exception($"File download failed，Reason：{ex.Message}");
             }
 
         }
 
+        public void CreateDirectory(string remotePath)
+        {
+            try
+            {
+                sftp.CreateDirectory(remotePath);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Directory creation failed，Reason：{ex.Message}");
+            }
+
+        }
         public void DownloadDirectory(string remotePath, string localPath)
         {
             try
@@ -100,7 +136,7 @@ namespace Public.SFTP
             }
             catch (Exception ex)
             {
-                throw new Exception($"Download Directory failed，Reason：{ex.Message}");
+                throw new Exception($"Directory download failed，Reason：{ex.Message}");
             }
         }
 
@@ -122,7 +158,6 @@ namespace Public.SFTP
             }
             catch (Exception ex)
             {
-                // TxtLog.WriteTxt(CommonMethod.GetProgramName(), $"File list collection failed，Reason：{ex.Message}");
                 throw new Exception($"File list collection failed，Reason：{ex.Message}");
             }
         }
@@ -146,8 +181,7 @@ namespace Public.SFTP
             }
             catch (Exception ex)
             {
-                // TxtLog.WriteTxt(CommonMethod.GetProgramName(), $"File list collection failed，Reason：{ex.Message}");
-                throw new Exception($"File list collection failed，Reason：{ex.Message}");
+                throw new Exception($"Directory list collection failed，Reason：{ex.Message}");
             }
         }
 
