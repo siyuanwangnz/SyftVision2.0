@@ -1,4 +1,5 @@
-﻿using ChartConfig.Views;
+﻿using ChartConfig.ViewModels;
+using ChartConfig.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -15,7 +16,7 @@ namespace ChartConfig
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterDialog<OpenDialogView, OpenDialogViewModel>();
         }
     }
 }

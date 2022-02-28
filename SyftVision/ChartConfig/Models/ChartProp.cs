@@ -21,6 +21,30 @@ namespace ChartConfig.Models
         }
         public ChartProp(XElement rootNode)
         {
+            try
+            {
+                ChartType = ChartType.ReferList.Single(a => a.Name == rootNode.Attribute("ChartType")?.Value);
+                Tittle = rootNode.Attribute("Tittle")?.Value;
+                SubTittle = rootNode.Attribute("SubTittle")?.Value;
+                ExpectedRange = rootNode.Attribute("ExpectedRange")?.Value;
+                Phase = rootNode.Attribute("Phase")?.Value;
+
+                ComponentsList = new ObservableCollection<Component>();
+                foreach (var element in rootNode.Elements("Component"))
+                {
+                    Component component = ChartType.Component.Copy();
+                    component.Compound = element.Attribute("Compound")?.Value;
+                    component.Reagent = element.Attribute("Reagent")?.Value;
+                    component.Production = element.Attribute("Production")?.Value;
+                    component.Limit = double.Parse(element.Attribute("Limit")?.Value);
+                    ComponentsList.Add(component);
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
         }
         public ChartType ChartType { get; private set; }

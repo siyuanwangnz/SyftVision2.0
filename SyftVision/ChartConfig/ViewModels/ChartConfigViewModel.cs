@@ -1,8 +1,11 @@
 ﻿using ChartConfig.Models;
+using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Services.Dialogs;
 using Public.SFTP;
 using System;
 using System.Collections.ObjectModel;
@@ -16,11 +19,13 @@ namespace ChartConfig.ViewModels
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
+        private readonly IDialogService _dialogService;
         private readonly SFTPServices _sftpServices;
-        public ChartConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
+        public ChartConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
+            _dialogService = dialogService;
             _sftpServices = new SFTPServices("tools.syft.com", "22", "sftp", "MuhPEzxNchfr8nyZ");
         }
 
@@ -31,11 +36,8 @@ namespace ChartConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    if (SelectedChartType != null)
-                    {
-                        ComponentsList = new ObservableCollection<Component> { };
-                        ComponentsList.Add(SelectedChartType.Component);
-                    }
+
+                    _dialogService.ShowDialog("OpenDialogView");
                 });
             }
         }
@@ -54,15 +56,19 @@ namespace ChartConfig.ViewModels
                     string localPath = "./Temp/ChartConfig/";
                     string remotePath = "/home/sftp/files/syft-vision2/ChartConfig/" + Tittle + "/";
                     string fileName = SubTittle + ".xml";
-                    if (!Directory.Exists(localPath)) Directory.CreateDirectory(localPath);
 
+                    // Create local file
+                    if (!Directory.Exists(localPath)) Directory.CreateDirectory(localPath);
                     ChartProp chartProp = new ChartProp(SelectedChartType, Tittle, SubTittle, SelectedExpectedRange, SelectedPhase, ComponentsList);
                     chartProp.XMLGeneration().Save(localPath + fileName);
 
+                    // Upload file
                     _sftpServices.Connect();
                     if (!_sftpServices.Exist(remotePath)) _sftpServices.CreateDirectory(remotePath);
                     _sftpServices.UploadFile(remotePath + fileName, localPath + fileName);
                     _sftpServices.Disconnect();
+
+                    MessageBox.Show("Chart has been saved", "INFO");
                 });
             }
         }
@@ -92,28 +98,7 @@ namespace ChartConfig.ViewModels
             get => _subTittle;
             set => SetProperty(ref _subTittle, value);
         }
-        private ObservableCollection<ChartType> _chartTypeList = new ObservableCollection<ChartType>() {
-                new ChartType("Sensitivities",new Component(true)),
-                new ChartType("Impurities",new Component(true)),
-                new ChartType("LODs_Conc",new Component(true)),
-                new ChartType("LODs_AConc",new Component(true,Component.Type.CompoundOnly)),
-                new ChartType("AConc",new Component(true,Component.Type.CompoundOnly)),
-
-                new ChartType("RSD_Conc",new Component(true)),
-                new ChartType("RSD_CPS",new Component(true)),
-
-                new ChartType("DEV_CPS",new Component(true)),
-                new ChartType("DEV_Conc",new Component(true)),
-
-                new ChartType("Overlap_Conc",new Component(false)),
-                new ChartType("Overlap_CPS",new Component(false)),
-                new ChartType("Trace_Conc",new Component(false)),
-                new ChartType("Trace_CPS",new Component(false)),
-
-                new ChartType("Current_UPS",new Component(false,Component.Type.ReagentOnly)),
-                new ChartType("Current_DWS",new Component(false,Component.Type.ReagentOnly)),
-                new ChartType("Mass",new Component(false))
-        };
+        private ObservableCollection<ChartType> _chartTypeList = ChartType.ReferList;
         public ObservableCollection<ChartType> ChartTypeList
         {
             get => _chartTypeList;

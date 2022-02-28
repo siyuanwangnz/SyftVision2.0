@@ -7,8 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
              xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
-             mc:Ignorable="d" 
-             d:DesignHeight="850" d:DesignWidth="1400"
+             mc:Ignorable="d"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True" >
     <Grid Margin="10">
