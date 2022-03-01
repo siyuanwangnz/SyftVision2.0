@@ -8,6 +8,7 @@ using Prism.Regions;
 using Prism.Services.Dialogs;
 using Public.SFTP;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
@@ -21,6 +22,9 @@ namespace ChartConfig.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IDialogService _dialogService;
         private readonly SFTPServices _sftpServices;
+        private readonly string _localPath = "./Temp/ChartConfig/";
+        private readonly string _localTempFile = "ChartTemp.xml";
+        private readonly string _remotePath = "/home/sftp/files/syft-vision2/ChartConfig/";
         public ChartConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -29,15 +33,74 @@ namespace ChartConfig.ViewModels
             _sftpServices = new SFTPServices("tools.syft.com", "22", "sftp", "MuhPEzxNchfr8nyZ");
         }
 
-        #region Tool Bar
+        #region ToolBar
         public DelegateCommand OpenCommand
         {
             get
             {
                 return new DelegateCommand(() =>
                 {
+                    try
+                    {
+                        // Get tree nodes
+                        _sftpServices.Connect();
+                        List<string> folders = _sftpServices.GetDirectoryList(_remotePath);
+                        ObservableCollection<TreeNode> treeNodes = new ObservableCollection<TreeNode>();
+                        foreach (var folder in folders)
+                        {
+                            if (folder == "." || folder == "..") continue;
+                            // Set name
+                            TreeNode treeNode = new TreeNode();
+                            treeNode.Name = folder;
+                            // Set child nodes
+                            List<string> files = _sftpServices.GetFileList(_remotePath + folder, "xml");
+                            List<TreeNode> treeChildNodes = new List<TreeNode>();
+                            foreach (string file in files)
+                            {
+                                TreeNode treeChildNode = new TreeNode();
+                                treeChildNode.Name = file;
+                                treeChildNode.Parent = folder;
+                                treeChildNodes.Add(treeChildNode);
+                            }
+                            treeNode.ChildNodes = treeChildNodes;
 
-                    _dialogService.ShowDialog("OpenDialogView");
+                            treeNodes.Add(treeNode);
+                        }
+                        _sftpServices.Disconnect();
+
+                        // Navigate to dialog
+                        DialogParameters param = new DialogParameters();
+                        param.Add("treeNodes", treeNodes);
+                        _dialogService.ShowDialog("OpenDialogView", param, arg =>
+                        {
+                            if (arg.Result == ButtonResult.OK)
+                            {
+                                TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+
+                                // Download file
+                                _sftpServices.Connect();
+                                _sftpServices.DownloadFile(_remotePath + treeNode.Parent + "/" + treeNode.Name, _localPath + _localTempFile);
+                                _sftpServices.Disconnect();
+
+                                // Set toolbar and component list
+                                ChartProp chartProp = new ChartProp(XElement.Load(_localPath + _localTempFile));
+                                SelectedChartType = chartProp.ChartType;
+                                Tittle = chartProp.Tittle;
+                                SubTittle = chartProp.SubTittle;
+                                SelectedExpectedRange = chartProp.ExpectedRange;
+                                SelectedPhase = chartProp.Phase;
+                                ComponentsList = chartProp.ComponentsList;
+                            }
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR");
+                    }
+                    finally
+                    {
+                        _sftpServices.Disconnect();
+                    }
                 });
             }
         }
@@ -53,22 +116,31 @@ namespace ChartConfig.ViewModels
                         return;
                     }
 
-                    string localPath = "./Temp/ChartConfig/";
-                    string remotePath = "/home/sftp/files/syft-vision2/ChartConfig/" + Tittle + "/";
+                    string remoteFolderPath = _remotePath + Tittle + "/";
                     string fileName = SubTittle + ".xml";
 
                     // Create local file
-                    if (!Directory.Exists(localPath)) Directory.CreateDirectory(localPath);
+                    if (!Directory.Exists(_localPath)) Directory.CreateDirectory(_localPath);
                     ChartProp chartProp = new ChartProp(SelectedChartType, Tittle, SubTittle, SelectedExpectedRange, SelectedPhase, ComponentsList);
-                    chartProp.XMLGeneration().Save(localPath + fileName);
+                    chartProp.XMLGeneration().Save(_localPath + _localTempFile);
 
-                    // Upload file
-                    _sftpServices.Connect();
-                    if (!_sftpServices.Exist(remotePath)) _sftpServices.CreateDirectory(remotePath);
-                    _sftpServices.UploadFile(remotePath + fileName, localPath + fileName);
-                    _sftpServices.Disconnect();
-
-                    MessageBox.Show("Chart has been saved", "INFO");
+                    try
+                    {
+                        // Upload file
+                        _sftpServices.Connect();
+                        if (!_sftpServices.Exist(remoteFolderPath)) _sftpServices.CreateDirectory(remoteFolderPath);
+                        _sftpServices.UploadFile(remoteFolderPath + fileName, _localPath + _localTempFile);
+                        _sftpServices.Disconnect();
+                        MessageBox.Show("Chart has been saved", "INFO");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR");
+                    }
+                    finally
+                    {
+                        _sftpServices.Disconnect();
+                    }
                 });
             }
         }

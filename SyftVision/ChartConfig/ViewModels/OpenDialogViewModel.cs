@@ -1,4 +1,5 @@
 ﻿using ChartConfig.Models;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
@@ -26,32 +27,20 @@ namespace ChartConfig.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-
+            TreeNodes = parameters.GetValue<ObservableCollection<TreeNode>>("treeNodes");
         }
-        public OpenDialogViewModel()
+        public DelegateCommand SelectedCommand
         {
-            TreeNode ChildTreeNode = new TreeNode(); ChildTreeNode.Name = "ChildTreeNode";
-            TreeNode ChildTreeNode1 = new TreeNode(); ChildTreeNode1.Name = "ChildTreeNode1";
-            TreeNode ChildTreeNode2 = new TreeNode(); ChildTreeNode2.Name = "ChildTreeNode2";
-
-            TreeNode TreeNode = new TreeNode(); TreeNode.Name = "TreeNode";
-            TreeNode TreeNode1 = new TreeNode(); TreeNode1.Name = "TreeNode1";
-
-            TreeNode.ChildNodes = new List<TreeNode>() { };
-            TreeNode1.ChildNodes = new List<TreeNode>() { };
-
-            ChildTreeNode.Parent = TreeNode;
-            ChildTreeNode1.Parent = TreeNode;
-            ChildTreeNode2.Parent = TreeNode1;
-
-            TreeNode.ChildNodes.Add(ChildTreeNode);
-            TreeNode.ChildNodes.Add(ChildTreeNode1);
-            TreeNode1.ChildNodes.Add(ChildTreeNode2);
-
-            TreeNodes = new ObservableCollection<TreeNode>() { };
-            TreeNodes.Add(TreeNode);
-            TreeNodes.Add(TreeNode1);
-
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    if (SelectedTreeNode.Parent == null) return;
+                    DialogParameters param = new DialogParameters();
+                    param.Add("selectedTreeNode", SelectedTreeNode);
+                    RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
+                });
+            }
         }
         private ObservableCollection<TreeNode> _treeNodes;
         public ObservableCollection<TreeNode> TreeNodes
@@ -59,26 +48,12 @@ namespace ChartConfig.ViewModels
             get => _treeNodes;
             set => SetProperty(ref _treeNodes, value);
         }
-        private TreeNode _selectedTreeItem;
-        public TreeNode SelectedTreeItem
+        private TreeNode _selectedTreeNode;
+        public TreeNode SelectedTreeNode
         {
-            get => _selectedTreeItem;
-            set
-            {
-                SetProperty(ref _selectedTreeItem, value);
-
-                if (_selectedTreeItem.Parent != null)
-                {
-                    Console.WriteLine(_selectedTreeItem.Parent.Name + "/" + _selectedTreeItem.Name);
-                }
-                else
-                {
-                    Console.WriteLine(_selectedTreeItem.Name);
-                }
-
-            }
+            get => _selectedTreeNode;
+            set => SetProperty(ref _selectedTreeNode, value);
         }
-
 
     }
 }

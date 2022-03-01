@@ -9,7 +9,7 @@ namespace ChartConfig.Models
     public class TreeNode
     {
         public string Name { get; set; }
-        public TreeNode Parent { get; set; }
+        public string Parent { get; set; }
         public List<TreeNode> ChildNodes { get; set; }
     }
 }
