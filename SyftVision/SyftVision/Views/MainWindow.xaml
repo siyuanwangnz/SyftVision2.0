@@ -53,9 +53,7 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
-                <ContentControl prism:RegionManager.RegionName="ContentRegion" />
-            </ScrollViewer>
+            <ContentControl prism:RegionManager.RegionName="ContentRegion" />
         </Grid>
 
         <Grid Grid.Row="2">

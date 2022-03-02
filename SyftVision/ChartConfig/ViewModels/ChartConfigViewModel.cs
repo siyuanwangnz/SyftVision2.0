@@ -157,11 +157,13 @@ namespace ChartConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    if (SelectedChartType != null)
+                    if (SelectedChartType == null)
                     {
-                        ComponentsList = new ObservableCollection<Component> { };
-                        ComponentsList.Add(SelectedChartType.Component.Copy());
+                        MessageBox.Show($"Chart Type can not be empty", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
                     }
+                    ComponentsList = new ObservableCollection<Component> { };
+                    ComponentsList.Add(SelectedChartType.Component.Copy());
                 });
             }
         }
