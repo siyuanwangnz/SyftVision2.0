@@ -10,7 +10,7 @@
              mc:Ignorable="d"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True" >
-    <Grid Margin="10" Background="Crimson">
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="65"></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -84,9 +84,9 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Command="{Binding Path=DataContext.AddUp, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                    <Button Command="{Binding Path=DataContext.AddUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
                                             Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=TableRowPlusBefore}"/>
-                                    <Button Command="{Binding Path=DataContext.AddDown, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                    <Button Command="{Binding Path=DataContext.AddDownCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
                                             Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=TableRowPlusAfter}" Margin="5 0 0 0"/>
                                 </StackPanel>
                             </DataTemplate>

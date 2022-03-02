@@ -18,7 +18,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Background="Crimson">
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="65"></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -56,7 +56,7 @@
 
         </Grid>
 
-        <Grid Grid.Column="1" Margin="10 0 0 0" Background="DarkGray">
+        <Grid Grid.Column="1" Margin="10 0 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="65"></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -81,21 +81,37 @@
 
             <Grid Grid.Row="1">
                 <DataGrid AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ItemsSource="{Binding ComponentsList}"
-                      SelectedItem="{Binding SelectedComponent}">
+                      ItemsSource="{Binding MethodsList}"
+                      SelectedItem="{Binding SelectedMethod}">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Scan Method" DisplayIndex="0">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Compound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CompoundEnable}"/>
+                                    <TextBox Text="{Binding MethodName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Chart Config" DisplayIndex="1">
+                        <DataGridTemplateColumn Header="Delete" DisplayIndex="1">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Reagent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ReagentEnable}"/>
+                                    <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=DeleteOutline}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Add" DisplayIndex="2">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Command="{Binding Path=DataContext.AddCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=Plus}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Chart Config" DisplayIndex="3">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ListBox ItemsSource="{Binding ChartsList}" DisplayMemberPath="FullName" SelectedItem="{Binding Path=DataContext.SelectedChart, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

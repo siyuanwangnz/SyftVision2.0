@@ -203,7 +203,7 @@ namespace ChartConfig.ViewModels
             get => _selectedComponent;
             set => SetProperty(ref _selectedComponent, value);
         }
-        public DelegateCommand AddUp
+        public DelegateCommand AddUpCommand
         {
             get
             {
@@ -213,7 +213,7 @@ namespace ChartConfig.ViewModels
                 });
             }
         }
-        public DelegateCommand AddDown
+        public DelegateCommand AddDownCommand
         {
             get
             {

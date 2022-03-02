@@ -55,6 +55,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchConfig\BatchProp.cs" />
+    <Compile Include="BatchConfig\Method.cs" />
     <Compile Include="Event\MessageEvent.cs" />
     <Compile Include="Global\Global.cs" />
     <Compile Include="Global\MyMath.cs" />
