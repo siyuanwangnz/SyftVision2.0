@@ -1,19 +1,15 @@
-﻿using ChartConfig.Models;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using Public.ChartConfig;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChartConfig.ViewModels
 {
     public class OpenDialogViewModel : BindableBase, IDialogAware
     {
-        public string Title { get; } = "Selct A Target Chart Config File";
+        public string Title { get; } = "Select A Target Chart Config File";
         public event Action<IDialogResult> RequestClose;
         public bool CanCloseDialog()
         {

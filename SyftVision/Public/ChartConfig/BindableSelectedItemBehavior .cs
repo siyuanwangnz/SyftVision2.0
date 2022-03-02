@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ChartConfig.Models
+namespace Public.ChartConfig
 {
     public class BindableSelectedItemBehavior : Behavior<TreeView>
     {

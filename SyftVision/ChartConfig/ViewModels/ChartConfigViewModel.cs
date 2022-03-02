@@ -1,11 +1,9 @@
-﻿using ChartConfig.Models;
-using Microsoft.Win32;
-using Microsoft.WindowsAPICodePack.Dialogs;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
+using Public.ChartConfig;
 using Public.SFTP;
 using System;
 using System.Collections.Generic;
@@ -21,16 +19,13 @@ namespace ChartConfig.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
         private readonly IDialogService _dialogService;
-        private readonly SFTPServices _sftpServices;
-        private readonly string _localPath = "./Temp/ChartConfig/";
-        private readonly string _localTempFile = "ChartTemp.xml";
-        private readonly string _remotePath = "/home/sftp/files/syft-vision2/ChartConfig/";
+        private readonly SyftServer _syftServer;
         public ChartConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
             _dialogService = dialogService;
-            _sftpServices = new SFTPServices("tools.syft.com", "22", "sftp", "MuhPEzxNchfr8nyZ");
+            _syftServer = new SyftServer();
         }
 
         #region ToolBar
@@ -43,30 +38,7 @@ namespace ChartConfig.ViewModels
                     try
                     {
                         // Get tree nodes
-                        _sftpServices.Connect();
-                        List<string> folders = _sftpServices.GetDirectoryList(_remotePath);
-                        ObservableCollection<TreeNode> treeNodes = new ObservableCollection<TreeNode>();
-                        foreach (var folder in folders)
-                        {
-                            if (folder == "." || folder == "..") continue;
-                            // Set name
-                            TreeNode treeNode = new TreeNode();
-                            treeNode.Name = folder;
-                            // Set child nodes
-                            List<string> files = _sftpServices.GetFileList(_remotePath + folder, "xml");
-                            List<TreeNode> treeChildNodes = new List<TreeNode>();
-                            foreach (string file in files)
-                            {
-                                TreeNode treeChildNode = new TreeNode();
-                                treeChildNode.Name = file;
-                                treeChildNode.Parent = folder;
-                                treeChildNodes.Add(treeChildNode);
-                            }
-                            treeNode.ChildNodes = treeChildNodes;
-
-                            treeNodes.Add(treeNode);
-                        }
-                        _sftpServices.Disconnect();
+                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Chart);
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
@@ -78,12 +50,12 @@ namespace ChartConfig.ViewModels
                                 TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
                                 // Download file
-                                _sftpServices.Connect();
-                                _sftpServices.DownloadFile(_remotePath + treeNode.Parent + "/" + treeNode.Name, _localPath + _localTempFile);
-                                _sftpServices.Disconnect();
+                                _syftServer.Connect();
+                                _syftServer.DownloadFile(_syftServer.RemoteChartPath + treeNode.Parent + "/" + treeNode.Name, _syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
+                                _syftServer.Disconnect();
 
                                 // Set toolbar and component list
-                                ChartProp chartProp = new ChartProp(XElement.Load(_localPath + _localTempFile));
+                                ChartProp chartProp = new ChartProp(XElement.Load(_syftServer.LocalChartPath + _syftServer.LocalChartTempFile));
                                 SelectedChartType = chartProp.ChartType;
                                 Tittle = chartProp.Tittle;
                                 SubTittle = chartProp.SubTittle;
@@ -99,7 +71,7 @@ namespace ChartConfig.ViewModels
                     }
                     finally
                     {
-                        _sftpServices.Disconnect();
+                        _syftServer.Disconnect();
                     }
                 });
             }
@@ -116,28 +88,28 @@ namespace ChartConfig.ViewModels
                         return;
                     }
 
-                    string remoteFolderPath = _remotePath + Tittle + "/";
+                    string remoteFolderPath = _syftServer.RemoteChartPath + Tittle + "/";
                     string fileName = SubTittle + ".xml";
 
                     // Create local file
-                    if (!Directory.Exists(_localPath)) Directory.CreateDirectory(_localPath);
+                    if (!Directory.Exists(_syftServer.LocalChartPath)) Directory.CreateDirectory(_syftServer.LocalChartPath);
                     ChartProp chartProp = new ChartProp(SelectedChartType, Tittle, SubTittle, SelectedExpectedRange, SelectedPhase, ComponentsList);
-                    chartProp.XMLGeneration().Save(_localPath + _localTempFile);
+                    chartProp.XMLGeneration().Save(_syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
 
                     try
                     {
-                        _sftpServices.Connect();
+                        _syftServer.Connect();
                         // Check existing chart config
-                        if (_sftpServices.Exist(remoteFolderPath + fileName))
+                        if (_syftServer.Exist(remoteFolderPath + fileName))
                         {
                             MessageBoxResult messageBoxResult = MessageBox.Show($"The file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
                             if (messageBoxResult == MessageBoxResult.No) return;
                         }
 
                         // Upload file
-                        if (!_sftpServices.Exist(remoteFolderPath)) _sftpServices.CreateDirectory(remoteFolderPath);
-                        _sftpServices.UploadFile(remoteFolderPath + fileName, _localPath + _localTempFile);
-                        _sftpServices.Disconnect();
+                        if (!_syftServer.Exist(remoteFolderPath)) _syftServer.CreateDirectory(remoteFolderPath);
+                        _syftServer.UploadFile(remoteFolderPath + fileName, _syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
+                        _syftServer.Disconnect();
                         MessageBox.Show("Chart has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
@@ -146,7 +118,7 @@ namespace ChartConfig.ViewModels
                     }
                     finally
                     {
-                        _sftpServices.Disconnect();
+                        _syftServer.Disconnect();
                     }
                 });
             }

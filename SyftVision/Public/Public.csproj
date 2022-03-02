@@ -59,6 +59,11 @@
     <Compile Include="Global\Global.cs" />
     <Compile Include="Global\MyMath.cs" />
     <Compile Include="Global\Options.cs" />
+    <Compile Include="ChartConfig\BindableSelectedItemBehavior .cs" />
+    <Compile Include="ChartConfig\ChartProp.cs" />
+    <Compile Include="ChartConfig\ChartType.cs" />
+    <Compile Include="ChartConfig\Component.cs" />
+    <Compile Include="ChartConfig\TreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,6 +78,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SFTP\SFTPServices.cs" />
+    <Compile Include="SFTP\SyftServer.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

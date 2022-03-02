@@ -20,7 +20,7 @@ namespace Public.SFTP
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"{ex.Message}", "ERROR");
+                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -8,6 +8,8 @@
              xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
              xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
              mc:Ignorable="d" 
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:PublicChartConfig ="clr-namespace:Public.ChartConfig;assembly=Public"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True" >
     <Grid Margin="10">
@@ -36,12 +38,12 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <TreeView ItemsSource="{Binding TreeNodes}" Height="400" Width="400">
-                    <!--<e:Interaction.Behaviors>
-                        <models:BindableSelectedItemBehavior SelectedItem="{Binding SelectedTreeNode, Mode=TwoWay}"/>
-                    </e:Interaction.Behaviors>-->
+                <TreeView ItemsSource="{Binding TreeNodes}">
+                    <b:Interaction.Behaviors>
+                        <PublicChartConfig:BindableSelectedItemBehavior SelectedItem="{Binding SelectedTreeNode, Mode=TwoWay}"/>
+                    </b:Interaction.Behaviors>
                     <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate   ItemsSource="{Binding Path=ChildNodes}">
+                        <HierarchicalDataTemplate DataType="{x:Type PublicChartConfig:TreeNode}"  ItemsSource="{Binding Path=ChildNodes}">
                             <TextBlock Text="{Binding Name}">
                                 <TextBlock.InputBindings>
                                     <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.SelectedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}}" />
@@ -53,7 +55,7 @@
             </Grid>
 
         </Grid>
-        
+
         <Grid Grid.Column="1" Margin="10 0 0 0" Background="DarkGray">
             <Grid.RowDefinitions>
                 <RowDefinition Height="65"></RowDefinition>
@@ -100,8 +102,8 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
-            
+
         </Grid>
-        
+
     </Grid>
 </UserControl>

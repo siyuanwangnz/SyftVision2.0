@@ -50,11 +50,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChartConfigModule.cs" />
-    <Compile Include="Models\BindableSelectedItemBehavior .cs" />
-    <Compile Include="Models\ChartProp.cs" />
-    <Compile Include="Models\ChartType.cs" />
-    <Compile Include="Models\Component.cs" />
-    <Compile Include="Models\TreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -140,6 +135,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\" />
     <Folder Include="Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
