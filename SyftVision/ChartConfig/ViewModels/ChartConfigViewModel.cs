@@ -95,7 +95,7 @@ namespace ChartConfig.ViewModels
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"{ex.Message}", "ERROR");
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     finally
                     {
@@ -112,7 +112,7 @@ namespace ChartConfig.ViewModels
                 {
                     if (SelectedChartType == null || Tittle == null || Tittle == "" || SubTittle == null || SubTittle == "")
                     {
-                        MessageBox.Show($"Chart Type, Tittle, Sub-Tittle can not be empty", "ERROR");
+                        MessageBox.Show($"Chart Type, Tittle, Sub-Tittle can not be empty", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
@@ -126,16 +126,23 @@ namespace ChartConfig.ViewModels
 
                     try
                     {
-                        // Upload file
                         _sftpServices.Connect();
+                        // Check existing chart config
+                        if (_sftpServices.Exist(remoteFolderPath + fileName))
+                        {
+                            MessageBoxResult messageBoxResult = MessageBox.Show($"The file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                            if (messageBoxResult == MessageBoxResult.No) return;
+                        }
+
+                        // Upload file
                         if (!_sftpServices.Exist(remoteFolderPath)) _sftpServices.CreateDirectory(remoteFolderPath);
                         _sftpServices.UploadFile(remoteFolderPath + fileName, _localPath + _localTempFile);
                         _sftpServices.Disconnect();
-                        MessageBox.Show("Chart has been saved", "INFO");
+                        MessageBox.Show("Chart has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"{ex.Message}", "ERROR");
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     finally
                     {
