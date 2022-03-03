@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace ChartConfig.ViewModels
 {
-    public class OpenDialogViewModel : BindableBase, IDialogAware
+    public class SyftChartDialogViewModel : BindableBase, IDialogAware
     {
         public string Title { get; } = "Select A Target Chart Config File";
         public event Action<IDialogResult> RequestClose;

@@ -28,7 +28,7 @@ namespace ChartConfig.ViewModels
             _syftServer = new SyftServer();
         }
 
-        #region ToolBar
+        #region Toolbar
         public DelegateCommand OpenCommand
         {
             get
@@ -43,7 +43,7 @@ namespace ChartConfig.ViewModels
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
                         param.Add("treeNodes", treeNodes);
-                        _dialogService.ShowDialog("OpenDialogView", param, arg =>
+                        _dialogService.ShowDialog("SyftChartDialogView", param, arg =>
                         {
                             if (arg.Result == ButtonResult.OK)
                             {
@@ -190,7 +190,7 @@ namespace ChartConfig.ViewModels
         }
         #endregion
 
-        #region Components List
+        #region Components list
         private ObservableCollection<Component> _componentsList;
         public ObservableCollection<Component> ComponentsList
         {

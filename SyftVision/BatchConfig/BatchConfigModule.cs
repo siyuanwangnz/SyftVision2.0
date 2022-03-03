@@ -1,4 +1,5 @@
-﻿using BatchConfig.Views;
+﻿using BatchConfig.ViewModels;
+using BatchConfig.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -15,7 +16,7 @@ namespace BatchConfig
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            containerRegistry.RegisterDialog<InstruBatchDialogView, InstruBatchDialogViewModel>();
         }
     }
 }

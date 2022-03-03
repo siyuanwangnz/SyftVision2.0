@@ -1,7 +1,9 @@
-﻿using Prism.Commands;
+﻿using BatchConfig.Models;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Services.Dialogs;
 using Public.BatchConfig;
 using Public.ChartConfig;
 using Public.SFTP;
@@ -16,12 +18,15 @@ namespace BatchConfig.ViewModels
     {
         private readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
+        private readonly IDialogService _dialogService;
         private readonly SyftServer _syftServer;
+        private InstrumentServer _instrumentServer;
         private ChartProp SelectedChartProp;
-        public BatchConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
+        public BatchConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
+            _dialogService = dialogService;
             _syftServer = new SyftServer();
 
             ObservableCollection<ChartProp> chartProps = new ObservableCollection<ChartProp>() {
@@ -122,6 +127,95 @@ namespace BatchConfig.ViewModels
         #endregion
 
         #region Batch Config
+        // Toolbar
+        public DelegateCommand OpenCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+
+                });
+            }
+        }
+        public DelegateCommand SaveCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+
+                });
+            }
+        }
+        public DelegateCommand NewCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
+                    try
+                    {
+                        // Get batches list
+                        ObservableCollection<string> batchesNameList = _instrumentServer.GetBatchesList();
+                        ObservableCollection<Batch> batchesList = new ObservableCollection<Batch>() { };
+                        foreach (var batchName in batchesNameList) batchesList.Add(new Batch(batchName));
+
+                        // Navigate to dialog
+                        DialogParameters param = new DialogParameters();
+                        param.Add("batchesList", batchesList);
+                        _dialogService.ShowDialog("InstruBatchDialogView", param, arg =>
+                        {
+                            if (arg.Result == ButtonResult.OK)
+                            {
+                                Batch batch = arg.Parameters.GetValue<Batch>("selectedBatch");
+                                Console.WriteLine(batch.Name);
+
+                                //// Download file
+                                //_syftServer.Connect();
+                                //_syftServer.DownloadFile(_syftServer.RemoteChartPath + treeNode.Parent + "/" + treeNode.Name, _syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
+                                //_syftServer.Disconnect();
+
+                                //// Set toolbar and component list
+                                //ChartProp chartProp = new ChartProp(XElement.Load(_syftServer.LocalChartPath + _syftServer.LocalChartTempFile));
+                                //SelectedChartType = chartProp.ChartType;
+                                //Tittle = chartProp.Tittle;
+                                //SubTittle = chartProp.SubTittle;
+                                //SelectedExpectedRange = chartProp.ExpectedRange;
+                                //SelectedPhase = chartProp.Phase;
+                                //ComponentsList = chartProp.ComponentsList;
+                            }
+                        });
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                });
+            }
+        }
+        private string _ipAddress = "10.0.16.209";
+        public string IPAddress
+        {
+            get => _ipAddress;
+            set => SetProperty(ref _ipAddress, value);
+        }
+        private string _batchTittle;
+        public string BatchTittle
+        {
+            get => _batchTittle;
+            set => SetProperty(ref _batchTittle, value);
+        }
+        private string _batchSubTittle;
+        public string BatchSubTittle
+        {
+            get => _batchSubTittle;
+            set => SetProperty(ref _batchSubTittle, value);
+        }
+        // Methods list
         public DelegateCommand DeleteCommand
         {
             get
@@ -139,7 +233,6 @@ namespace BatchConfig.ViewModels
                 return new DelegateCommand(() =>
                 {
                     if (SelectedChartProp != null) SelectedMethod.ChartsList.Add(SelectedChartProp);
-
                 });
             }
         }
@@ -155,12 +248,6 @@ namespace BatchConfig.ViewModels
             get => _selectedMethod;
             set => SetProperty(ref _selectedMethod, value);
         }
-        //private ObservableCollection<ChartProp> _chartsList;
-        //public ObservableCollection<ChartProp> ChartsList
-        //{
-        //    get => _chartsList;
-        //    set => SetProperty(ref _chartsList, value);
-        //}
         private ChartProp _selectedChart;
         public ChartProp SelectedChart
         {

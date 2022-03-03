@@ -18,9 +18,9 @@ namespace ChartConfig.Views
     /// <summary>
     /// Interaction logic for OpenDialogView.xaml
     /// </summary>
-    public partial class OpenDialogView : UserControl
+    public partial class SyftChartDialogView : UserControl
     {
-        public OpenDialogView()
+        public SyftChartDialogView()
         {
             InitializeComponent();
         }

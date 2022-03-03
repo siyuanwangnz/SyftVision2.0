@@ -79,6 +79,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SFTP\InstrumentServer.cs" />
     <Compile Include="SFTP\SFTPServices.cs" />
     <Compile Include="SFTP\SyftServer.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">

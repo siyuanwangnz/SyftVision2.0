@@ -16,7 +16,7 @@ namespace ChartConfig
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterDialog<OpenDialogView, OpenDialogViewModel>();
+            containerRegistry.RegisterDialog<SyftChartDialogView, SyftChartDialogViewModel>();
         }
     }
 }
