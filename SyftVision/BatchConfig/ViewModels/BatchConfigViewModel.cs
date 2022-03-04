@@ -10,6 +10,7 @@ using Public.SFTP;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
 
@@ -23,7 +24,7 @@ namespace BatchConfig.ViewModels
         private readonly SyftServer _syftServer;
         private InstrumentServer _instrumentServer;
         private ChartProp SelectedChartProp;
-        private List<ChartProp> ChartPropList = new List<ChartProp>();
+        private ObservableCollection<ChartProp> ChartPropList = new ObservableCollection<ChartProp>();
         public BatchConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -229,12 +230,10 @@ namespace BatchConfig.ViewModels
                         SelectedMethod.ChartCodeList.Remove(selectedChartCode);
                         foreach (var method in MethodsList)
                         {
-                            foreach (var charCode in method.ChartCodeList)
-                            {
-                                if (charCode == selectedChartCode) return;
-                            }
+                            if (method.ChartCodeList.Contains(selectedChartCode)) return;
                         }
-                        ChartPropList.Remove(ChartPropList.Find(a => a.Code == selectedChartCode));
+                        if (ChartPropList.Select(a => a.Code).ToList().Contains(selectedChartCode))
+                            ChartPropList.Remove(ChartPropList.Single(a => a.Code == selectedChartCode));
                     }
                 });
             }
