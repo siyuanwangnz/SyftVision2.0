@@ -111,7 +111,7 @@
                         <DataGridTemplateColumn Header="Chart Config" DisplayIndex="3">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ListBox ItemsSource="{Binding ChartsList}" DisplayMemberPath="FullName" SelectedItem="{Binding Path=DataContext.SelectedChart, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"/>
+                                    <ListBox ItemsSource="{Binding ChartCodeList}" SelectedItem="{Binding Path=DataContext.SelectedChartCode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

@@ -8,6 +8,7 @@ using Public.BatchConfig;
 using Public.ChartConfig;
 using Public.SFTP;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Xml.Linq;
@@ -22,6 +23,7 @@ namespace BatchConfig.ViewModels
         private readonly SyftServer _syftServer;
         private InstrumentServer _instrumentServer;
         private ChartProp SelectedChartProp;
+        private List<ChartProp> ChartPropList = new List<ChartProp>();
         public BatchConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -29,24 +31,20 @@ namespace BatchConfig.ViewModels
             _dialogService = dialogService;
             _syftServer = new SyftServer();
 
-            ObservableCollection<ChartProp> chartProps = new ObservableCollection<ChartProp>() {
-                new ChartProp(ChartType.ReferList[0],"1wqe","1asda","Upper","All",new ObservableCollection<Component>(){ }),
-                new ChartProp(ChartType.ReferList[1],"2wqe","2asda","Upper","All",new ObservableCollection<Component>(){ }),
-                new ChartProp(ChartType.ReferList[0],"1wqe","1asda","Upper","All",new ObservableCollection<Component>(){ })
-
+            ObservableCollection<string> chartFullNameList = new ObservableCollection<string>() {
+               "11sdaw|dwawda","22dqwdd|dwwidjwj","33dwdad|dwdada"
             };
-            ObservableCollection<ChartProp> chartProps1 = new ObservableCollection<ChartProp>() {
-                new ChartProp(ChartType.ReferList[0],"11wqe","11asda","Upper","All",new ObservableCollection<Component>(){ }),
-                new ChartProp(ChartType.ReferList[1],"22wqe","22asda","Upper","All",new ObservableCollection<Component>(){ })
+            ObservableCollection<string> chartFullNameList1 = new ObservableCollection<string>() {
+               "c11sdaw|dwawda","c22dqwdd|dwwidjwj","c33dwdad|dwdada"
             };
 
             Method method = new Method();
             method.MethodName = "1asdwdwda";
-            method.ChartsList = chartProps;
+            method.ChartCodeList = chartFullNameList;
 
             Method method1 = new Method();
             method1.MethodName = "2asdwdwda";
-            method1.ChartsList = chartProps1;
+            method1.ChartCodeList = chartFullNameList1;
 
             MethodsList = new ObservableCollection<Method>() { };
             MethodsList.Add(method);
@@ -134,7 +132,10 @@ namespace BatchConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-
+                    foreach (var chartProp in ChartPropList)
+                    {
+                        Console.WriteLine(chartProp.Code);
+                    }
                 });
             }
         }
@@ -222,7 +223,19 @@ namespace BatchConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    if (SelectedChart != null) SelectedMethod.ChartsList.Remove(SelectedChart);
+                    if (SelectedChartCode != null)
+                    {
+                        string selectedChartCode = SelectedChartCode;
+                        SelectedMethod.ChartCodeList.Remove(selectedChartCode);
+                        foreach (var method in MethodsList)
+                        {
+                            foreach (var charCode in method.ChartCodeList)
+                            {
+                                if (charCode == selectedChartCode) return;
+                            }
+                        }
+                        ChartPropList.Remove(ChartPropList.Find(a => a.Code == selectedChartCode));
+                    }
                 });
             }
         }
@@ -232,7 +245,11 @@ namespace BatchConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    if (SelectedChartProp != null) SelectedMethod.ChartsList.Add(SelectedChartProp);
+                    if (SelectedChartProp != null && !SelectedMethod.ChartCodeList.Contains(SelectedChartProp.Code))
+                    {
+                        SelectedMethod.ChartCodeList.Add(SelectedChartProp.Code);
+                        if (!ChartPropList.Contains(SelectedChartProp)) ChartPropList.Add(SelectedChartProp);
+                    }
                 });
             }
         }
@@ -248,11 +265,11 @@ namespace BatchConfig.ViewModels
             get => _selectedMethod;
             set => SetProperty(ref _selectedMethod, value);
         }
-        private ChartProp _selectedChart;
-        public ChartProp SelectedChart
+        private string _selectedChartCode;
+        public string SelectedChartCode
         {
-            get => _selectedChart;
-            set => SetProperty(ref _selectedChart, value);
+            get => _selectedChartCode;
+            set => SetProperty(ref _selectedChartCode, value);
         }
         #endregion
 

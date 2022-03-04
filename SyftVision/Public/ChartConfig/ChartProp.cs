@@ -50,7 +50,7 @@ namespace Public.ChartConfig
         public ChartType ChartType { get; private set; }
         public string Tittle { get; private set; }
         public string SubTittle { get; private set; }
-        public string FullName => Tittle + "|" + SubTittle;
+        public string Code => Tittle + "|" + SubTittle;
         public string ExpectedRange { get; private set; }
         public string Phase { get; private set; }
         public ObservableCollection<Component> ComponentsList { get; private set; }

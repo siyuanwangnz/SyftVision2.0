@@ -11,6 +11,6 @@ namespace Public.BatchConfig
     public class Method
     {
         public string MethodName { get; set; }
-        public ObservableCollection<ChartProp> ChartsList { get; set; }
+        public ObservableCollection<string> ChartCodeList { get; set; }
     }
 }
