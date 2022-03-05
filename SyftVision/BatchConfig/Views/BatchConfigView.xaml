@@ -12,114 +12,133 @@
              xmlns:PublicChartConfig ="clr-namespace:Public.ChartConfig;assembly=Public"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True" >
-    <Grid Margin="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+    <materialDesign:DrawerHost x:Name="DrawerHost">
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="65"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
-                <StackPanel>
-                    <ToolBarTray>
-                        <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                            <TextBox materialDesign:HintAssist.Hint="Selected Tittle" Text="{Binding ChartTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False"/>
-                            <TextBox materialDesign:HintAssist.Hint="And Sub-Tittle" Text="{Binding ChartSubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="10 0 0 0"/>
-                            <Separator/>
-                            <Button ToolTip="Refresh" Content="{materialDesign:PackIcon Kind=Refresh}" Command="{Binding RefreshCommand}"/>
-                        </ToolBar>
-                    </ToolBarTray>
-                </StackPanel>
+                <Grid Grid.Row="0">
+                    <StackPanel>
+                        <ToolBarTray>
+                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                                <TextBox materialDesign:HintAssist.Hint="Selected Tittle" Text="{Binding ChartTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False"/>
+                                <TextBox materialDesign:HintAssist.Hint="And Sub-Tittle" Text="{Binding ChartSubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="10 0 0 0"/>
+                                <Separator/>
+                                <Button ToolTip="Refresh" Content="{materialDesign:PackIcon Kind=Refresh}" Command="{Binding RefreshCommand}"/>
+                            </ToolBar>
+                        </ToolBarTray>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <TreeView ItemsSource="{Binding TreeNodes}">
+                        <b:Interaction.Behaviors>
+                            <PublicChartConfig:BindableSelectedItemBehavior SelectedItem="{Binding SelectedTreeNode, Mode=TwoWay}"/>
+                        </b:Interaction.Behaviors>
+                        <TreeView.ItemTemplate>
+                            <HierarchicalDataTemplate DataType="{x:Type PublicChartConfig:TreeNode}"  ItemsSource="{Binding Path=ChildNodes}">
+                                <TextBlock Text="{Binding Name}">
+                                    <TextBlock.InputBindings>
+                                        <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.SelectedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}}" />
+                                    </TextBlock.InputBindings>
+                                </TextBlock>
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+                </Grid>
+
             </Grid>
 
-            <Grid Grid.Row="1">
-                <TreeView ItemsSource="{Binding TreeNodes}">
-                    <b:Interaction.Behaviors>
-                        <PublicChartConfig:BindableSelectedItemBehavior SelectedItem="{Binding SelectedTreeNode, Mode=TwoWay}"/>
-                    </b:Interaction.Behaviors>
-                    <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate DataType="{x:Type PublicChartConfig:TreeNode}"  ItemsSource="{Binding Path=ChildNodes}">
-                            <TextBlock Text="{Binding Name}">
-                                <TextBlock.InputBindings>
-                                    <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.SelectedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}}" />
-                                </TextBlock.InputBindings>
-                            </TextBlock>
-                        </HierarchicalDataTemplate>
-                    </TreeView.ItemTemplate>
-                </TreeView>
-            </Grid>
+            <Grid Grid.Column="1" Margin="10 0 0 0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="65"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
 
-        </Grid>
+                <Grid Grid.Row="0">
+                    <StackPanel>
+                        <ToolBarTray>
+                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                                <Button ToolTip="Open" Content="{materialDesign:PackIcon Kind=FolderOpenOutline}" Command="{Binding OpenCommand}"/>
+                                <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
+                                <Separator/>
+                                <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="70" Margin="5"/>
+                                <Button ToolTip="New" Content="{materialDesign:PackIcon Kind=FolderPlusOutline}" Command="{Binding NewCommand}"/>
+                                <Separator/>
+                                <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding BatchTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
+                                <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding BatchSubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
+                                <Separator/>
+                                <Button ToolTip="Chart List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}"/>
+                            </ToolBar>
+                        </ToolBarTray>
+                    </StackPanel>
+                </Grid>
 
-        <Grid Grid.Column="1" Margin="10 0 0 0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="65"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-
-            <Grid Grid.Row="0">
-                <StackPanel>
-                    <ToolBarTray>
-                        <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                            <Button ToolTip="Open" Content="{materialDesign:PackIcon Kind=FolderOpenOutline}" Command="{Binding OpenCommand}"/>
-                            <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
-                            <Separator/>
-                            <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
-                            <Button ToolTip="New" Content="{materialDesign:PackIcon Kind=FolderPlusOutline}" Command="{Binding NewCommand}"/>
-                            <Separator/>
-                            <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding BatchTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
-                            <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding BatchSubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
-                        </ToolBar>
-                    </ToolBarTray>
-                </StackPanel>
-            </Grid>
-
-            <Grid Grid.Row="1">
-                <DataGrid AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                <Grid Grid.Row="1">
+                    <DataGrid AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding MethodsList}"
                       SelectedItem="{Binding SelectedMethod}">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Scan Method" DisplayIndex="0">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBox Text="{Binding MethodName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Scan Method" DisplayIndex="0">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding MethodName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Delete" DisplayIndex="1">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=DeleteOutline}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Delete" DisplayIndex="1">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=DeleteOutline}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Add" DisplayIndex="2">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button Command="{Binding Path=DataContext.AddCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=Plus}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Header="Add" DisplayIndex="2">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Command="{Binding Path=DataContext.AddCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=Plus}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Chart Config" DisplayIndex="3">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <ListBox ItemsSource="{Binding ChartCodeList}" SelectedItem="{Binding Path=DataContext.SelectedChartCode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"/>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
+                            <DataGridTemplateColumn Header="Chart Config" DisplayIndex="3">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ListBox ItemsSource="{Binding ChartCodeList}" SelectedItem="{Binding Path=DataContext.SelectedChartCode, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Style="{StaticResource MaterialDesignChoiceChipPrimaryListBox}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+
             </Grid>
 
         </Grid>
 
-    </Grid>
+        <materialDesign:DrawerHost.RightDrawerContent>
+            <DataGrid MinWidth="250" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ItemsSource="{Binding ChartPropList}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Chart List">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Code}" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" IsChecked="True" IsEnabled="False"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </materialDesign:DrawerHost.RightDrawerContent>
+    </materialDesign:DrawerHost>
 </UserControl>

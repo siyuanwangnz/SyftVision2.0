@@ -24,7 +24,6 @@ namespace BatchConfig.ViewModels
         private readonly SyftServer _syftServer;
         private InstrumentServer _instrumentServer;
         private ChartProp SelectedChartProp;
-        private ObservableCollection<ChartProp> ChartPropList = new ObservableCollection<ChartProp>();
         public BatchConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -33,10 +32,10 @@ namespace BatchConfig.ViewModels
             _syftServer = new SyftServer();
 
             ObservableCollection<string> chartFullNameList = new ObservableCollection<string>() {
-               "11sdaw|dwawda","22dqwdd|dwwidjwj","33dwdad|dwdada"
+               "11sdaw|dwawda","22dqwdd|dwwidjwj"
             };
             ObservableCollection<string> chartFullNameList1 = new ObservableCollection<string>() {
-               "c11sdaw|dwawda","c22dqwdd|dwwidjwj","c33dwdad|dwdada"
+               "c11sdaw|dwawda","c22dqwdd|dwwidjwj"
             };
 
             Method method = new Method();
@@ -146,7 +145,7 @@ namespace BatchConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-
+                    ChartPropList.Add(new ChartProp(ChartType.ReferList[0], "1wqe", "1asda", "Upper", "All", new ObservableCollection<Component>() { }));
                 });
             }
         }
@@ -269,6 +268,12 @@ namespace BatchConfig.ViewModels
         {
             get => _selectedChartCode;
             set => SetProperty(ref _selectedChartCode, value);
+        }
+        private ObservableCollection<ChartProp> _chartPropList = new ObservableCollection<ChartProp>() { };
+        public ObservableCollection<ChartProp> ChartPropList
+        {
+            get => _chartPropList;
+            set => SetProperty(ref _chartPropList, value);
         }
         #endregion
 
