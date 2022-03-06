@@ -89,7 +89,6 @@ namespace ChartConfig.ViewModels
                     }
 
                     string remoteFolderPath = _syftServer.RemoteChartPath + Tittle + "/";
-                    string fileName = SubTittle + ".xml";
 
                     // Create local file
                     if (!Directory.Exists(_syftServer.LocalChartPath)) Directory.CreateDirectory(_syftServer.LocalChartPath);
@@ -100,7 +99,7 @@ namespace ChartConfig.ViewModels
                     {
                         _syftServer.Connect();
                         // Check existing chart config
-                        if (_syftServer.Exist(remoteFolderPath + fileName))
+                        if (_syftServer.Exist(remoteFolderPath + chartProp.FileName))
                         {
                             MessageBoxResult messageBoxResult = MessageBox.Show($"The file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
                             if (messageBoxResult == MessageBoxResult.No) return;
@@ -108,7 +107,7 @@ namespace ChartConfig.ViewModels
 
                         // Upload file
                         if (!_syftServer.Exist(remoteFolderPath)) _syftServer.CreateDirectory(remoteFolderPath);
-                        _syftServer.UploadFile(remoteFolderPath + fileName, _syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
+                        _syftServer.UploadFile(remoteFolderPath + chartProp.FileName, _syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
                         _syftServer.Disconnect();
                         MessageBox.Show("Chart has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
                     }

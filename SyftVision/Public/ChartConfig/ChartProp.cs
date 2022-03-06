@@ -50,12 +50,13 @@ namespace Public.ChartConfig
         public ChartType ChartType { get; private set; }
         public string Tittle { get; private set; }
         public string SubTittle { get; private set; }
-        public string Code => Tittle + "|" + SubTittle;
+        public string FileName => $"{SubTittle}({ChartType.FullName}).xml";
+        public string Code => Tittle + "|" + FileName;
         public string ExpectedRange { get; private set; }
         public string Phase { get; private set; }
         public ObservableCollection<Component> ComponentsList { get; private set; }
 
-        public XDocument XMLGeneration()
+        public XElement XMLGeneration()
         {
             XElement rootNode = new XElement("Chart",
                 new XAttribute("ChartType", ChartType?.Name),
@@ -76,7 +77,7 @@ namespace Public.ChartConfig
                 }
             }
 
-            return new XDocument(rootNode);
+            return rootNode;
         }
     }
 }

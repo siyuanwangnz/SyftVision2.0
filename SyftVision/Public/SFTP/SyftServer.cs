@@ -20,7 +20,6 @@ namespace Public.SFTP
         public readonly string RemoteChartPath = "/home/sftp/files/syft-vision2/ChartConfig/";
         public readonly string RemoteBatchPath = "/home/sftp/files/syft-vision2/BatchConfig/";
 
-
         public SyftServer() : base("tools.syft.com", "22", "sftp", "MuhPEzxNchfr8nyZ") { }
 
         public ObservableCollection<TreeNode> GetTreeNodes(Type type)
