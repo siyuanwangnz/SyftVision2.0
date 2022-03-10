@@ -8,29 +8,24 @@ namespace Public.ChartConfig
 {
     public class Component
     {
-        public enum Type
-        {
-            Normal,
-            CompoundOnly,
-            ReagentOnly
-        }
-        public Component(bool limitEnable, Type type = Type.Normal)
+        public enum Mode { RP, C, R, Null }
+        public Component(bool limitEnable, Mode mode = Mode.RP)
         {
             LimitEnable = limitEnable;
-            ComponentType = type;
+            ModeSet = mode;
         }
         public string Compound { get; set; } = "";
-        public bool CompoundEnable => ComponentType == Type.CompoundOnly;
+        public bool CompoundEnable => ModeSet == Mode.C;
         public string Reagent { get; set; } = "";
-        public bool ReagentEnable => ComponentType != Type.CompoundOnly;
+        public bool ReagentEnable => ModeSet == Mode.RP || ModeSet == Mode.R;
         public string Production { get; set; } = "";
-        public bool ProductionEnable => ComponentType == Type.Normal;
+        public bool ProductionEnable => ModeSet == Mode.RP;
         public double Limit { get; set; } = 0;
         public bool LimitEnable { get; }
-        public Type ComponentType { get; }
+        public Mode ModeSet { get; }
         public Component Copy()
         {
-            Component tarComponent = new Component(LimitEnable, ComponentType);
+            Component tarComponent = new Component(LimitEnable, ModeSet);
             tarComponent.Compound = Compound;
             tarComponent.Reagent = Reagent;
             tarComponent.Production = Production;
