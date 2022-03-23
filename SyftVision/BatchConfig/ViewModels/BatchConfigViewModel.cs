@@ -30,27 +30,6 @@ namespace BatchConfig.ViewModels
             _eventAggregator = eventAggregator;
             _dialogService = dialogService;
             _syftServer = new SyftServer();
-
-            ObservableCollection<string> chartFullNameList = new ObservableCollection<string>() {
-               "11sdaw|dwawda","22dqwdd|dwwidjwj"
-            };
-            ObservableCollection<string> chartFullNameList1 = new ObservableCollection<string>() {
-               "c11sdaw|dwawda","c22dqwdd|dwwidjwj"
-            };
-
-            Method method = new Method();
-            method.MethodName = "1asdwdwda";
-            method.ChartCodeList = chartFullNameList;
-
-            Method method1 = new Method();
-            method1.MethodName = "2asdwdwda";
-            method1.ChartCodeList = chartFullNameList1;
-
-            MethodsList = new ObservableCollection<Method>() { };
-            MethodsList.Add(method);
-            MethodsList.Add(method1);
-
-
         }
         #region Chart Config
         public DelegateCommand RefreshCommand
@@ -80,20 +59,14 @@ namespace BatchConfig.ViewModels
                     if (SelectedTreeNode.Parent == null) return;
                     try
                     {
-                        _syftServer.Connect();
-                        _syftServer.DownloadFile(_syftServer.RemoteChartPath + SelectedTreeNode.Parent + "/" + SelectedTreeNode.Name, _syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
-                        _syftServer.Disconnect();
-                        SelectedChartProp = new ChartProp(XElement.Load(_syftServer.LocalChartPath + _syftServer.LocalChartTempFile));
+                        SelectedChartProp = _syftServer.DownloadChart(SelectedTreeNode);
+
                         ChartTittle = SelectedChartProp.Tittle;
                         ChartSubTittle = SelectedChartProp.SubTittle;
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    finally
-                    {
-                        _syftServer.Disconnect();
                     }
                 });
             }
@@ -132,7 +105,33 @@ namespace BatchConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    try
+                    {
+                        // Get tree nodes
+                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
 
+                        // Navigate to dialog
+                        DialogParameters param = new DialogParameters();
+                        param.Add("treeNodes", treeNodes);
+                        _dialogService.ShowDialog("SyftBatchDialogView", param, arg =>
+                        {
+                            if (arg.Result == ButtonResult.OK)
+                            {
+                                TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+
+                                BatchProp batchProp = _syftServer.DownloadBatch(treeNode);
+
+                                BatchTittle = batchProp.Tittle;
+                                BatchSubTittle = batchProp.SubTittle;
+                                MethodsList = batchProp.MethodsList;
+                                ChartPropList = batchProp.ChartPropList;
+                            }
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 });
             }
         }
@@ -142,11 +141,22 @@ namespace BatchConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    ChartPropList.Add(new ChartProp(ChartType.ReferList[0], "1wqe", "2asda", "Upper", "All", new ObservableCollection<Component>() { }));
-                    ChartPropList.Add(new ChartProp(ChartType.ReferList[1], "2wqe", "3asda", "Upper", "All", new ObservableCollection<Component>() { }));
-                    ChartPropList.Add(new ChartProp(ChartType.ReferList[3], "3wqe", "4asda", "Upper", "All", new ObservableCollection<Component>() { }));
-                    ChartPropList.Add(new ChartProp(ChartType.ReferList[4], "4wqe", "5asda", "Upper", "All", new ObservableCollection<Component>() { }));
-                    ChartPropList.Add(new ChartProp(ChartType.ReferList[6], "5wqe", "6asda", "Upper", "All", new ObservableCollection<Component>() { }));
+                    if (BatchTittle == null || BatchTittle == "" || BatchSubTittle == null || BatchSubTittle == "")
+                    {
+                        MessageBox.Show($"Tittle, Sub-Tittle can not be empty", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    BatchProp batchProp = new BatchProp(BatchTittle, BatchSubTittle, MethodsList, ChartPropList);
+
+                    try
+                    {
+                        _syftServer.UploadBatch(batchProp);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 });
             }
         }
@@ -307,7 +317,7 @@ namespace BatchConfig.ViewModels
                 });
             }
         }
-        private ObservableCollection<Method> _methodsList;
+        private ObservableCollection<Method> _methodsList = new ObservableCollection<Method>() { new Method() };
         public ObservableCollection<Method> MethodsList
         {
             get => _methodsList;

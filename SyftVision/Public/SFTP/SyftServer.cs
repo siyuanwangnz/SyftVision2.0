@@ -1,4 +1,5 @@
-﻿using Public.ChartConfig;
+﻿using Public.BatchConfig;
+using Public.ChartConfig;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -118,7 +119,7 @@ namespace Public.SFTP
                 // Check existing chart config
                 if (Exist(remoteFolderPath + chartProp.FileName))
                 {
-                    MessageBoxResult messageBoxResult = MessageBox.Show($"The file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"The chart file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (messageBoxResult == MessageBoxResult.No) return;
                 }
 
@@ -127,6 +128,58 @@ namespace Public.SFTP
                 UploadFile(remoteFolderPath + chartProp.FileName, LocalChartTempFilePath);
                 Disconnect();
                 MessageBox.Show("Chart has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public BatchProp DownloadBatch(TreeNode treeNode)
+        {
+            try
+            {
+                Connect();
+                DownloadFile(RemoteBatchPath + treeNode.Parent + "/" + treeNode.Name, LocalBatchTempFilePath);
+                Disconnect();
+
+                return new BatchProp(XElement.Load(LocalBatchTempFilePath));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public void UploadBatch(BatchProp batchProp)
+        {
+            try
+            {
+                string remoteFolderPath = RemoteBatchPath + batchProp.Tittle + "/";
+
+                batchProp.XMLGeneration().Save(LocalBatchTempFilePath);
+
+                Connect();
+                // Check existing chart config
+                if (Exist(remoteFolderPath + batchProp.FileName))
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"The batch file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageBoxResult == MessageBoxResult.No) return;
+                }
+
+                // Upload file
+                if (!Exist(remoteFolderPath)) CreateDirectory(remoteFolderPath);
+                UploadFile(remoteFolderPath + batchProp.FileName, LocalBatchTempFilePath);
+                Disconnect();
+                MessageBox.Show("Batch has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception)
             {

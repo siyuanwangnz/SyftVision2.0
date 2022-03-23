@@ -4,7 +4,7 @@
         xmlns:prism="http://prismlibrary.com/"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        Title="{Binding MainTitle}" Height="680" Width="1000" ResizeMode="CanMinimize">
+        Title="{Binding MainTitle}" Height="800" Width="1200" ResizeMode="CanMinimize">
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo ProgressState="Normal" ProgressValue="{Binding TaskProcess}"/>
     </Window.TaskbarItemInfo>

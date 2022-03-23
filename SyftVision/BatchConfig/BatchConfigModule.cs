@@ -17,6 +17,7 @@ namespace BatchConfig
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialog<InstruBatchDialogView, InstruBatchDialogViewModel>();
+            containerRegistry.RegisterDialog<SyftBatchDialogView, SyftBatchDialogViewModel>();
         }
     }
 }

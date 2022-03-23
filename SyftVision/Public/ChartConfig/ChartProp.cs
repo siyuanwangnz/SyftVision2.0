@@ -30,13 +30,13 @@ namespace Public.ChartConfig
                 Phase = rootNode.Attribute("Phase")?.Value;
 
                 ComponentsList = new ObservableCollection<Component>();
-                foreach (var element in rootNode.Elements("Component"))
+                foreach (var componentNode in rootNode.Elements("Component"))
                 {
                     Component component = ChartType.Component.Copy();
-                    component.Compound = element.Attribute("Compound")?.Value;
-                    component.Reagent = element.Attribute("Reagent")?.Value;
-                    component.Production = element.Attribute("Production")?.Value;
-                    component.Limit = double.Parse(element.Attribute("Limit")?.Value);
+                    component.Compound = componentNode.Attribute("Compound")?.Value;
+                    component.Reagent = componentNode.Attribute("Reagent")?.Value;
+                    component.Production = componentNode.Attribute("Production")?.Value;
+                    component.Limit = double.Parse(componentNode.Attribute("Limit")?.Value);
                     ComponentsList.Add(component);
                 }
 
