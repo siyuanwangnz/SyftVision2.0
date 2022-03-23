@@ -49,13 +49,8 @@ namespace ChartConfig.ViewModels
                             {
                                 TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
-                                // Download file
-                                _syftServer.Connect();
-                                _syftServer.DownloadFile(_syftServer.RemoteChartPath + treeNode.Parent + "/" + treeNode.Name, _syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
-                                _syftServer.Disconnect();
+                                ChartProp chartProp = _syftServer.DownloadChart(treeNode);
 
-                                // Set toolbar and component list
-                                ChartProp chartProp = new ChartProp(XElement.Load(_syftServer.LocalChartPath + _syftServer.LocalChartTempFile));
                                 SelectedChartType = chartProp.ChartType;
                                 Tittle = chartProp.Tittle;
                                 SubTittle = chartProp.SubTittle;
@@ -68,10 +63,6 @@ namespace ChartConfig.ViewModels
                     catch (Exception ex)
                     {
                         MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    finally
-                    {
-                        _syftServer.Disconnect();
                     }
                 });
             }
@@ -88,36 +79,15 @@ namespace ChartConfig.ViewModels
                         return;
                     }
 
-                    string remoteFolderPath = _syftServer.RemoteChartPath + Tittle + "/";
-
-                    // Create local file
-                    if (!Directory.Exists(_syftServer.LocalChartPath)) Directory.CreateDirectory(_syftServer.LocalChartPath);
                     ChartProp chartProp = new ChartProp(SelectedChartType, Tittle, SubTittle, SelectedExpectedRange, SelectedPhase, ComponentsList);
-                    chartProp.XMLGeneration().Save(_syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
 
                     try
                     {
-                        _syftServer.Connect();
-                        // Check existing chart config
-                        if (_syftServer.Exist(remoteFolderPath + chartProp.FileName))
-                        {
-                            MessageBoxResult messageBoxResult = MessageBox.Show($"The file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                            if (messageBoxResult == MessageBoxResult.No) return;
-                        }
-
-                        // Upload file
-                        if (!_syftServer.Exist(remoteFolderPath)) _syftServer.CreateDirectory(remoteFolderPath);
-                        _syftServer.UploadFile(remoteFolderPath + chartProp.FileName, _syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
-                        _syftServer.Disconnect();
-                        MessageBox.Show("Chart has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
+                        _syftServer.UploadChart(chartProp);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    finally
-                    {
-                        _syftServer.Disconnect();
                     }
                 });
             }

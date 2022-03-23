@@ -2,15 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Xml.Linq;
 
 namespace Public.SFTP
 {
     public class SyftServer : SFTPServices
     {
         public enum Type { Chart, Batch }
+
         public readonly string LocalChartPath = "./Temp/ChartConfig/";
         public readonly string LocalChartTempFile = "ChartTemp.xml";
 
@@ -20,7 +24,15 @@ namespace Public.SFTP
         public readonly string RemoteChartPath = "/home/sftp/files/syft-vision2/ChartConfig/";
         public readonly string RemoteBatchPath = "/home/sftp/files/syft-vision2/BatchConfig/";
 
-        public SyftServer() : base("tools.syft.com", "22", "sftp", "MuhPEzxNchfr8nyZ") { }
+        public string LocalChartTempFilePath => LocalChartPath + LocalChartTempFile;
+        public string LocalBatchTempFilePath => LocalBatchPath + LocalBatchTempFile;
+
+        public SyftServer() : base("tools.syft.com", "22", "sftp", "MuhPEzxNchfr8nyZ")
+        {
+            // Check local directory
+            if (!Directory.Exists(LocalChartPath)) Directory.CreateDirectory(LocalChartPath);
+            if (!Directory.Exists(LocalBatchPath)) Directory.CreateDirectory(LocalBatchPath);
+        }
 
         public ObservableCollection<TreeNode> GetTreeNodes(Type type)
         {
@@ -63,6 +75,58 @@ namespace Public.SFTP
                 Disconnect();
 
                 return treeNodes;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public ChartProp DownloadChart(TreeNode treeNode)
+        {
+            try
+            {
+                Connect();
+                DownloadFile(RemoteChartPath + treeNode.Parent + "/" + treeNode.Name, LocalChartTempFilePath);
+                Disconnect();
+
+                return new ChartProp(XElement.Load(LocalChartTempFilePath));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public void UploadChart(ChartProp chartProp)
+        {
+            try
+            {
+                string remoteFolderPath = RemoteChartPath + chartProp.Tittle + "/";
+
+                chartProp.XMLGeneration().Save(LocalChartTempFilePath);
+
+                Connect();
+                // Check existing chart config
+                if (Exist(remoteFolderPath + chartProp.FileName))
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"The file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageBoxResult == MessageBoxResult.No) return;
+                }
+
+                // Upload file
+                if (!Exist(remoteFolderPath)) CreateDirectory(remoteFolderPath);
+                UploadFile(remoteFolderPath + chartProp.FileName, LocalChartTempFilePath);
+                Disconnect();
+                MessageBox.Show("Chart has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception)
             {
