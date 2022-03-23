@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Public.ChartConfig
+namespace Public.TreeList
 {
     public class TreeNode
     {

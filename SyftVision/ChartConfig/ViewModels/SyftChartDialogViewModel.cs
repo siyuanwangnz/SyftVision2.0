@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using Public.ChartConfig;
+using Public.TreeList;
 using System;
 using System.Collections.ObjectModel;
 

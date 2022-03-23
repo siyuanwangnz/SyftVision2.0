@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
              xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
-             xmlns:PublicChartConfig ="clr-namespace:Public.ChartConfig;assembly=Public"
+             xmlns:PublicTreeList ="clr-namespace:Public.TreeList;assembly=Public"
              mc:Ignorable="d"
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:prism="http://prismlibrary.com/"
@@ -15,10 +15,10 @@
     <Grid Height="400" Width="400" Margin="10">
         <TreeView ItemsSource="{Binding TreeNodes}" >
             <b:Interaction.Behaviors>
-                <PublicChartConfig:BindableSelectedItemBehavior SelectedItem="{Binding SelectedTreeNode, Mode=TwoWay}"/>
+                <PublicTreeList:BindableSelectedItemBehavior SelectedItem="{Binding SelectedTreeNode, Mode=TwoWay}"/>
             </b:Interaction.Behaviors>
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type PublicChartConfig:TreeNode}"  ItemsSource="{Binding Path=ChildNodes}">
+                <HierarchicalDataTemplate DataType="{x:Type PublicTreeList:TreeNode}"  ItemsSource="{Binding Path=ChildNodes}">
                     <TextBlock Text="{Binding Name}">
                         <TextBlock.InputBindings>
                             <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.SelectedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}}" />
