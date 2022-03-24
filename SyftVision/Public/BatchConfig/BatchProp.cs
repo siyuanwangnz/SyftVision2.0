@@ -22,17 +22,17 @@ namespace Public.BatchConfig
         {
             try
             {
-                Tittle = rootNode.Attribute("Tittle")?.Value;
-                SubTittle = rootNode.Attribute("SubTittle")?.Value;
+                Tittle = rootNode.Attribute("Tittle").Value;
+                SubTittle = rootNode.Attribute("SubTittle").Value;
 
                 MethodsList = new ObservableCollection<Method>();
                 foreach (var methodNode in rootNode.Elements("Method"))
                 {
                     Method method = new Method();
-                    method.MethodName = methodNode.Attribute("MethodName")?.Value;
+                    method.MethodName = methodNode.Attribute("MethodName").Value;
 
                     foreach (var chartCodeNode in methodNode.Elements("ChartCode"))
-                        method.ChartCodeList.Add(chartCodeNode?.Value);
+                        method.ChartCodeList.Add(chartCodeNode.Value);
 
                     MethodsList.Add(method);
                 }

@@ -17,17 +17,17 @@ namespace Public.SFTP
     {
         public enum Type { Chart, Batch }
 
-        public readonly string LocalChartPath = "./Temp/ChartConfig/";
-        public readonly string LocalChartTempFile = "ChartTemp.xml";
+        private readonly string LocalChartPath = "./Temp/ChartConfig/";
+        private readonly string LocalChartTempFile = "ChartTemp.xml";
 
-        public readonly string LocalBatchPath = "./Temp/BatchConfig/";
-        public readonly string LocalBatchTempFile = "BatchTemp.xml";
+        private readonly string LocalBatchPath = "./Temp/BatchConfig/";
+        private readonly string LocalBatchTempFile = "BatchTemp.xml";
 
-        public readonly string RemoteChartPath = "/home/sftp/files/syft-vision2/ChartConfig/";
-        public readonly string RemoteBatchPath = "/home/sftp/files/syft-vision2/BatchConfig/";
+        private readonly string RemoteChartPath = "/home/sftp/files/syft-vision2/ChartConfig/";
+        private readonly string RemoteBatchPath = "/home/sftp/files/syft-vision2/BatchConfig/";
 
-        public string LocalChartTempFilePath => LocalChartPath + LocalChartTempFile;
-        public string LocalBatchTempFilePath => LocalBatchPath + LocalBatchTempFile;
+        private string LocalChartTempFilePath => LocalChartPath + LocalChartTempFile;
+        private string LocalBatchTempFilePath => LocalBatchPath + LocalBatchTempFile;
 
         public SyftServer() : base("tools.syft.com", "22", "sftp", "MuhPEzxNchfr8nyZ")
         {

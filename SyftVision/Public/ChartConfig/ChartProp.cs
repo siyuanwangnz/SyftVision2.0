@@ -23,20 +23,20 @@ namespace Public.ChartConfig
         {
             try
             {
-                ChartType = ChartType.ReferList.Single(a => a.Name == rootNode.Attribute("ChartType")?.Value);
-                Tittle = rootNode.Attribute("Tittle")?.Value;
-                SubTittle = rootNode.Attribute("SubTittle")?.Value;
-                ExpectedRange = rootNode.Attribute("ExpectedRange")?.Value;
-                Phase = rootNode.Attribute("Phase")?.Value;
+                ChartType = ChartType.ReferList.Single(a => a.Name == rootNode.Attribute("ChartType").Value);
+                Tittle = rootNode.Attribute("Tittle").Value;
+                SubTittle = rootNode.Attribute("SubTittle").Value;
+                ExpectedRange = rootNode.Attribute("ExpectedRange").Value;
+                Phase = rootNode.Attribute("Phase").Value;
 
                 ComponentsList = new ObservableCollection<Component>();
                 foreach (var componentNode in rootNode.Elements("Component"))
                 {
                     Component component = ChartType.Component.Copy();
-                    component.Compound = componentNode.Attribute("Compound")?.Value;
-                    component.Reagent = componentNode.Attribute("Reagent")?.Value;
-                    component.Production = componentNode.Attribute("Production")?.Value;
-                    component.Limit = double.Parse(componentNode.Attribute("Limit")?.Value);
+                    component.Compound = componentNode.Attribute("Compound").Value;
+                    component.Reagent = componentNode.Attribute("Reagent").Value;
+                    component.Production = componentNode.Attribute("Production").Value;
+                    component.Limit = double.Parse(componentNode.Attribute("Limit").Value);
                     ComponentsList.Add(component);
                 }
 
@@ -59,7 +59,7 @@ namespace Public.ChartConfig
         public XElement XMLGeneration()
         {
             XElement rootNode = new XElement("Chart",
-                new XAttribute("ChartType", ChartType?.Name),
+                new XAttribute("ChartType", ChartType.Name),
                 new XAttribute("Tittle", Tittle),
                 new XAttribute("SubTittle", SubTittle),
                 new XAttribute("ExpectedRange", ExpectedRange),

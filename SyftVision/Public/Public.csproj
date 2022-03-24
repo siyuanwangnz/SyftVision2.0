@@ -57,6 +57,8 @@
   <ItemGroup>
     <Compile Include="BatchConfig\BatchProp.cs" />
     <Compile Include="BatchConfig\Method.cs" />
+    <Compile Include="Batch\BatchFile.cs" />
+    <Compile Include="Batch\BatchItem.cs" />
     <Compile Include="Event\MessageEvent.cs" />
     <Compile Include="Global\Global.cs" />
     <Compile Include="Global\MyMath.cs" />

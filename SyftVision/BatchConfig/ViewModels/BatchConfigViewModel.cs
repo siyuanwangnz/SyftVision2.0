@@ -172,7 +172,7 @@ namespace BatchConfig.ViewModels
                     {
                         // Get batches list
                         ObservableCollection<string> batchesNameList = _instrumentServer.GetBatchesList();
-                        ObservableCollection<Batch> batchesList = new ObservableCollection<Batch>() { };
+                        ObservableCollection<Batch> batchesList = new ObservableCollection<Batch>();
                         foreach (var batchName in batchesNameList) batchesList.Add(new Batch(batchName));
 
                         // Navigate to dialog
@@ -183,21 +183,7 @@ namespace BatchConfig.ViewModels
                             if (arg.Result == ButtonResult.OK)
                             {
                                 Batch batch = arg.Parameters.GetValue<Batch>("selectedBatch");
-                                Console.WriteLine(batch.Name);
-
-                                //// Download file
-                                //_syftServer.Connect();
-                                //_syftServer.DownloadFile(_syftServer.RemoteChartPath + treeNode.Parent + "/" + treeNode.Name, _syftServer.LocalChartPath + _syftServer.LocalChartTempFile);
-                                //_syftServer.Disconnect();
-
-                                //// Set toolbar and component list
-                                //ChartProp chartProp = new ChartProp(XElement.Load(_syftServer.LocalChartPath + _syftServer.LocalChartTempFile));
-                                //SelectedChartType = chartProp.ChartType;
-                                //Tittle = chartProp.Tittle;
-                                //SubTittle = chartProp.SubTittle;
-                                //SelectedExpectedRange = chartProp.ExpectedRange;
-                                //SelectedPhase = chartProp.Phase;
-                                //ComponentsList = chartProp.ComponentsList;
+                                MethodsList = _instrumentServer.GetMethodsList(batch.Name);
                             }
                         });
 
