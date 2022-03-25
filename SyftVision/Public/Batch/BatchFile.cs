@@ -36,20 +36,19 @@ namespace Public.Batch
 
         public ObservableCollection<Method> GetMethodsList()
         {
-            ObservableCollection<Method> methodList = new ObservableCollection<Method>();
+            List<string> mainList = new List<string>();
             if (ItemList != null)
             {
-                ObservableCollection<Method> methodGroupList = new ObservableCollection<Method>();
+                List<string> groupList = new List<string>();
                 string groupScanCount = "";
                 string groupDelayBetween = "";
 
                 foreach (var item in ItemList)
                 {
                     // Get method name
-                    Method method = new Method();
-                    method.MethodName = item.Method;
+                    string methodName = item.Method;
 
-                    if (groupScanCount == "" && groupDelayBetween == "" && methodGroupList.Count == 0)
+                    if (groupScanCount == "" && groupDelayBetween == "" && groupList.Count == 0)
                     {
                         if (item.DelayBetween == "" || item.ScanCount == "") // No delay between
                         {
@@ -58,12 +57,12 @@ namespace Public.Batch
                             if (item.ScanCount != "") scanCount = int.Parse(item.ScanCount);
                             // Add methods
                             for (int i = 0; i < scanCount; i++)
-                                methodList.Add(method);
+                                mainList.Add(methodName);
                         }
                         else // Has delay between
                         {
                             // Add to group
-                            methodGroupList.Add(method);
+                            groupList.Add(methodName);
 
                             groupScanCount = item.ScanCount;
                             groupDelayBetween = item.DelayBetween;
@@ -75,9 +74,9 @@ namespace Public.Batch
                         if (item.DelayBetween == "" || item.ScanCount == "") // No delay between
                         {
                             for (int i = 0; i < int.Parse(groupScanCount); i++)
-                                methodList.AddRange(methodGroupList);
+                                mainList.AddRange(groupList);
 
-                            methodGroupList = new ObservableCollection<Method>() { };
+                            groupList = new List<string>();
                             groupScanCount = "";
                             groupDelayBetween = "";
 
@@ -86,20 +85,20 @@ namespace Public.Batch
                             if (item.ScanCount != "") scanCount = int.Parse(item.ScanCount);
                             // Add methods
                             for (int i = 0; i < scanCount; i++)
-                                methodList.Add(method);
+                                mainList.Add(methodName);
                         }
                         else // Has delay between
                         {
                             if (groupScanCount == item.ScanCount && groupDelayBetween == item.DelayBetween)
                             {
-                                methodGroupList.Add(method);
+                                groupList.Add(methodName);
                             }
                             else
                             {
                                 for (int i = 0; i < int.Parse(groupScanCount); i++)
-                                    methodList.AddRange(methodGroupList);
+                                    mainList.AddRange(groupList);
 
-                                methodGroupList = new ObservableCollection<Method>() { method };
+                                groupList = new List<string>() { methodName };
                                 groupScanCount = item.ScanCount;
                                 groupDelayBetween = item.DelayBetween;
                             }
@@ -107,14 +106,22 @@ namespace Public.Batch
                     }
                 }
 
-                if (groupScanCount != "" && groupDelayBetween != "" && methodGroupList.Count != 0)
+                if (groupScanCount != "" && groupDelayBetween != "" && groupList.Count != 0)
                 {
                     for (int i = 0; i < int.Parse(groupScanCount); i++)
-                        methodList.AddRange(methodGroupList);
+                        mainList.AddRange(groupList);
                 }
 
             }
-            return methodList;
+
+            ObservableCollection<Method> methodsList = new ObservableCollection<Method>();
+            foreach (var methodName in mainList)
+            {
+                Method method = new Method();
+                method.MethodName = methodName;
+                methodsList.Add(method);
+            }
+            return methodsList;
         }
     }
 }
