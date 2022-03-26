@@ -29,8 +29,8 @@
                     <StackPanel>
                         <ToolBarTray>
                             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                                <TextBox materialDesign:HintAssist.Hint="Selected Tittle" Text="{Binding ChartTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False"/>
-                                <TextBox materialDesign:HintAssist.Hint="And Sub-Tittle" Text="{Binding ChartSubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="10 0 0 0"/>
+                                <TextBox materialDesign:HintAssist.Hint="Selected Tittle" Text="{Binding ChartTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="5"/>
+                                <TextBox materialDesign:HintAssist.Hint="And Sub-Tittle" Text="{Binding ChartSubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="5"/>
                                 <Separator/>
                                 <Button ToolTip="Refresh" Content="{materialDesign:PackIcon Kind=Refresh}" Command="{Binding RefreshCommand}"/>
                             </ToolBar>

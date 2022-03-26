@@ -14,7 +14,7 @@ namespace SyftVision.ViewModels
         {
             _eventAggregator = eventAggregator;
             //Subscribe event message
-            _eventAggregator.GetEvent<Public.Event.MessageEvent>().Subscribe((m) => TaskProcess = m / 100);
+            _eventAggregator.GetEvent<Public.Event.MessageEvent>().Subscribe((m) => TaskProgress = m / 100);
             //Set dialog title
             MainTitle = $"SyftVision V{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
         }
@@ -27,11 +27,11 @@ namespace SyftVision.ViewModels
             set { SetProperty(ref _mainTitle, value); }
         }
 
-        private double _taskProcess;
-        public double TaskProcess
+        private double _taskProgress;
+        public double TaskProgress
         {
-            get { return _taskProcess; }
-            set { SetProperty(ref _taskProcess, value); }
+            get { return _taskProgress; }
+            set { SetProperty(ref _taskProgress, value); }
         }
     }
 }
