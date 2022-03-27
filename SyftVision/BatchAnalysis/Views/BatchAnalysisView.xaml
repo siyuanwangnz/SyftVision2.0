@@ -13,47 +13,88 @@
     <materialDesign:DrawerHost x:Name="DrawerHost">
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="65"></RowDefinition>
+                <RowDefinition Height="70"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
                 <StackPanel>
-                    <ToolBarTray>
-                        <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                            <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=SelectionSearch}" Command="{Binding SelectCommand}"/>
-                            <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
-                            <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
-                            <Separator/>
-                            <DatePicker materialDesign:HintAssist.Hint="Start Date" SelectedDate="{Binding StartDate}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Focusable="False" Width="125" Margin="5"/>
-                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Start Time" SelectedTime="{Binding StartTime}" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" Focusable="False" WithSeconds="True" Is24Hours="True" Width="125" Margin="5"/>
-                            <Separator/>
-                            <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="70" Margin="5"/>
-                            <Button ToolTip="Match Config">
-                                <Button.Content>
-                                    <materialDesign:PopupBox>
-                                        <materialDesign:PopupBox.ToggleContent>
-                                            <materialDesign:PackIcon Kind="FormatListChecks" />
-                                        </materialDesign:PopupBox.ToggleContent>
-                                        <Grid Height="200" Width="200">
-                                            <StackPanel>
-                                                <TextBlock Text="test"/>
-                                            </StackPanel>
-                                        </Grid>
-                                    </materialDesign:PopupBox>
-                                </Button.Content>
-                            </Button>
-                            <Button ToolTip="Process" Content="{materialDesign:PackIcon Kind=ChartBar}" Command="{Binding ProcessCommand}"/>
-                            <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
-                            <Separator/>
-                            <Button ToolTip="Scan List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}"/>
-                        </ToolBar>
-                    </ToolBarTray>
+                    <StackPanel>
+                        <ToolBarTray>
+                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                                <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=SelectionSearch}" Command="{Binding SelectCommand}"/>
+                                <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
+                                <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
+                                <Separator/>
+                                <DatePicker materialDesign:HintAssist.Hint="Start Date" SelectedDate="{Binding StartDate}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Focusable="False" Width="125" Margin="5"/>
+                                <materialDesign:TimePicker materialDesign:HintAssist.Hint="Start Time" SelectedTime="{Binding StartTime}" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" Focusable="False" WithSeconds="True" Is24Hours="True" Width="125" Margin="5"/>
+                                <Separator/>
+                                <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="70" Margin="5"/>
+                                <Button>
+                                    <Button.Content>
+                                        <materialDesign:PopupBox ToolTip="Match" StaysOpen="True">
+                                            <materialDesign:PopupBox.ToggleContent>
+                                                <materialDesign:PackIcon Kind="FormatListChecks" />
+                                            </materialDesign:PopupBox.ToggleContent>
+                                            <Grid MinWidth="300" Margin="5">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Grid Grid.Row="0">
+                                                    <StackPanel>
+                                                        <ToolBarTray>
+                                                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                                                                <ComboBox ItemsSource="{Binding MatchLevel}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Intensity Level" Width="130" Margin="5"/>
+                                                                <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=ViewList}" Command="{Binding MatchCommand}"/>
+                                                            </ToolBar>
+                                                        </ToolBarTray>
+                                                    </StackPanel>
+                                                </Grid>
+
+                                                <Grid Grid.Row="1">
+                                                    <DataGrid MinWidth="300" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                              ItemsSource="{Binding BatchList}">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTemplateColumn Header="Batch List">
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Grid>
+                                            </Grid>
+                                        </materialDesign:PopupBox>
+                                    </Button.Content>
+                                </Button>
+                                <Separator/>
+                                <Button ToolTip="Process" Content="{materialDesign:PackIcon Kind=ChartBar}" Command="{Binding ProcessCommand}"/>
+                                <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
+                                <Separator/>
+                                <Button ToolTip="Scan List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}"/>
+                            </ToolBar>
+                        </ToolBarTray>
+                    </StackPanel>
+                    <ProgressBar Height="5" Value="25" />
                 </StackPanel>
             </Grid>
 
             <Grid Grid.Row="1">
-                <Button Content="test"></Button>
+                <DataGrid AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ItemsSource="{Binding ChartList}">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Chart List">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
         </Grid>
 
