@@ -53,7 +53,7 @@
                                                 </Grid>
 
                                                 <Grid Grid.Row="1">
-                                                    <DataGrid MinWidth="300" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                    <DataGrid MinWidth="300" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                                                               ItemsSource="{Binding BatchList}">
                                                         <DataGrid.Columns>
                                                             <DataGridTemplateColumn Header="Batch List">
@@ -99,7 +99,7 @@
         </Grid>
 
         <materialDesign:DrawerHost.RightDrawerContent>
-            <DataGrid MinWidth="500" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+            <DataGrid MinWidth="500" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding ScanList}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Scan List">

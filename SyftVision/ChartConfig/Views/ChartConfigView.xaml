@@ -36,7 +36,7 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <DataGrid AutoGenerateColumns="False" IsReadOnly="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+            <DataGrid AutoGenerateColumns="False" IsReadOnly="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding ComponentsList}"
                       SelectedItem="{Binding SelectedComponent}">
                 <DataGrid.Columns>
