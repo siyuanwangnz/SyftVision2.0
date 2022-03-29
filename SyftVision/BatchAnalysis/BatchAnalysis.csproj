@@ -65,8 +65,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ViewModels\BatchAnalysisViewModel.cs" />
+    <Compile Include="ViewModels\SyftBatchDialogViewModel.cs" />
     <Compile Include="Views\BatchAnalysisView.cs">
       <DependentUpon>BatchAnalysisView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SyftBatchDialogView.xaml.cs">
+      <DependentUpon>SyftBatchDialogView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -90,6 +94,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\BatchAnalysisView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SyftBatchDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,4 +1,5 @@
-﻿using BatchAnalysis.Views;
+﻿using BatchAnalysis.ViewModels;
+using BatchAnalysis.Views;
 using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
@@ -15,7 +16,7 @@ namespace BatchAnalysis
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            containerRegistry.RegisterDialog<SyftBatchDialogView, SyftBatchDialogViewModel>();
         }
     }
 }

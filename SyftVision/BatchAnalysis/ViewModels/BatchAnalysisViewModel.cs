@@ -1,8 +1,14 @@
 ﻿using BatchAnalysis.Models;
 using ChartDirector;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
+using Prism.Services.Dialogs;
+using Public.BatchConfig;
+using Public.SFTP;
+using Public.TreeList;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -10,10 +16,17 @@ namespace BatchAnalysis.ViewModels
 {
     public class BatchAnalysisViewModel : BindableBase
     {
-        public BatchAnalysisViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
+        private readonly IEventAggregator _eventAggregator;
+        private readonly IRegionManager _regionManager;
+        private readonly IDialogService _dialogService;
+        private readonly SyftServer _syftServer;
+        private BatchProp SelectedBatchProp;
+        public BatchAnalysisViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
+            _dialogService = dialogService;
+            _syftServer = new SyftServer();
 
             #region chart list test
             // The data for the bar chart
@@ -60,9 +73,112 @@ namespace BatchAnalysis.ViewModels
 
         }
 
-        private readonly IEventAggregator _eventAggregator;
+        #region Toolbar
+        public DelegateCommand SelectCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    try
+                    {
+                        // Get tree nodes
+                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
 
-        private readonly IRegionManager _regionManager;
+                        // Navigate to dialog
+                        DialogParameters param = new DialogParameters();
+                        param.Add("treeNodes", treeNodes);
+                        _dialogService.ShowDialog("SyftBatchDialogView", param, arg =>
+                        {
+                            if (arg.Result == ButtonResult.OK)
+                            {
+                                TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+
+                                SelectedBatchProp = _syftServer.DownloadBatch(treeNode);
+
+                                Tittle = SelectedBatchProp.Tittle;
+                                SubTittle = SelectedBatchProp.SubTittle;
+                            }
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                });
+            }
+        }
+        private string _tittle;
+        public string Tittle
+        {
+            get => _tittle;
+            set => SetProperty(ref _tittle, value);
+        }
+        private string _subTittle;
+        public string SubTittle
+        {
+            get => _subTittle;
+            set => SetProperty(ref _subTittle, value);
+        }
+        private DateTime _startDate = DateTime.Now.AddDays(-1);
+        public DateTime StartDate
+        {
+            get => _startDate;
+            set => SetProperty(ref _startDate, value);
+        }
+        private DateTime _startTime = new DateTime(2021, 07, 26, 0, 0, 0);
+        public DateTime StartTime
+        {
+            get => _startTime;
+            set => SetProperty(ref _startTime, value);
+        }
+        private string _ipAddress = "10.0.16.209";
+        public string IPAddress
+        {
+            get => _ipAddress;
+            set => SetProperty(ref _ipAddress, value);
+        }
+        public DelegateCommand ProcessCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                });
+            }
+        }
+        public DelegateCommand SaveCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                });
+            }
+        }
+        // Match pop box
+        private ObservableCollection<int> _matchLevel = new ObservableCollection<int>() { 0, 1, 2 };
+        public ObservableCollection<int> MatchLevel
+        {
+            get => _matchLevel;
+            set => SetProperty(ref _matchLevel, value);
+        }
+        private int _selectedMatchLevel = 2;
+        public int SelectedMatchLevel
+        {
+            get => _selectedMatchLevel;
+            set => SetProperty(ref _selectedMatchLevel, value);
+        }
+        public DelegateCommand MatchCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                });
+            }
+        }
+        #endregion
 
         private ObservableCollection<ResultChart> _chartList;
         public ObservableCollection<ResultChart> ChartList
