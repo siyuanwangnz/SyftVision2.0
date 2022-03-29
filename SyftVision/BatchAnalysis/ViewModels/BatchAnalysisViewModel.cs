@@ -41,11 +41,13 @@ namespace BatchAnalysis.ViewModels
             // Set the plotarea at (30, 20) and of size 200 x 200 pixels
             c.setPlotArea(30, 20, 200, 200);
 
-            // Add a bar chart layer using the given data
-            c.addBarLayer(data);
+            BarLayer layer = c.addBarLayer2(Chart.Side);
 
-            // Set the labels on the x axis.
             c.xAxis().setLabels(labels);
+
+            layer.addDataSet(data, 0x5588bb, "Test");
+
+            layer.setHTMLImageMap("", "", "title='{value} at {xLabel} (Scan: {dataSetName})'");
 
             // The data for the bar chart
             data = new double[] { 100, 200, 150, 250, 300 };

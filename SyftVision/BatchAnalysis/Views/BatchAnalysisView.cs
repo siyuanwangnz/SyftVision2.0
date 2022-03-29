@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using ChartDirector;
+using System.Windows.Controls;
 
 namespace BatchAnalysis.Views
 {
@@ -12,5 +13,10 @@ namespace BatchAnalysis.Views
             InitializeComponent();
         }
 
+        private void WPFChartViewer_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if ((sender as WPFChartViewer).Chart != null)
+                (sender as WPFChartViewer).ImageMap = (sender as WPFChartViewer).Chart.getHTMLImageMap("");
+        }
     }
 }
