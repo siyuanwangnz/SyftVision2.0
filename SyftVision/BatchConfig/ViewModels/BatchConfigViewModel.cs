@@ -172,8 +172,8 @@ namespace BatchConfig.ViewModels
                     {
                         // Get batches list
                         ObservableCollection<string> batchesNameList = _instrumentServer.GetBatchesList();
-                        ObservableCollection<Batch> batchesList = new ObservableCollection<Batch>();
-                        foreach (var batchName in batchesNameList) batchesList.Add(new Batch(batchName));
+                        ObservableCollection<InstruBatch> batchesList = new ObservableCollection<InstruBatch>();
+                        foreach (var batchName in batchesNameList) batchesList.Add(new InstruBatch(batchName));
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
@@ -182,7 +182,7 @@ namespace BatchConfig.ViewModels
                         {
                             if (arg.Result == ButtonResult.OK)
                             {
-                                Batch batch = arg.Parameters.GetValue<Batch>("selectedBatch");
+                                InstruBatch batch = arg.Parameters.GetValue<InstruBatch>("selectedBatch");
                                 MethodsList = _instrumentServer.GetMethodsList(batch.Name);
                             }
                         });

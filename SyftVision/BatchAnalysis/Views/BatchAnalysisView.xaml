@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:ChartDirector="clr-namespace:ChartDirector;assembly=netchartdir"
+             xmlns:at="clr-namespace:BatchAnalysis.ViewModels"
              xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
              xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
              mc:Ignorable="d"
@@ -89,7 +91,7 @@
                         <DataGridTemplateColumn Header="Chart List">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-
+                                    <ChartDirector:WPFChartViewer at:BatchAnalysisViewModel.AttachedChart="{Binding Chart}" HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTipService.ShowDuration="30000"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>

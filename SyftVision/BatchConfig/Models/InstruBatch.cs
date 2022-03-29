@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BatchConfig.Models
 {
-    public class Batch
+    public class InstruBatch
     {
-        public Batch(string name)
+        public InstruBatch(string name)
         {
             Name = name;
         }

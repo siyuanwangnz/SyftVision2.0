@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BatchConfigModule.cs" />
-    <Compile Include="Models\Batch.cs" />
+    <Compile Include="Models\InstruBatch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
