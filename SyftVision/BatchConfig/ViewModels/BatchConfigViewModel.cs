@@ -167,15 +167,23 @@ namespace BatchConfig.ViewModels
                 return new DelegateCommand(() =>
                 {
                     _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
+
                     try
                     {
+                        // Get batch file list
+                        ObservableCollection<string> batchFileList = _instrumentServer.GetBatchFileList();
+
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
-                        param.Add("batchFileList", _instrumentServer.GetBatchFileList());
+                        param.Add("batchFileList", batchFileList);
                         _dialogService.ShowDialog("InstruBatchDialogView", param, arg =>
                         {
                             if (arg.Result == ButtonResult.OK)
-                                MethodsList = _instrumentServer.GetMethodListFromBatchFile(arg.Parameters.GetValue<string>("selectedBatchFile"));
+                            {
+                                string selectedBatchFile = arg.Parameters.GetValue<string>("selectedBatchFile");
+                                MethodsList = _instrumentServer.GetMethodListFromBatchFile(selectedBatchFile);
+                            }
+
                         });
 
                     }
