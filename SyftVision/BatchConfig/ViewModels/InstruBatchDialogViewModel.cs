@@ -27,7 +27,9 @@ namespace BatchConfig.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            BatchesList = parameters.GetValue<ObservableCollection<InstruBatch>>("batchesList");
+            BatchList = new ObservableCollection<InstruBatch>();
+            foreach (var batchFile in parameters.GetValue<ObservableCollection<string>>("batchFileList"))
+                BatchList.Add(new InstruBatch(batchFile));
         }
         public DelegateCommand SelectedCommand
         {
@@ -36,16 +38,16 @@ namespace BatchConfig.ViewModels
                 return new DelegateCommand(() =>
                 {
                     DialogParameters param = new DialogParameters();
-                    param.Add("selectedBatch", SelectedBatch);
+                    param.Add("selectedBatchFile", SelectedBatch.File);
                     RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
                 });
             }
         }
-        private ObservableCollection<InstruBatch> _batchesList;
-        public ObservableCollection<InstruBatch> BatchesList
+        private ObservableCollection<InstruBatch> _batchList;
+        public ObservableCollection<InstruBatch> BatchList
         {
-            get => _batchesList;
-            set => SetProperty(ref _batchesList, value);
+            get => _batchList;
+            set => SetProperty(ref _batchList, value);
         }
         private InstruBatch _selectedBatch;
         public InstruBatch SelectedBatch

@@ -26,7 +26,7 @@ namespace Public.SFTP
             if (!Directory.Exists(LocalBatchPath)) Directory.CreateDirectory(LocalBatchPath);
         }
 
-        public ObservableCollection<string> GetBatchesList()
+        public ObservableCollection<string> GetBatchFileList()
         {
             try
             {
@@ -45,7 +45,7 @@ namespace Public.SFTP
             }
         }
 
-        public ObservableCollection<Method> GetMethodsList(string batchFile)
+        public ObservableCollection<Method> GetMethodListFromBatchFile(string batchFile)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Public.SFTP
                 DownloadFile(RemoteMethodsPath + batchFile, LocalBatchTempFilePath);
                 Disconnect();
 
-                return new BatchFile(XElement.Load(LocalBatchTempFilePath)).GetMethodsList();
+                return new BatchFile(XElement.Load(LocalBatchTempFilePath)).GetMethodList();
             }
             catch (Exception)
             {

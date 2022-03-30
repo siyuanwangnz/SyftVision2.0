@@ -1,5 +1,4 @@
-﻿using BatchConfig.Models;
-using Prism.Commands;
+﻿using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -170,21 +169,13 @@ namespace BatchConfig.ViewModels
                     _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
                     try
                     {
-                        // Get batches list
-                        ObservableCollection<string> batchesNameList = _instrumentServer.GetBatchesList();
-                        ObservableCollection<InstruBatch> batchesList = new ObservableCollection<InstruBatch>();
-                        foreach (var batchName in batchesNameList) batchesList.Add(new InstruBatch(batchName));
-
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
-                        param.Add("batchesList", batchesList);
+                        param.Add("batchFileList", _instrumentServer.GetBatchFileList());
                         _dialogService.ShowDialog("InstruBatchDialogView", param, arg =>
                         {
                             if (arg.Result == ButtonResult.OK)
-                            {
-                                InstruBatch batch = arg.Parameters.GetValue<InstruBatch>("selectedBatch");
-                                MethodsList = _instrumentServer.GetMethodsList(batch.Name);
-                            }
+                                MethodsList = _instrumentServer.GetMethodListFromBatchFile(arg.Parameters.GetValue<string>("selectedBatchFile"));
                         });
 
                     }

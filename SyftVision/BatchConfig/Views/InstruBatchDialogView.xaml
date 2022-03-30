@@ -10,7 +10,7 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid Height="400" Width="400" Margin="10">
-        <DataGrid ItemsSource="{Binding BatchesList}" SelectedItem="{Binding SelectedBatch}" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserReorderColumns="False">
+        <DataGrid ItemsSource="{Binding BatchList}" SelectedItem="{Binding SelectedBatch}" ScrollViewer.VerticalScrollBarVisibility="Auto" CanUserReorderColumns="False">
             <DataGrid.InputBindings>
                 <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.SelectedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" />
             </DataGrid.InputBindings>

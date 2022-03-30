@@ -34,7 +34,7 @@ namespace Public.Batch
 
         public ObservableCollection<BatchItem> ItemList { get; private set; }
 
-        public ObservableCollection<Method> GetMethodsList()
+        public ObservableCollection<Method> GetMethodList()
         {
             List<string> mainList = new List<string>();
             if (ItemList != null)

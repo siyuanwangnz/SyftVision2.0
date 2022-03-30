@@ -8,10 +8,10 @@ namespace BatchConfig.Models
 {
     public class InstruBatch
     {
-        public InstruBatch(string name)
+        public InstruBatch(string file)
         {
-            Name = name;
+            File = file;
         }
-        public string Name { get; }
+        public string File { get; }
     }
 }
