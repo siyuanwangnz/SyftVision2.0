@@ -47,7 +47,7 @@
                                                     <StackPanel>
                                                         <ToolBarTray>
                                                             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                                                                <ComboBox ItemsSource="{Binding MatchLevel}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Intensity Level" Width="130" Margin="5"/>
+                                                                <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Intensity Level" Width="130" Margin="5"/>
                                                                 <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=ViewList}" Command="{Binding MatchCommand}"/>
                                                             </ToolBar>
                                                         </ToolBarTray>

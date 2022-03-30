@@ -123,7 +123,7 @@ namespace BatchConfig.ViewModels
 
                                 BatchTittle = batchProp.Tittle;
                                 BatchSubTittle = batchProp.SubTittle;
-                                MethodsList = batchProp.MethodsList;
+                                MethodList = batchProp.MethodList;
                                 ChartPropList = batchProp.ChartPropList;
                             }
                         });
@@ -147,7 +147,7 @@ namespace BatchConfig.ViewModels
                         return;
                     }
 
-                    BatchProp batchProp = new BatchProp(BatchTittle, BatchSubTittle, MethodsList, ChartPropList);
+                    BatchProp batchProp = new BatchProp(BatchTittle, BatchSubTittle, MethodList, ChartPropList);
 
                     try
                     {
@@ -181,7 +181,7 @@ namespace BatchConfig.ViewModels
                             if (arg.Result == ButtonResult.OK)
                             {
                                 string selectedBatchFile = arg.Parameters.GetValue<string>("selectedBatchFile");
-                                MethodsList = _instrumentServer.GetMethodListFromBatchFile(selectedBatchFile);
+                                MethodList = _instrumentServer.GetMethodListFromBatchFile(selectedBatchFile);
                             }
 
                         });
@@ -222,18 +222,18 @@ namespace BatchConfig.ViewModels
                 {
                     ObservableCollection<string> chartCodeList = SelectedMethod.ChartCodeList;
 
-                    MethodsList.Remove(SelectedMethod);
+                    MethodList.Remove(SelectedMethod);
 
-                    if (MethodsList.Count == 0)
+                    if (MethodList.Count == 0)
                     {
-                        MethodsList.Add(new Method());
+                        MethodList.Add(new Method());
                         ChartPropList.Clear();
                         return;
                     }
 
                     // Get non-repetitive chart code list
                     ObservableCollection<string> chartCodeFullList = new ObservableCollection<string>();
-                    foreach (var method in MethodsList) chartCodeFullList.AddRange(method.ChartCodeList);
+                    foreach (var method in MethodList) chartCodeFullList.AddRange(method.ChartCodeList);
                     chartCodeFullList = new ObservableCollection<string>(new HashSet<string>(chartCodeFullList));
 
                     foreach (var chartCode in chartCodeList)
@@ -252,7 +252,7 @@ namespace BatchConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    MethodsList.Insert(MethodsList.IndexOf(SelectedMethod), new Method());
+                    MethodList.Insert(MethodList.IndexOf(SelectedMethod), new Method());
                 });
             }
         }
@@ -262,7 +262,7 @@ namespace BatchConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    MethodsList.Insert(MethodsList.IndexOf(SelectedMethod) + 1, new Method());
+                    MethodList.Insert(MethodList.IndexOf(SelectedMethod) + 1, new Method());
                 });
             }
         }
@@ -280,7 +280,7 @@ namespace BatchConfig.ViewModels
 
                         // Get non-repetitive chart code list
                         ObservableCollection<string> chartCodeFullList = new ObservableCollection<string>();
-                        foreach (var method in MethodsList) chartCodeFullList.AddRange(method.ChartCodeList);
+                        foreach (var method in MethodList) chartCodeFullList.AddRange(method.ChartCodeList);
                         chartCodeFullList = new ObservableCollection<string>(new HashSet<string>(chartCodeFullList));
 
                         if (!chartCodeFullList.Contains(selectedChartCode) && ChartPropList.Select(a => a.Code).ToList().Contains(selectedChartCode))
@@ -303,11 +303,11 @@ namespace BatchConfig.ViewModels
                 });
             }
         }
-        private ObservableCollection<Method> _methodsList = new ObservableCollection<Method>() { new Method() };
-        public ObservableCollection<Method> MethodsList
+        private ObservableCollection<Method> _methodList = new ObservableCollection<Method>() { new Method() };
+        public ObservableCollection<Method> MethodList
         {
-            get => _methodsList;
-            set => SetProperty(ref _methodsList, value);
+            get => _methodList;
+            set => SetProperty(ref _methodList, value);
         }
         private Method _selectedMethod;
         public Method SelectedMethod

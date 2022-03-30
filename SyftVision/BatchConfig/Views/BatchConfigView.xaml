@@ -84,7 +84,7 @@
 
                 <Grid Grid.Row="1">
                     <DataGrid AutoGenerateColumns="False" IsReadOnly="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ItemsSource="{Binding MethodsList}"
+                      ItemsSource="{Binding MethodList}"
                       SelectedItem="{Binding SelectedMethod}">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Scan Method" DisplayIndex="0">

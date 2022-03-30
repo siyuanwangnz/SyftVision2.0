@@ -57,7 +57,7 @@ namespace ChartConfig.ViewModels
                                 SubTittle = chartProp.SubTittle;
                                 SelectedExpectedRange = chartProp.ExpectedRange;
                                 SelectedPhase = chartProp.Phase;
-                                ComponentsList = chartProp.ComponentsList;
+                                ComponentList = chartProp.ComponentList;
                             }
                         });
                     }
@@ -80,7 +80,7 @@ namespace ChartConfig.ViewModels
                         return;
                     }
 
-                    ChartProp chartProp = new ChartProp(SelectedChartType, Tittle, SubTittle, SelectedExpectedRange, SelectedPhase, ComponentsList);
+                    ChartProp chartProp = new ChartProp(SelectedChartType, Tittle, SubTittle, SelectedExpectedRange, SelectedPhase, ComponentList);
 
                     try
                     {
@@ -104,8 +104,8 @@ namespace ChartConfig.ViewModels
                         MessageBox.Show($"Chart Type can not be empty", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
-                    ComponentsList = new ObservableCollection<Component> { };
-                    ComponentsList.Add(SelectedChartType.Component.Copy());
+                    ComponentList = new ObservableCollection<Component> { };
+                    ComponentList.Add(SelectedChartType.Component.Copy());
                 });
             }
         }
@@ -160,12 +160,12 @@ namespace ChartConfig.ViewModels
         }
         #endregion
 
-        #region Components list
-        private ObservableCollection<Component> _componentsList;
-        public ObservableCollection<Component> ComponentsList
+        #region Component list
+        private ObservableCollection<Component> _componentList;
+        public ObservableCollection<Component> ComponentList
         {
-            get => _componentsList;
-            set => SetProperty(ref _componentsList, value);
+            get => _componentList;
+            set => SetProperty(ref _componentList, value);
         }
         private Component _selectedComponent;
         public Component SelectedComponent
@@ -179,7 +179,7 @@ namespace ChartConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    ComponentsList.Insert(ComponentsList.IndexOf(SelectedComponent), SelectedChartType.Component.Copy());
+                    ComponentList.Insert(ComponentList.IndexOf(SelectedComponent), SelectedChartType.Component.Copy());
                 });
             }
         }
@@ -189,7 +189,7 @@ namespace ChartConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    ComponentsList.Insert(ComponentsList.IndexOf(SelectedComponent) + 1, SelectedChartType.Component.Copy());
+                    ComponentList.Insert(ComponentList.IndexOf(SelectedComponent) + 1, SelectedChartType.Component.Copy());
                 });
             }
         }

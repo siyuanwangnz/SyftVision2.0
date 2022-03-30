@@ -159,11 +159,11 @@ namespace BatchAnalysis.ViewModels
             }
         }
         // Match pop box
-        private ObservableCollection<int> _matchLevel = new ObservableCollection<int>() { 0, 1, 2 };
-        public ObservableCollection<int> MatchLevel
+        private ObservableCollection<int> _matchLevelList = new ObservableCollection<int>() { 0, 1, 2 };
+        public ObservableCollection<int> MatchLevelList
         {
-            get => _matchLevel;
-            set => SetProperty(ref _matchLevel, value);
+            get => _matchLevelList;
+            set => SetProperty(ref _matchLevelList, value);
         }
         private int _selectedMatchLevel = 2;
         public int SelectedMatchLevel

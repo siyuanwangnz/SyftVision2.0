@@ -10,14 +10,14 @@ namespace Public.ChartConfig
 {
     public class ChartProp
     {
-        public ChartProp(ChartType chartType, string tittle, string subTittle, string expectedRange, string phase, ObservableCollection<Component> componentsList)
+        public ChartProp(ChartType chartType, string tittle, string subTittle, string expectedRange, string phase, ObservableCollection<Component> componentList)
         {
             ChartType = chartType;
             Tittle = tittle;
             SubTittle = subTittle;
             ExpectedRange = expectedRange;
             Phase = phase;
-            ComponentsList = componentsList;
+            ComponentList = componentList;
         }
         public ChartProp(XElement rootNode)
         {
@@ -29,7 +29,7 @@ namespace Public.ChartConfig
                 ExpectedRange = rootNode.Attribute("ExpectedRange").Value;
                 Phase = rootNode.Attribute("Phase").Value;
 
-                ComponentsList = new ObservableCollection<Component>();
+                ComponentList = new ObservableCollection<Component>();
                 foreach (var componentNode in rootNode.Elements("Component"))
                 {
                     Component component = ChartType.Component.Copy();
@@ -37,7 +37,7 @@ namespace Public.ChartConfig
                     component.Reagent = componentNode.Attribute("Reagent").Value;
                     component.Production = componentNode.Attribute("Production").Value;
                     component.Limit = double.Parse(componentNode.Attribute("Limit").Value);
-                    ComponentsList.Add(component);
+                    ComponentList.Add(component);
                 }
 
             }
@@ -54,7 +54,7 @@ namespace Public.ChartConfig
         public string Code => $"{Tittle}|{SubTittle}({ChartType.FullName})";
         public string ExpectedRange { get; private set; }
         public string Phase { get; private set; }
-        public ObservableCollection<Component> ComponentsList { get; private set; }
+        public ObservableCollection<Component> ComponentList { get; private set; }
 
         public XElement XMLGeneration()
         {
@@ -65,9 +65,9 @@ namespace Public.ChartConfig
                 new XAttribute("ExpectedRange", ExpectedRange),
                 new XAttribute("Phase", Phase));
 
-            if (ComponentsList != null)
+            if (ComponentList != null)
             {
-                foreach (var component in ComponentsList)
+                foreach (var component in ComponentList)
                 {
                     rootNode.Add(new XElement("Component",
                         new XAttribute("Compound", component.Compound),
