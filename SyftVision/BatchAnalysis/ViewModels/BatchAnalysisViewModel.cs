@@ -73,6 +73,16 @@ namespace BatchAnalysis.ViewModels
             ChartList = new ObservableCollection<ResultChart>() { chart, chart1 };
             #endregion
 
+            #region matched batch list test
+            MatchedBatchList = new ObservableCollection<MatchedBatch>();
+            MatchedBatchList.Add(new MatchedBatch("123",true));
+            MatchedBatchList.Add(new MatchedBatch("qwe", true));
+            MatchedBatchList.Add(new MatchedBatch("asd", true));
+            MatchedBatchList.Add(new MatchedBatch("zxc", true));
+            MatchedBatchList.Add(new MatchedBatch("vbn", true));
+            MatchedBatchList.Add(new MatchedBatch("vbn1", false));
+            #endregion
+
         }
 
         #region Toolbar
@@ -155,6 +165,10 @@ namespace BatchAnalysis.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    foreach (var item in MatchedBatchList)
+                    {
+                        Console.WriteLine(item.TestName+item.IsChecked);
+                    }
                 });
             }
         }
@@ -170,6 +184,12 @@ namespace BatchAnalysis.ViewModels
         {
             get => _selectedMatchLevel;
             set => SetProperty(ref _selectedMatchLevel, value);
+        }
+        private ObservableCollection<MatchedBatch> _matchedBatchList;
+        public ObservableCollection<MatchedBatch> MatchedBatchList
+        {
+            get => _matchedBatchList;
+            set => SetProperty(ref _matchedBatchList, value);
         }
         public DelegateCommand MatchCommand
         {

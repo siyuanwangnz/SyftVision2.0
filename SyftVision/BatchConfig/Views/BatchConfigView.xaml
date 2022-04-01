@@ -29,8 +29,8 @@
                     <StackPanel>
                         <ToolBarTray>
                             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                                <TextBox materialDesign:HintAssist.Hint="Selected Tittle" Text="{Binding ChartTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="5"/>
-                                <TextBox materialDesign:HintAssist.Hint="And Sub-Tittle" Text="{Binding ChartSubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="5"/>
+                                <TextBox materialDesign:HintAssist.Hint="Selected Tittle" Text="{Binding ChartTittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="5"/>
+                                <TextBox materialDesign:HintAssist.Hint="And Sub-Tittle" Text="{Binding ChartSubTittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="5"/>
                                 <Separator/>
                                 <Button ToolTip="Refresh" Content="{materialDesign:PackIcon Kind=Refresh}" Command="{Binding RefreshCommand}"/>
                             </ToolBar>
@@ -144,7 +144,7 @@
                     <DataGridTemplateColumn Header="Chart List">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox Content="{Binding Code}" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" IsChecked="True" IsEnabled="False"/>
+                                <RadioButton Content="{Binding Code}" Style="{StaticResource MaterialDesignChoiceChipPrimaryRadioButton}" IsChecked="True" IsEnabled="False"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

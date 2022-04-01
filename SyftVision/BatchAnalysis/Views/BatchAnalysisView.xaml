@@ -25,8 +25,8 @@
                         <ToolBarTray>
                             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
                                 <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=SelectionSearch}" Command="{Binding SelectCommand}"/>
-                                <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
-                                <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
+                                <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
+                                <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
                                 <Separator/>
                                 <DatePicker materialDesign:HintAssist.Hint="Start Date" SelectedDate="{Binding StartDate}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Focusable="False" Width="125" Margin="5"/>
                                 <materialDesign:TimePicker materialDesign:HintAssist.Hint="Start Time" SelectedTime="{Binding StartTime}" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" Focusable="False" WithSeconds="True" Is24Hours="True" Width="125" Margin="5"/>
@@ -55,13 +55,14 @@
                                                 </Grid>
 
                                                 <Grid Grid.Row="1">
-                                                    <DataGrid MinWidth="300" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                    <DataGrid MinWidth="300" MaxHeight="300" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                                                               ItemsSource="{Binding MatchedBatchList}">
                                                         <DataGrid.Columns>
                                                             <DataGridTemplateColumn Header="Matched Batch List">
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
-
+                                                                        <CheckBox ToolTip="Multi-Selection Will Merge Scans" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" 
+                                                                                  Content="{Binding TestName}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                                                     </DataTemplate>
                                                                 </DataGridTemplateColumn.CellTemplate>
                                                             </DataGridTemplateColumn>
