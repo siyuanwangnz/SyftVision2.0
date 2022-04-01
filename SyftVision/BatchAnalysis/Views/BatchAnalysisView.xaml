@@ -36,7 +36,7 @@
                                     <Button.Content>
                                         <materialDesign:PopupBox ToolTip="Match" StaysOpen="True">
                                             <materialDesign:PopupBox.ToggleContent>
-                                                <materialDesign:PackIcon Kind="FormatListChecks" />
+                                                <materialDesign:PackIcon Kind="ViewList" />
                                             </materialDesign:PopupBox.ToggleContent>
                                             <Grid MinWidth="300" Margin="5">
                                                 <Grid.RowDefinitions>
@@ -48,7 +48,7 @@
                                                         <ToolBarTray>
                                                             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
                                                                 <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Intensity Level" Width="130" Margin="5"/>
-                                                                <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=ViewList}" Command="{Binding MatchCommand}"/>
+                                                                <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=FormatListChecks}" Command="{Binding MatchCommand}"/>
                                                             </ToolBar>
                                                         </ToolBarTray>
                                                     </StackPanel>
