@@ -55,7 +55,7 @@
                                                 </Grid>
 
                                                 <Grid Grid.Row="1">
-                                                    <DataGrid MinWidth="300" AutoGenerateColumns="False" CanUserReorderColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                    <DataGrid MinWidth="300" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                                                               ItemsSource="{Binding MatchedBatchList}">
                                                         <DataGrid.Columns>
                                                             <DataGridTemplateColumn Header="Matched Batch List">
@@ -85,8 +85,8 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <DataGrid AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ItemsSource="{Binding ChartList}">
+                <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ItemsSource="{Binding ChartList}">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Chart List">
                             <DataGridTemplateColumn.CellTemplate>
@@ -101,7 +101,7 @@
         </Grid>
 
         <materialDesign:DrawerHost.RightDrawerContent>
-            <DataGrid MinWidth="500" AutoGenerateColumns="False" IsReadOnly="True" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+            <DataGrid MinWidth="500" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding ScanList}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Scan List">

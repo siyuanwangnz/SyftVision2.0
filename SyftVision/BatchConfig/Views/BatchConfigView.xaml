@@ -83,9 +83,8 @@
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <DataGrid AutoGenerateColumns="False" IsReadOnly="False" CanUserReorderColumns="False" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ItemsSource="{Binding MethodList}"
-                      SelectedItem="{Binding SelectedMethod}">
+                    <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              ItemsSource="{Binding MethodList}" SelectedItem="{Binding SelectedMethod}">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Scan Method" DisplayIndex="0">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -139,7 +138,7 @@
         </Grid>
 
         <materialDesign:DrawerHost.RightDrawerContent>
-            <DataGrid MinWidth="250" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="True" CanUserSortColumns="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+            <DataGrid MinWidth="250" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding ChartPropList}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Chart List">
