@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Public.Instrument;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace BatchAnalysis.Models
             IsChecked = isChecked;
         }
         public string TestName { get; set; }
-        public List<Scan> ScansList { get; set; }
+        public List<ScanFile> ScansList { get; set; }
         public bool IsChecked { get; set; }
 
     }

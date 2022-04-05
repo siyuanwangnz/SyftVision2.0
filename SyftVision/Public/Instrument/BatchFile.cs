@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Public.Batch
+namespace Public.Instrument
 {
     public class BatchFile
     {

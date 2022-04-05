@@ -1,4 +1,4 @@
-﻿using Public.Batch;
+﻿using Public.Instrument;
 using Public.BatchConfig;
 using Public.ChartConfig;
 using Public.Global;

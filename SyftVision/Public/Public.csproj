@@ -57,12 +57,13 @@
   <ItemGroup>
     <Compile Include="BatchConfig\BatchProp.cs" />
     <Compile Include="BatchConfig\Method.cs" />
-    <Compile Include="Batch\BatchFile.cs" />
-    <Compile Include="Batch\BatchItem.cs" />
+    <Compile Include="Instrument\BatchFile.cs" />
+    <Compile Include="Instrument\BatchItem.cs" />
     <Compile Include="Event\MessageEvent.cs" />
     <Compile Include="Global\Global.cs" />
     <Compile Include="Global\MyMath.cs" />
     <Compile Include="Global\Options.cs" />
+    <Compile Include="Instrument\ScanFile.cs" />
     <Compile Include="TreeList\BindableSelectedItemBehavior .cs" />
     <Compile Include="ChartConfig\ChartProp.cs" />
     <Compile Include="ChartConfig\ChartType.cs" />

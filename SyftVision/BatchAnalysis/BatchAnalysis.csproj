@@ -52,7 +52,6 @@
     <Compile Include="BatchAnalysisModule.cs" />
     <Compile Include="Models\MatchedBatch.cs" />
     <Compile Include="Models\ResultChart.cs" />
-    <Compile Include="Models\Scan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
