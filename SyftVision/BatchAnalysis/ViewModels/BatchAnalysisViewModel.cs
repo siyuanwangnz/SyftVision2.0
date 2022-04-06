@@ -168,9 +168,9 @@ namespace BatchAnalysis.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    foreach (var item in MatchedBatchList)
+                    foreach (var item in _syftDataHub.MatchedBatchList)
                     {
-                        Console.WriteLine();
+                        Console.WriteLine(item.IsChecked);
                     }
                 });
             }
