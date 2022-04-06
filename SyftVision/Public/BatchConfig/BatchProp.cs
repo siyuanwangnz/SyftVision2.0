@@ -29,7 +29,7 @@ namespace Public.BatchConfig
                 foreach (var methodNode in rootNode.Elements("Method"))
                 {
                     Method method = new Method();
-                    method.MethodName = methodNode.Attribute("MethodName").Value;
+                    method.Name = methodNode.Attribute("Name").Value;
 
                     foreach (var chartCodeNode in methodNode.Elements("ChartCode"))
                         method.ChartCodeList.Add(chartCodeNode.Value);
@@ -64,7 +64,7 @@ namespace Public.BatchConfig
                 foreach (var method in MethodList)
                 {
                     XElement methodElement = new XElement(new XElement("Method",
-                        new XAttribute("MethodName", method.MethodName)));
+                        new XAttribute("Name", method.Name)));
 
                     foreach (var chartCode in method.ChartCodeList)
                         methodElement.Add(new XElement("ChartCode", chartCode));

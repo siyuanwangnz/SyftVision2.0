@@ -118,7 +118,7 @@ namespace Public.Instrument
             foreach (var methodName in mainList)
             {
                 Method method = new Method();
-                method.MethodName = methodName;
+                method.Name = methodName;
                 methodsList.Add(method);
             }
             return methodsList;

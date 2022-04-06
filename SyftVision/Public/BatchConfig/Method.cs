@@ -10,7 +10,7 @@ namespace Public.BatchConfig
 {
     public class Method
     {
-        public string MethodName { get; set; } = "";
+        public string Name { get; set; } = "";
         public ObservableCollection<string> ChartCodeList { get; set; } = new ObservableCollection<string>();
     }
 }
