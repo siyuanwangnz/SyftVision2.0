@@ -9,13 +9,12 @@ namespace BatchAnalysis.Models
 {
     public class MatchedBatch
     {
-        public MatchedBatch(string testName, bool isChecked)
+        public MatchedBatch(List<ScanFile> scanList)
         {
-            TestName = testName;
-            IsChecked = isChecked;
+            ScanList = scanList;
         }
-        public string TestName { get; set; }
-        public List<ScanFile> ScansList { get; set; }
+        public string Name { get => ScanList.First().Date_Time; }
+        public List<ScanFile> ScanList { get; }
         public bool IsChecked { get; set; }
 
     }

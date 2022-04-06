@@ -62,7 +62,7 @@
                                                                 <DataGridTemplateColumn.CellTemplate>
                                                                     <DataTemplate>
                                                                         <CheckBox ToolTip="Multi-Selection Will Merge Scans" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" 
-                                                                                  Content="{Binding TestName}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                                                  Content="{Binding Name}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                                                     </DataTemplate>
                                                                 </DataGridTemplateColumn.CellTemplate>
                                                             </DataGridTemplateColumn>

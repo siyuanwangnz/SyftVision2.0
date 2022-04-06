@@ -15,7 +15,7 @@ namespace Public.BatchConfig
         {
             Tittle = tittle;
             SubTittle = subTittle;
-            MethodList = methodList;
+            MethodList = new ObservableCollection<Method>(methodList.Where(a => !(string.IsNullOrEmpty(a.Name) || string.IsNullOrWhiteSpace(a.Name))));
             ChartPropList = chartPropList;
         }
         public BatchProp(XElement rootNode)

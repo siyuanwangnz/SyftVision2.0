@@ -23,11 +23,13 @@ namespace Public.SFTP
         private string LocalBatchTempFilePath => LocalBatchPath + LocalBatchTempFile;
 
         private readonly string RemoteScanPath = "/usr/local/syft/data/";
+        private readonly string LocalScanPath = "./Temp/Scan/";
 
         public InstrumentServer(string ipAddress, Options options) : base(ipAddress, options.Port, options.User, options.Password)
         {
             // Check local directory
             if (!Directory.Exists(LocalBatchPath)) Directory.CreateDirectory(LocalBatchPath);
+            if (!Directory.Exists(LocalScanPath)) Directory.CreateDirectory(LocalScanPath);
         }
 
         public ObservableCollection<string> GetBatchFileList()
@@ -111,6 +113,39 @@ namespace Public.SFTP
                 Disconnect();
             }
 
+        }
+
+        public void ClearLocalScanPath()
+        {
+            if (Directory.Exists(LocalScanPath)) new DirectoryInfo(LocalScanPath).Delete(true);
+        }
+
+        public void DownloadScanFileList(List<ScanFile> scanFileList)
+        {
+            try
+            {
+                // Create directory
+                string folder = scanFileList.First().Date_Time;
+                Directory.CreateDirectory(LocalScanPath + folder);
+
+                Connect();
+
+                foreach (var scanFile in scanFileList)
+                {
+                    scanFile.FullLocalFolder = LocalScanPath + folder;
+                    DownloadFile(RemoteScanPath + scanFile.RemoteFilePath, scanFile.FullLocalFilePath);
+                }
+
+                Disconnect();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
         }
     }
 }

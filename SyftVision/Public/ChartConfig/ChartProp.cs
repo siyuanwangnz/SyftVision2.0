@@ -17,7 +17,14 @@ namespace Public.ChartConfig
             SubTittle = subTittle;
             ExpectedRange = expectedRange;
             Phase = phase;
-            ComponentList = componentList;
+
+            ComponentList = new ObservableCollection<Component>(componentList.Where(a =>
+            {
+                if (a.CompoundEnable == true && (string.IsNullOrEmpty(a.Compound) || string.IsNullOrWhiteSpace(a.Compound))) return false;
+                if (a.ReagentEnable == true && (string.IsNullOrEmpty(a.Reagent) || string.IsNullOrWhiteSpace(a.Reagent))) return false;
+                if (a.ProductionEnable == true && (string.IsNullOrEmpty(a.Production) || string.IsNullOrWhiteSpace(a.Production))) return false;
+                return true;
+            }));
         }
         public ChartProp(XElement rootNode)
         {

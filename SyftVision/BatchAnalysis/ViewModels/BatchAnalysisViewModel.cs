@@ -1,4 +1,5 @@
 ﻿using BatchAnalysis.Models;
+using BatchAnalysis.Services;
 using ChartDirector;
 using Prism.Commands;
 using Prism.Events;
@@ -20,6 +21,8 @@ namespace BatchAnalysis.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IDialogService _dialogService;
         private readonly SyftServer _syftServer;
+        private InstrumentServer _instrumentServer;
+        private SyftDataHub _syftDataHub;
         private BatchProp SelectedBatchProp;
         public BatchAnalysisViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
@@ -74,13 +77,13 @@ namespace BatchAnalysis.ViewModels
             #endregion
 
             #region matched batch list test
-            MatchedBatchList = new ObservableCollection<MatchedBatch>();
-            MatchedBatchList.Add(new MatchedBatch("123",true));
-            MatchedBatchList.Add(new MatchedBatch("qwe", true));
-            MatchedBatchList.Add(new MatchedBatch("asd", true));
-            MatchedBatchList.Add(new MatchedBatch("zxc", true));
-            MatchedBatchList.Add(new MatchedBatch("vbn", true));
-            MatchedBatchList.Add(new MatchedBatch("vbn1", false));
+            //MatchedBatchList = new ObservableCollection<MatchedBatch>();
+            //MatchedBatchList.Add(new MatchedBatch("123", true));
+            //MatchedBatchList.Add(new MatchedBatch("qwe", true));
+            //MatchedBatchList.Add(new MatchedBatch("asd", true));
+            //MatchedBatchList.Add(new MatchedBatch("zxc", true));
+            //MatchedBatchList.Add(new MatchedBatch("vbn", true));
+            //MatchedBatchList.Add(new MatchedBatch("vbn1", false));
             #endregion
 
         }
@@ -167,20 +170,20 @@ namespace BatchAnalysis.ViewModels
                 {
                     foreach (var item in MatchedBatchList)
                     {
-                        Console.WriteLine(item.TestName+item.IsChecked);
+                        Console.WriteLine();
                     }
                 });
             }
         }
         // Match pop box
-        private ObservableCollection<int> _matchLevelList = new ObservableCollection<int>() { 0, 1, 2 };
-        public ObservableCollection<int> MatchLevelList
+        private ObservableCollection<string> _matchLevelList = new ObservableCollection<string>() { "Low", "High" };
+        public ObservableCollection<string> MatchLevelList
         {
             get => _matchLevelList;
             set => SetProperty(ref _matchLevelList, value);
         }
-        private int _selectedMatchLevel = 2;
-        public int SelectedMatchLevel
+        private string _selectedMatchLevel = "High";
+        public string SelectedMatchLevel
         {
             get => _selectedMatchLevel;
             set => SetProperty(ref _selectedMatchLevel, value);
@@ -197,6 +200,25 @@ namespace BatchAnalysis.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
+
+                    try
+                    {
+                        if (SelectedBatchProp == null)
+                        {
+                            MessageBox.Show($"Please select a Batch Config", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+                        _syftDataHub = new SyftDataHub(SelectedBatchProp, new SyftMatch(_instrumentServer.GetScanFileList(StartDate, StartTime), SelectedMatchLevel));
+
+                        MatchedBatchList = new ObservableCollection<MatchedBatch>(_syftDataHub.MatchedBatchList);
+
+                        if(MatchedBatchList.Count == 0) MessageBox.Show($"No matched batches", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 });
             }
         }

@@ -32,6 +32,9 @@ namespace Public.Instrument
         }
         public string File { get; }
         public string RemoteFolder { get; }
+        public string RemoteFilePath { get => $"{RemoteFolder}/{File}"; }
+        public string FullLocalFolder { get; set; } = "";
+        public string FullLocalFilePath { get => $"{FullLocalFolder}/{File}"; }
         public string Name { get; }
         public string NameCode { get; }
         public int NameHashCode { get; }

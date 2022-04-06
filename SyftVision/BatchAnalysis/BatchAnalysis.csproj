@@ -52,6 +52,7 @@
     <Compile Include="BatchAnalysisModule.cs" />
     <Compile Include="Models\MatchedBatch.cs" />
     <Compile Include="Models\ResultChart.cs" />
+    <Compile Include="Models\SyftDataHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -65,7 +66,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Services\Match.cs" />
+    <Compile Include="Services\SyftMatch.cs" />
     <Compile Include="ViewModels\BatchAnalysisViewModel.cs" />
     <Compile Include="ViewModels\SyftBatchDialogViewModel.cs" />
     <Compile Include="Views\BatchAnalysisView.cs">
