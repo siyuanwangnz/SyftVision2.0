@@ -118,7 +118,7 @@ namespace Public.SFTP
 
                 Connect();
                 // Check existing chart config
-                if (Exist(remoteFolderPath + chartProp.FileName))
+                if (Exist(remoteFolderPath + chartProp.File))
                 {
                     MessageBoxResult messageBoxResult = MessageBox.Show($"The chart file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (messageBoxResult == MessageBoxResult.No) return;
@@ -126,7 +126,7 @@ namespace Public.SFTP
 
                 // Upload file
                 if (!Exist(remoteFolderPath)) CreateDirectory(remoteFolderPath);
-                UploadFile(remoteFolderPath + chartProp.FileName, LocalChartTempFilePath);
+                UploadFile(remoteFolderPath + chartProp.File, LocalChartTempFilePath);
                 Disconnect();
                 MessageBox.Show("Chart has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
             }
