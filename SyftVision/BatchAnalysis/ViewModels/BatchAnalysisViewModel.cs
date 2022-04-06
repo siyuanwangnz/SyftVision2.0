@@ -76,16 +76,6 @@ namespace BatchAnalysis.ViewModels
             ChartList = new ObservableCollection<ResultChart>() { chart, chart1 };
             #endregion
 
-            #region matched batch list test
-            //MatchedBatchList = new ObservableCollection<MatchedBatch>();
-            //MatchedBatchList.Add(new MatchedBatch("123", true));
-            //MatchedBatchList.Add(new MatchedBatch("qwe", true));
-            //MatchedBatchList.Add(new MatchedBatch("asd", true));
-            //MatchedBatchList.Add(new MatchedBatch("zxc", true));
-            //MatchedBatchList.Add(new MatchedBatch("vbn", true));
-            //MatchedBatchList.Add(new MatchedBatch("vbn1", false));
-            #endregion
-
         }
 
         #region Toolbar
@@ -147,7 +137,7 @@ namespace BatchAnalysis.ViewModels
             get => _startTime;
             set => SetProperty(ref _startTime, value);
         }
-        private string _ipAddress = "10.0.16.209";
+        private string _ipAddress = "10.0.17.199";
         public string IPAddress
         {
             get => _ipAddress;

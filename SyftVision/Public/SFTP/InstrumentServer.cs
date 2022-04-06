@@ -97,7 +97,7 @@ namespace Public.SFTP
 
                 Disconnect();
 
-                scanFileList = scanFileList.Where(x => string.CompareOrdinal(x.Time, _time) >= 0).ToList();
+                scanFileList = scanFileList.Where(x => !(string.CompareOrdinal(x.RemoteFolder, _date) == 0 && string.CompareOrdinal(x.Time, _time) < 0)).ToList();
 
                 // Order scan list (ascending comparing by Date Time and then ID)
                 scanFileList.Sort((a, b) => a.Date_Time.CompareTo(b.Date_Time) == 0 ? a.ID.CompareTo(b.ID) : a.Date_Time.CompareTo(b.Date_Time));
