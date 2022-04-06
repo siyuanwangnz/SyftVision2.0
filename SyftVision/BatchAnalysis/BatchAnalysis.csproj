@@ -65,6 +65,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Services\Match.cs" />
     <Compile Include="ViewModels\BatchAnalysisViewModel.cs" />
     <Compile Include="ViewModels\SyftBatchDialogViewModel.cs" />
     <Compile Include="Views\BatchAnalysisView.cs">
@@ -136,8 +137,6 @@
       <Version>2.0.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

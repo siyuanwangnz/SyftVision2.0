@@ -19,6 +19,8 @@ namespace Public.Instrument
 
             NameCode = Name.ToLower().Replace(" ", "");
 
+            NameHashCode = NameCode.GetHashCode();
+
             string id = Regex.Match(File, @"-(\d+)-\d{8}-\d{6}\.xml$").Groups[1].Value;
             ID = int.Parse(id == "" ? "0" : id);
 
@@ -32,6 +34,7 @@ namespace Public.Instrument
         public string RemoteFolder { get; }
         public string Name { get; }
         public string NameCode { get; }
+        public int NameHashCode { get; }
         public int ID { get; }
         public string Date_Time { get; }
         public string Date { get; }
