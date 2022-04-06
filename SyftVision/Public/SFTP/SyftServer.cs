@@ -170,7 +170,7 @@ namespace Public.SFTP
 
                 Connect();
                 // Check existing chart config
-                if (Exist(remoteFolderPath + batchProp.FileName))
+                if (Exist(remoteFolderPath + batchProp.File))
                 {
                     MessageBoxResult messageBoxResult = MessageBox.Show($"The batch file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (messageBoxResult == MessageBoxResult.No) return;
@@ -178,7 +178,7 @@ namespace Public.SFTP
 
                 // Upload file
                 if (!Exist(remoteFolderPath)) CreateDirectory(remoteFolderPath);
-                UploadFile(remoteFolderPath + batchProp.FileName, LocalBatchTempFilePath);
+                UploadFile(remoteFolderPath + batchProp.File, LocalBatchTempFilePath);
                 Disconnect();
                 MessageBox.Show("Batch has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
             }
