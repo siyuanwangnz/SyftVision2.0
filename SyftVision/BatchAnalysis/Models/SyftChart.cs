@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace BatchAnalysis.Models
 {
-    public class ResultChart
+    public class SyftChart
     {
-        public ResultChart(BaseChart chart)
+        public SyftChart(BaseChart chart)
         {
             Chart = chart;
         }

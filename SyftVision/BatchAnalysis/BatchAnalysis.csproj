@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="BatchAnalysisModule.cs" />
     <Compile Include="Models\MatchedBatch.cs" />
-    <Compile Include="Models\ResultChart.cs" />
+    <Compile Include="Models\SyftChart.cs" />
     <Compile Include="Models\SyftDataHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

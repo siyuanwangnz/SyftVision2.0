@@ -74,10 +74,10 @@ namespace BatchAnalysis.ViewModels
             // Set the labels on the x axis.
             c1.xAxis().setLabels(labels);
 
-            ResultChart chart = new ResultChart(c);
-            ResultChart chart1 = new ResultChart(c1);
+            SyftChart chart = new SyftChart(c);
+            SyftChart chart1 = new SyftChart(c1);
 
-            ChartList = new ObservableCollection<ResultChart>() { chart, chart1 };
+            ChartList = new ObservableCollection<SyftChart>() { chart, chart1 };
             #endregion
 
         }
@@ -238,8 +238,8 @@ namespace BatchAnalysis.ViewModels
         }
         #endregion
 
-        private ObservableCollection<ResultChart> _chartList;
-        public ObservableCollection<ResultChart> ChartList
+        private ObservableCollection<SyftChart> _chartList;
+        public ObservableCollection<SyftChart> ChartList
         {
             get => _chartList;
             set => SetProperty(ref _chartList, value);

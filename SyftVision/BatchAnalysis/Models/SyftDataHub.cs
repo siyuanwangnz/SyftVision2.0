@@ -18,6 +18,7 @@ namespace BatchAnalysis.Models
         }
         public BatchProp BatchProp { get; }
         public List<MatchedBatch> MatchedBatchList { get; }
+        private List<MatchedBatch> SelectedBatchList { get => MatchedBatchList.Where(a => a.IsChecked == true).ToList(); }
 
     }
 }
