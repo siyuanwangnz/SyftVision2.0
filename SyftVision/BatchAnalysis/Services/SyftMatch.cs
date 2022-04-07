@@ -21,24 +21,30 @@ namespace BatchAnalysis.Services
         public string MatchLevel { get; }
         public List<MatchedBatch> GetMatchedBatchList(BatchProp batchProp)
         {
+            List<MatchedBatch> matchedBatchList = new List<MatchedBatch>();
+
             List<int> indexList = new List<int>();
             switch (MatchLevel)
             {
                 case "High":
                     indexList = GetHighLevelMatchedIndex(ScanFileList.Select(a => a.NameHashCode).ToList(),
                         batchProp.MethodList.Select(a => a.NameHashCode).ToList());
+                    foreach (var index in indexList)
+                        matchedBatchList.Add(new MatchedBatch(ScanFileList.GetRange(index, batchProp.MethodList.Count)));
                     break;
                 case "Low":
                     indexList = GetLowLevelMatchedIndex(ScanFileList.Select(a => a.NameHashCode).ToList(),
                         batchProp.MethodList.Select(a => a.NameHashCode).ToList());
+                    foreach (var index in indexList)
+                    {
+                        List<ScanFile> scanFileList = ScanFileList.GetRange(index, batchProp.MethodList.Count);
+                        ReorderScanFileList(scanFileList, batchProp);
+                        matchedBatchList.Add(new MatchedBatch(scanFileList));
+                    }
                     break;
                 default:
                     break;
             }
-
-            List<MatchedBatch> matchedBatchList = new List<MatchedBatch>();
-            foreach (var index in indexList)
-                matchedBatchList.Add(new MatchedBatch(ScanFileList.GetRange(index, batchProp.MethodList.Count)));
 
             return matchedBatchList;
         }
@@ -66,6 +72,23 @@ namespace BatchAnalysis.Services
                 }
             }
             return indexList;
+        }
+
+        private void ReorderScanFileList(List<ScanFile> scanFileList, BatchProp batchProp)
+        {
+            int count = scanFileList.Count;
+            for (int i = 0; i < count; i++)
+            {
+                if (scanFileList[i].NameHashCode != batchProp.MethodList[i].NameHashCode)
+                {
+                    int index = scanFileList.FindIndex(i, count - i, e => e.NameHashCode == batchProp.MethodList[i].NameHashCode);
+
+                    scanFileList.Insert(i, scanFileList[index]);
+
+                    scanFileList.RemoveAt(index + 1);
+                }
+
+            }
         }
 
     }
