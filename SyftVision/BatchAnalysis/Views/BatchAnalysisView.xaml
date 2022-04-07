@@ -31,7 +31,7 @@
                                 <DatePicker materialDesign:HintAssist.Hint="Start Date" SelectedDate="{Binding StartDate}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Focusable="False" Width="125" Margin="5"/>
                                 <materialDesign:TimePicker materialDesign:HintAssist.Hint="Start Time" SelectedTime="{Binding StartTime}" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" Focusable="False" WithSeconds="True" Is24Hours="True" Width="125" Margin="5"/>
                                 <Separator/>
-                                <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="70" Margin="5"/>
+                                <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
                                 <Button>
                                     <Button.Content>
                                         <materialDesign:PopupBox ToolTip="Match" StaysOpen="True">
@@ -47,8 +47,9 @@
                                                     <StackPanel>
                                                         <ToolBarTray>
                                                             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                                                                <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Intensity Level" Width="130" Margin="5"/>
+                                                                <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Level" Width="125" Margin="5"/>
                                                                 <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=FormatListChecks}" Command="{Binding MatchCommand}"/>
+                                                                <Button ToolTip="Troubleshoot" Content="{materialDesign:PackIcon Kind=Eye}" Command="{Binding TroubleshootCommand}"/>
                                                             </ToolBar>
                                                         </ToolBarTray>
                                                     </StackPanel>
