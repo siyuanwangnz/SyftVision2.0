@@ -17,6 +17,7 @@ namespace BatchAnalysis
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialog<SyftBatchDialogView, SyftBatchDialogViewModel>();
+            containerRegistry.RegisterDialog<TroubleshootDialogView, TroubleshootDialogViewModel>();
         }
     }
 }

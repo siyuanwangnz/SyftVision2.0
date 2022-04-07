@@ -7,10 +7,13 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
 using Public.BatchConfig;
+using Public.Instrument;
 using Public.SFTP;
 using Public.TreeList;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 
 namespace BatchAnalysis.ViewModels
@@ -22,8 +25,9 @@ namespace BatchAnalysis.ViewModels
         private readonly IDialogService _dialogService;
         private readonly SyftServer _syftServer;
         private InstrumentServer _instrumentServer;
-        private SyftDataHub _syftDataHub;
+        private SyftDataHub SyftDataHub;
         private BatchProp SelectedBatchProp;
+        private List<ScanFile> ScanFileList;
         public BatchAnalysisViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -158,7 +162,7 @@ namespace BatchAnalysis.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    foreach (var item in _syftDataHub.MatchedBatchList)
+                    foreach (var item in SyftDataHub.MatchedBatchList)
                     {
                         Console.WriteLine(item.IsChecked);
                     }
@@ -199,16 +203,36 @@ namespace BatchAnalysis.ViewModels
                             MessageBox.Show($"Please select a Batch Config", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
-                        _syftDataHub = new SyftDataHub(SelectedBatchProp, new SyftMatch(_instrumentServer.GetScanFileList(StartDate, StartTime), SelectedMatchLevel));
 
-                        MatchedBatchList = new ObservableCollection<MatchedBatch>(_syftDataHub.MatchedBatchList);
+                        ScanFileList = _instrumentServer.GetScanFileList(StartDate, StartTime);
 
-                        if(MatchedBatchList.Count == 0) MessageBox.Show($"No matched batches", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        SyftDataHub = new SyftDataHub(SelectedBatchProp, new SyftMatch(ScanFileList, SelectedMatchLevel));
+
+                        MatchedBatchList = new ObservableCollection<MatchedBatch>(SyftDataHub.MatchedBatchList);
+
+                        if (MatchedBatchList.Count == 0) MessageBox.Show($"No matched batches", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
+                });
+            }
+        }
+        public DelegateCommand TroubleshootCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    if (ScanFileList == null || SelectedBatchProp == null) return;
+                    // Navigate to dialog
+                    DialogParameters param = new DialogParameters();
+                    param.Add("sourceScanList", ScanFileList.Select(a => a.Name).ToList());
+                    param.Add("referScanList", SelectedBatchProp.MethodList.Select(a => a.Name).ToList());
+                    _dialogService.ShowDialog("TroubleshootDialogView", param, arg =>
+                    {
+                    });
                 });
             }
         }
