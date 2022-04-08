@@ -39,6 +39,11 @@ namespace BatchAnalysis.ViewModels
             }
             return false;
         }
+        private Action GetProgressAction(double range, int scanCount)
+        {
+            double step = range / scanCount;
+            return new Action(() => Progress += step);
+        }
         public BatchAnalysisViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -181,12 +186,12 @@ namespace BatchAnalysis.ViewModels
                             Progress = 0;
 
                             // Download selected batch
-                            double step = 30.0 / SyftDataHub.scanCount;
-                            Action progressAction = new Action(() => Progress += step);
                             _instrumentServer.ClearLocalScanPath();
                             foreach (var batch in SyftDataHub.SelectedBatchList)
-                                _instrumentServer.DownloadScanFileList(batch.ScanList, progressAction);
+                                _instrumentServer.DownloadScanFileList(batch.ScanList, GetProgressAction(30.0, SyftDataHub.scanCount));
 
+                            // Get scan status list
+                            ScanStatusList = new ObservableCollection<ScanStatus>(SyftDataHub.GetScanStatusList(GetProgressAction(10.0, SyftDataHub.scanCount)));
 
                         }
                         catch (Exception ex)
@@ -296,6 +301,12 @@ namespace BatchAnalysis.ViewModels
                 //Send event message
                 _eventAggregator.GetEvent<Public.Event.MessageEvent>().Publish(_progress);
             }
+        }
+        private ObservableCollection<ScanStatus> _scanStatusList;
+        public ObservableCollection<ScanStatus> ScanStatusList
+        {
+            get => _scanStatusList;
+            set => SetProperty(ref _scanStatusList, value);
         }
 
         private ObservableCollection<SyftChart> _chartList;

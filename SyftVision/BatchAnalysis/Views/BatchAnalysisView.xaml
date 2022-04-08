@@ -104,12 +104,50 @@
 
         <materialDesign:DrawerHost.RightDrawerContent>
             <DataGrid MinWidth="500" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ItemsSource="{Binding ScanList}">
+                      ItemsSource="{Binding ScanStatusList}">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Scan List">
+                    <DataGridTemplateColumn Header="Scan">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
+                                <TextBlock Text="{Binding Scan}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
+                    <DataGridTemplateColumn Header="Status">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Name="StatusText" Text="{Binding Status}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="Red" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=StatusText}" Value="SUCCESS">
+                                                    <Setter Property="Foreground" Value="Green" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Result">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Name="ResultText" Text="{Binding Result}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="Green" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Text, ElementName=ResultText}" Value="BAD">
+                                                    <Setter Property="Foreground" Value="Red" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
