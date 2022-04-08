@@ -59,7 +59,7 @@ namespace BatchAnalysis.ViewModels
             string[] labels = { "Mon", "Tue", "Wed", "Thu", "Fri" };
 
             // Create a XYChart object of size 250 x 250 pixels
-            XYChart c = new XYChart(250, 250);
+            XYChart c = new XYChart(1100, 550, 0xccccff);
 
             // Set the plotarea at (30, 20) and of size 200 x 200 pixels
             c.setPlotArea(30, 20, 200, 200);
@@ -79,7 +79,7 @@ namespace BatchAnalysis.ViewModels
             labels = new string[] { "Mon1", "Tue1", "Wed1", "Thu1", "Fri1" };
 
             // Create a XYChart object of size 250 x 250 pixels
-            XYChart c1 = new XYChart(250, 250);
+            XYChart c1 = new XYChart(1100, 550, 0xccccff);
 
             // Set the plotarea at (30, 20) and of size 200 x 200 pixels
             c1.setPlotArea(30, 20, 200, 200);

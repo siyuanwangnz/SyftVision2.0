@@ -132,7 +132,7 @@
                         <DataGridTemplateColumn Header="Chart List">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ChartDirector:WPFChartViewer at:BatchAnalysisViewModel.AttachedChart="{Binding Chart}" HorizontalAlignment="Left"  VerticalAlignment="Top" ToolTipService.ShowDuration="30000" Loaded="WPFChartViewer_Loaded"/>
+                                    <ChartDirector:WPFChartViewer at:BatchAnalysisViewModel.AttachedChart="{Binding Chart}" ToolTipService.ShowDuration="30000" Loaded="WPFChartViewer_Loaded"/>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
