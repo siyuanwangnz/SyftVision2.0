@@ -78,6 +78,45 @@
                                 <Button ToolTip="Process" Content="{materialDesign:PackIcon Kind=ChartBar}" Command="{Binding ProcessCommand}"/>
                                 <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
                                 <Separator/>
+                                <Button>
+                                    <Button.Content>
+                                        <materialDesign:PopupBox ToolTip="Batch Info" StaysOpen="True">
+                                            <materialDesign:PopupBox.ToggleContent>
+                                                <materialDesign:PackIcon Kind="InformationOutline" />
+                                            </materialDesign:PopupBox.ToggleContent>
+                                            <Grid MinWidth="300" Margin="5">
+                                                <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                          ItemsSource="{Binding InfoList}">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTemplateColumn Header="Category">
+                                                            <DataGridTemplateColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding Category}"/>
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellTemplate>
+                                                        </DataGridTemplateColumn>
+
+                                                        <DataGridTemplateColumn Header="Item">
+                                                            <DataGridTemplateColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding Item}"/>
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellTemplate>
+                                                        </DataGridTemplateColumn>
+
+                                                        <DataGridTemplateColumn Header="Content">
+                                                            <DataGridTemplateColumn.CellTemplate>
+                                                                <DataTemplate>
+                                                                    <TextBlock Text="{Binding Content}"/>
+                                                                </DataTemplate>
+                                                            </DataGridTemplateColumn.CellTemplate>
+                                                        </DataGridTemplateColumn>
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </Grid>
+                                        </materialDesign:PopupBox>
+                                    </Button.Content>
+                                </Button>
                                 <Button ToolTip="Scan List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}"/>
                             </ToolBar>
                         </ToolBarTray>

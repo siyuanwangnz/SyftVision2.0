@@ -49,6 +49,7 @@ namespace Public.BatchConfig
         }
         public string Tittle { get; private set; }
         public string SubTittle { get; private set; }
+        public string Name => $"{Tittle}-{SubTittle}";
         public string File => $"{SubTittle}.xml";
         public ObservableCollection<Method> MethodList { get; private set; }
         public ObservableCollection<ChartProp> ChartPropList { get; private set; }

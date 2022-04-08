@@ -193,6 +193,8 @@ namespace BatchAnalysis.ViewModels
                             // Get scan status list
                             ScanStatusList = new ObservableCollection<ScanStatus>(SyftDataHub.GetScanStatusList(GetProgressAction(10.0, SyftDataHub.scanCount)));
 
+                            //Get info list
+                            InfoList = new ObservableCollection<Info>(SyftDataHub.GetInfoList());
                         }
                         catch (Exception ex)
                         {
@@ -302,13 +304,18 @@ namespace BatchAnalysis.ViewModels
                 _eventAggregator.GetEvent<Public.Event.MessageEvent>().Publish(_progress);
             }
         }
+        private ObservableCollection<Info> _infoList;
+        public ObservableCollection<Info> InfoList
+        {
+            get => _infoList;
+            set => SetProperty(ref _infoList, value);
+        }
         private ObservableCollection<ScanStatus> _scanStatusList;
         public ObservableCollection<ScanStatus> ScanStatusList
         {
             get => _scanStatusList;
             set => SetProperty(ref _scanStatusList, value);
         }
-
         private ObservableCollection<SyftChart> _chartList;
         public ObservableCollection<SyftChart> ChartList
         {

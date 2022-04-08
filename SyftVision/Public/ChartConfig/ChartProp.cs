@@ -57,8 +57,9 @@ namespace Public.ChartConfig
         public ChartType ChartType { get; private set; }
         public string Tittle { get; private set; }
         public string SubTittle { get; private set; }
+        public string Name => $"{Tittle}-{SubTittle}";
         public string File => $"{SubTittle}({ChartType.FullName}).xml";
-        public string Code => $"{Tittle}|{SubTittle}({ChartType.FullName})";
+        public string Code => $"{Name}({ChartType.FullName})";
         public string ExpectedRange { get; private set; }
         public string Phase { get; private set; }
         public ObservableCollection<Component> ComponentList { get; private set; }

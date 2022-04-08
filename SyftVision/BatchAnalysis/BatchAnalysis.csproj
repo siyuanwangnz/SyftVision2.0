@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BatchAnalysisModule.cs" />
+    <Compile Include="Models\Info.cs" />
     <Compile Include="Models\MatchedBatch.cs" />
     <Compile Include="Models\ScanStatus.cs" />
     <Compile Include="Models\SyftChart.cs" />

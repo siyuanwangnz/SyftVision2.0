@@ -36,6 +36,20 @@ namespace BatchAnalysis.Models
             }
             return scanStatusList;
         }
+        public List<Info> GetInfoList()
+        {
+            List<Info> batchInfoList = new List<Info>();
+            Scan scan = new Scan(SelectedBatchList.First().ScanList.First().FullLocalFilePath);
+            var InstruInfo = scan.GetInstrumentInfo();
+            batchInfoList.Add(new Info("Instrument", "Number", InstruInfo.Number));
+            batchInfoList.Add(new Info("Instrument", "Mode", InstruInfo.Model));
+            batchInfoList.Add(new Info("Instrument", "Serial Number", InstruInfo.SN));
+            batchInfoList.Add(new Info("Instrument", "Kiosk Version", InstruInfo.KioskVersion));
+            batchInfoList.Add(new Info("Batch", "Name", BatchProp.Name));
+            batchInfoList.Add(new Info("Batch", "Number", SelectedBatchList.First().Name));
+
+            return batchInfoList.OrderBy(a => a.Category).ThenBy(e => e.Item).ToList();
+        }
 
 
     }

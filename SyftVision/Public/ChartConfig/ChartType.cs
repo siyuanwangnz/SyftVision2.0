@@ -46,6 +46,6 @@ namespace Public.ChartConfig
         }
         public string Name { get; }
         public Component Component { get; }
-        public string FullName => Component.LimitEnable == true ? "Bar" + " - " + Name : "Line" + " - " + Name;
+        public string FullName => Component.LimitEnable == true ? "Bar#" + Name : "Line#" + Name;
     }
 }
