@@ -82,7 +82,7 @@
                             </ToolBar>
                         </ToolBarTray>
                     </StackPanel>
-                    <ProgressBar Height="5" Value="25" />
+                    <ProgressBar Height="5" Value="{Binding Progress}" />
                 </StackPanel>
             </Grid>
 

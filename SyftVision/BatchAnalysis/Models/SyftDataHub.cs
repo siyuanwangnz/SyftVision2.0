@@ -1,6 +1,7 @@
 ﻿using BatchAnalysis.Services;
 using Public.BatchConfig;
 using Public.Instrument;
+using Public.SFTP;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,9 @@ namespace BatchAnalysis.Models
         }
         public BatchProp BatchProp { get; }
         public List<MatchedBatch> MatchedBatchList { get; }
-        private List<MatchedBatch> SelectedBatchList { get => MatchedBatchList.Where(a => a.IsChecked == true).ToList(); }
+        public List<MatchedBatch> SelectedBatchList { get => MatchedBatchList.Where(a => a.IsChecked == true).ToList(); }
+        public int scanCount { get => SelectedBatchList.Count * BatchProp.MethodList.Count; }
+
 
     }
 }

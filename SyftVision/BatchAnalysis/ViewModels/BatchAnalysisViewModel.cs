@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace BatchAnalysis.ViewModels
@@ -28,6 +29,16 @@ namespace BatchAnalysis.ViewModels
         private SyftDataHub SyftDataHub;
         private BatchProp SelectedBatchProp;
         private List<ScanFile> ScanFileList;
+        private Task Task;
+        private bool TaskIsRunning()
+        {
+            if (Task != null && !Task.IsCompleted)
+            {
+                MessageBox.Show($"In the process", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return true;
+            }
+            return false;
+        }
         public BatchAnalysisViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -89,6 +100,8 @@ namespace BatchAnalysis.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (TaskIsRunning()) return;
+
                     try
                     {
                         // Get tree nodes
@@ -153,6 +166,35 @@ namespace BatchAnalysis.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (TaskIsRunning()) return;
+
+                    if (SyftDataHub == null || SyftDataHub.scanCount == 0)
+                    {
+                        MessageBox.Show($"Please select a matched batch", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    Task = Task.Run(() =>
+                    {
+                        try
+                        {
+                            Progress = 0;
+
+                            // Download selected batch
+                            double step = 30.0 / SyftDataHub.scanCount;
+                            Action progressAction = new Action(() => Progress += step);
+                            _instrumentServer.ClearLocalScanPath();
+                            foreach (var batch in SyftDataHub.SelectedBatchList)
+                                _instrumentServer.DownloadScanFileList(batch.ScanList, progressAction);
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    });
+
                 });
             }
         }
@@ -162,6 +204,8 @@ namespace BatchAnalysis.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (TaskIsRunning()) return;
+
                     foreach (var item in SyftDataHub.MatchedBatchList)
                     {
                         Console.WriteLine(item.IsChecked);
@@ -194,6 +238,8 @@ namespace BatchAnalysis.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (TaskIsRunning()) return;
+
                     _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
 
                     try
@@ -225,7 +271,10 @@ namespace BatchAnalysis.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (TaskIsRunning()) return;
+
                     if (ScanFileList == null || SelectedBatchProp == null) return;
+
                     // Navigate to dialog
                     DialogParameters param = new DialogParameters();
                     param.Add("sourceScanList", ScanFileList.Select(a => a.Name).ToList());
@@ -237,6 +286,17 @@ namespace BatchAnalysis.ViewModels
             }
         }
         #endregion
+        private double _progress;
+        public double Progress
+        {
+            get => _progress;
+            set
+            {
+                SetProperty(ref _progress, value);
+                //Send event message
+                _eventAggregator.GetEvent<Public.Event.MessageEvent>().Publish(_progress);
+            }
+        }
 
         private ObservableCollection<SyftChart> _chartList;
         public ObservableCollection<SyftChart> ChartList

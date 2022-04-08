@@ -120,7 +120,7 @@ namespace Public.SFTP
             if (Directory.Exists(LocalScanPath)) new DirectoryInfo(LocalScanPath).Delete(true);
         }
 
-        public void DownloadScanFileList(List<ScanFile> scanFileList)
+        public void DownloadScanFileList(List<ScanFile> scanFileList, Action progress)
         {
             try
             {
@@ -134,6 +134,7 @@ namespace Public.SFTP
                 {
                     scanFile.FullLocalFolder = LocalScanPath + folder;
                     DownloadFile(RemoteScanPath + scanFile.RemoteFilePath, scanFile.FullLocalFilePath);
+                    progress.Invoke();
                 }
 
                 Disconnect();
