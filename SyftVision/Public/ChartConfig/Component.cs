@@ -9,7 +9,7 @@ namespace Public.ChartConfig
     public class Component
     {
         public enum Mode { RP, C, R, Null }
-        public Component(bool limitEnable, Mode mode = Mode.RP)
+        public Component(bool limitEnable, Mode mode)
         {
             LimitEnable = limitEnable;
             ModeSet = mode;

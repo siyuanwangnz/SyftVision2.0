@@ -57,6 +57,9 @@
   <ItemGroup>
     <Compile Include="BatchConfig\BatchProp.cs" />
     <Compile Include="BatchConfig\Method.cs" />
+    <Compile Include="Chart\ChartFactory.cs" />
+    <Compile Include="Chart\IChartFactory.cs" />
+    <Compile Include="Chart\IXY.cs" />
     <Compile Include="Instrument\BatchFile.cs" />
     <Compile Include="Instrument\BatchItem.cs" />
     <Compile Include="Event\MessageEvent.cs" />
@@ -98,6 +101,9 @@
     <PackageReference Include="Autoupdater.NET.Official">
       <Version>1.6.4</Version>
     </PackageReference>
+    <PackageReference Include="ChartDirector.Net.Desktop.Controls">
+      <Version>6.4.1</Version>
+    </PackageReference>
     <PackageReference Include="MathNet.Numerics">
       <Version>4.15.0</Version>
     </PackageReference>
@@ -109,5 +115,6 @@
       <Version>2020.0.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
