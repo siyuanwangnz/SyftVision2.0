@@ -284,8 +284,6 @@ namespace BatchAnalysis.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    if (TaskIsRunning()) return;
-
                     if (ScanFileList == null || SelectedBatchProp == null) return;
 
                     // Navigate to dialog

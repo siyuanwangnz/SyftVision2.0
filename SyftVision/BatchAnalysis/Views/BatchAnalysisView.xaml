@@ -23,7 +23,7 @@
                 <StackPanel>
                     <StackPanel>
                         <ToolBarTray>
-                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
                                 <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=SelectionSearch}" Command="{Binding SelectCommand}"/>
                                 <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
                                 <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
@@ -75,7 +75,12 @@
                                     </Button.Content>
                                 </Button>
                                 <Separator/>
-                                <Button ToolTip="Process" Content="{materialDesign:PackIcon Kind=ChartBar}" Command="{Binding ProcessCommand}"/>
+                                <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
+                                    <materialDesign:Badged.Badge>
+                                        <TextBlock Text="{Binding Progress, StringFormat={}{0:F2}%}"/>
+                                    </materialDesign:Badged.Badge>
+                                    <Button ToolTip="Process" Content="{materialDesign:PackIcon Kind=ChartBar}" Command="{Binding ProcessCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                                </materialDesign:Badged>
                                 <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
                                 <Separator/>
                                 <Button>
