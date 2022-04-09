@@ -131,7 +131,7 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="False"
                           ItemsSource="{Binding ChartList}">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Chart List">

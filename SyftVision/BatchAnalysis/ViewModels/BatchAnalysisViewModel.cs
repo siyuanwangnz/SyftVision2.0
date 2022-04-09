@@ -59,7 +59,7 @@ namespace BatchAnalysis.ViewModels
             string[] labels = { "Mon", "Tue", "Wed", "Thu", "Fri" };
 
             // Create a XYChart object of size 250 x 250 pixels
-            XYChart c = new XYChart(1100, 550, 0xccccff);
+            XYChart c = new XYChart(1116, 566, 0xccccff);
 
             // Set the plotarea at (30, 20) and of size 200 x 200 pixels
             c.setPlotArea(30, 20, 200, 200);
@@ -79,7 +79,7 @@ namespace BatchAnalysis.ViewModels
             labels = new string[] { "Mon1", "Tue1", "Wed1", "Thu1", "Fri1" };
 
             // Create a XYChart object of size 250 x 250 pixels
-            XYChart c1 = new XYChart(1100, 550, 0xccccff);
+            XYChart c1 = new XYChart(1116, 566, 0xccccff);
 
             // Set the plotarea at (30, 20) and of size 200 x 200 pixels
             c1.setPlotArea(30, 20, 200, 200);
@@ -93,7 +93,7 @@ namespace BatchAnalysis.ViewModels
             SyftChart chart = new SyftChart(c);
             SyftChart chart1 = new SyftChart(c1);
 
-            ChartList = new ObservableCollection<SyftChart>() { chart, chart1 };
+            ChartList = new ObservableCollection<SyftChart>() { chart, chart1, chart,chart1,chart,chart1 };
             #endregion
 
         }
