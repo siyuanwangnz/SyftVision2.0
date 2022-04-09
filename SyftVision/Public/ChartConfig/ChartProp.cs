@@ -60,6 +60,7 @@ namespace Public.ChartConfig
         public string Name => $"{Tittle}-{SubTittle}";
         public string File => $"{SubTittle}({ChartType.FullName}).xml";
         public string Code => $"{Name}({ChartType.FullName})";
+        public int HashCode => Code.GetHashCode();
         public string ExpectedRange { get; private set; }
         public string Phase { get; private set; }
         public ObservableCollection<Component> ComponentList { get; private set; }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BatchAnalysis.Models
 {
-    public class ScanStatus
+    public class SyftScan
     {
-        public ScanStatus(string scan, string status, string result)
+        public SyftScan(string scan, string status, string result)
         {
             Scan = scan;
             Status = status;

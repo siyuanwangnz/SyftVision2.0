@@ -1,4 +1,6 @@
 ﻿using ChartDirector;
+using Public.ChartConfig;
+using Public.Instrument;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,10 @@ namespace BatchAnalysis.Models
 {
     public class SyftChart
     {
+        public SyftChart(ChartProp chartProp, List<ScanFile> scanFileList)
+        {
+
+        }
         public SyftChart(BaseChart chart)
         {
             Chart = chart;

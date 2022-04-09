@@ -173,7 +173,7 @@ namespace BatchAnalysis.ViewModels
                 {
                     if (TaskIsRunning()) return;
 
-                    if (SyftDataHub == null || SyftDataHub.scanCount == 0)
+                    if (SyftDataHub == null || SyftDataHub.ScanCount == 0)
                     {
                         MessageBox.Show($"Please select a matched batch", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
@@ -188,13 +188,19 @@ namespace BatchAnalysis.ViewModels
                             // Download selected batch
                             _instrumentServer.ClearLocalScanPath();
                             foreach (var batch in SyftDataHub.SelectedBatchList)
-                                _instrumentServer.DownloadScanFileList(batch.ScanList, GetProgressAction(30.0, SyftDataHub.scanCount));
+                                _instrumentServer.DownloadScanFileList(batch.ScanList, GetProgressAction(30.0, SyftDataHub.ScanCount));
 
                             // Get scan status list
-                            ScanStatusList = new ObservableCollection<ScanStatus>(SyftDataHub.GetScanStatusList(GetProgressAction(10.0, SyftDataHub.scanCount)));
+                            SyftDataHub.GetScanStatusList(GetProgressAction(10.0, SyftDataHub.ScanCount));
+                            SyftScanList = new ObservableCollection<SyftScan>(SyftDataHub.SyftScanList);
 
-                            //Get info list
-                            InfoList = new ObservableCollection<Info>(SyftDataHub.GetInfoList());
+                            // Get info list
+                            SyftDataHub.GetInfoList();
+                            SyftInfoList = new ObservableCollection<SyftInfo>(SyftDataHub.SyftInfoList);
+
+                            // Get syft chart list
+                            SyftDataHub.GetSyftChartList();
+
                         }
                         catch (Exception ex)
                         {
@@ -304,17 +310,17 @@ namespace BatchAnalysis.ViewModels
                 _eventAggregator.GetEvent<Public.Event.MessageEvent>().Publish(_progress);
             }
         }
-        private ObservableCollection<Info> _infoList;
-        public ObservableCollection<Info> InfoList
+        private ObservableCollection<SyftInfo> _syftInfoList;
+        public ObservableCollection<SyftInfo> SyftInfoList
         {
-            get => _infoList;
-            set => SetProperty(ref _infoList, value);
+            get => _syftInfoList;
+            set => SetProperty(ref _syftInfoList, value);
         }
-        private ObservableCollection<ScanStatus> _scanStatusList;
-        public ObservableCollection<ScanStatus> ScanStatusList
+        private ObservableCollection<SyftScan> _syftScanList;
+        public ObservableCollection<SyftScan> SyftScanList
         {
-            get => _scanStatusList;
-            set => SetProperty(ref _scanStatusList, value);
+            get => _syftScanList;
+            set => SetProperty(ref _syftScanList, value);
         }
         private ObservableCollection<SyftChart> _chartList;
         public ObservableCollection<SyftChart> ChartList

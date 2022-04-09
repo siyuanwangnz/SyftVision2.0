@@ -27,13 +27,13 @@ namespace BatchAnalysis.Services
             switch (MatchLevel)
             {
                 case "High":
-                    indexList = GetHighLevelMatchedIndex(ScanFileList.Select(a => a.NameHashCode).ToList(),
+                    indexList = GetHighLevelMatchedIndexList(ScanFileList.Select(a => a.NameHashCode).ToList(),
                         batchProp.MethodList.Select(a => a.NameHashCode).ToList());
                     foreach (var index in indexList)
                         matchedBatchList.Add(new MatchedBatch(ScanFileList.GetRange(index, batchProp.MethodList.Count)));
                     break;
                 case "Low":
-                    indexList = GetLowLevelMatchedIndex(ScanFileList.Select(a => a.NameHashCode).ToList(),
+                    indexList = GetLowLevelMatchedIndexList(ScanFileList.Select(a => a.NameHashCode).ToList(),
                         batchProp.MethodList.Select(a => a.NameHashCode).ToList());
                     foreach (var index in indexList)
                     {
@@ -49,7 +49,7 @@ namespace BatchAnalysis.Services
             return matchedBatchList;
         }
 
-        private static List<int> GetHighLevelMatchedIndex(List<int> sourceList, List<int> referenceList)
+        private static List<int> GetHighLevelMatchedIndexList(List<int> sourceList, List<int> referenceList)
         {
             List<int> indexList = new List<int>();
             for (int i = 0; i < sourceList.Count - referenceList.Count + 1; i++)
@@ -60,7 +60,7 @@ namespace BatchAnalysis.Services
             return indexList;
         }
 
-        private static List<int> GetLowLevelMatchedIndex(List<int> sourceList, List<int> referenceList)
+        private static List<int> GetLowLevelMatchedIndexList(List<int> sourceList, List<int> referenceList)
         {
             List<int> indexList = new List<int>();
             for (int i = 0; i < sourceList.Count - referenceList.Count + 1; i++)

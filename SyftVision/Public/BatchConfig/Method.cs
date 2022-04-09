@@ -14,5 +14,6 @@ namespace Public.BatchConfig
         public string NameCode { get => Name.ToLower().Replace(" ", ""); }
         public int NameHashCode { get => NameCode.GetHashCode(); }
         public ObservableCollection<string> ChartCodeList { get; set; } = new ObservableCollection<string>();
+        public List<int> ChartHashCodeList { get => ChartCodeList.Select(a => a.GetHashCode()).ToList(); }
     }
 }

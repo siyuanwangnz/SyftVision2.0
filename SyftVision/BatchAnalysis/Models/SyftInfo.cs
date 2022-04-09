@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace BatchAnalysis.Models
 {
-    public class Info
+    public class SyftInfo
     {
-        public Info(string category, string item, string content)
+        public SyftInfo(string category, string item, string content)
         {
             Category = category;
             Item = item;

@@ -50,9 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BatchAnalysisModule.cs" />
-    <Compile Include="Models\Info.cs" />
+    <Compile Include="Models\SyftInfo.cs" />
     <Compile Include="Models\MatchedBatch.cs" />
-    <Compile Include="Models\ScanStatus.cs" />
+    <Compile Include="Models\SyftScan.cs" />
     <Compile Include="Models\SyftChart.cs" />
     <Compile Include="Models\SyftDataHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

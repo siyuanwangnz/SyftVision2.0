@@ -86,7 +86,7 @@
                                             </materialDesign:PopupBox.ToggleContent>
                                             <Grid MinWidth="300" Margin="5">
                                                 <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                          ItemsSource="{Binding InfoList}">
+                                                          ItemsSource="{Binding SyftInfoList}">
                                                     <DataGrid.Columns>
                                                         <DataGridTemplateColumn Header="Category">
                                                             <DataGridTemplateColumn.CellTemplate>
@@ -143,7 +143,7 @@
 
         <materialDesign:DrawerHost.RightDrawerContent>
             <DataGrid MinWidth="500" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      ItemsSource="{Binding ScanStatusList}">
+                      ItemsSource="{Binding SyftScanList}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Scan">
                         <DataGridTemplateColumn.CellTemplate>
