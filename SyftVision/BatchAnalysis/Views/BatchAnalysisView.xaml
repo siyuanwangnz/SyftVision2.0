@@ -137,7 +137,20 @@
                         <DataGridTemplateColumn Header="Chart List">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ChartDirector:WPFChartViewer at:BatchAnalysisViewModel.AttachedChart="{Binding Chart}" ToolTipService.ShowDuration="30000" Loaded="WPFChartViewer_Loaded"/>
+                                    <StackPanel Orientation="Vertical">
+                                        <Expander HorizontalAlignment="Stretch" Header="Expander Example 2a">
+                                            <Grid Height="300">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <TextBox Grid.Column="0" Text="{Binding SourceScanList}" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Source Scan List"/>
+                                                <TextBox Grid.Column="1" Text="{Binding ReferScanList}" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Reference Scan List"/>
+                                            </Grid>
+                                        </Expander>
+                                        <ChartDirector:WPFChartViewer at:BatchAnalysisViewModel.AttachedChart="{Binding Chart}" ToolTipService.ShowDuration="30000" Loaded="WPFChartViewer_Loaded"/>
+                                    </StackPanel>
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
