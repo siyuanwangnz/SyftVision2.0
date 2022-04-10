@@ -93,7 +93,7 @@ namespace BatchAnalysis.ViewModels
             SyftChart chart = new SyftChart(c);
             SyftChart chart1 = new SyftChart(c1);
 
-            ChartList = new ObservableCollection<SyftChart>() { chart, chart1, chart,chart1,chart,chart1 };
+            ChartList = new ObservableCollection<SyftChart>() { chart, chart1, chart, chart1, chart, chart1 };
             #endregion
 
         }
@@ -187,16 +187,14 @@ namespace BatchAnalysis.ViewModels
 
                             // Download selected batch
                             _instrumentServer.ClearLocalScanPath();
-                            foreach (var batch in SyftDataHub.SelectedBatchList)
+                            foreach (var batch in SyftDataHub.GetSelectedBatchList())
                                 _instrumentServer.DownloadScanFileList(batch.ScanList, GetProgressAction(30.0, SyftDataHub.ScanCount));
 
                             // Get scan status list
-                            SyftDataHub.GetScanStatusList(GetProgressAction(10.0, SyftDataHub.ScanCount));
-                            SyftScanList = new ObservableCollection<SyftScan>(SyftDataHub.SyftScanList);
+                            SyftScanList = new ObservableCollection<SyftScan>(SyftDataHub.GetSyftScanList(GetProgressAction(10.0, SyftDataHub.ScanCount)));
 
                             // Get info list
-                            SyftDataHub.GetInfoList();
-                            SyftInfoList = new ObservableCollection<SyftInfo>(SyftDataHub.SyftInfoList);
+                            SyftInfoList = new ObservableCollection<SyftInfo>(SyftDataHub.GetSyftInfoList());
 
                             // Get syft chart list
                             SyftDataHub.GetSyftChartList();
@@ -221,7 +219,11 @@ namespace BatchAnalysis.ViewModels
 
                     foreach (var item in SyftDataHub.MatchedBatchList)
                     {
-                        Console.WriteLine(item.IsChecked);
+                        Console.WriteLine(item.Name + item.IsChecked);
+                    }
+                    foreach (var item in SyftDataHub.SelectedBatchList)
+                    {
+                        Console.WriteLine(item.Name + item.IsChecked);
                     }
                 });
             }

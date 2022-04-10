@@ -1,5 +1,6 @@
 ﻿using ChartDirector;
 using Public.Chart;
+using Public.Chart.XY;
 using Public.ChartConfig;
 using Public.Instrument;
 using System;
@@ -16,7 +17,7 @@ namespace BatchAnalysis.Models
         {
             ChartProp = chartProp;
             ScanFileList = scanFileList;
-            XY = ChartProp.ChartType.ChartFactory.GetXY(ScanFileList);
+            XYLegendList = ChartProp.ChartType.ChartFactory.GetXYLegendList(scanFileList);
             Chart = ChartProp.ChartType.ChartFactory.GetChart(ChartProp);
         }
         public SyftChart(BaseChart chart)
@@ -25,7 +26,7 @@ namespace BatchAnalysis.Models
         }
         public ChartProp ChartProp { get; }
         public List<ScanFile> ScanFileList { get; }
-        public IXY XY { get; }
+        public List<XYLegend> XYLegendList { get; }
         public BaseChart Chart { get; }
     }
 }

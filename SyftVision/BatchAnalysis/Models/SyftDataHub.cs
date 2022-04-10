@@ -21,11 +21,17 @@ namespace BatchAnalysis.Models
         }
         public BatchProp BatchProp { get; }
         public List<MatchedBatch> MatchedBatchList { get; }
-        public List<MatchedBatch> SelectedBatchList { get => MatchedBatchList.Where(a => a.IsChecked == true).ToList(); }
-        public int ScanCount { get => SelectedBatchList.Count * BatchProp.MethodList.Count; }
+        public List<MatchedBatch> SelectedBatchList { get; private set; }
+        public int ScanCount { get; private set; }
+        public List<MatchedBatch> GetSelectedBatchList()
+        {
+            SelectedBatchList = MatchedBatchList.Where(a => a.IsChecked == true).ToList();
+            ScanCount = SelectedBatchList.Count * BatchProp.MethodList.Count;
+            return SelectedBatchList;
+        }
         // Syft scan list
         public List<SyftScan> SyftScanList { get; private set; }
-        public void GetScanStatusList(Action progress)
+        public List<SyftScan> GetSyftScanList(Action progress)
         {
             SyftScanList = new List<SyftScan>();
             foreach (var batch in SelectedBatchList)
@@ -37,10 +43,11 @@ namespace BatchAnalysis.Models
                     progress.Invoke();
                 }
             }
+            return SyftScanList;
         }
         // Syft info list
         public List<SyftInfo> SyftInfoList { get; private set; }
-        public void GetInfoList()
+        public List<SyftInfo> GetSyftInfoList()
         {
             SyftInfoList = new List<SyftInfo>();
             Scan scan = new Scan(SelectedBatchList.First().ScanList.First().FullLocalFilePath);
@@ -53,14 +60,16 @@ namespace BatchAnalysis.Models
             SyftInfoList.Add(new SyftInfo("Batch", "Number", SelectedBatchList.First().Name));
 
             SyftInfoList = SyftInfoList.OrderBy(a => a.Category).ThenBy(e => e.Item).ToList();
+            return SyftInfoList;
         }
         // Syft chart list
         public List<SyftChart> SyftChartList { get; private set; }
-        public void GetSyftChartList()
+        public List<SyftChart> GetSyftChartList()
         {
             SyftChartList = new List<SyftChart>();
             foreach (var chartProp in BatchProp.ChartPropList)
                 SyftChartList.Add(new SyftChart(chartProp, GetMarkedScanFileList(chartProp.HashCode)));
+            return SyftChartList;
 
         }
         private List<ScanFile> GetMarkedScanFileList(int chartHashCode)

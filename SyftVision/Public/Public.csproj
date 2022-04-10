@@ -58,8 +58,11 @@
     <Compile Include="BatchConfig\BatchProp.cs" />
     <Compile Include="BatchConfig\Method.cs" />
     <Compile Include="Chart\ChartFactory.cs" />
-    <Compile Include="Chart\IChartFactory.cs" />
-    <Compile Include="Chart\IXY.cs" />
+    <Compile Include="Chart\SensitivityChartFactory.cs" />
+    <Compile Include="Chart\XY\SensitivityXYFactory.cs" />
+    <Compile Include="Chart\XY\XYLegend.cs" />
+    <Compile Include="Chart\XY\XYFactory.cs" />
+    <Compile Include="Chart\XY\XYItem.cs" />
     <Compile Include="Instrument\BatchFile.cs" />
     <Compile Include="Instrument\BatchItem.cs" />
     <Compile Include="Event\MessageEvent.cs" />

@@ -1,4 +1,5 @@
 ﻿using ChartDirector;
+using Public.Chart.XY;
 using Public.ChartConfig;
 using Public.Instrument;
 using System;
@@ -9,27 +10,24 @@ using System.Threading.Tasks;
 
 namespace Public.Chart
 {
-    public class ChartFactory : IChartFactory
+    public abstract class ChartFactory
     {
-        // XY
-        private IXY XY;
-        public IXY GetXY(List<ScanFile> scanFileList)
+        public ChartFactory(XYFactory xyFactory)
         {
-            BuildXY(XY, scanFileList);
-            return XY;
+            XYFactory = xyFactory;
         }
-        private void BuildXY(IXY xy, List<ScanFile> scanFileList)
+        public XYFactory XYFactory { get; }
+        public List<XYItem> XYItemList { get; private set; }
+        public List<XYLegend> GetXYLegendList(List<ScanFile> scanFileList)
         {
+            XYItemList = XYFactory.GetXYItemList(scanFileList);
+            return XYItemList.Select(a => a.XYLegend).ToList();
         }
-        // Chart
-        private XYChart BaseChart = new XYChart(1116, 566, 0xccccff);
         public BaseChart GetChart(ChartProp chartProp)
         {
-            BuildChart(BaseChart, chartProp);
-            return BaseChart;
+            return SetChart(chartProp, XYItemList);
         }
-        private void BuildChart(XYChart baseChart, ChartProp chartProp)
-        {
-        }
+        public abstract BaseChart SetChart(ChartProp chartProp, List<XYItem> xyItemList);
+
     }
 }
