@@ -68,7 +68,7 @@
     <Compile Include="Instrument\BatchFile.cs" />
     <Compile Include="Instrument\BatchItem.cs" />
     <Compile Include="Event\MessageEvent.cs" />
-    <Compile Include="Global\Global.cs" />
+    <Compile Include="Global\MyColor.cs" />
     <Compile Include="Global\MyMath.cs" />
     <Compile Include="Global\Options.cs" />
     <Compile Include="Instrument\ScanFile.cs" />

@@ -145,8 +145,43 @@
                                                     <ColumnDefinition Width="*"/>
                                                 </Grid.ColumnDefinitions>
 
-                                                <TextBox Grid.Column="0" Text="{Binding SourceScanList}" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Source Scan List"/>
-                                                <TextBox Grid.Column="1" Text="{Binding ReferScanList}" Margin="5" Style="{StaticResource MaterialDesignOutlinedTextBox}" VerticalScrollBarVisibility="Auto" materialDesign:HintAssist.Hint="Reference Scan List"/>
+                                                <Border Grid.Column="0" BorderBrush="Gainsboro" BorderThickness="5">
+                                                    <DataGrid Name="ScanFileList" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                              ItemsSource="{Binding ScanFileList}">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTemplateColumn>
+                                                                <DataGridTemplateColumn.Header>
+                                                                    <TextBlock Text="{Binding Path=Items.Count, ElementName=ScanFileList,StringFormat='Scan File List: Count ({0})'}"/>
+                                                                </DataGridTemplateColumn.Header>
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <TextBlock Text="{Binding File}"/>
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Border>
+
+                                                <Border Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="5">
+                                                    <DataGrid Name="LegendList" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                              ItemsSource="{Binding XYLegendList}">
+                                                        <DataGrid.Columns>
+                                                            <DataGridTemplateColumn>
+                                                                <DataGridTemplateColumn.Header>
+                                                                    <TextBlock Text="{Binding Path=Items.Count, ElementName=LegendList,StringFormat='Legend List: Count ({0})'}"/>
+                                                                </DataGridTemplateColumn.Header>
+                                                                <DataGridTemplateColumn.CellTemplate>
+                                                                    <DataTemplate>
+                                                                        <materialDesign:Card Background="{Binding Brush}" Foreground="White" Padding="5">
+                                                                            <TextBlock Text="{Binding Content}"/>
+                                                                        </materialDesign:Card>
+                                                                    </DataTemplate>
+                                                                </DataGridTemplateColumn.CellTemplate>
+                                                            </DataGridTemplateColumn>
+                                                        </DataGrid.Columns>
+                                                    </DataGrid>
+                                                </Border>
                                             </Grid>
                                         </Expander>
                                         <ChartDirector:WPFChartViewer at:BatchAnalysisViewModel.AttachedChart="{Binding Chart}" ToolTipService.ShowDuration="30000" Loaded="WPFChartViewer_Loaded"/>

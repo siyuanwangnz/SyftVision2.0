@@ -43,8 +43,6 @@ namespace Public.ChartBuilder
             // Use soft lighting effect with light direction from the left
             //layer.setBorderColor(Chart.Transparent, Chart.softLighting(Chart.Left));
             // Display labela on top of bars using 12pt Arial font
-            layer.setAggregateLabelStyle("Arial", 10);
-            layer.setAggregateLabelFormat("{value}");
             // Set 50% overlap between bars
             layer.setOverlapRatio(0);
 
