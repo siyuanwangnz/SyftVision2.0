@@ -17,8 +17,8 @@ namespace BatchAnalysis.Models
         {
             ChartProp = chartProp;
             ScanFileList = scanFileList;
-            XYLegendList = ChartProp.ChartType.ChartFactory.GetXYLegendList(scanFileList);
-            Chart = ChartProp.ChartType.ChartFactory.GetChart(ChartProp);
+            XYLegendList = ChartProp.ChartType.ChartFactory.GetXYLegendList(ChartProp, ScanFileList);
+            Chart = ChartProp.ChartType.ChartFactory.GetChart();
         }
         public SyftChart(BaseChart chart)
         {

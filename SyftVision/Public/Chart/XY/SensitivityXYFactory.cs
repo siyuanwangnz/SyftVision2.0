@@ -1,4 +1,5 @@
-﻿using Public.Instrument;
+﻿using Public.ChartConfig;
+using Public.Instrument;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Public.Chart.XY
 {
     public class SensitivityXYFactory : XYFactory
     {
-        public override List<XYItem> GetXYItemList(List<ScanFile> scanFileList)
+        public override List<XYItem> GetXYItemList(ChartProp chartProp, List<ScanFile> scanFileList)
         {
             throw new NotImplementedException();
         }

@@ -1,4 +1,5 @@
-﻿using Public.Instrument;
+﻿using Public.ChartConfig;
+using Public.Instrument;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Public.Chart.XY
 {
     public abstract class XYFactory
     {
-        public abstract List<XYItem> GetXYItemList(List<ScanFile> scanFileList);
+        public abstract List<XYItem> GetXYItemList(ChartProp chartProp, List<ScanFile> scanFileList);
     }
 }

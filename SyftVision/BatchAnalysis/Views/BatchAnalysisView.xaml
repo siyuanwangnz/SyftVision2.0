@@ -138,7 +138,7 @@
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Vertical">
-                                        <Expander HorizontalAlignment="Stretch" Header="Expander Example 2a">
+                                        <Expander HorizontalAlignment="Stretch" Header="Chart Info">
                                             <Grid Height="300">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="*"/>

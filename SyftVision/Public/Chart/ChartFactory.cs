@@ -18,14 +18,16 @@ namespace Public.Chart
         }
         public XYFactory XYFactory { get; }
         public List<XYItem> XYItemList { get; private set; }
-        public List<XYLegend> GetXYLegendList(List<ScanFile> scanFileList)
+        public ChartProp ChartProp { get; private set; }
+        public List<XYLegend> GetXYLegendList(ChartProp chartProp, List<ScanFile> scanFileList)
         {
-            XYItemList = XYFactory.GetXYItemList(scanFileList);
+            ChartProp = chartProp;
+            XYItemList = XYFactory.GetXYItemList(ChartProp, scanFileList);
             return XYItemList.Select(a => a.XYLegend).ToList();
         }
-        public BaseChart GetChart(ChartProp chartProp)
+        public BaseChart GetChart()
         {
-            return SetChart(chartProp, XYItemList);
+            return SetChart(ChartProp, XYItemList);
         }
         public abstract BaseChart SetChart(ChartProp chartProp, List<XYItem> xyItemList);
 
