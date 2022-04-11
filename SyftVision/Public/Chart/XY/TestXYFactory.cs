@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Public.Chart.XY
 {
-    public class SensitivityXYFactory : XYFactory
+    public class TestXYFactory : XYFactory
     {
         public override List<XYItem> GetXYItemList(ChartProp chartProp, List<ScanFile> scanFileList)
         {

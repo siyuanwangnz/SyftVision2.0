@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Public.Chart
 {
-    public class SensitivityChartFactory : ChartFactory
+    public class TestChartFactory : ChartFactory
     {
-        public SensitivityChartFactory(XYFactory xyFactory) : base(xyFactory)
+        public TestChartFactory(XYFactory xyFactory) : base(xyFactory)
         {
         }
 
