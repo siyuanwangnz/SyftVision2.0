@@ -58,11 +58,14 @@ namespace BatchAnalysis.Models
         }
         // Syft chart list
         public List<SyftChart> SyftChartList { get; private set; }
-        public List<SyftChart> GetSyftChartList()
+        public List<SyftChart> GetSyftChartList(Action progress)
         {
             SyftChartList = new List<SyftChart>();
             foreach (var chartProp in BatchProp.ChartPropList)
+            {
                 SyftChartList.Add(new SyftChart(chartProp, GetMarkedScanFileList(chartProp.HashCode)));
+                progress.Invoke();
+            }
             return SyftChartList;
 
         }

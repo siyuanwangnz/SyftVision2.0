@@ -197,8 +197,7 @@ namespace BatchAnalysis.ViewModels
                             SyftInfoList = new ObservableCollection<SyftInfo>(SyftDataHub.GetSyftInfoList());
 
                             // Get syft chart list
-                            SyftChartList = new ObservableCollection<SyftChart>(SyftDataHub.GetSyftChartList());
-
+                            SyftChartList = new ObservableCollection<SyftChart>(SyftDataHub.GetSyftChartList(GetProgressAction(60.0, SyftDataHub.BatchProp.ChartPropList.Count)));
 
                         }
                         catch (Exception ex)
