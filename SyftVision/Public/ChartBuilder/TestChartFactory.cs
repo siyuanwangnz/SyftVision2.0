@@ -1,5 +1,5 @@
 ﻿using ChartDirector;
-using Public.Chart.XY;
+using Public.ChartBuilder.XY;
 using Public.ChartConfig;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Public.Chart
+namespace Public.ChartBuilder
 {
     public class TestChartFactory : ChartFactory
     {

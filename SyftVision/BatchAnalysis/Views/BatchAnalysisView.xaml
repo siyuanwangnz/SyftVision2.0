@@ -132,7 +132,7 @@
 
             <Grid Grid.Row="1">
                 <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="False"
-                          ItemsSource="{Binding ChartList}">
+                          ItemsSource="{Binding SyftChartList}">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Chart List">
                             <DataGridTemplateColumn.CellTemplate>

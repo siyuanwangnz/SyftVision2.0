@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SyftXML;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -64,6 +65,23 @@ namespace Public.ChartConfig
         public string ExpectedRange { get; private set; }
         public string Phase { get; private set; }
         public ObservableCollection<Component> ComponentList { get; private set; }
+        public Scan.Phase ScanPhase
+        {
+            get
+            {
+                switch (Phase)
+                {
+                    case "Sample":
+                        return Scan.Phase.Sample;
+                    case "Background":
+                        return Scan.Phase.Background;
+                    case "Preparation":
+                        return Scan.Phase.Preparation;
+                    default:
+                        return Scan.Phase.All;
+                }
+            }
+        }
 
         public XElement XMLGeneration()
         {

@@ -93,7 +93,7 @@ namespace BatchAnalysis.ViewModels
             SyftChart chart = new SyftChart(c);
             SyftChart chart1 = new SyftChart(c1);
 
-            ChartList = new ObservableCollection<SyftChart>() { chart, chart1 };
+            SyftChartList = new ObservableCollection<SyftChart>() { chart, chart1 };
             #endregion
 
         }
@@ -187,7 +187,7 @@ namespace BatchAnalysis.ViewModels
 
                             // Download selected batch
                             _instrumentServer.ClearLocalScanPath();
-                            foreach (var batch in SyftDataHub.GetSelectedBatchList())
+                            foreach (var batch in SyftDataHub.SelectedBatchList)
                                 _instrumentServer.DownloadScanFileList(batch.ScanList, GetProgressAction(30.0, SyftDataHub.ScanCount));
 
                             // Get scan status list
@@ -197,7 +197,8 @@ namespace BatchAnalysis.ViewModels
                             SyftInfoList = new ObservableCollection<SyftInfo>(SyftDataHub.GetSyftInfoList());
 
                             // Get syft chart list
-                            SyftDataHub.GetSyftChartList();
+                            SyftChartList = new ObservableCollection<SyftChart>(SyftDataHub.GetSyftChartList());
+
 
                         }
                         catch (Exception ex)
@@ -322,11 +323,11 @@ namespace BatchAnalysis.ViewModels
             get => _syftScanList;
             set => SetProperty(ref _syftScanList, value);
         }
-        private ObservableCollection<SyftChart> _chartList;
-        public ObservableCollection<SyftChart> ChartList
+        private ObservableCollection<SyftChart> _syftChartList;
+        public ObservableCollection<SyftChart> SyftChartList
         {
-            get => _chartList;
-            set => SetProperty(ref _chartList, value);
+            get => _syftChartList;
+            set => SetProperty(ref _syftChartList, value);
         }
 
         #region Attached Property

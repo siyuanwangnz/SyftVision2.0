@@ -1,5 +1,5 @@
-﻿using Public.Chart;
-using Public.Chart.XY;
+﻿using Public.ChartBuilder;
+using Public.ChartBuilder.XY;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,7 +12,7 @@ namespace Public.ChartConfig
     public class ChartType
     {
         public static ObservableCollection<ChartType> ReferList = new ObservableCollection<ChartType>() {
-            new ChartType("Sensitivities", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
+            new ChartType("Sensitivities", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new MultiBarXYFactory())),
             new ChartType("Impurities", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
 
             new ChartType("LODs_Conc", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),

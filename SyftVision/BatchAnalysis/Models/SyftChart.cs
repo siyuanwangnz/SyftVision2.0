@@ -1,6 +1,6 @@
 ﻿using ChartDirector;
-using Public.Chart;
-using Public.Chart.XY;
+using Public.ChartBuilder;
+using Public.ChartBuilder.XY;
 using Public.ChartConfig;
 using Public.Instrument;
 using System;

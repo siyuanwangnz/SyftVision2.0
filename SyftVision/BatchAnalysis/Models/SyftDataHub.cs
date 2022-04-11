@@ -21,14 +21,8 @@ namespace BatchAnalysis.Models
         }
         public BatchProp BatchProp { get; }
         public List<MatchedBatch> MatchedBatchList { get; }
-        public List<MatchedBatch> SelectedBatchList { get; private set; }
-        public int ScanCount { get; private set; }
-        public List<MatchedBatch> GetSelectedBatchList()
-        {
-            SelectedBatchList = MatchedBatchList.Where(a => a.IsChecked == true).ToList();
-            ScanCount = SelectedBatchList.Count * BatchProp.MethodList.Count;
-            return SelectedBatchList;
-        }
+        public List<MatchedBatch> SelectedBatchList { get => MatchedBatchList.Where(a => a.IsChecked == true).ToList(); }
+        public int ScanCount { get => SelectedBatchList.Count * BatchProp.MethodList.Count; }
         // Syft scan list
         public List<SyftScan> SyftScanList { get; private set; }
         public List<SyftScan> GetSyftScanList(Action progress)

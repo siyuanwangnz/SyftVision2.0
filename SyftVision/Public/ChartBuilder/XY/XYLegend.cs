@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Public.Chart.XY
+namespace Public.ChartBuilder.XY
 {
     public class XYLegend
     {

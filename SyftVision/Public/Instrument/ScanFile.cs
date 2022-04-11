@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SyftXML;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,7 @@ namespace Public.Instrument
         public string RemoteFilePath { get => $"{RemoteFolder}/{File}"; }
         public string FullLocalFolder { get; set; } = "";
         public string FullLocalFilePath { get => $"{FullLocalFolder}/{File}"; }
+        public Scan Scan { get => new Scan(FullLocalFilePath); }
         public string Name { get; }
         public string NameCode { get; }
         public int NameHashCode { get; }
