@@ -13,7 +13,7 @@ namespace Public.ChartBuilder.XY
     {
         public override double GetValue(in ScanFile scanFile, in Component component, in ChartProp chartProp)
         {
-            AC_Data acData = scanFile.Scan.GetAC_Data($"{component.Compound}", chartProp.ScanPhase);
+            AC_Data acData = scanFile.Scan.GetAC_Data(component.Compound, chartProp.ScanPhase);
             return acData.IsAvailable ? acData.AConcMean() : 0;
         }
     }

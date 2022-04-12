@@ -13,7 +13,7 @@ namespace Public.ChartBuilder.XY
     {
         public override double GetValue(in ScanFile scanFile, in Component component, in ChartProp chartProp)
         {
-            RP_Data rpData = scanFile.Scan.GetRP_Data($"{component.Reagent}{component.Production}", chartProp.ScanPhase, Scan.FastMode.Impurity);
+            RP_Data rpData = scanFile.Scan.GetRP_Data(component.Reagent + component.Production, chartProp.ScanPhase, Scan.FastMode.Impurity);
             return rpData.IsAvailable ? rpData.Impurity() : 0;
         }
     }
