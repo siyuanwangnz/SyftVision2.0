@@ -54,46 +54,49 @@ namespace BatchAnalysis.ViewModels
             #region chart list test
             // The data for the bar chart
             double[] data = { 85, 156, 179.5, 211, 123 };
+            double[] data1 = { 35, 126, 79.5, 111, 213 };
+            double[] datab = { 15, 46, 29.5, 51, 93 };
 
             // The labels for the bar chart
             string[] labels = { "Mon", "Tue", "Wed", "Thu", "Fri" };
 
             // Create a XYChart object of size 250 x 250 pixels
-            XYChart c = new XYChart(1116, 520, 0xccccff);
 
-            // Set the plotarea at (30, 20) and of size 200 x 200 pixels
-            c.setPlotArea(30, 20, 200, 200);
+            XYChart c = new XYChart(1116, 520);
 
+            c.setPlotArea(60, 30, c.getWidth() - 90, c.getHeight() - 70, 0xf8f8f8, 0xffffff);
+
+            // Add a title to the chart using 15pt Arial Bold font
+            c.addTitle(Chart.TopCenter, "SKDNKSND-SDJJSDSN(sdsd#sdjsahd)", "Arial Bold", 16);
+
+            // Set the x and y axis stems to transparent and the label font to 10pt Arial
+            c.xAxis().setColors(Chart.Transparent);
+            c.yAxis().setColors(Chart.Transparent);
+            c.xAxis().setLabelStyle("Arial", 10);
+            c.yAxis().setLabelStyle("Arial", 10);
+
+            // Add a multi-bar layer with multi data sets
             BarLayer layer = c.addBarLayer2(Chart.Side);
+            // Set 0% overlap between bars
+            layer.setOverlapRatio(0);
+
 
             c.xAxis().setLabels(labels);
+            layer.addDataSet(data, 0x5588bb, "data");
+            layer.addDataSet(data1, 0xee9944, "data1");
 
-            layer.addDataSet(data, 0x5588bb, "Test");
 
-            layer.setHTMLImageMap("", "", "title='{value} at {xLabel} (Scan: {dataSetName})'");
+            layer.setHTMLImageMap("", "", "title='{value} - {xLabel} ({dataSetName})'");
 
-            // The data for the bar chart
-            data = new double[] { 100, 200, 150, 250, 300 };
-
-            // The labels for the bar chart
-            labels = new string[] { "Mon1", "Tue1", "Wed1", "Thu1", "Fri1" };
-
-            // Create a XYChart object of size 250 x 250 pixels
-            XYChart c1 = new XYChart(1116, 520, 0xccccff);
-
-            // Set the plotarea at (30, 20) and of size 200 x 200 pixels
-            c1.setPlotArea(30, 20, 200, 200);
-
-            // Add a bar chart layer using the given data
-            c1.addBarLayer(data);
-
-            // Set the labels on the x axis.
-            c1.xAxis().setLabels(labels);
+            //Add backgroung layer
+            BarLayer blayer1 = c.addBarLayer(datab, unchecked((int)0x80ff8080));
+            blayer1.setBorderColor(Chart.SameAsMainColor);
+            blayer1.setBarGap(0.01);
+            blayer1.setHTMLImageMap("", "", "title='Limit: {value} - {xLabel}'");
 
             SyftChart chart = new SyftChart(c);
-            SyftChart chart1 = new SyftChart(c1);
 
-            SyftChartList = new ObservableCollection<SyftChart>() { chart, chart1 };
+            SyftChartList = new ObservableCollection<SyftChart>() { chart };
             #endregion
 
         }

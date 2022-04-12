@@ -195,7 +195,7 @@
         </Grid>
 
         <materialDesign:DrawerHost.RightDrawerContent>
-            <DataGrid MinWidth="500" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+            <DataGrid MinWidth="500" Margin="10" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding SyftScanList}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Scan">
