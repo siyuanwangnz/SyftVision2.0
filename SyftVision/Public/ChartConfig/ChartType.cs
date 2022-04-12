@@ -12,13 +12,14 @@ namespace Public.ChartConfig
     public class ChartType
     {
         public static ObservableCollection<ChartType> ReferList = new ObservableCollection<ChartType>() {
-            new ChartType("Sensitivities", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new MultiBarXYFactory())),
-            new ChartType("Impurities", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
+            new ChartType("Sensitivities", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new SensitivitiesXYFactory())),
+            new ChartType("Impurities", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new ImpuritiesXYFactory())),
 
-            new ChartType("LODs_Conc", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
-            new ChartType("LODs_AConc", new Component(true, Component.Mode.C), new TestChartFactory(new TestXYFactory())),
+            new ChartType("LODs_Conc", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new LODs_ConcXYFactory())),
+            new ChartType("LODs_AConc", new Component(true, Component.Mode.C), new MultiBarChartFactory(new LODs_AConcXYFactory())),
 
-            new ChartType("AConc", new Component(true, Component.Mode.C), new TestChartFactory(new TestXYFactory())),
+            new ChartType("Mean_Conc", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new Mean_ConcXYFactory())),
+            new ChartType("Mean_AConc", new Component(true, Component.Mode.C), new MultiBarChartFactory(new Mean_AConcXYFactory())),
 
             new ChartType("RSD_Conc", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
             new ChartType("RSD_CPS", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),

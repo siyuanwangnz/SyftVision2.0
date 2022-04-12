@@ -66,7 +66,7 @@
                     <DataGridTemplateColumn Header="Limit" DisplayIndex="3">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Limit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding LimitEnable}" />
+                                <TextBox Text="{Binding Limit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" IsEnabled="{Binding LimitEnable}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

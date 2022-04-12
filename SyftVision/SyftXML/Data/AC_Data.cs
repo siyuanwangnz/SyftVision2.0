@@ -18,6 +18,19 @@ namespace SyftXML
             C_DatumListDic = c_DatumListDic;
         }
         /// <summary>
+        /// Check if object is available 
+        /// </summary>
+        public bool IsAvailable
+        {
+            get
+            {
+                if (Compound == "")
+                    return false;
+                else
+                    return true;
+            }
+        }
+        /// <summary>
         /// compound name: "perfluorobenzene"
         /// </summary>
         public string Compound { get; private set; }
