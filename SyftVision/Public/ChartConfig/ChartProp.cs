@@ -63,6 +63,7 @@ namespace Public.ChartConfig
         public string Code => $"{Name}({ChartType.FullName})";
         public int HashCode => Code.GetHashCode();
         public string ExpectedRange { get; private set; }
+        public int ExpectedRangeColor { get => ExpectedRange == "Upper Limit" ? unchecked((int)0x80ff8080) : unchecked((int)0x8080ff80); }
         public string Phase { get; private set; }
         public ObservableCollection<Component> ComponentList { get; private set; }
         public Scan.Phase ScanPhase

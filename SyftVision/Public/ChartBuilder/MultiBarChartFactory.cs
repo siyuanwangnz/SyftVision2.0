@@ -34,20 +34,18 @@ namespace Public.ChartBuilder
             BarLayer layer = c.addBarLayer2(Chart.Side);
             // Set 0% overlap between bars
             layer.setOverlapRatio(0);
-
             foreach (var xyItem in xyItemList)
             {
                 c.xAxis().setLabels(xyItem.SingleLayer.LabelList.ToArray());
                 layer.addDataSet(xyItem.SingleLayer.YList.ToArray(), xyItem.XYLegend.Color, xyItem.XYLegend.Content);
             }
-
-            layer.setHTMLImageMap("", "", "title='{value} - {xLabel} ({dataSetName})'");
+            layer.setHTMLImageMap("", "", "title='{value} & {xLabel} ({dataSetName})'");
 
             //Add backgroung layer
-            BarLayer blayer1 = c.addBarLayer(chartProp.ComponentList.Select(a => a.Limit).ToArray(), unchecked((int)0x80ff8080));
+            BarLayer blayer1 = c.addBarLayer(chartProp.ComponentList.Select(a => a.Limit).ToArray(), chartProp.ExpectedRangeColor);
             blayer1.setBorderColor(Chart.SameAsMainColor);
             blayer1.setBarGap(0.01);
-            blayer1.setHTMLImageMap("", "", "title='Limit: {value} - {xLabel}'");
+            blayer1.setHTMLImageMap("", "", "title='Limit: {value} & {xLabel}'");
 
             return c;
         }
