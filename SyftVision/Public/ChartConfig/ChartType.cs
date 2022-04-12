@@ -21,8 +21,8 @@ namespace Public.ChartConfig
             new ChartType("Mean_Conc", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new Mean_ConcXYFactory())),
             new ChartType("Mean_AConc", new Component(true, Component.Mode.C), new MultiBarChartFactory(new Mean_AConcXYFactory())),
 
-            new ChartType("RSD_Conc", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
-            new ChartType("RSD_CPS", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
+            new ChartType("RSD_Conc", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new RSD_ConcXYFactory())),
+            new ChartType("RSD_CPS", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new RSD_CPSXYFactory())),
 
             new ChartType("DEV_CPS", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
             new ChartType("DEV_Conc", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
