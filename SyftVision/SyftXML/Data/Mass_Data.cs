@@ -57,7 +57,7 @@ namespace SyftXML
             while (dproduct <= double.Parse(Product) + 0.5)
             {
                 rpList.Add($"{Reagent}{dproduct:N}");
-                dproduct = dproduct + 0.05;
+                dproduct = dproduct + 0.1;
             }
             return rpList;
         }

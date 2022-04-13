@@ -37,11 +37,11 @@ namespace Public.ChartConfig
             new ChartType("Trace_Conc", new Component(false, Component.Mode.RP), new TraceLineChartFactory(new Trace_ConcXYFactory())),
             new ChartType("Trace_CPS", new Component(false, Component.Mode.RP), new TraceLineChartFactory(new Trace_CPSXYFactory())),
 
-            new ChartType("Mass", new Component(false, Component.Mode.RP), new TraceLineChartFactory(new TestXYFactory())),
+            new ChartType("Mass", new Component(false, Component.Mode.RP), new TraceLineChartFactory(new MassLineXYFactory())),
 
             new ChartType("ICF", new Component(false, Component.Mode.Null), new OverlapLineChartFactory(new ICFXYFactory())),
             new ChartType("Injection", new Component(false, Component.Mode.Null), new OverlapLineChartFactory(new InjectionXYFactory())),
-            new ChartType("Reaction Time", new Component(false, Component.Mode.Null), new TraceLineChartFactory(new TestXYFactory())),
+            new ChartType("Reaction_Time", new Component(false, Component.Mode.Null), new TraceLineChartFactory(new Reaction_TimeLineXYFactory())),
         };
         public ChartType(string name, Component component, ChartFactory chartFactory)
         {
