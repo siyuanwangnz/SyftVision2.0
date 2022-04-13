@@ -56,7 +56,10 @@ namespace BatchAnalysis.ViewModels
             double[] data = { 85, 156, 179.5, 211, 123 };
             double[] data1 = { 35, 126, 79.5, 111, 213 };
             double[] datab = { 15, 46, 29.5, 51, 93 };
-
+            double[] x = { 10, 20, 30, 40, 50 };
+            double[] x1 = { 5, 15, 25, 35, 45 };
+            double[] y1 = { 12000000, 11000000, 9000000, 7000000, 13000000 };
+            double[] y2 = { 10000000, 12000000, 7000000, 13000000, 11000000 };
             // The labels for the bar chart
             string[] labels = { "Mon", "Tue", "Wed", "Thu", "Fri" };
 
@@ -64,35 +67,39 @@ namespace BatchAnalysis.ViewModels
 
             XYChart c = new XYChart(1116, 520);
 
-            c.setPlotArea(60, 30, c.getWidth() - 90, c.getHeight() - 70,-1, -1, -1, 0x40dddddd, 0x40dddddd);
+            // Set chart position, size and style
+            c.setPlotArea(80, 30, c.getWidth() - 110, c.getHeight() - 70, -1, -1, -1, 0x40dddddd, 0x40dddddd);
 
-            // Add a title to the chart using 15pt Arial Bold font
+            // Add a title
             c.addTitle(Chart.TopCenter, "SKDNKSND-SDJJSDSN(sdsd#sdjsahd)", "Arial Bold", 16);
 
-            // Set the x and y axis stems to transparent and the label font to 10pt Arial
+            // Set the x and y axis stems and the label font
             c.xAxis().setColors(Chart.Transparent);
             c.yAxis().setColors(Chart.Transparent);
             c.xAxis().setLabelStyle("Arial", 10);
             c.yAxis().setLabelStyle("Arial", 10);
 
-            // Add a multi-bar layer with multi data sets
-            BarLayer layer = c.addBarLayer2(Chart.Side);
-            // Set 0% overlap between bars
-            layer.setOverlapRatio(0);
+            // Add axis number format
+            c.setNumberFormat(',');
 
+            // Add layers
+            LineLayer layer = c.addLineLayer2();
+            layer.setLineWidth(1);
+            layer.setFastLineMode();
 
-            c.xAxis().setLabels(labels);
-            layer.addDataSet(data, 0x5588bb, "data");
-            layer.addDataSet(data1, 0xee9944, "data1");
+            layer.setXData(x);
+            layer.addDataSet(y1, 0x5588bb, $"(qweqweqwsaddaqe) (Scan: wqeqweqweqwe)");
+            //layer.setLegend(Chart.NoLegend);
+            layer.setHTMLImageMap("", "", "title='{value} cps at {x} ms {dataSetName}'");
 
+            LineLayer layer1 = c.addLineLayer2();
+            layer1.setLineWidth(1);
+            layer1.setFastLineMode();
 
-            layer.setHTMLImageMap("", "", "title='{value} - {xLabel} ({dataSetName})'");
-
-            //Add backgroung layer
-            BarLayer blayer1 = c.addBarLayer(datab, unchecked((int)0x80ff8080));
-            blayer1.setBorderColor(Chart.SameAsMainColor);
-            blayer1.setBarGap(0.01);
-            blayer1.setHTMLImageMap("", "", "title='Limit: {value} - {xLabel}'");
+            layer1.setXData(x1);
+            layer1.addDataSet(y2, 0xee9944, $"(1231) (Scan: 12313)");
+            //layer.setLegend(Chart.NoLegend);
+            layer1.setHTMLImageMap("", "", "title='{value} cps at {x} ms {dataSetName}'");
 
             SyftChart chart = new SyftChart(c);
 

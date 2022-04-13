@@ -19,21 +19,23 @@ namespace Public.ChartBuilder
         {
             XYChart c = new XYChart(1116, 520);
 
+            // Set chart position, size and style
             c.setPlotArea(60, 30, c.getWidth() - 90, c.getHeight() - 70, 0xf8f8f8, 0xffffff);
 
-            // Add a title to the chart using 15pt Arial Bold font
+            // Add a title
             c.addTitle(Chart.TopCenter, chartProp.Code, "Arial Bold", 16);
 
-            // Set the x and y axis stems to transparent and the label font to 10pt Arial
+            // Set x y axis stems and the label font
             c.xAxis().setColors(Chart.Transparent);
             c.yAxis().setColors(Chart.Transparent);
             c.xAxis().setLabelStyle("Arial", 10);
             c.yAxis().setLabelStyle("Arial", 10);
 
-            // Add a multi-bar layer with multi data sets
+            // Add a multi-bar layer
             BarLayer layer = c.addBarLayer2(Chart.Side);
             // Set 0% overlap between bars
             layer.setOverlapRatio(0);
+            // Add data
             foreach (var xyItem in xyItemList)
             {
                 c.xAxis().setLabels(xyItem.SingleLayer.LabelList.ToArray());
