@@ -29,11 +29,18 @@ namespace Public.ChartBuilder.XY
                 XList = xList;
                 YList = yList;
             }
+            public Layer(List<double> xList, List<double> yList, string content)
+            {
+                XList = xList;
+                YList = yList;
+                Content = content;
+            }
             public Layer(List<string> labelList, List<double> yList)
             {
                 LabelList = labelList;
                 YList = yList;
             }
+            public string Content { get; set; } = "";
             public List<double> XList { get; }
             public List<double> YList { get; }
             public List<string> LabelList { get; }

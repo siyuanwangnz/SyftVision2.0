@@ -18,6 +18,19 @@ namespace SyftXML
             M_DatumList = m_DatumList;
         }
         /// <summary>
+        /// Check if object is available 
+        /// </summary>
+        public bool IsAvailable
+        {
+            get
+            {
+                if (Reagent == "" || Product == "")
+                    return false;
+                else
+                    return true;
+            }
+        }
+        /// <summary>
         /// reagent name: "H3O+"
         /// </summary>
         public string Reagent { get; private set; }

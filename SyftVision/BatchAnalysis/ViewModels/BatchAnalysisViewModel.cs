@@ -63,7 +63,6 @@ namespace BatchAnalysis.ViewModels
             // The labels for the bar chart
             string[] labels = { "Mon", "Tue", "Wed", "Thu", "Fri" };
 
-            // Create a XYChart object of size 250 x 250 pixels
 
             XYChart c = new XYChart(1116, 520);
 

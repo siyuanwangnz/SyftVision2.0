@@ -59,6 +59,7 @@
     <Compile Include="BatchConfig\Method.cs" />
     <Compile Include="ChartBuilder\ChartFactory.cs" />
     <Compile Include="ChartBuilder\BarChartFactory.cs" />
+    <Compile Include="ChartBuilder\OverlapLineChartFactory.cs" />
     <Compile Include="ChartBuilder\TestChartFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_CPSXYFactory.cs" />
@@ -69,6 +70,11 @@
     <Compile Include="ChartBuilder\XY\Mean_AConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\Mean_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\MultiBarXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\OverlapLineXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\Overlap_ConcXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\Overlap_CPSXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\Overlap_DWSCurrentXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\Overlap_UPSCurrentXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\RSD_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\RSD_CPSXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\SensitivityXYFactory.cs" />

@@ -28,14 +28,14 @@ namespace Public.ChartConfig
             new ChartType("DEV_CPS", new Component(true, Component.Mode.RP), new BarChartFactory(new DEV_CPSXYFactory())),
             new ChartType("DEV_Sensitivity", new Component(true, Component.Mode.RP), new BarChartFactory(new DEV_SensitivityXYFactory())),
 
-            new ChartType("Overlap_Conc", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
-            new ChartType("Overlap_CPS", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
+            new ChartType("Overlap_Conc", new Component(false, Component.Mode.RP), new OverlapLineChartFactory(new Overlap_ConcXYFactory())),
+            new ChartType("Overlap_CPS", new Component(false, Component.Mode.RP), new OverlapLineChartFactory(new Overlap_CPSXYFactory())),
+
+            new ChartType("Overlap_UPSCurrent", new Component(false, Component.Mode.R), new OverlapLineChartFactory(new Overlap_UPSCurrentXYFactory())),
+            new ChartType("Overlap_DWSCurrent", new Component(false, Component.Mode.R), new OverlapLineChartFactory(new Overlap_DWSCurrentXYFactory())),
 
             new ChartType("Trace_Conc", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
             new ChartType("Trace_CPS", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
-
-            new ChartType("Current_UPS", new Component(false, Component.Mode.R), new TestChartFactory(new TestXYFactory())),
-            new ChartType("Current_DWS", new Component(false, Component.Mode.R), new TestChartFactory(new TestXYFactory())),
 
             new ChartType("Mass", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
 
