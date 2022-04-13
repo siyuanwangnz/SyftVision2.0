@@ -29,7 +29,7 @@
                         <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
                         <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
                         <ComboBox ItemsSource="{Binding ExpectedRangeList}" SelectedItem="{Binding SelectedExpectedRange}" IsEnabled="{Binding SelectedChartType.Component.LimitEnable}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Expected Range" Width="125" Margin="5"/>
-                        <ComboBox ItemsSource="{Binding PhaseList}" SelectedItem="{Binding SelectedPhase}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Phase" Width="125" Margin="5"/>
+                        <ComboBox ItemsSource="{Binding PhaseList}" SelectedItem="{Binding SelectedPhase}" IsEnabled="{Binding SelectedChartType.Component.PhaseEnable}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Phase" Width="125" Margin="5"/>
                     </ToolBar>
                 </ToolBarTray>
             </StackPanel>

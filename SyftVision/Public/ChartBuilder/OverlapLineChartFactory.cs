@@ -45,7 +45,7 @@ namespace Public.ChartBuilder
 
                     layer.setXData(xylayer.XList.ToArray());
                     layer.addDataSet(xylayer.YList.ToArray(), xyItem.XYLegend.Color, $"({xyItem.XYLegend.Content}) {xylayer.Content}");
-                    layer.setHTMLImageMap("", "", "title='{value} & {x} ({dataSetName})'");
+                    layer.setHTMLImageMap("", "", "title='{value} & {x} {dataSetName}'");
                 }
             }
 

@@ -39,8 +39,8 @@ namespace Public.ChartConfig
 
             new ChartType("Mass", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
 
-            new ChartType("ICF", new Component(false, Component.Mode.Null), new TestChartFactory(new TestXYFactory())),
-            new ChartType("Injection", new Component(false, Component.Mode.Null), new TestChartFactory(new TestXYFactory())),
+            new ChartType("ICF", new Component(false, Component.Mode.Null), new OverlapLineChartFactory(new ICFXYFactory())),
+            new ChartType("Injection", new Component(false, Component.Mode.Null), new OverlapLineChartFactory(new InjectionXYFactory())),
             new ChartType("Reaction Time", new Component(false, Component.Mode.Null), new TestChartFactory(new TestXYFactory())),
         };
         public ChartType(string name, Component component, ChartFactory chartFactory)

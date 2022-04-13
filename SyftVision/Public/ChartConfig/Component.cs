@@ -22,6 +22,7 @@ namespace Public.ChartConfig
         public bool ProductionEnable => ModeSet == Mode.RP;
         public double Limit { get; set; } = 0;
         public bool LimitEnable { get; }
+        public bool PhaseEnable => ModeSet != Mode.Null;
         public Mode ModeSet { get; }
         public Component Copy()
         {

@@ -64,13 +64,16 @@
     <Compile Include="ChartBuilder\XY\DEV_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_CPSXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_SensitivityXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\ICFXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\ImpurityXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\InjectionXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\LODs_AConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\LODs_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\Mean_AConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\Mean_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\MultiBarXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\OverlapLineXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\OverlapLineXYFactory2.cs" />
     <Compile Include="ChartBuilder\XY\Overlap_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\Overlap_CPSXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\Overlap_DWSCurrentXYFactory.cs" />
