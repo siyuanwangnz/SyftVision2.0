@@ -84,6 +84,9 @@
     <Compile Include="ChartBuilder\XY\SensitivityXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\SingleBarXYactory.cs" />
     <Compile Include="ChartBuilder\XY\TestXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\TraceLineXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\Trace_ConcXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\Trace_CPSXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\XYLegend.cs" />
     <Compile Include="ChartBuilder\XY\XYFactory.cs" />
     <Compile Include="ChartBuilder\XY\XYItem.cs" />

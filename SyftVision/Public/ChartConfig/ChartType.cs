@@ -34,14 +34,14 @@ namespace Public.ChartConfig
             new ChartType("Overlap_UPSCurrent", new Component(false, Component.Mode.R), new OverlapLineChartFactory(new Overlap_UPSCurrentXYFactory())),
             new ChartType("Overlap_DWSCurrent", new Component(false, Component.Mode.R), new OverlapLineChartFactory(new Overlap_DWSCurrentXYFactory())),
 
-            new ChartType("Trace_Conc", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
-            new ChartType("Trace_CPS", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
+            new ChartType("Trace_Conc", new Component(false, Component.Mode.RP), new TraceLineChartFactory(new Trace_ConcXYFactory())),
+            new ChartType("Trace_CPS", new Component(false, Component.Mode.RP), new TraceLineChartFactory(new Trace_CPSXYFactory())),
 
-            new ChartType("Mass", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
+            new ChartType("Mass", new Component(false, Component.Mode.RP), new TraceLineChartFactory(new TestXYFactory())),
 
             new ChartType("ICF", new Component(false, Component.Mode.Null), new OverlapLineChartFactory(new ICFXYFactory())),
             new ChartType("Injection", new Component(false, Component.Mode.Null), new OverlapLineChartFactory(new InjectionXYFactory())),
-            new ChartType("Reaction Time", new Component(false, Component.Mode.Null), new TestChartFactory(new TestXYFactory())),
+            new ChartType("Reaction Time", new Component(false, Component.Mode.Null), new TraceLineChartFactory(new TestXYFactory())),
         };
         public ChartType(string name, Component component, ChartFactory chartFactory)
         {
