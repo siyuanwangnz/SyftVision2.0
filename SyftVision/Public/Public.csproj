@@ -61,6 +61,7 @@
     <Compile Include="ChartBuilder\BarChartFactory.cs" />
     <Compile Include="ChartBuilder\OverlapLineChartFactory.cs" />
     <Compile Include="ChartBuilder\TestChartFactory.cs" />
+    <Compile Include="ChartBuilder\TraceLineChartFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_CPSXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_SensitivityXYFactory.cs" />
