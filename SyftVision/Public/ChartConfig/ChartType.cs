@@ -12,8 +12,8 @@ namespace Public.ChartConfig
     public class ChartType
     {
         public static ObservableCollection<ChartType> ReferList = new ObservableCollection<ChartType>() {
-            new ChartType("Sensitivities", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new SensitivitiesXYFactory())),
-            new ChartType("Impurities", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new ImpuritiesXYFactory())),
+            new ChartType("Sensitivity", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new SensitivityXYFactory())),
+            new ChartType("Impurity", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new ImpurityXYFactory())),
 
             new ChartType("LODs_Conc", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new LODs_ConcXYFactory())),
             new ChartType("LODs_AConc", new Component(true, Component.Mode.C), new MultiBarChartFactory(new LODs_AConcXYFactory())),
@@ -24,8 +24,9 @@ namespace Public.ChartConfig
             new ChartType("RSD_Conc", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new RSD_ConcXYFactory())),
             new ChartType("RSD_CPS", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new RSD_CPSXYFactory())),
 
-            new ChartType("DEV_CPS", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
-            new ChartType("DEV_Conc", new Component(true, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
+            new ChartType("DEV_Conc", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new DEV_ConcXYFactory())),
+            new ChartType("DEV_CPS", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new DEV_CPSXYFactory())),
+            new ChartType("DEV_Sensitivity", new Component(true, Component.Mode.RP), new MultiBarChartFactory(new DEV_SensitivityXYFactory())),
 
             new ChartType("Overlap_Conc", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),
             new ChartType("Overlap_CPS", new Component(false, Component.Mode.RP), new TestChartFactory(new TestXYFactory())),

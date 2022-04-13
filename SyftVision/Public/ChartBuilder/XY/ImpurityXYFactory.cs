@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Public.ChartBuilder.XY
 {
-    public class SensitivitiesXYFactory : MultiBarXYFactory
+    public class ImpurityXYFactory : BarXYFactory
     {
         public override double GetValue(in ScanFile scanFile, in Component component, in ChartProp chartProp)
         {
-            RP_Data rpData = scanFile.Scan.GetRP_Data(component.Reagent + component.Production, chartProp.ScanPhase, Scan.FastMode.Sensitivity);
-            return rpData.IsAvailable ? rpData.Sensitivity() : 0;
+            RP_Data rpData = scanFile.Scan.GetRP_Data(component.Reagent + component.Production, chartProp.ScanPhase, Scan.FastMode.Impurity);
+            return rpData.IsAvailable ? rpData.Impurity() : 0;
         }
     }
 }

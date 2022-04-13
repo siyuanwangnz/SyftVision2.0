@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Public.ChartBuilder.XY
 {
-    public abstract class MultiBarXYFactory : XYFactory
+    public abstract class BarXYFactory : XYFactory
     {
         public override List<XYItem> GetXYItemList(ChartProp chartProp, List<ScanFile> scanFileList)
         {
