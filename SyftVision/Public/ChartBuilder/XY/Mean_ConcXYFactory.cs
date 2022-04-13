@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Public.ChartBuilder.XY
 {
-    public class Mean_ConcXYFactory : BarXYFactory
+    public class Mean_ConcXYFactory : MultiBarXYFactory
     {
         public override double GetValue(in ScanFile scanFile, in Component component, in ChartProp chartProp)
         {

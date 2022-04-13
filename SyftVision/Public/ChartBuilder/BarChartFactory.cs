@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Public.ChartBuilder
 {
-    public class MultiBarChartFactory : ChartFactory
+    public class BarChartFactory : ChartFactory
     {
-        public MultiBarChartFactory(XYFactory xyFactory) : base(xyFactory)
+        public BarChartFactory(XYFactory xyFactory) : base(xyFactory)
         {
         }
 

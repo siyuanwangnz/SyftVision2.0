@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Public.ChartBuilder.XY
 {
-    public class ImpurityXYFactory : BarXYFactory
+    public class ImpurityXYFactory : MultiBarXYFactory
     {
         public override double GetValue(in ScanFile scanFile, in Component component, in ChartProp chartProp)
         {

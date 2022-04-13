@@ -64,7 +64,7 @@ namespace BatchAnalysis.ViewModels
 
             XYChart c = new XYChart(1116, 520);
 
-            c.setPlotArea(60, 30, c.getWidth() - 90, c.getHeight() - 70, 0xf8f8f8, 0xffffff);
+            c.setPlotArea(60, 30, c.getWidth() - 90, c.getHeight() - 70,-1, -1, -1, 0x40dddddd, 0x40dddddd);
 
             // Add a title to the chart using 15pt Arial Bold font
             c.addTitle(Chart.TopCenter, "SKDNKSND-SDJJSDSN(sdsd#sdjsahd)", "Arial Bold", 16);
