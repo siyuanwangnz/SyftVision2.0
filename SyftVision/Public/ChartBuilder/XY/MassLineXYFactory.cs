@@ -26,8 +26,9 @@ namespace Public.ChartBuilder.XY
                     Mass_Data massData = scanFile.Scan.GetMass_Data(component.Reagent, component.Production, chartProp.ScanPhase);
                     if (massData != null)
                     {
-                        labelList.AddRange(massData.CPSMassList());
-                        valueList.AddRange(massData.CPSList());
+                        var massCPSDic = massData.GetMassCPSDic();
+                        labelList.AddRange(massCPSDic.Keys.ToList());
+                        valueList.AddRange(massCPSDic.Values.ToList());
                     }
                 }
                 xyItemList.Add(new XYItem(new XYLegend(scanFile.File, colorEmu.Current), new XYItem.Layer(labelList, valueList)));

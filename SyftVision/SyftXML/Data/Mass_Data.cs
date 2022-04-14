@@ -33,33 +33,28 @@ namespace SyftXML
         public List<M_Datum> M_DatumList { get; private set; }
 
         /// <summary>
-        /// get average cps list of mass peak
+        /// get dictionary<mass, average of cps> of mass peak
         /// </summary>
-        /// <returns>list of cps</returns>
-        public List<double> CPSList()
-        {
-            List<double> tempList = new List<double>();
-            foreach (var rpCode in CPSMassList().ConvertAll(a => a.ToLower().Replace(" ", "")))
-            {
-                tempList.Add(Statistics.Mean(M_DatumList.FindAll(a => a.RPRawCode == rpCode).Select(a => a.CPS).ToList()));
-            }
-            return tempList;
-
-        }
-        /// <summary>
-        /// get mass list of mass peak
-        /// </summary>
-        /// <returns>list of mass</returns>
-        public List<string> CPSMassList()
+        /// <returns>dictionary<mass, average of cps></returns>
+        public Dictionary<string, double> GetMassCPSDic()
         {
             List<string> rpList = new List<string>();
             double dproduct = double.Parse(Product) - 0.5;
             while (dproduct <= double.Parse(Product) + 0.5)
             {
                 rpList.Add($"{Reagent}{dproduct:N}");
-                dproduct = dproduct + 0.1;
+                dproduct = dproduct + 0.05;
             }
-            return rpList;
+
+            Dictionary<string, double> massCPSDic = new Dictionary<string, double>();
+            foreach (var rp in rpList)
+            {
+                string rpCode = rp.ToLower().Replace(" ", "");
+                double cps = Statistics.Mean(M_DatumList.FindAll(a => a.RPRawCode == rpCode).Select(a => a.CPS).ToList());
+                if (!double.Equals(cps, double.NaN))
+                    massCPSDic.Add(rp, cps);
+            }
+            return massCPSDic;
         }
     }
 }
