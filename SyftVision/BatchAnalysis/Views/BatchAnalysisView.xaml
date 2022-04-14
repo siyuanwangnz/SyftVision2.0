@@ -23,7 +23,7 @@
                 <StackPanel>
                     <ToolBarTray>
                         <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
-                            <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=SelectionSearch}" Command="{Binding SelectCommand}"/>
+                            <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=FileFind}" Command="{Binding SelectCommand}"/>
                             <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
                             <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
                             <Separator/>
@@ -34,13 +34,13 @@
                             <Button>
                                 <materialDesign:PopupBox ToolTip="Match" StaysOpen="True">
                                     <materialDesign:PopupBox.ToggleContent>
-                                        <materialDesign:PackIcon Kind="ViewList" />
+                                        <materialDesign:PackIcon Kind="ViewSplitVertical" />
                                     </materialDesign:PopupBox.ToggleContent>
                                     <StackPanel Margin="10">
                                         <ToolBarTray>
                                             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
                                                 <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Level" Width="125" Margin="5"/>
-                                                <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=FormatListChecks}" Command="{Binding MatchCommand}"/>
+                                                <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=SetMerge}" Command="{Binding MatchCommand}"/>
                                                 <Button ToolTip="Troubleshoot" Content="{materialDesign:PackIcon Kind=Eye}" Command="{Binding TroubleshootCommand}"/>
                                             </ToolBar>
                                         </ToolBarTray>

@@ -23,7 +23,7 @@ namespace Public.SFTP
         private string LocalBatchTempFilePath => LocalBatchPath + LocalBatchTempFile;
 
         private readonly string RemoteScanPath = "/usr/local/syft/data/";
-        private readonly string LocalScanPath = "./Temp/Scan/";
+        private static readonly string LocalScanPath = "./Temp/Scan/";
 
         public InstrumentServer(string ipAddress, Options options) : base(ipAddress, options.Port, options.User, options.Password)
         {
@@ -147,6 +147,17 @@ namespace Public.SFTP
             {
                 Disconnect();
             }
+        }
+
+        public static void CopyScanFile(string folderPath)
+        {
+            // Create all of the directories
+            foreach (string dirPath in Directory.GetDirectories(LocalScanPath, "*", SearchOption.AllDirectories))
+                Directory.CreateDirectory(dirPath.Replace(LocalScanPath, folderPath + "/"));
+
+            // Copy all the files & Replaces any files with the same name
+            foreach (string newPath in Directory.GetFiles(LocalScanPath, "*.*", SearchOption.AllDirectories))
+                File.Copy(newPath, newPath.Replace(LocalScanPath, folderPath + "/"), true);
         }
     }
 }

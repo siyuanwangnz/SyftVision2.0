@@ -1,6 +1,7 @@
 ﻿using BatchAnalysis.Models;
 using BatchAnalysis.Services;
 using ChartDirector;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
@@ -224,6 +225,18 @@ namespace BatchAnalysis.ViewModels
                 });
             }
         }
+        private bool _scanFilesCollectionIsChecked;
+        public bool ScanFilesCollectionIsChecked
+        {
+            get => _scanFilesCollectionIsChecked;
+            set => SetProperty(ref _scanFilesCollectionIsChecked, value);
+        }
+        private string _comments;
+        public string Comments
+        {
+            get => _comments;
+            set => SetProperty(ref _comments, value);
+        }
         public DelegateCommand SaveCommand
         {
             get
@@ -232,13 +245,16 @@ namespace BatchAnalysis.ViewModels
                 {
                     if (TaskIsRunning()) return;
 
-                    foreach (var item in SyftDataHub.MatchedBatchList)
+                    if (SyftDataHub == null || !SyftDataHub.IsAvailable) return;
+
+                    //Open folder path selection dialog
+                    CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
+                    folderDlg.IsFolderPicker = true;
+                    folderDlg.Title = "Select a Target Folder to Save";
+                    if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
                     {
-                        Console.WriteLine(item.Name + item.IsChecked);
-                    }
-                    foreach (var item in SyftDataHub.SelectedBatchList)
-                    {
-                        Console.WriteLine(item.Name + item.IsChecked);
+                        if (ScanFilesCollectionIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
+
                     }
                 });
             }

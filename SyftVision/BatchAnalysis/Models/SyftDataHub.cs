@@ -23,6 +23,7 @@ namespace BatchAnalysis.Models
         public List<MatchedBatch> MatchedBatchList { get; }
         public List<MatchedBatch> SelectedBatchList { get => MatchedBatchList.Where(a => a.IsChecked == true).ToList(); }
         public int ScanCount { get => SelectedBatchList.Count * BatchProp.MethodList.Count; }
+        public bool IsAvailable => BatchProp != null && MatchedBatchList != null && SyftScanList != null && SyftInfoList != null && SyftChartList != null;
         // Syft scan list
         public List<SyftScan> SyftScanList { get; private set; }
         public List<SyftScan> GetSyftScanList(Action progress)
