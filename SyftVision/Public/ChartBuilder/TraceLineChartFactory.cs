@@ -46,6 +46,9 @@ namespace Public.ChartBuilder
                 layer.addDataSet(xyItem.SingleLayer.YList.ToArray(), xyItem.XYLegend.Color, xyItem.XYLegend.Content);
                 layer.setHTMLImageMap("", "", "title='{value} & {xLabel} ({dataSetName})'");
             }
+            // Set step of labels
+            int step = (int)Math.Round((double)xyItemList.Max(a => a.SingleLayer.LabelList.Count) / 40);
+            c.xAxis().setLabelStep(step);
 
             return c;
         }

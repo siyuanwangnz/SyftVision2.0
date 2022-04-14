@@ -60,7 +60,6 @@
     <Compile Include="ChartBuilder\ChartFactory.cs" />
     <Compile Include="ChartBuilder\BarChartFactory.cs" />
     <Compile Include="ChartBuilder\OverlapLineChartFactory.cs" />
-    <Compile Include="ChartBuilder\TestChartFactory.cs" />
     <Compile Include="ChartBuilder\TraceLineChartFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_CPSXYFactory.cs" />
@@ -85,7 +84,6 @@
     <Compile Include="ChartBuilder\XY\RSD_CPSXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\SensitivityXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\SingleBarXYactory.cs" />
-    <Compile Include="ChartBuilder\XY\TestXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\TraceLineXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\Trace_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\Trace_CPSXYFactory.cs" />

@@ -182,6 +182,7 @@ namespace BatchConfig.ViewModels
                             {
                                 string selectedBatchFile = arg.Parameters.GetValue<string>("selectedBatchFile");
                                 MethodList = _instrumentServer.GetMethodListFromBatchFile(selectedBatchFile);
+                                ChartPropList.Clear();
                             }
 
                         });

@@ -52,58 +52,63 @@ namespace BatchAnalysis.ViewModels
             _syftServer = new SyftServer();
 
             #region chart list test
-            // The data for the bar chart
-            double[] data = { 85, 156, 179.5, 211, 123 };
-            double[] data1 = { 35, 126, 79.5, 111, 213 };
-            double[] datab = { 15, 46, 29.5, 51, 93 };
-            double[] x = { 10, 20, 30, 40, 50 };
-            double[] x1 = { 5, 15, 25, 35, 45 };
-            double[] y1 = { 12000000, 11000000, 9000000, 7000000, 13000000, 12000000, 11000000, 9000000, 7000000, 13000000, 12000000, 11000000, 9000000, 7000000, 13000000 };
-            double[] y2 = { 10000000, 12000000, 7000000, 13000000, 11000000, 10000000, 12000000, 7000000, 13000000, 11000000, 10000000, 12000000, 7000000, 13000000, 11000000 };
-            // The labels for the bar chart
-            string[] labels = { "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456", "12345678-123456" };
-            string[] labels1 = { "werwr678-123456", "werwr678-123456", "werwr678-123456", "werwr678-123456", "werwr678-123456" };
+            //// The data for the bar chart
+            //double[] data = { 85, 156, 179.5, 211, 123 };
+            //double[] data1 = { 35, 126, 79.5, 111, 213 };
+            //double[] datab = { 15, 46, 29.5, 51, 93 };
+            //double[] x = { 10, 20, 30, 40, 50 };
+            //double[] x1 = { 5, 15, 25, 35, 45 };
+            //double[] y1 = { 12000000, 11000000, 9000000, 7000000, 13000000, 12000000, 11000000, 9000000, 7000000, 13000000, 12000000, 11000000, 9000000, 7000000, 13000000 };
+            //double[] y2 = { 10000000, 12000000, 7000000, 13000000, 11000000, 10000000, 12000000, 7000000, 13000000, 11000000, 10000000, 12000000, 7000000, 13000000, 11000000 };
+            //// The labels for the bar chart
+            //List<string> l = new List<string>();
+            //for (int i = 0; i < 60; i++)
+            //{
+            //    l.Add($"{i}qweasdz-123456");
+            //}
+            //string[] labels = l.ToArray();
 
+            //XYChart c = new XYChart(1116, 520);
 
-            XYChart c = new XYChart(1116, 520);
+            //// Set chart position, size and style
+            //c.setPlotArea(80, 30, c.getWidth() - 110, c.getHeight() - 100, -1, -1, -1, 0x40dddddd, 0x40dddddd);
 
-            // Set chart position, size and style
-            c.setPlotArea(80, 30, c.getWidth() - 110, c.getHeight() - 100, -1, -1, -1, 0x40dddddd, 0x40dddddd);
+            //// Add a title
+            //c.addTitle(Chart.TopCenter, "SKDNKSND-SDJJSDSN(sdsd#sdjsahd)", "Arial Bold", 16);
 
-            // Add a title
-            c.addTitle(Chart.TopCenter, "SKDNKSND-SDJJSDSN(sdsd#sdjsahd)", "Arial Bold", 16);
+            //// Set the x and y axis stems and the label font
+            //c.xAxis().setColors(Chart.Transparent);
+            //c.yAxis().setColors(Chart.Transparent);
+            //c.xAxis().setLabelStyle("Arial", 10);
+            //c.yAxis().setLabelStyle("Arial", 10);
 
-            // Set the x and y axis stems and the label font
-            c.xAxis().setColors(Chart.Transparent);
-            c.yAxis().setColors(Chart.Transparent);
-            c.xAxis().setLabelStyle("Arial", 10);
-            c.yAxis().setLabelStyle("Arial", 10);
+            //// Add axis number format
+            //c.setNumberFormat(',');
 
-            // Add axis number format
-            c.setNumberFormat(',');
+            //// Add layers
 
-            // Add layers
-            c.xAxis().setLabels(labels);
-            c.xAxis().setLabelStyle("Arial", 8, Chart.TextColor, -90);
+            //LineLayer layer = c.addLineLayer2();
+            //layer.setLineWidth(1);
+            //layer.setFastLineMode();
+            //layer.addDataSet(y1, 0xee9944, $"ewerwerwerewrewr");
+            //layer.setHTMLImageMap("", "", "title='{value} cps ({dataSetName}) at {xLabel}'");
 
-            LineLayer layer = c.addLineLayer2();
-            layer.setLineWidth(1);
-            layer.setFastLineMode();
-            layer.addDataSet(y1, 0xee9944, $"ewerwerwerewrewr");
-            layer.setHTMLImageMap("", "", "title='{value} cps ({dataSetName}) at {xLabel}'");
+            //c.xAxis().setLabels(labels);
+            //c.xAxis().setLabelStyle("Arial", 8, Chart.TextColor, 30);
 
-            c.xAxis().setLabels(labels);
-            c.xAxis().setLabelStyle("Arial", 8, Chart.TextColor, 30);
+            //LineLayer layer1 = c.addLineLayer2();
+            //layer1.setLineWidth(1);
+            //layer1.setFastLineMode();
+            //layer1.addDataSet(y2, 0x449944, $"1231313werewrewr");
+            //layer.setHTMLImageMap("", "", "title='{value} cps ({dataSetName}) at {xLabel}'");
 
-            LineLayer layer1 = c.addLineLayer2();
-            layer1.setLineWidth(1);
-            layer1.setFastLineMode();
-            layer1.addDataSet(y2, 0x449944, $"1231313werewrewr");
-            layer.setHTMLImageMap("", "", "title='{value} cps ({dataSetName}) at {xLabel}'");
+            //// Set step of labels
+            //int count = (int)Math.Round((double)labels.Count()/ 40);
+            //c.xAxis().setLabelStep(count);
 
-            SyftChart chart = new SyftChart(c);
+            //SyftChart chart = new SyftChart(c);
 
-            SyftChartList = new ObservableCollection<SyftChart>() { chart };
+            //SyftChartList = new ObservableCollection<SyftChart>() { chart };
             #endregion
 
         }
