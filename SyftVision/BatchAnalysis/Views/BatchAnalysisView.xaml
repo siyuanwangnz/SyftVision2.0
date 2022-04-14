@@ -21,111 +21,110 @@
 
             <Grid Grid.Row="0">
                 <StackPanel>
-                    <StackPanel>
-                        <ToolBarTray>
-                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
-                                <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=SelectionSearch}" Command="{Binding SelectCommand}"/>
-                                <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
-                                <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
-                                <Separator/>
-                                <DatePicker materialDesign:HintAssist.Hint="Start Date" SelectedDate="{Binding StartDate}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Focusable="False" Width="125" Margin="5"/>
-                                <materialDesign:TimePicker materialDesign:HintAssist.Hint="Start Time" SelectedTime="{Binding StartTime}" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" Focusable="False" WithSeconds="True" Is24Hours="True" Width="125" Margin="5"/>
-                                <Separator/>
-                                <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
-                                <Button>
-                                    <Button.Content>
-                                        <materialDesign:PopupBox ToolTip="Match" StaysOpen="True">
-                                            <materialDesign:PopupBox.ToggleContent>
-                                                <materialDesign:PackIcon Kind="ViewList" />
-                                            </materialDesign:PopupBox.ToggleContent>
-                                            <Grid MinWidth="300" Margin="5">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*" />
-                                                    <RowDefinition Height="*" />
-                                                </Grid.RowDefinitions>
-                                                <Grid Grid.Row="0">
-                                                    <StackPanel>
-                                                        <ToolBarTray>
-                                                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                                                                <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Level" Width="125" Margin="5"/>
-                                                                <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=FormatListChecks}" Command="{Binding MatchCommand}"/>
-                                                                <Button ToolTip="Troubleshoot" Content="{materialDesign:PackIcon Kind=Eye}" Command="{Binding TroubleshootCommand}"/>
-                                                            </ToolBar>
-                                                        </ToolBarTray>
-                                                    </StackPanel>
-                                                </Grid>
+                    <ToolBarTray>
+                        <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+                            <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=SelectionSearch}" Command="{Binding SelectCommand}"/>
+                            <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
+                            <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
+                            <Separator/>
+                            <DatePicker materialDesign:HintAssist.Hint="Start Date" SelectedDate="{Binding StartDate}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Focusable="False" Width="125" Margin="5"/>
+                            <materialDesign:TimePicker materialDesign:HintAssist.Hint="Start Time" SelectedTime="{Binding StartTime}" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" Focusable="False" WithSeconds="True" Is24Hours="True" Width="125" Margin="5"/>
+                            <Separator/>
+                            <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
+                            <Button>
+                                <materialDesign:PopupBox ToolTip="Match" StaysOpen="True">
+                                    <materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PackIcon Kind="ViewList" />
+                                    </materialDesign:PopupBox.ToggleContent>
+                                    <StackPanel Margin="10">
+                                        <ToolBarTray>
+                                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                                                <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Level" Width="125" Margin="5"/>
+                                                <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=FormatListChecks}" Command="{Binding MatchCommand}"/>
+                                                <Button ToolTip="Troubleshoot" Content="{materialDesign:PackIcon Kind=Eye}" Command="{Binding TroubleshootCommand}"/>
+                                            </ToolBar>
+                                        </ToolBarTray>
 
-                                                <Grid Grid.Row="1">
-                                                    <DataGrid MinWidth="300" MaxHeight="300" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                              ItemsSource="{Binding MatchedBatchList}">
-                                                        <DataGrid.Columns>
-                                                            <DataGridTemplateColumn Header="Matched Batch List">
-                                                                <DataGridTemplateColumn.CellTemplate>
-                                                                    <DataTemplate>
-                                                                        <CheckBox ToolTip="Multi-Selection Will Merge Scans" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" 
-                                                                                  Content="{Binding Name}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                                                                    </DataTemplate>
-                                                                </DataGridTemplateColumn.CellTemplate>
-                                                            </DataGridTemplateColumn>
-                                                        </DataGrid.Columns>
-                                                    </DataGrid>
-                                                </Grid>
-                                            </Grid>
-                                        </materialDesign:PopupBox>
-                                    </Button.Content>
-                                </Button>
-                                <Separator/>
-                                <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
-                                    <materialDesign:Badged.Badge>
-                                        <TextBlock Text="{Binding Progress, StringFormat={}{0:F2}%}"/>
-                                    </materialDesign:Badged.Badge>
-                                    <Button ToolTip="Process" Content="{materialDesign:PackIcon Kind=ChartBar}" Command="{Binding ProcessCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
-                                </materialDesign:Badged>
-                                <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
-                                <Separator/>
-                                <Button>
-                                    <Button.Content>
-                                        <materialDesign:PopupBox ToolTip="Batch Info" StaysOpen="True">
-                                            <materialDesign:PopupBox.ToggleContent>
-                                                <materialDesign:PackIcon Kind="InformationOutline" />
-                                            </materialDesign:PopupBox.ToggleContent>
-                                            <Grid MinWidth="300" Margin="5">
-                                                <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                          ItemsSource="{Binding SyftInfoList}">
-                                                    <DataGrid.Columns>
-                                                        <DataGridTemplateColumn Header="Category">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock Text="{Binding Category}"/>
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
+                                        <DataGrid Margin="0 10 0 0" MaxHeight="300" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                  ItemsSource="{Binding MatchedBatchList}">
+                                            <DataGrid.Columns>
+                                                <DataGridTemplateColumn Header="Matched Batch List">
+                                                    <DataGridTemplateColumn.CellTemplate>
+                                                        <DataTemplate>
+                                                            <CheckBox ToolTip="Multi-Selection Will Merge Scans" Style="{StaticResource MaterialDesignFilterChipPrimaryCheckBox}" 
+                                                                      Content="{Binding Name}" IsChecked="{Binding IsChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                                        </DataTemplate>
+                                                    </DataGridTemplateColumn.CellTemplate>
+                                                </DataGridTemplateColumn>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+                                </materialDesign:PopupBox>
+                            </Button>
+                            <Separator/>
+                            <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
+                                <materialDesign:Badged.Badge>
+                                    <TextBlock Text="{Binding Progress, StringFormat={}{0:F2}%}"/>
+                                </materialDesign:Badged.Badge>
+                                <Button ToolTip="Process" Content="{materialDesign:PackIcon Kind=ChartBar}" Command="{Binding ProcessCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                            </materialDesign:Badged>
+                            <Button>
+                                <materialDesign:PopupBox ToolTip="Save" StaysOpen="True">
+                                    <materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PackIcon Kind="ContentSaveCogOutline" />
+                                    </materialDesign:PopupBox.ToggleContent>
+                                    <StackPanel Margin="10">
+                                        <ToolBarTray >
+                                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                                                <CheckBox IsChecked="{Binding ScanFilesCollectionIsChecked}" Content="Scan Files Collection" materialDesign:CheckBoxAssist.CheckBoxSize="20"/>
+                                                <Separator/>
+                                                <Button ToolTip="Save Process" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
+                                            </ToolBar>
+                                        </ToolBarTray>
 
-                                                        <DataGridTemplateColumn Header="Item">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock Text="{Binding Item}"/>
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
+                                        <TextBox MaxHeight="400" Margin="0 10 0 0" Text="{Binding Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Report Comments" Style="{StaticResource MaterialDesignOutlinedTextBox}" AcceptsReturn="True" TextWrapping="Wrap" SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Auto" />
+                                    </StackPanel>
+                                </materialDesign:PopupBox>
+                            </Button>
+                            <Separator/>
+                            <Button>
+                                <materialDesign:PopupBox ToolTip="Batch Info" StaysOpen="True">
+                                    <materialDesign:PopupBox.ToggleContent>
+                                        <materialDesign:PackIcon Kind="InformationOutline" />
+                                    </materialDesign:PopupBox.ToggleContent>
+                                    <DataGrid Margin="10" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                              ItemsSource="{Binding SyftInfoList}">
+                                        <DataGrid.Columns>
+                                            <DataGridTemplateColumn Header="Category">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Category}"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
 
-                                                        <DataGridTemplateColumn Header="Content">
-                                                            <DataGridTemplateColumn.CellTemplate>
-                                                                <DataTemplate>
-                                                                    <TextBlock Text="{Binding Content}"/>
-                                                                </DataTemplate>
-                                                            </DataGridTemplateColumn.CellTemplate>
-                                                        </DataGridTemplateColumn>
-                                                    </DataGrid.Columns>
-                                                </DataGrid>
-                                            </Grid>
-                                        </materialDesign:PopupBox>
-                                    </Button.Content>
-                                </Button>
-                                <Button ToolTip="Scan List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}"/>
-                            </ToolBar>
-                        </ToolBarTray>
-                    </StackPanel>
+                                            <DataGridTemplateColumn Header="Item">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Item}"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+
+                                            <DataGridTemplateColumn Header="Content">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Content}"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </materialDesign:PopupBox>
+                            </Button>
+                            <Button ToolTip="Scan List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}"/>
+                        </ToolBar>
+                    </ToolBarTray>
                     <ProgressBar Height="5" Value="{Binding Progress}" />
                 </StackPanel>
             </Grid>
@@ -195,7 +194,7 @@
         </Grid>
 
         <materialDesign:DrawerHost.RightDrawerContent>
-            <DataGrid MinWidth="500" Margin="10" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+            <DataGrid Margin="10" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding SyftScanList}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Scan">
