@@ -231,7 +231,7 @@ namespace BatchAnalysis.ViewModels
             get => _scanFilesCollectionIsChecked;
             set => SetProperty(ref _scanFilesCollectionIsChecked, value);
         }
-        private string _comments;
+        private string _comments = "";
         public string Comments
         {
             get => _comments;
@@ -253,7 +253,17 @@ namespace BatchAnalysis.ViewModels
                     folderDlg.Title = "Select a Target Folder to Save";
                     if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
                     {
-                        if (ScanFilesCollectionIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
+                        try
+                        {
+                            if (ScanFilesCollectionIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
+
+                            new SyftPDF(SyftDataHub, Comments, folderDlg.FileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+
 
                     }
                 });

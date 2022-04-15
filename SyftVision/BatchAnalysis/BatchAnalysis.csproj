@@ -69,6 +69,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Services\SyftMatch.cs" />
+    <Compile Include="Services\SyftPDF.cs" />
     <Compile Include="ViewModels\BatchAnalysisViewModel.cs" />
     <Compile Include="ViewModels\SyftBatchDialogViewModel.cs" />
     <Compile Include="ViewModels\TroubleshootDialogViewModel.cs" />
