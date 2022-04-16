@@ -73,7 +73,7 @@ namespace BatchAnalysis.Services
             // Add image, title and date time
             table.AddCell(new Cell().Add(image).SetBorder(Border.NO_BORDER));
             table.AddCell(new Cell().Add(new Paragraph("Syft Batch Analysis\nChart Report")).SetVerticalAlignment(VerticalAlignment.MIDDLE).SetTextAlignment(TextAlignment.CENTER).SetFontSize(20).SetBorder(Border.NO_BORDER));
-            table.AddCell(new Cell().Add(new Paragraph($"Date: {DateTime.Now.ToString("yyyy/MM/dd")}\r\nTime: {DateTime.Now.ToString("HH:mm:ss")}")).SetVerticalAlignment(VerticalAlignment.MIDDLE).SetBorder(Border.NO_BORDER));
+            table.AddCell(new Cell().Add(new Paragraph($"Date: {DateTime.Now:yyyy/MM/dd}\r\nTime: {DateTime.Now:HH:mm:ss}")).SetVerticalAlignment(VerticalAlignment.MIDDLE).SetBorder(Border.NO_BORDER));
 
             Doc.Add(table);
 
