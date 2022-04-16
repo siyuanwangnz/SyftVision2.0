@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Options>
-	<User></User>
-	<Port></Port>
-	<Password></Password>
-	<Operator></Operator>
+	<User>root</User>
+	<Port>22</Port>
+	<Password>Syft2002</Password>
+	<Operator>Syft</Operator>
 </Options>
 

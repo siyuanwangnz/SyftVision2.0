@@ -24,7 +24,7 @@ namespace SyftVision.Views
             InitializeComponent();
 
             //Version check
-            AutoUpdater.Start("http://tools.syft.com:3453/downloads/syft-vision/VersionInfo.xml");
+            AutoUpdater.Start("http://tools.syft.com:3453/downloads/syft-vision2/VersionInfo.xml");
 
             _moduleManager = moduleManager;
             _regionManager = regionManager;
