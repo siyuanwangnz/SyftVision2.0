@@ -30,9 +30,9 @@ namespace SyftVision.Views
             _regionManager = regionManager;
 
             //Load modules
+            _moduleManager.LoadModule("BatchAnalysisModule");
             _moduleManager.LoadModule("ChartConfigModule");
             _moduleManager.LoadModule("BatchConfigModule");
-            _moduleManager.LoadModule("BatchAnalysisModule");
 
             //Get options settings
             try
