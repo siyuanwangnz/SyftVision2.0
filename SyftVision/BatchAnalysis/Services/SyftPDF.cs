@@ -91,7 +91,7 @@ namespace BatchAnalysis.Services
             table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
             table.SetTextAlignment(TextAlignment.CENTER);
             table.SetWidth(400);
-            table.SetFontSize(8);
+            table.SetFontSize(9);
             // Add info
             foreach (var info in SyftDatahub.SyftInfoList)
             {
@@ -111,19 +111,15 @@ namespace BatchAnalysis.Services
             Table table = new Table(UnitValue.CreatePercentArray(commentColumnWidths));
             table.SetWidth(500);
             table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
-            table.SetTextAlignment(TextAlignment.LEFT);
-            table.SetFontSize(8);
             // Add title cell
-            Cell cellTitle = new Cell().Add(new Paragraph("Comments"));
-            cellTitle.SetTextAlignment(TextAlignment.LEFT);
+            Cell cellTitle = new Cell().Add(new Paragraph("Comments").SetMarginLeft(10));
             cellTitle.SetFontColor(new DeviceRgb(255, 255, 255));
-            cellTitle.SetPadding(4);
             cellTitle.SetBackgroundColor(new DeviceRgb(63, 81, 181));
             table.AddCell(cellTitle);
             // Add comments cell
             Cell cellComment = new Cell().Add(new Paragraph(Comments));
-            cellComment.SetMinHeight(200);
-            cellComment.SetTextAlignment(TextAlignment.LEFT);
+            cellComment.SetMinHeight(300);
+            cellComment.SetFontSize(9);
             table.AddCell(cellComment);
 
             Doc.Add(table);
@@ -137,38 +133,36 @@ namespace BatchAnalysis.Services
                 Doc.Add(new AreaBreak());
                 // Add table
                 Table table = new Table(new float[2]).UseAllAvailableWidth();
+                table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                 // Add title cell
                 Cell cell = new Cell(1, 2).Add(new Paragraph(chart.ChartProp.Code));
                 cell.SetTextAlignment(TextAlignment.CENTER);
                 cell.SetFontColor(new DeviceRgb(255, 255, 255));
-                cell.SetPadding(4);
                 cell.SetBackgroundColor(new DeviceRgb(63, 81, 181));
                 table.AddCell(cell);
                 // Add chart
                 chart.Chart.makeChart(LocalChartImageTempFilePath);
-                Image img = new Image(ImageDataFactory.Create(LocalChartImageTempFilePath)).Scale(0.25f, 0.25f);
-                img.SetMarginLeft(145);
+                Image img = new Image(ImageDataFactory.Create(LocalChartImageTempFilePath)).Scale(0.45f, 0.45f);
+                img.SetHorizontalAlignment((HorizontalAlignment)HorizontalAlignment.CENTER);
                 table.AddCell(new Cell(1, 2).Add(img));
                 // Add Scan List
                 string scanList = $"Scan File List: Count ({chart.ScanFileList.Count})\r\n";
                 chart.ScanFileList.ForEach(a => scanList = scanList + a.File + "\r\n");
                 Cell scanListCell = new Cell().Add(new Paragraph(scanList));
-                scanListCell.SetTextAlignment(TextAlignment.LEFT);
                 scanListCell.SetFontSize(8);
                 table.AddCell(scanListCell);
                 // Add legend
-                float[] columnWidths = { 1, 5 };
+                float[] columnWidths = { 1 };
                 Table legendTable = new Table(UnitValue.CreatePercentArray(columnWidths)).UseAllAvailableWidth();
-                legendTable.SetBorder(Border.NO_BORDER);
+                legendTable.SetFontSize(8);
                 foreach (var legend in chart.XYLegendList)
                 {
-                    // Add color cell
-                    Cell cellColor = new Cell();
+                    // Add legend cell
+                    Cell cellColor = new Cell().Add(new Paragraph(legend.Content)).SetBorder(Border.NO_BORDER);
+                    cellColor.SetFontColor(new DeviceRgb(255, 255, 255));
                     System.Drawing.Color c = System.Drawing.Color.FromArgb(legend.Color);
                     cellColor.SetBackgroundColor(new DeviceRgb(c.R, c.G, c.B));
                     legendTable.AddCell(cellColor);
-                    //Add legend cell
-                    legendTable.AddCell(new Cell().Add(new Paragraph(legend.Content)));
                 }
                 table.AddCell(legendTable);
 
@@ -182,40 +176,37 @@ namespace BatchAnalysis.Services
             // Add table
             float[] columnWidths = { 5, 1, 1 };
             Table table = new Table(UnitValue.CreatePercentArray(columnWidths)).UseAllAvailableWidth();
+            table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
             // Add title cell
-            Cell cell = new Cell().Add(new Paragraph("Scan"));
-            cell.SetTextAlignment(TextAlignment.LEFT);
+            Cell cell = new Cell().Add(new Paragraph("Scan").SetMarginLeft(10));
             cell.SetFontColor(new DeviceRgb(255, 255, 255));
-            cell.SetPadding(4);
             cell.SetBackgroundColor(new DeviceRgb(63, 81, 181));
             table.AddCell(cell);
             cell = new Cell().Add(new Paragraph("Status"));
-            cell.SetTextAlignment(TextAlignment.LEFT);
+            cell.SetTextAlignment(TextAlignment.CENTER);
             cell.SetFontColor(new DeviceRgb(255, 255, 255));
-            cell.SetPadding(4);
             cell.SetBackgroundColor(new DeviceRgb(63, 81, 181));
             table.AddCell(cell);
             cell = new Cell().Add(new Paragraph("Result"));
-            cell.SetTextAlignment(TextAlignment.LEFT);
+            cell.SetTextAlignment(TextAlignment.CENTER);
             cell.SetFontColor(new DeviceRgb(255, 255, 255));
-            cell.SetPadding(4);
             cell.SetBackgroundColor(new DeviceRgb(63, 81, 181));
             table.AddCell(cell);
             //Add scan
             foreach (var scan in SyftDatahub.SyftScanList)
             {
                 // Add scan
-                table.AddCell(new Cell().Add(new Paragraph(scan.Scan)));
+                table.AddCell(new Cell().Add(new Paragraph(scan.Scan)).SetFontSize(9));
                 // Add status
                 Text text = new Text(scan.Status);
                 if (scan.Status == "SUCCESS") text.SetFontColor(ColorConstants.GREEN);
                 else text.SetFontColor(ColorConstants.RED);
-                table.AddCell(new Cell().Add(new Paragraph(text)));
+                table.AddCell(new Cell().Add(new Paragraph(text)).SetFontSize(9).SetTextAlignment(TextAlignment.CENTER));
                 // Add result
                 text = new Text(scan.Result);
                 if (scan.Status == "BAD") text.SetFontColor(ColorConstants.RED);
                 else text.SetFontColor(ColorConstants.GREEN);
-                table.AddCell(new Cell().Add(new Paragraph(text)));
+                table.AddCell(new Cell().Add(new Paragraph(text)).SetFontSize(9).SetTextAlignment(TextAlignment.CENTER));
             }
 
             Doc.Add(table);
