@@ -196,7 +196,7 @@ namespace BatchConfig.ViewModels
                 });
             }
         }
-        private string _ipAddress = "10.0.16.209";
+        private string _ipAddress = "10.0.17.";
         public string IPAddress
         {
             get => _ipAddress;

@@ -175,7 +175,7 @@ namespace BatchAnalysis.ViewModels
             get => _startTime;
             set => SetProperty(ref _startTime, value);
         }
-        private string _ipAddress = "10.0.17.199";
+        private string _ipAddress = "10.0.17.";
         public string IPAddress
         {
             get => _ipAddress;
