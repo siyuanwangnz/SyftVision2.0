@@ -45,8 +45,30 @@
                             </StackPanel>
                         </Grid>
                     </materialDesign:PopupBox>
-                    <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Chart Config" Click="C_Btn_Click" IsEnabled="{Binding Path=IsChecked, ElementName=ProBtn}"/>
-                    <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Batch Config" Click="B_Btn_Click" IsEnabled="{Binding Path=IsChecked, ElementName=ProBtn}"/>
+                    <RadioButton HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Chart Config" Click="C_Btn_Click">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignTabRadioButton}">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=ProBtn}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
+                    <RadioButton HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Batch Config" Click="B_Btn_Click">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignTabRadioButton}">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=ProBtn}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
                     <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="True" HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Batch Analysis" Click="BA_Btn_Click"/>
                     <ToggleButton Name="ProBtn" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignActionToggleButton}" materialDesign:ToggleButtonAssist.OnContent="P" Margin="4"/>
                 </DockPanel>
