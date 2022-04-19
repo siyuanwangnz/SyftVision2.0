@@ -29,8 +29,8 @@
                             <Separator/>
                             <DatePicker materialDesign:HintAssist.Hint="Start Date" SelectedDate="{Binding StartDate}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Focusable="False" Width="125" Margin="5"/>
                             <materialDesign:TimePicker materialDesign:HintAssist.Hint="Start Time" SelectedTime="{Binding StartTime}" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" Focusable="False" WithSeconds="True" Is24Hours="True" Width="125" Margin="5"/>
-                            <Separator/>
                             <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
+                            <Separator/>
                             <Button>
                                 <materialDesign:PopupBox ToolTip="Match" StaysOpen="True">
                                     <materialDesign:PopupBox.ToggleContent>
@@ -61,7 +61,6 @@
                                     </StackPanel>
                                 </materialDesign:PopupBox>
                             </Button>
-                            <Separator/>
                             <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
                                 <materialDesign:Badged.Badge>
                                     <TextBlock Text="{Binding Progress, StringFormat={}{0:F2}%}"/>
