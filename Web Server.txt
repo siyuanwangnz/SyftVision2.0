@@ -15,4 +15,4 @@ Port:
 HTTP 
 
 URL:
-http://tools.syft.com:3453/downloads/syft-vision/
+http://tools.syft.com:3453/downloads/syft-vision2/
