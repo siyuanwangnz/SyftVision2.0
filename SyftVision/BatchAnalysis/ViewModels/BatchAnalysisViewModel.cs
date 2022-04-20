@@ -288,6 +288,12 @@ namespace BatchAnalysis.ViewModels
             get => _matchedBatchList;
             set => SetProperty(ref _matchedBatchList, value);
         }
+        private bool _localMatchIsChecked;
+        public bool LocalMatchIsChecked
+        {
+            get => _localMatchIsChecked;
+            set => SetProperty(ref _localMatchIsChecked, value);
+        }
         public DelegateCommand MatchCommand
         {
             get
