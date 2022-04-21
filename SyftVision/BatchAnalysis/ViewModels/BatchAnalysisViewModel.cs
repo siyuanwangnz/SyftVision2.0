@@ -115,6 +115,31 @@ namespace BatchAnalysis.ViewModels
         }
 
         #region Toolbar
+        public DelegateCommand DownloadCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    if (TaskIsRunning()) return;
+
+                    try
+                    {
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                });
+            }
+        }
+        private bool _localBatchSelectIsChecked;
+        public bool LocalBatchSelectIsChecked
+        {
+            get => _localBatchSelectIsChecked;
+            set => SetProperty(ref _localBatchSelectIsChecked, value);
+        }
         public DelegateCommand SelectCommand
         {
             get
