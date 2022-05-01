@@ -97,6 +97,7 @@
     <Compile Include="Global\MyMath.cs" />
     <Compile Include="Global\Options.cs" />
     <Compile Include="Instrument\ScanFile.cs" />
+    <Compile Include="SFTP\LocalServer.cs" />
     <Compile Include="TreeList\BindableSelectedItemBehavior .cs" />
     <Compile Include="ChartConfig\ChartProp.cs" />
     <Compile Include="ChartConfig\ChartType.cs" />

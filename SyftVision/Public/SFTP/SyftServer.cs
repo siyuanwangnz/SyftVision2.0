@@ -191,5 +191,26 @@ namespace Public.SFTP
                 Disconnect();
             }
         }
+
+        public void DownloadBatchConfigFolder(string targetFolder)
+        {
+            try
+            {
+                string localFolderPath = targetFolder + "/LocalBatchConfig/";
+                if (!Directory.Exists(localFolderPath)) Directory.CreateDirectory(localFolderPath);
+                Connect();
+                DownloadDirectory(RemoteBatchPath, localFolderPath);
+                Disconnect();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+
+        }
     }
 }

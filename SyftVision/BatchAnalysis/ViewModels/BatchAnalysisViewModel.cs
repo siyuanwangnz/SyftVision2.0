@@ -123,13 +123,20 @@ namespace BatchAnalysis.ViewModels
                 {
                     if (TaskIsRunning()) return;
 
-                    try
+                    //Open folder path selection dialog
+                    CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
+                    folderDlg.IsFolderPicker = true;
+                    folderDlg.Title = "Select a Target Folder to Download Batch Config Files";
+                    if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
                     {
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        try
+                        {
+                            _syftServer.DownloadBatchConfigFolder(folderDlg.FileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 });
             }
