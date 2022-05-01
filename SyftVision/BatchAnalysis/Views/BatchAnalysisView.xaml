@@ -26,7 +26,7 @@
                             <Button ToolTip="Download Batch Config" Content="{materialDesign:PackIcon Kind=FolderDownload}" Command="{Binding DownloadCommand}"/>
                             <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
                                 <materialDesign:Badged.Badge>
-                                    <CheckBox Content="{materialDesign:PackIcon Kind=Laptop}" IsChecked="{Binding LocalBatchSelectIsChecked}" ToolTip="Select Batch Config From Local" Style="{StaticResource MaterialDesignAccentCheckBox}" materialDesign:CheckBoxAssist.CheckBoxSize="15"/>
+                                    <CheckBox Content="LOCAL " IsChecked="{Binding LocalBatchSelectIsChecked}" ToolTip="Select Batch Config From Local" Style="{StaticResource MaterialDesignAccentCheckBox}" materialDesign:CheckBoxAssist.CheckBoxSize="15"/>
                                 </materialDesign:Badged.Badge>
                                 <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=FileEye}" Command="{Binding SelectCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
                             </materialDesign:Badged>
@@ -48,7 +48,7 @@
                                                 <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Level" Width="125" Margin="5"/>
                                                 <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
                                                     <materialDesign:Badged.Badge>
-                                                        <CheckBox Content="{materialDesign:PackIcon Kind=Laptop}" IsChecked="{Binding LocalMatchIsChecked}" ToolTip="Match Batch From Local" Style="{StaticResource MaterialDesignAccentCheckBox}" materialDesign:CheckBoxAssist.CheckBoxSize="15"/>
+                                                        <CheckBox Content="LOCAL " IsChecked="{Binding LocalMatchIsChecked}" ToolTip="Match Batch From Local" Style="{StaticResource MaterialDesignAccentCheckBox}" materialDesign:CheckBoxAssist.CheckBoxSize="15"/>
                                                     </materialDesign:Badged.Badge>
                                                     <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=SetMerge}" Command="{Binding MatchCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
                                                 </materialDesign:Badged>
