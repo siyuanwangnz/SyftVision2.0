@@ -48,7 +48,7 @@
                                                 <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Level" Width="125" Margin="5"/>
                                                 <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
                                                     <materialDesign:Badged.Badge>
-                                                        <CheckBox Content="LOCAL " IsChecked="{Binding LocalMatchIsChecked}" ToolTip="Match Batch From Local" Style="{StaticResource MaterialDesignAccentCheckBox}" materialDesign:CheckBoxAssist.CheckBoxSize="15"/>
+                                                        <CheckBox Name="LocalMatchCheckBox" Content="LOCAL " IsChecked="{Binding LocalMatchIsChecked}" ToolTip="Match Batch From Local" Style="{StaticResource MaterialDesignAccentCheckBox}" materialDesign:CheckBoxAssist.CheckBoxSize="15"/>
                                                     </materialDesign:Badged.Badge>
                                                     <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=SetMerge}" Command="{Binding MatchCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
                                                 </materialDesign:Badged>
@@ -86,7 +86,18 @@
                                     <StackPanel Margin="10">
                                         <ToolBarTray >
                                             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                                                <CheckBox IsChecked="{Binding ScanFilesCollectionIsChecked}" Content="Scan Files Collection" materialDesign:CheckBoxAssist.CheckBoxSize="20"/>
+                                                <CheckBox IsChecked="{Binding ScanFilesCollectionIsChecked}" Content="Scan Files Collection" materialDesign:CheckBoxAssist.CheckBoxSize="20">
+                                                    <CheckBox.Style>
+                                                        <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
+                                                            <Setter Property="IsEnabled" Value="True"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsChecked, ElementName=LocalMatchCheckBox}" Value="True">
+                                                                    <Setter Property="IsEnabled" Value="False" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </CheckBox.Style>
+                                                </CheckBox>
                                                 <Separator/>
                                                 <Button ToolTip="Save Process" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
                                             </ToolBar>

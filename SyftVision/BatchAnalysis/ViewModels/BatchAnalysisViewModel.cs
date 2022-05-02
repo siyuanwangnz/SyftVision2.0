@@ -310,7 +310,7 @@ namespace BatchAnalysis.ViewModels
                     {
                         try
                         {
-                            if (ScanFilesCollectionIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
+                            if (ScanFilesCollectionIsChecked && !LocalMatchIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
 
                             new SyftPDF(SyftDataHub, Comments, folderDlg.FileName);
                         }
@@ -318,8 +318,6 @@ namespace BatchAnalysis.ViewModels
                         {
                             MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-
-
                     }
                 });
             }
