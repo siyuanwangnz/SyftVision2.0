@@ -17,6 +17,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace BatchAnalysis.ViewModels
 {
@@ -155,30 +156,53 @@ namespace BatchAnalysis.ViewModels
                 {
                     if (TaskIsRunning()) return;
 
-                    try
+                    if (LocalBatchSelectIsChecked)
                     {
-                        // Get tree nodes
-                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
-
-                        // Navigate to dialog
-                        DialogParameters param = new DialogParameters();
-                        param.Add("treeNodes", treeNodes);
-                        _dialogService.ShowDialog("SyftBatchDialogView", param, arg =>
+                        //Open file path selection dialog
+                        CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
+                        folderDlg.Title = "Select a Local Batch Config File";
+                        if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
                         {
-                            if (arg.Result == ButtonResult.OK)
+                            try
                             {
-                                TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
-
-                                SelectedBatchProp = _syftServer.DownloadBatch(treeNode);
+                                SelectedBatchProp = new BatchProp(XElement.Load(folderDlg.FileName));
 
                                 Tittle = SelectedBatchProp.Tittle;
                                 SubTittle = SelectedBatchProp.SubTittle;
                             }
-                        });
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
+                        }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        try
+                        {
+                            // Get tree nodes
+                            ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
+
+                            // Navigate to dialog
+                            DialogParameters param = new DialogParameters();
+                            param.Add("treeNodes", treeNodes);
+                            _dialogService.ShowDialog("SyftBatchDialogView", param, arg =>
+                            {
+                                if (arg.Result == ButtonResult.OK)
+                                {
+                                    TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+
+                                    SelectedBatchProp = _syftServer.DownloadBatch(treeNode);
+
+                                    Tittle = SelectedBatchProp.Tittle;
+                                    SubTittle = SelectedBatchProp.SubTittle;
+                                }
+                            });
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 });
             }
