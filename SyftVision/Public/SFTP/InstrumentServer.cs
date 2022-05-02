@@ -92,7 +92,11 @@ namespace Public.SFTP
                 {
                     List<string> fileList = GetFileList(RemoteScanPath + folder, "xml");
                     foreach (var file in fileList)
-                        scanFileList.Add(new ScanFile(file, folder));
+                    {
+                        ScanFile scanFile = new ScanFile(file);
+                        scanFile.RemoteFolder = folder;
+                        scanFileList.Add(scanFile);
+                    }
                 }
 
                 Disconnect();
