@@ -108,7 +108,7 @@ namespace SyftXML
 
             Dictionary<double, double> ICF = new Dictionary<double, double>();
 
-            string massTable = $"{XMLDataService.GetSettingNodeValueByAttributeName(RootNode, "icf.converter")};";
+            string massTable = $"{XMLDataService.GetSettingNodeValueByAttributeName(RootNode, "icf.converter")};"; //TODO: Should remove ; for 3.4.4
 
             while (massTable.Contains(";"))
             {
