@@ -23,14 +23,20 @@
                 <StackPanel>
                     <ToolBarTray>
                         <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
-                            <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=FileFind}" Command="{Binding SelectCommand}"/>
+                            <Button ToolTip="Download Batch Config" Content="{materialDesign:PackIcon Kind=FolderDownload}" Command="{Binding DownloadCommand}"/>
+                            <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
+                                <materialDesign:Badged.Badge>
+                                    <CheckBox Content="LOCAL " IsChecked="{Binding LocalBatchSelectIsChecked}" ToolTip="Select Batch Config From Local" Style="{StaticResource MaterialDesignAccentCheckBox}" materialDesign:CheckBoxAssist.CheckBoxSize="15"/>
+                                </materialDesign:Badged.Badge>
+                                <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=FileEye}" Command="{Binding SelectCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                            </materialDesign:Badged>
                             <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
                             <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5" IsEnabled="False"/>
                             <Separator/>
                             <DatePicker materialDesign:HintAssist.Hint="Start Date" SelectedDate="{Binding StartDate}" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Focusable="False" Width="125" Margin="5"/>
                             <materialDesign:TimePicker materialDesign:HintAssist.Hint="Start Time" SelectedTime="{Binding StartTime}" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" Focusable="False" WithSeconds="True" Is24Hours="True" Width="125" Margin="5"/>
-                            <Separator/>
                             <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
+                            <Separator/>
                             <Button>
                                 <materialDesign:PopupBox ToolTip="Match" StaysOpen="True">
                                     <materialDesign:PopupBox.ToggleContent>
@@ -38,9 +44,14 @@
                                     </materialDesign:PopupBox.ToggleContent>
                                     <StackPanel Margin="10">
                                         <ToolBarTray>
-                                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
                                                 <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Level" Width="125" Margin="5"/>
-                                                <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=SetMerge}" Command="{Binding MatchCommand}"/>
+                                                <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
+                                                    <materialDesign:Badged.Badge>
+                                                        <CheckBox Name="LocalMatchCheckBox" Content="LOCAL " IsChecked="{Binding LocalMatchIsChecked}" ToolTip="Match Batch From Local" Style="{StaticResource MaterialDesignAccentCheckBox}" materialDesign:CheckBoxAssist.CheckBoxSize="15"/>
+                                                    </materialDesign:Badged.Badge>
+                                                    <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=SetMerge}" Command="{Binding MatchCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                                                </materialDesign:Badged>
                                                 <Button ToolTip="Troubleshoot" Content="{materialDesign:PackIcon Kind=Eye}" Command="{Binding TroubleshootCommand}"/>
                                             </ToolBar>
                                         </ToolBarTray>
@@ -61,7 +72,6 @@
                                     </StackPanel>
                                 </materialDesign:PopupBox>
                             </Button>
-                            <Separator/>
                             <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
                                 <materialDesign:Badged.Badge>
                                     <TextBlock Text="{Binding Progress, StringFormat={}{0:F2}%}"/>
@@ -76,7 +86,18 @@
                                     <StackPanel Margin="10">
                                         <ToolBarTray >
                                             <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                                                <CheckBox IsChecked="{Binding ScanFilesCollectionIsChecked}" Content="Scan Files Collection" materialDesign:CheckBoxAssist.CheckBoxSize="20"/>
+                                                <CheckBox IsChecked="{Binding ScanFilesCollectionIsChecked}" Content="Scan Files Collection" materialDesign:CheckBoxAssist.CheckBoxSize="20">
+                                                    <CheckBox.Style>
+                                                        <Style TargetType="CheckBox" BasedOn="{StaticResource MaterialDesignCheckBox}">
+                                                            <Setter Property="IsEnabled" Value="True"/>
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding IsChecked, ElementName=LocalMatchCheckBox}" Value="True">
+                                                                    <Setter Property="IsEnabled" Value="False" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </CheckBox.Style>
+                                                </CheckBox>
                                                 <Separator/>
                                                 <Button ToolTip="Save Process" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
                                             </ToolBar>

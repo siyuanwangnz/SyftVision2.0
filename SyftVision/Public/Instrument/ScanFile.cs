@@ -10,11 +10,9 @@ namespace Public.Instrument
 {
     public class ScanFile
     {
-        public ScanFile(string file, string remoteFolder)
+        public ScanFile(string file)
         {
             File = file;
-
-            RemoteFolder = remoteFolder;
 
             Name = Regex.Match(File, @"^(.*)-\d+-\d{8}-\d{6}\.xml$").Groups[1].Value;
 
@@ -32,7 +30,7 @@ namespace Public.Instrument
             Time = Regex.Match(Date_Time, @"^\d{8}-(\d{6})$").Groups[1].Value;
         }
         public string File { get; }
-        public string RemoteFolder { get; }
+        public string RemoteFolder { get; set; } = "";
         public string RemoteFilePath { get => $"{RemoteFolder}/{File}"; }
         public string FullLocalFolder { get; set; } = "";
         public string FullLocalFilePath { get => $"{FullLocalFolder}/{File}"; }

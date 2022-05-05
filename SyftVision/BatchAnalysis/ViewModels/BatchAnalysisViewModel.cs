@@ -14,9 +14,11 @@ using Public.TreeList;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace BatchAnalysis.ViewModels
 {
@@ -115,6 +117,38 @@ namespace BatchAnalysis.ViewModels
         }
 
         #region Toolbar
+        public DelegateCommand DownloadCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    if (TaskIsRunning()) return;
+
+                    //Open folder path selection dialog
+                    CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
+                    folderDlg.IsFolderPicker = true;
+                    folderDlg.Title = "Select a Target Folder to Download Batch Config Files";
+                    if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                    {
+                        try
+                        {
+                            _syftServer.DownloadBatchConfigFolder(folderDlg.FileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                });
+            }
+        }
+        private bool _localBatchSelectIsChecked;
+        public bool LocalBatchSelectIsChecked
+        {
+            get => _localBatchSelectIsChecked;
+            set => SetProperty(ref _localBatchSelectIsChecked, value);
+        }
         public DelegateCommand SelectCommand
         {
             get
@@ -125,24 +159,41 @@ namespace BatchAnalysis.ViewModels
 
                     try
                     {
-                        // Get tree nodes
-                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
-
-                        // Navigate to dialog
-                        DialogParameters param = new DialogParameters();
-                        param.Add("treeNodes", treeNodes);
-                        _dialogService.ShowDialog("SyftBatchDialogView", param, arg =>
+                        if (LocalBatchSelectIsChecked) // Local Selection
                         {
-                            if (arg.Result == ButtonResult.OK)
+                            //Open file path selection dialog
+                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
+                            folderDlg.Title = "Select a Local Batch Config File";
+                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
-                                TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
-
-                                SelectedBatchProp = _syftServer.DownloadBatch(treeNode);
+                                SelectedBatchProp = new BatchProp(XElement.Load(folderDlg.FileName));
 
                                 Tittle = SelectedBatchProp.Tittle;
                                 SubTittle = SelectedBatchProp.SubTittle;
                             }
-                        });
+                        }
+                        else // Remote Selection
+                        {
+                            // Get tree nodes
+                            ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
+
+                            // Navigate to dialog
+                            DialogParameters param = new DialogParameters();
+                            param.Add("treeNodes", treeNodes);
+                            _dialogService.ShowDialog("SyftBatchDialogView", param, arg =>
+                            {
+                                if (arg.Result == ButtonResult.OK)
+                                {
+                                    TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+
+                                    SelectedBatchProp = _syftServer.DownloadBatch(treeNode);
+
+                                    Tittle = SelectedBatchProp.Tittle;
+                                    SubTittle = SelectedBatchProp.SubTittle;
+                                }
+                            });
+
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -201,10 +252,14 @@ namespace BatchAnalysis.ViewModels
                         {
                             Progress = 0;
 
-                            // Download selected batch
-                            _instrumentServer.ClearLocalScanPath();
-                            foreach (var batch in SyftDataHub.SelectedBatchList)
-                                _instrumentServer.DownloadScanFileList(batch.ScanList, GetProgressAction(30.0, SyftDataHub.ScanCount));
+                            if (LocalMatchIsChecked) Progress = 30.0;
+                            else
+                            {
+                                // Download selected batch
+                                _instrumentServer.ClearLocalScanPath();
+                                foreach (var batch in SyftDataHub.SelectedBatchList)
+                                    _instrumentServer.DownloadScanFileList(batch.ScanList, GetProgressAction(30.0, SyftDataHub.ScanCount));
+                            }
 
                             // Get scan status list
                             SyftScanList = new ObservableCollection<SyftScan>(SyftDataHub.GetSyftScanList(GetProgressAction(10.0, SyftDataHub.ScanCount)));
@@ -255,7 +310,7 @@ namespace BatchAnalysis.ViewModels
                     {
                         try
                         {
-                            if (ScanFilesCollectionIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
+                            if (ScanFilesCollectionIsChecked && !LocalMatchIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
 
                             new SyftPDF(SyftDataHub, Comments, folderDlg.FileName);
                         }
@@ -263,8 +318,6 @@ namespace BatchAnalysis.ViewModels
                         {
                             MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
-
-
                     }
                 });
             }
@@ -288,6 +341,12 @@ namespace BatchAnalysis.ViewModels
             get => _matchedBatchList;
             set => SetProperty(ref _matchedBatchList, value);
         }
+        private bool _localMatchIsChecked;
+        public bool LocalMatchIsChecked
+        {
+            get => _localMatchIsChecked;
+            set => SetProperty(ref _localMatchIsChecked, value);
+        }
         public DelegateCommand MatchCommand
         {
             get
@@ -296,17 +355,43 @@ namespace BatchAnalysis.ViewModels
                 {
                     if (TaskIsRunning()) return;
 
-                    _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
+                    if (SelectedBatchProp == null)
+                    {
+                        MessageBox.Show($"Please select a Batch Config", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
 
                     try
                     {
-                        if (SelectedBatchProp == null)
+                        if (LocalMatchIsChecked) // Local Match
                         {
-                            MessageBox.Show($"Please select a Batch Config", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
-                            return;
-                        }
+                            //Open folder path selection dialog
+                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
+                            folderDlg.IsFolderPicker = true;
+                            folderDlg.Title = "Select a Target Folder to Match";
+                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                            {
+                                ScanFileList = new List<ScanFile>();
 
-                        ScanFileList = _instrumentServer.GetScanFileList(StartDate, StartTime);
+                                DirectoryInfo folder = new DirectoryInfo(folderDlg.FileName);
+                                foreach (var file in folder.GetFiles("*.xml", SearchOption.AllDirectories))
+                                {
+                                    ScanFile scanFile = new ScanFile(file.Name);
+                                    scanFile.FullLocalFolder = file.Directory.FullName;
+                                    ScanFileList.Add(scanFile);
+                                }
+
+                                ScanFileList.Sort((a, b) => a.Date_Time.CompareTo(b.Date_Time) == 0 ? a.ID.CompareTo(b.ID) : a.Date_Time.CompareTo(b.Date_Time));
+                            }
+                            else
+                                return;
+                        }
+                        else // Remote Match
+                        {
+                            _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
+
+                            ScanFileList = _instrumentServer.GetScanFileList(StartDate, StartTime);
+                        }
 
                         SyftDataHub = new SyftDataHub(SelectedBatchProp, new SyftMatch(ScanFileList, SelectedMatchLevel));
 

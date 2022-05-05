@@ -70,7 +70,7 @@
                         </RadioButton.Style>
                     </RadioButton>
                     <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="True" HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Batch Analysis" Click="BA_Btn_Click"/>
-                    <ToggleButton Name="ProBtn" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignActionToggleButton}" materialDesign:ToggleButtonAssist.OnContent="P" Margin="4"/>
+                    <ToggleButton Name="ProBtn" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignActionToggleButton}" materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=ProfessionalHexagon}" Margin="4"/>
                 </DockPanel>
             </materialDesign:ColorZone>
         </Grid>
