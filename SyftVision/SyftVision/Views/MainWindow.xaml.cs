@@ -33,6 +33,7 @@ namespace SyftVision.Views
             _moduleManager.LoadModule("BatchAnalysisModule");
             _moduleManager.LoadModule("ChartConfigModule");
             _moduleManager.LoadModule("BatchConfigModule");
+            _moduleManager.LoadModule("SettingCheckModule");
 
             //Get options settings
             try
@@ -98,6 +99,12 @@ namespace SyftVision.Views
         {
             //Navigare to batch analysis view
             _regionManager.RequestNavigate("ContentRegion", "BatchAnalysisView");
+        }
+
+        private void SC_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            //Navigare to batch analysis view
+            _regionManager.RequestNavigate("ContentRegion", "SettingCheckView");
         }
 
         private void SetOptions()

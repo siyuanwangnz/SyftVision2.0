@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="SettingCheck.Views.SettingCheckView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SettingCheck.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+             xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+             mc:Ignorable="d"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True" >
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <StackPanel>
+                <ToolBarTray>
+                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                        <Button ToolTip="Open" Content="{materialDesign:PackIcon Kind=FolderOpenOutline}" Command="{Binding OpenCommand}"/>
+                        <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
+                        <Separator/>
+                        <ComboBox ItemsSource="{Binding ChartTypeList}" DisplayMemberPath="FullName" SelectedItem="{Binding SelectedChartType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Chart Type" Width="125" Margin="5"/>
+                        <Button ToolTip="New" Content="{materialDesign:PackIcon Kind=FolderPlusOutline}" Command="{Binding NewCommand}"/>
+                        <Separator/>
+                        <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
+                        <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
+                        <ComboBox ItemsSource="{Binding ExpectedRangeList}" SelectedItem="{Binding SelectedExpectedRange}" IsEnabled="{Binding SelectedChartType.Component.LimitEnable}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Expected Range" Width="125" Margin="5"/>
+                        <ComboBox ItemsSource="{Binding PhaseList}" SelectedItem="{Binding SelectedPhase}" IsEnabled="{Binding SelectedChartType.Component.PhaseEnable}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Phase" Width="125" Margin="5"/>
+                    </ToolBar>
+                </ToolBarTray>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      ItemsSource="{Binding ComponentList}" SelectedItem="{Binding SelectedComponent}">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Compound" DisplayIndex="0">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Compound, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding CompoundEnable}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Reagent" DisplayIndex="1">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Reagent, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ReagentEnable}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Production" DisplayIndex="2">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Production, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ProductionEnable}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Limit" DisplayIndex="3">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Limit, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" IsEnabled="{Binding LimitEnable}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Delete" DisplayIndex="4">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Command="Delete" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=DeleteOutline}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Add" DisplayIndex="5">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Command="{Binding Path=DataContext.AddUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=TableRowPlusBefore}"/>
+                                    <Button Command="{Binding Path=DataContext.AddDownCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=TableRowPlusAfter}" Margin="5 0 0 0"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+    </Grid>
+</UserControl>
