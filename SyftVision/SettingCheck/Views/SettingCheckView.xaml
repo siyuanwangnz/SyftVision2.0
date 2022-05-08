@@ -19,17 +19,64 @@
         <Grid Grid.Row="0">
             <StackPanel>
                 <ToolBarTray>
-                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
-                        <Button ToolTip="Open" Content="{materialDesign:PackIcon Kind=FolderOpenOutline}" Command="{Binding OpenCommand}"/>
-                        <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
+                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+                        <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
+                        <CheckBox IsChecked="{Binding LocalSelectIsChecked}" ToolTip="Select Scan File From Local" Style="{StaticResource MaterialDesignCheckBox}" Margin="5">
+                            <CheckBox.Content>
+                                <TextBlock Text="LOCAL" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
+                            </CheckBox.Content>
+                        </CheckBox>
                         <Separator/>
-                        <ComboBox ItemsSource="{Binding ChartTypeList}" DisplayMemberPath="FullName" SelectedItem="{Binding SelectedChartType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Chart Type" Width="125" Margin="5"/>
-                        <Button ToolTip="New" Content="{materialDesign:PackIcon Kind=FolderPlusOutline}" Command="{Binding NewCommand}"/>
+                        <Button ToolTip="Open" Content="{materialDesign:PackIcon Kind=FolderOpen}" Command="{Binding OpenCommand}"/>
+                        <Button ToolTip="Add" Content="{materialDesign:PackIcon Kind=FolderPlus}" Command="{Binding AddCommand}"/>
+                        <Button>
+                            <materialDesign:PopupBox ToolTip="Save" StaysOpen="True">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <materialDesign:PackIcon Kind="ContentSaveCogOutline" />
+                                </materialDesign:PopupBox.ToggleContent>
+                                <StackPanel Margin="10">
+                                    <TextBox MaxHeight="400" MinWidth="200" Text="{Binding Comments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Report Comments" Style="{StaticResource MaterialDesignOutlinedTextBox}" AcceptsReturn="True" TextWrapping="Wrap" SpellCheck.IsEnabled="True" VerticalScrollBarVisibility="Auto" />
+                                    <Button ToolTip="Save Process" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}" Style="{StaticResource MaterialDesignRaisedButton}" Margin="0 10 0 0"/>
+                                </StackPanel>
+                            </materialDesign:PopupBox>
+                        </Button>
                         <Separator/>
-                        <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
-                        <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
-                        <ComboBox ItemsSource="{Binding ExpectedRangeList}" SelectedItem="{Binding SelectedExpectedRange}" IsEnabled="{Binding SelectedChartType.Component.LimitEnable}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Expected Range" Width="125" Margin="5"/>
-                        <ComboBox ItemsSource="{Binding PhaseList}" SelectedItem="{Binding SelectedPhase}" IsEnabled="{Binding SelectedChartType.Component.PhaseEnable}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Phase" Width="125" Margin="5"/>
+                        <Button>
+                            <materialDesign:PopupBox ToolTip="Batch Info" StaysOpen="True">
+                                <materialDesign:PopupBox.ToggleContent>
+                                    <materialDesign:PackIcon Kind="InformationOutline" />
+                                </materialDesign:PopupBox.ToggleContent>
+                                <DataGrid Margin="10" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                              ItemsSource="{Binding SyftInfoList}">
+                                    <DataGrid.Columns>
+                                        <DataGridTemplateColumn Header="Category">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Category}"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn Header="Item">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Item}"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+
+                                        <DataGridTemplateColumn Header="Content">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Content}"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </materialDesign:PopupBox>
+                        </Button>
+                        <Button ToolTip="Scan List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}"/>
                     </ToolBar>
                 </ToolBarTray>
             </StackPanel>
