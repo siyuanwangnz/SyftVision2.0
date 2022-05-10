@@ -70,6 +70,18 @@
                         </RadioButton.Style>
                     </RadioButton>
                     <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="True" HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Batch Analysis" Click="BA_Btn_Click"/>
+                    <RadioButton HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Setting Config" Click="S_Btn_Click">
+                        <RadioButton.Style>
+                            <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignTabRadioButton}">
+                                <Setter Property="Visibility" Value="Visible" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsChecked, ElementName=ProBtn}" Value="False">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </RadioButton.Style>
+                    </RadioButton>
                     <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Setting Check" Click="SC_Btn_Click"/>
                     <ToggleButton Name="ProBtn" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignActionToggleButton}" materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=ProfessionalHexagon}" Margin="4"/>
                 </DockPanel>

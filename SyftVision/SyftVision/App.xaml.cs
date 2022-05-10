@@ -6,6 +6,7 @@ using ChartConfig;
 using BatchAnalysis;
 using BatchConfig;
 using SettingCheck;
+using SettingConfig;
 
 namespace SyftVision
 {
@@ -45,6 +46,13 @@ namespace SyftVision
             {
                 ModuleName = typeof(BatchAnalysisModule).Name,
                 ModuleType = typeof(BatchAnalysisModule).AssemblyQualifiedName,
+                InitializationMode = InitializationMode.OnDemand
+            });
+            //Add Setting Config Module
+            moduleCatalog.AddModule(new ModuleInfo()
+            {
+                ModuleName = typeof(SettingConfigModule).Name,
+                ModuleType = typeof(SettingConfigModule).AssemblyQualifiedName,
                 InitializationMode = InitializationMode.OnDemand
             });
             //Add Setting Check Module
