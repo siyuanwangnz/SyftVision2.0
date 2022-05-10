@@ -35,7 +35,7 @@
                                     <TextBlock Margin="5,0,0,0" Style="{StaticResource MaterialDesignSubtitle2TextBlock}" Text="Options" VerticalAlignment="Center" Foreground="White"/>
                                 </StackPanel>
                             </materialDesign:ColorZone>
-                            <TextBox Grid.Row="1" Width="130" materialDesign:HintAssist.Hint="SFTP User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="UserText"/>
+                            <TextBox Grid.Row="1" Width="130" materialDesign:HintAssist.Hint="SFTP User" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="UserText" Margin="0 10 0 0"/>
                             <TextBox Grid.Row="2" Width="130" materialDesign:HintAssist.Hint="SFTP Port" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="PortText"/>
                             <PasswordBox Grid.Row="3"  Width="130" materialDesign:HintAssist.Hint="SFTP Password" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" x:Name="PasswordPSD"/>
                             <TextBox Grid.Row="4" Width="130" materialDesign:HintAssist.Hint="Operator" Style="{StaticResource MaterialDesignFloatingHintTextBox}" x:Name="OperatorText"/>
