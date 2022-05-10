@@ -26,7 +26,14 @@
                             <Button ToolTip="Download Batch Config" Content="{materialDesign:PackIcon Kind=FolderDownload}" Command="{Binding DownloadCommand}"/>
                             <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
                                 <materialDesign:Badged.Badge>
-                                    <CheckBox Content="LOCAL " IsChecked="{Binding LocalBatchSelectIsChecked}" ToolTip="Select Batch Config From Local" Style="{StaticResource MaterialDesignAccentCheckBox}" materialDesign:CheckBoxAssist.CheckBoxSize="15"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <ToggleButton IsChecked="{Binding LocalBatchSelectIsChecked}" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="Select Batch Config From Local" Width="30" Height="15">
+                                            <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                                <SolidColorBrush Color="Yellow" />
+                                            </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                        </ToggleButton>
+                                        <materialDesign:PackIcon Kind="DesktopClassic" VerticalAlignment="Center"/>
+                                    </StackPanel>
                                 </materialDesign:Badged.Badge>
                                 <Button ToolTip="Select Batch Config" Content="{materialDesign:PackIcon Kind=FileEye}" Command="{Binding SelectCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
                             </materialDesign:Badged>
@@ -48,7 +55,14 @@
                                                 <ComboBox ItemsSource="{Binding MatchLevelList}" SelectedItem="{Binding SelectedMatchLevel}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Match Level" Width="125" Margin="5"/>
                                                 <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
                                                     <materialDesign:Badged.Badge>
-                                                        <CheckBox Name="LocalMatchCheckBox" Content="LOCAL " IsChecked="{Binding LocalMatchIsChecked}" ToolTip="Match Batch From Local" Style="{StaticResource MaterialDesignAccentCheckBox}" materialDesign:CheckBoxAssist.CheckBoxSize="15"/>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <ToggleButton IsChecked="{Binding LocalMatchIsChecked}" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="Match Batch From Local" Width="30" Height="15">
+                                                                <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                                                    <SolidColorBrush Color="Yellow" />
+                                                                </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
+                                                            </ToggleButton>
+                                                            <materialDesign:PackIcon Kind="DesktopClassic" VerticalAlignment="Center"/>
+                                                        </StackPanel>
                                                     </materialDesign:Badged.Badge>
                                                     <Button ToolTip="Match Process" Content="{materialDesign:PackIcon Kind=SetMerge}" Command="{Binding MatchCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
                                                 </materialDesign:Badged>
