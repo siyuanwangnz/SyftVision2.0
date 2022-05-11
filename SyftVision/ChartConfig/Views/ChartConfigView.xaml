@@ -17,22 +17,20 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <StackPanel>
-                <ToolBarTray>
-                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}" Height="56">
-                        <Button ToolTip="Open" Content="{materialDesign:PackIcon Kind=FolderOpenOutline}" Command="{Binding OpenCommand}"/>
-                        <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
-                        <Separator/>
-                        <ComboBox ItemsSource="{Binding ChartTypeList}" DisplayMemberPath="FullName" SelectedItem="{Binding SelectedChartType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Chart Type" Width="125" Margin="5"/>
-                        <Button ToolTip="New" Content="{materialDesign:PackIcon Kind=FolderPlusOutline}" Command="{Binding NewCommand}"/>
-                        <Separator/>
-                        <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
-                        <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
-                        <ComboBox ItemsSource="{Binding ExpectedRangeList}" SelectedItem="{Binding SelectedExpectedRange}" IsEnabled="{Binding SelectedChartType.Component.LimitEnable}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Expected Range" Width="125" Margin="5"/>
-                        <ComboBox ItemsSource="{Binding PhaseList}" SelectedItem="{Binding SelectedPhase}" IsEnabled="{Binding SelectedChartType.Component.PhaseEnable}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Phase" Width="125" Margin="5"/>
-                    </ToolBar>
-                </ToolBarTray>
-            </StackPanel>
+            <ToolBarTray>
+                <ToolBar Style="{DynamicResource MaterialDesignToolBar}" Height="56">
+                    <Button ToolTip="Open" Content="{materialDesign:PackIcon Kind=FolderOpenOutline}" Command="{Binding OpenCommand}"/>
+                    <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
+                    <Separator/>
+                    <ComboBox ItemsSource="{Binding ChartTypeList}" DisplayMemberPath="FullName" SelectedItem="{Binding SelectedChartType}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Chart Type" Width="125" Margin="5"/>
+                    <Button ToolTip="New" Content="{materialDesign:PackIcon Kind=FolderPlusOutline}" Command="{Binding NewCommand}"/>
+                    <Separator/>
+                    <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
+                    <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding SubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
+                    <ComboBox ItemsSource="{Binding ExpectedRangeList}" SelectedItem="{Binding SelectedExpectedRange}" IsEnabled="{Binding SelectedChartType.Component.LimitEnable}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Expected Range" Width="125" Margin="5"/>
+                    <ComboBox ItemsSource="{Binding PhaseList}" SelectedItem="{Binding SelectedPhase}" IsEnabled="{Binding SelectedChartType.Component.PhaseEnable}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Phase" Width="125" Margin="5"/>
+                </ToolBar>
+            </ToolBarTray>
         </Grid>
 
         <Grid Grid.Row="1" Margin="0 10 0 0">
