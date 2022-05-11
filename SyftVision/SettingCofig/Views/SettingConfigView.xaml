@@ -24,7 +24,7 @@
                         <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
                         <Separator/>
                         <TextBox materialDesign:HintAssist.Hint="IP Address" Text="{Binding IPAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
-                        <Button Margin="5"/>
+                        <Button Margin="5" IsEnabled="False"/>
                         <Button ToolTip="New" Content="{materialDesign:PackIcon Kind=FolderPlusOutline}" Command="{Binding NewCommand}"/>
                         <Separator/>
                         <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding Tittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
