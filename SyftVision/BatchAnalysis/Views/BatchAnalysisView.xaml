@@ -90,7 +90,7 @@
                             <materialDesign:Badged.Badge>
                                 <TextBlock Text="{Binding Progress, StringFormat={}{0:F2}%}"/>
                             </materialDesign:Badged.Badge>
-                            <Button ToolTip="Process" Content="{materialDesign:PackIcon Kind=ChartBar}" Command="{Binding ProcessCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"/>
+                            <Button ToolTip="Process" Content="{materialDesign:PackIcon Kind=ChartBar}" Command="{Binding ProcessCommand}" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" IsDefault="True"/>
                         </materialDesign:Badged>
                         <Button>
                             <materialDesign:PopupBox ToolTip="Save" StaysOpen="True">
@@ -159,7 +159,7 @@
                         </Button>
                     </ToolBar>
                 </ToolBarTray>
-                <Button ToolTip="Scan List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" HorizontalAlignment="Right" Margin="8"/>
+                <Button ToolTip="Scan List" Content="{materialDesign:PackIcon Kind=FormatListBulleted}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}" Style="{StaticResource MaterialDesignRaisedLightButton}" Width="30" Height="30" Padding="0" HorizontalAlignment="Right" Margin="13"/>
             </Grid>
 
             <ProgressBar Grid.Row="1" Height="5" Value="{Binding Progress}" />
