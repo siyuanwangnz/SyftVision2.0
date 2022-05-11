@@ -15,14 +15,15 @@
     <materialDesign:DrawerHost x:Name="DrawerHost">
         <Grid Margin="10">
             <Grid.RowDefinitions>
-                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="56"></RowDefinition>
+                <RowDefinition Height="5"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
                 <StackPanel>
                     <ToolBarTray>
-                        <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+                        <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False" Height="56">
                             <Button ToolTip="Download Batch Config" Content="{materialDesign:PackIcon Kind=FolderDownload}" Command="{Binding DownloadCommand}"/>
                             <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
                                 <materialDesign:Badged.Badge>
@@ -157,14 +158,15 @@
                                     </DataGrid>
                                 </materialDesign:PopupBox>
                             </Button>
-                            <Button ToolTip="Scan List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}"/>
                         </ToolBar>
                     </ToolBarTray>
-                    <ProgressBar Height="5" Value="{Binding Progress}" />
                 </StackPanel>
+                <Button ToolTip="Scan List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" HorizontalAlignment="Right" Margin="8"/>
             </Grid>
 
-            <Grid Grid.Row="1">
+            <ProgressBar Grid.Row="1" Height="5" Value="{Binding Progress}" />
+
+            <Grid Grid.Row="2" Margin="0 10 0 0">
                 <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="False"
                           ItemsSource="{Binding SyftChartList}">
                     <DataGrid.Columns>

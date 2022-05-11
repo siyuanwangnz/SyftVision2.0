@@ -12,14 +12,14 @@
              prism:ViewModelLocator.AutoWireViewModel="True" >
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="65"></RowDefinition>
+            <RowDefinition Height="56"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
             <StackPanel>
                 <ToolBarTray>
-                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                    <ToolBar Style="{DynamicResource MaterialDesignToolBar}" Height="56">
                         <Button ToolTip="Open" Content="{materialDesign:PackIcon Kind=FolderOpenOutline}" Command="{Binding OpenCommand}"/>
                         <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
                         <Separator/>
@@ -35,7 +35,7 @@
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="0 10 0 0">
             <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding ComponentList}" SelectedItem="{Binding SelectedComponent}">
                 <DataGrid.Columns>

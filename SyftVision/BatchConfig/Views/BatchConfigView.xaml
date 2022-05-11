@@ -21,14 +21,14 @@
 
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="65"></RowDefinition>
+                    <RowDefinition Height="56"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
                     <StackPanel>
                         <ToolBarTray>
-                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" Height="56">
                                 <TextBox materialDesign:HintAssist.Hint="Selected Tittle" Text="{Binding ChartTittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="5"/>
                                 <TextBox materialDesign:HintAssist.Hint="And Sub-Tittle" Text="{Binding ChartSubTittle}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="90" IsEnabled="False" Margin="5"/>
                                 <Separator/>
@@ -38,7 +38,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Margin="0 10 0 0">
                     <TreeView ItemsSource="{Binding TreeNodes}">
                         <b:Interaction.Behaviors>
                             <PublicTreeList:BindableSelectedItemBehavior SelectedItem="{Binding SelectedTreeNode, Mode=TwoWay}"/>
@@ -59,14 +59,14 @@
 
             <Grid Grid.Column="1" Margin="10 0 0 0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="65"></RowDefinition>
+                    <RowDefinition Height="56"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
                     <StackPanel>
                         <ToolBarTray>
-                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}">
+                            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" Height="56">
                                 <Button ToolTip="Open" Content="{materialDesign:PackIcon Kind=FolderOpenOutline}" Command="{Binding OpenCommand}"/>
                                 <Button ToolTip="Save" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" Command="{Binding SaveCommand}"/>
                                 <Separator/>
@@ -75,14 +75,13 @@
                                 <Separator/>
                                 <TextBox materialDesign:HintAssist.Hint="Tittle" Text="{Binding BatchTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
                                 <TextBox materialDesign:HintAssist.Hint="Sub-Tittle" Text="{Binding BatchSubTittle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Width="125" Margin="5"/>
-                                <Separator/>
-                                <Button ToolTip="Chart List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}"/>
-                            </ToolBar>
+                             </ToolBar>
                         </ToolBarTray>
                     </StackPanel>
+                    <Button ToolTip="Chart List" Content="{materialDesign:PackIcon Kind=FormatListBulletedType}" Command="{x:Static materialDesign:DrawerHost.OpenDrawerCommand}" CommandParameter="{x:Static Dock.Right}" Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" HorizontalAlignment="Right" Margin="0 0 8 0"/>
                 </Grid>
 
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" Margin="0 10 0 0">
                     <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ItemsSource="{Binding MethodList}" SelectedItem="{Binding SelectedMethod}">
                         <DataGrid.Columns>
@@ -138,7 +137,7 @@
         </Grid>
 
         <materialDesign:DrawerHost.RightDrawerContent>
-            <DataGrid MinWidth="250" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+            <DataGrid MinWidth="250" Margin="10" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding ChartPropList}">
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Chart List">
