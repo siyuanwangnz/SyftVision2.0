@@ -43,7 +43,7 @@ namespace SettingConfig.ViewModels
                     try
                     {
                         // Get tree nodes
-                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Chart);
+                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Setting);
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();

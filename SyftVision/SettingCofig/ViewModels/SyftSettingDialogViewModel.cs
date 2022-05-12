@@ -8,9 +8,9 @@ using System.Collections.ObjectModel;
 
 namespace SettingConfig.ViewModels
 {
-    public class SyftChartDialogViewModel : BindableBase, IDialogAware
+    public class SyftSettingDialogViewModel : BindableBase, IDialogAware
     {
-        public string Title { get; } = "Select A Target Chart Config File";
+        public string Title { get; } = "Select A Target Setting Config File";
         public event Action<IDialogResult> RequestClose;
         public bool CanCloseDialog()
         {

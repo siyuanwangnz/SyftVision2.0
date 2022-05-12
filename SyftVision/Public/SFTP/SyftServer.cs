@@ -15,7 +15,7 @@ namespace Public.SFTP
 {
     public class SyftServer : SFTPServices
     {
-        public enum Type { Chart, Batch }
+        public enum Type { Chart, Batch, Setting }
 
         private readonly string LocalChartPath = "./Temp/ChartConfig/";
         private readonly string LocalChartTempFile = "ChartTemp.xml";
@@ -23,17 +23,23 @@ namespace Public.SFTP
         private readonly string LocalBatchPath = "./Temp/BatchConfig/";
         private readonly string LocalBatchTempFile = "BatchTemp.xml";
 
+        private readonly string LocalSettingPath = "./Temp/SettingConfig/";
+        private readonly string LocalSettingTempFile = "SettingTemp.xml";
+
         private readonly string RemoteChartPath = "/home/sftp/files/syft-vision2/ChartConfig/";
         private readonly string RemoteBatchPath = "/home/sftp/files/syft-vision2/BatchConfig/";
+        private readonly string RemoteSettingPath = "/home/sftp/files/syft-vision2/SettingConfig/";
 
         private string LocalChartTempFilePath => LocalChartPath + LocalChartTempFile;
         private string LocalBatchTempFilePath => LocalBatchPath + LocalBatchTempFile;
+        private string LocalSettingTempFilePath => LocalSettingPath + LocalSettingTempFile;
 
         public SyftServer() : base("tools.syft.com", "22", "sftp", "MuhPEzxNchfr8nyZ")
         {
             // Check local directory
             if (!Directory.Exists(LocalChartPath)) Directory.CreateDirectory(LocalChartPath);
             if (!Directory.Exists(LocalBatchPath)) Directory.CreateDirectory(LocalBatchPath);
+            if (!Directory.Exists(LocalSettingPath)) Directory.CreateDirectory(LocalSettingPath);
         }
 
         public ObservableCollection<TreeNode> GetTreeNodes(Type type)
@@ -48,6 +54,9 @@ namespace Public.SFTP
                         break;
                     case Type.Batch:
                         remotePath = RemoteBatchPath;
+                        break;
+                    case Type.Setting:
+                        remotePath = RemoteSettingPath;
                         break;
                 }
 

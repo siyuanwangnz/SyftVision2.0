@@ -18,9 +18,9 @@ namespace SettingConfig.Views
     /// <summary>
     /// Interaction logic for OpenDialogView.xaml
     /// </summary>
-    public partial class SyftChartDialogView : UserControl
+    public partial class SyftSettingDialogView : UserControl
     {
-        public SyftChartDialogView()
+        public SyftSettingDialogView()
         {
             InitializeComponent();
         }
