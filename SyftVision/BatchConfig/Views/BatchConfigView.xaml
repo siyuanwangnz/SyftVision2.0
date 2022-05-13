@@ -93,11 +93,11 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Command="{Binding Path=DataContext.MethodDeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                            <Button Command="{Binding Path=DataContext.MethodDeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Width="30" Height="30"
                                                     Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=DeleteOutline}"/>
-                                            <Button Command="{Binding Path=DataContext.MethodAddUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            <Button Command="{Binding Path=DataContext.MethodAddUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Width="30" Height="30"
                                                     Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=TableRowPlusBefore}" Margin="5 0 0 0"/>
-                                            <Button Command="{Binding Path=DataContext.MethodAddDownCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                            <Button Command="{Binding Path=DataContext.MethodAddDownCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Width="30" Height="30"
                                                     Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=TableRowPlusAfter}" Margin="5 0 0 0"/>
                                         </StackPanel>
                                     </DataTemplate>
@@ -108,9 +108,9 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <Button Command="{Binding Path=DataContext.ChartDeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            <Button Command="{Binding Path=DataContext.ChartDeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Width="30" Height="30"
                                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Content="{materialDesign:PackIcon Kind=DeleteOutline}"/>
-                                            <Button Command="{Binding Path=DataContext.ChartAddCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                            <Button Command="{Binding Path=DataContext.ChartAddCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Width="30" Height="30"
                                                     Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Content="{materialDesign:PackIcon Kind=Plus}" Margin="5 0 0 0"/>
                                         </StackPanel>
                                     </DataTemplate>

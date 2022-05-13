@@ -72,7 +72,7 @@
                     <DataGridTemplateColumn Header="Delete" DisplayIndex="4">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="Delete" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=DeleteOutline}"/>
+                                <Button Command="Delete" Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=DeleteOutline}" Width="30" Height="30"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -81,9 +81,9 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Command="{Binding Path=DataContext.AddUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" 
+                                    <Button Command="{Binding Path=DataContext.AddUpCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Width="30" Height="30"
                                             Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=TableRowPlusBefore}"/>
-                                    <Button Command="{Binding Path=DataContext.AddDownCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}"
+                                    <Button Command="{Binding Path=DataContext.AddDownCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type DataGrid}}}" Width="30" Height="30"
                                             Style="{StaticResource MaterialDesignFloatingActionMiniButton}" Content="{materialDesign:PackIcon Kind=TableRowPlusAfter}" Margin="5 0 0 0"/>
                                 </StackPanel>
                             </DataTemplate>

@@ -36,7 +36,11 @@ namespace SettingConfig.ViewModels
                 new Setting("NeoDetectionZone.ZoneSetting.attenuationFactorMap",
                 "(H3O+,19+,6.578)(NO+,30+,10.22)(O2+,32+,10.19)(H3O+,37+,10.6)(H3O+,55+,18.10)(OH-,17-,2.756)(O2-,32-,11.90)(O-,16-,2.220)(NO2-,46-,11.40)" ),
                 new Setting("NeoDetectionZone.ZoneSetting.detectorDiscriminatorVolts",
-                "-2.5") };
+                "-2.5"),
+            new Setting("NeoDetectionZone.ZoneSetting.igRfMassDriven",
+                "false"),
+            new Setting("NeoHeaterZone.ZoneSetting.h22Name",
+                "Source heater 2")};
             #endregion
         }
 
