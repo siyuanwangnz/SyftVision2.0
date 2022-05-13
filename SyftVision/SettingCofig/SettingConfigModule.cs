@@ -16,6 +16,11 @@ namespace SettingConfig
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterDialog<TextLimitSetDialogView, TextLimitSetDialogViewModel>();
+            containerRegistry.RegisterDialog<ValueLimitSetDialogView, ValueLimitSetDialogViewModel>();
+            containerRegistry.RegisterDialog<OnOffLimitSetDialogView, OnOffLimitSetDialogViewModel>();
+            containerRegistry.RegisterDialog<TableLimitSetDialogView, TableLimitSetDialogViewModel>();
+            containerRegistry.RegisterDialog<MapLimitSetDialogView, MapLimitSetDialogViewModel>();
             containerRegistry.RegisterDialog<SyftSettingDialogView, SyftSettingDialogViewModel>();
         }
     }

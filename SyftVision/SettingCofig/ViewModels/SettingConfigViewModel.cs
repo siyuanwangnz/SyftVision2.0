@@ -158,6 +158,24 @@ namespace SettingConfig.ViewModels
             get => _selectedSetting;
             set => SetProperty(ref _selectedSetting, value);
         }
-
+        public DelegateCommand SelectedCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    // Navigate to dialog
+                    DialogParameters param = new DialogParameters();
+                    //param.Add("treeNodes", treeNodes);
+                    _dialogService.ShowDialog(SelectedSetting.Type.LimitSetDialog, param, arg =>
+                    {
+                        if (arg.Result == ButtonResult.OK)
+                        {
+                            
+                        }
+                    });
+                });
+            }
+        }
     }
 }

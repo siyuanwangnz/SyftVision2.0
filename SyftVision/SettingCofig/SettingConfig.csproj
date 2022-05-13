@@ -63,13 +63,33 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SettingConfigModule.cs" />
+    <Compile Include="ViewModels\MapLimitSetDialogViewModel.cs" />
+    <Compile Include="ViewModels\OnOffLimitSetDialogViewModel.cs" />
     <Compile Include="ViewModels\SettingConfigViewModel.cs" />
     <Compile Include="ViewModels\SyftSettingDialogViewModel.cs" />
+    <Compile Include="ViewModels\TableLimitSetDialogViewModel.cs" />
+    <Compile Include="ViewModels\TextLimitSetDialogViewModel.cs" />
+    <Compile Include="ViewModels\ValueLimitSetDialogViewModel.cs" />
+    <Compile Include="Views\MapLimitSetDialogView.xaml.cs">
+      <DependentUpon>MapLimitSetDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OnOffLimitSetDialogView.xaml.cs">
+      <DependentUpon>OnOffLimitSetDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingConfigView.cs">
       <DependentUpon>SettingConfigView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SyftSettingDialogView.cs">
       <DependentUpon>SyftSettingDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TableLimitSetDialogView.xaml.cs">
+      <DependentUpon>TableLimitSetDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TextLimitSetDialogView.xaml.cs">
+      <DependentUpon>TextLimitSetDialogView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ValueLimitSetDialogView.xaml.cs">
+      <DependentUpon>ValueLimitSetDialogView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -92,11 +112,31 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\MapLimitSetDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OnOffLimitSetDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SettingConfigView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SyftSettingDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TableLimitSetDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TextLimitSetDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ValueLimitSetDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
