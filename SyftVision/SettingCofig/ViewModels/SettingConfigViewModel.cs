@@ -30,6 +30,13 @@ namespace SettingConfig.ViewModels
             _syftServer = new SyftServer();
             #region Test
             FilterOffList = new ObservableCollection<FilterOff>() { new FilterOff(), new FilterOff() };
+            SettingList = new ObservableCollection<Setting>() {
+                new Setting("NeoSelectionZone.ZoneSetting.lens14MassTable",
+                "-400.0,-126.0;-46.0,-126.0;-32.0,-95.4;-17.0,-95.4;-16.0,-126.0;-0.1,-126.0;0.1,42.5;19.0,42.5;30.0,42.5;32.0,42.5;400.0,42.5;"),
+                new Setting("NeoDetectionZone.ZoneSetting.attenuationFactorMap",
+                "(H3O+,19+,6.578)(NO+,30+,10.22)(O2+,32+,10.19)(H3O+,37+,10.6)(H3O+,55+,18.10)(OH-,17-,2.756)(O2-,32-,11.90)(O-,16-,2.220)(NO2-,46-,11.40)" ),
+                new Setting("NeoDetectionZone.ZoneSetting.detectorDiscriminatorVolts",
+                "-2.5") };
             #endregion
         }
 
@@ -76,7 +83,10 @@ namespace SettingConfig.ViewModels
 
                     try
                     {
-
+                        foreach (var item in SettingList)
+                        {
+                            Console.WriteLine($"Selected Item : {item.Type.Name}");
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -130,6 +140,19 @@ namespace SettingConfig.ViewModels
                     FilterOffList.Insert(FilterOffList.IndexOf(SelectedFilterOff) + 1, new FilterOff());
                 });
             }
+        }
+
+        private ObservableCollection<Setting> _settingList;
+        public ObservableCollection<Setting> SettingList
+        {
+            get => _settingList;
+            set => SetProperty(ref _settingList, value);
+        }
+        private Setting _selectedSetting;
+        public Setting SelectedSetting
+        {
+            get => _selectedSetting;
+            set => SetProperty(ref _selectedSetting, value);
         }
 
     }
