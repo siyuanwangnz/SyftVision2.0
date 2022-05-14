@@ -58,7 +58,7 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
-                        <DataGridTemplateColumn Header="Content">
+                        <DataGridTemplateColumn Header="Current Content">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Content}" VerticalAlignment="Center"/>
@@ -77,7 +77,7 @@
                     <DataGridTemplateColumn Header="Filter Off Wildcard">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBox Text="{Binding Wildcard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ToolTip="WildCard"/>
+                                <TextBox Text="{Binding Wildcard, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

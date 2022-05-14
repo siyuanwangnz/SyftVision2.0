@@ -100,7 +100,11 @@
     <Compile Include="Instrument\ScanFile.cs" />
     <Compile Include="SettingConfig\FilterOff.cs" />
     <Compile Include="SettingConfig\Setting.cs" />
+    <Compile Include="SettingConfig\SettingOnOff.cs" />
     <Compile Include="SettingConfig\SettingType.cs" />
+    <Compile Include="SettingConfig\SettingTable.cs" />
+    <Compile Include="SettingConfig\SettingText.cs" />
+    <Compile Include="SettingConfig\SettingValue.cs" />
     <Compile Include="TreeList\BindableSelectedItemBehavior .cs" />
     <Compile Include="ChartConfig\ChartProp.cs" />
     <Compile Include="ChartConfig\ChartType.cs" />
