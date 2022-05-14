@@ -17,10 +17,10 @@ namespace Public.SettingConfig
             TypeList = SettingType.ReferList;
             Type = GetSettingType();
         }
-        public string Name { get; set; } = "";
-        public string Content { get; set; } = "";
-        public SettingType Type { get; set; }
+        public string Name { get; }
+        public string Content { get; }
         public ObservableCollection<SettingType> TypeList { get; }
+        public SettingType Type { get; set; }
         private SettingType GetSettingType()
         {
             if (Content == "") // Empty content

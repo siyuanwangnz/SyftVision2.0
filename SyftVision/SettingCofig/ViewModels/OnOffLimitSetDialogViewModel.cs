@@ -26,9 +26,11 @@ namespace SettingConfig.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            SettingName = $"NeoDetectionZone.ZoneSetting.igRfMassDriven";
-            OnOff = true;
-            ReferOnOff = true;
+            Setting SelectedSetting = parameters.GetValue<Setting>("SelectedSetting");
+
+            SettingName = SelectedSetting.Name;
+
+            OnOff = new SettingOnOff(SelectedSetting.Content).OnOff;
         }
         private string _settingName;
         public string SettingName

@@ -100,6 +100,7 @@
     <Compile Include="Instrument\ScanFile.cs" />
     <Compile Include="SettingConfig\FilterOff.cs" />
     <Compile Include="SettingConfig\Setting.cs" />
+    <Compile Include="SettingConfig\SettingMap.cs" />
     <Compile Include="SettingConfig\SettingOnOff.cs" />
     <Compile Include="SettingConfig\SettingType.cs" />
     <Compile Include="SettingConfig\SettingTable.cs" />

@@ -27,9 +27,12 @@ namespace SettingConfig.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            SettingName = "NeoDetectionZone.ZoneSetting.attenuationFactorMap";
-            MapSetList = new ObservableCollection<SettingTable<string>>() { new SettingTable<string>() { Key="asd",SyftValue = new SettingValue(){ Value=23, UnderLimit=-23, UpperLimit=23} },
-                new SettingTable<string>() { Key="asd",SyftValue = new SettingValue(){ Value=23, UnderLimit=-23, UpperLimit=23} }};
+            Setting SelectedSetting = parameters.GetValue<Setting>("SelectedSetting");
+
+            SettingName = SelectedSetting.Name;
+
+            MapSetList = SettingMap.GetMapSetList(SelectedSetting.Content);
+
         }
         public DelegateCommand AddCommand
         {
@@ -37,18 +40,18 @@ namespace SettingConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    MapSetList.Insert(MapSetList.IndexOf(SelectedMapSet) + 1, new SettingTable<string>());
+                    MapSetList.Insert(MapSetList.IndexOf(SelectedMapSet) + 1, new SettingMap());
                 });
             }
         }
-        private ObservableCollection<SettingTable<string>> _mapSetList;
-        public ObservableCollection<SettingTable<string>> MapSetList
+        private ObservableCollection<SettingMap> _mapSetList;
+        public ObservableCollection<SettingMap> MapSetList
         {
             get => _mapSetList;
             set => SetProperty(ref _mapSetList, value);
         }
-        private SettingTable<string> _selectedMapSet;
-        public SettingTable<string> SelectedMapSet
+        private SettingMap _selectedMapSet;
+        public SettingMap SelectedMapSet
         {
             get => _selectedMapSet;
             set => SetProperty(ref _selectedMapSet, value);

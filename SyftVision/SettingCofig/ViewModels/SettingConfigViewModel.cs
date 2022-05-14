@@ -166,12 +166,12 @@ namespace SettingConfig.ViewModels
                 {
                     // Navigate to dialog
                     DialogParameters param = new DialogParameters();
-                    //param.Add("treeNodes", treeNodes);
+                    param.Add("SelectedSetting", SelectedSetting);
                     _dialogService.ShowDialog(SelectedSetting.Type.LimitSetDialog, param, arg =>
                     {
                         if (arg.Result == ButtonResult.OK)
                         {
-                            
+
                         }
                     });
                 });

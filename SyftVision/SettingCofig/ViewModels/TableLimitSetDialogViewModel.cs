@@ -27,9 +27,11 @@ namespace SettingConfig.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            SettingName = "NeoSelectionZone.ZoneSetting.lens14MassTable";
-            TableSetList = new ObservableCollection<SettingTable<double>>() { new SettingTable<double>() { Key = 2313, SyftValue = new SettingValue() { Value = 123, UnderLimit = 1231, UpperLimit = 43432 } },
-            new SettingTable<double>() { Key = 2313, SyftValue = new SettingValue() { Value = 123, UnderLimit = 1231, UpperLimit = 43432 } }};
+            Setting SelectedSetting = parameters.GetValue<Setting>("SelectedSetting");
+
+            SettingName = SelectedSetting.Name;
+
+            TableSetList = SettingTable.GetTableSetList(SelectedSetting.Content);
         }
         public DelegateCommand AddCommand
         {
@@ -37,18 +39,18 @@ namespace SettingConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    TableSetList.Insert(TableSetList.IndexOf(SelectedTableSet) + 1, new SettingTable<double>());
+                    TableSetList.Insert(TableSetList.IndexOf(SelectedTableSet) + 1, new SettingTable());
                 });
             }
         }
-        private ObservableCollection<SettingTable<double>> _tableSetList;
-        public ObservableCollection<SettingTable<double>> TableSetList
+        private ObservableCollection<SettingTable> _tableSetList;
+        public ObservableCollection<SettingTable> TableSetList
         {
             get => _tableSetList;
             set => SetProperty(ref _tableSetList, value);
         }
-        private SettingTable<double> _selectedTableSet;
-        public SettingTable<double> SelectedTableSet
+        private SettingTable _selectedTableSet;
+        public SettingTable SelectedTableSet
         {
             get => _selectedTableSet;
             set => SetProperty(ref _selectedTableSet, value);

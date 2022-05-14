@@ -26,10 +26,11 @@ namespace SettingConfig.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            SettingName = "NeoDetectionZone.ZoneSetting.detectorDiscriminatorVolts";
-            Value = 123;
-            UpperLimit = 12323;
-            UnderLimit = -231;
+            Setting SelectedSetting = parameters.GetValue<Setting>("SelectedSetting");
+
+            SettingName = SelectedSetting.Name;
+
+            Value = new SettingValue(SelectedSetting.Content).Value;
         }
         private string _settingName;
         public string SettingName

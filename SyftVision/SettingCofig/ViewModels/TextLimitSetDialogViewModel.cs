@@ -26,9 +26,11 @@ namespace SettingConfig.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            SettingName = "NeoHeaterZone.ZoneSetting.h22Name";
-            Text = "asdasd";
-            ReferText = "sadadqweq";
+            Setting SelectedSetting = parameters.GetValue<Setting>("SelectedSetting");
+
+            SettingName = SelectedSetting.Name;
+
+            Text = new SettingText(SelectedSetting.Content).Text;
         }
         private string _settingName;
         public string SettingName
