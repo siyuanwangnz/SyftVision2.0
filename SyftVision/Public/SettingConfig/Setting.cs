@@ -45,6 +45,11 @@ namespace Public.SettingConfig
                 return TypeList.Single(a => a.Name == "Value");
             }
         }
+        public ObservableCollection<SettingMap> MapSetList { get; set; }
+        public ObservableCollection<SettingTable> TableSetList { get; set; }
+        public SettingOnOff OnOff { get; set; }
+        public SettingValue Value { get; set; }
+        public SettingText Text { get; set; }
 
     }
 }

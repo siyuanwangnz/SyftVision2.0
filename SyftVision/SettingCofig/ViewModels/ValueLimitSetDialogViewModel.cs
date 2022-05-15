@@ -30,7 +30,14 @@ namespace SettingConfig.ViewModels
 
             SettingName = SelectedSetting.Name;
 
-            Value = SettingValue.GetValue(SelectedSetting.Content);
+            if (SelectedSetting.Value == null)
+                Value = SettingValue.GetValue(SelectedSetting.Content);
+            else
+            {
+                Value = SelectedSetting.Value.Value;
+                UpperLimit = SelectedSetting.Value.UpperLimit;
+                UnderLimit = SelectedSetting.Value.UnderLimit;
+            }
         }
         private string _settingName;
         public string SettingName

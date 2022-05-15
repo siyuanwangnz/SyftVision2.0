@@ -31,7 +31,10 @@ namespace SettingConfig.ViewModels
 
             SettingName = SelectedSetting.Name;
 
-            TableSetList = SettingTable.GetTableSetList(SelectedSetting.Content);
+            if (SelectedSetting.TableSetList == null)
+                TableSetList = SettingTable.GetTableSetList(SelectedSetting.Content);
+            else
+                TableSetList = SelectedSetting.TableSetList;
         }
         public DelegateCommand AddCommand
         {

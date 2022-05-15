@@ -30,7 +30,13 @@ namespace SettingConfig.ViewModels
 
             SettingName = SelectedSetting.Name;
 
-            OnOff = SettingOnOff.GetOnOff(SelectedSetting.Content);
+            if (SelectedSetting.OnOff == null)
+                OnOff = SettingOnOff.GetOnOff(SelectedSetting.Content);
+            else
+            {
+                OnOff = SelectedSetting.OnOff.OnOff;
+                ReferOnOff = SelectedSetting.OnOff.ReferOnOff;
+            }
         }
         private string _settingName;
         public string SettingName

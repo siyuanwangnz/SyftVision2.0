@@ -31,7 +31,10 @@ namespace SettingConfig.ViewModels
 
             SettingName = SelectedSetting.Name;
 
-            MapSetList = SettingMap.GetMapSetList(SelectedSetting.Content);
+            if (SelectedSetting.MapSetList == null)
+                MapSetList = SettingMap.GetMapSetList(SelectedSetting.Content);
+            else
+                MapSetList = SelectedSetting.MapSetList;
 
         }
         public DelegateCommand AddCommand
