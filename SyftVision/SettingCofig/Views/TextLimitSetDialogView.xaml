@@ -14,13 +14,19 @@
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid Height="140" MinWidth="400" Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="56"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
-        <materialDesign:Card Grid.Row="0" Padding="10" Background="{DynamicResource PrimaryHueLightBrush}">
-            <TextBlock Text="{Binding SettingName}" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
-        </materialDesign:Card>
+        <ToolBarTray Grid.Row="0">
+            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" Height="56">
+                <Grid MinWidth="300">
+                    <TextBlock Text="{Binding SettingName}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
+                </Grid>
+                <Separator/>
+                <Button Command="{Binding SaveCommand}" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}"/>
+            </ToolBar>
+        </ToolBarTray>
 
         <Grid Grid.Row="1">
             <StackPanel Margin="0 10 0 0" VerticalAlignment="Center">

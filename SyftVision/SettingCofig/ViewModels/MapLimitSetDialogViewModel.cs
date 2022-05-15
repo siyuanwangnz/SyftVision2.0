@@ -37,6 +37,19 @@ namespace SettingConfig.ViewModels
                 MapSetList = SelectedSetting.MapSetList;
 
         }
+        public DelegateCommand SaveCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    //if (SelectedTreeNode.Parent == null) return;
+                    DialogParameters param = new DialogParameters();
+                    //param.Add("selectedTreeNode", SelectedTreeNode);
+                    RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
+                });
+            }
+        }
         public DelegateCommand AddCommand
         {
             get

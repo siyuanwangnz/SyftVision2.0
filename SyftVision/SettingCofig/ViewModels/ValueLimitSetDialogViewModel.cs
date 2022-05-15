@@ -39,6 +39,19 @@ namespace SettingConfig.ViewModels
                 UnderLimit = SelectedSetting.Value.UnderLimit;
             }
         }
+        public DelegateCommand SaveCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    //if (SelectedTreeNode.Parent == null) return;
+                    DialogParameters param = new DialogParameters();
+                    //param.Add("selectedTreeNode", SelectedTreeNode);
+                    RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
+                });
+            }
+        }
         private string _settingName;
         public string SettingName
         {
