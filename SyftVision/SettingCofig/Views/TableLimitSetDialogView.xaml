@@ -24,7 +24,7 @@
                     <TextBlock Text="{Binding SettingName}" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
                 </Grid>
                 <Separator/>
-                <Button Command="{Binding SaveCommand}" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}"/>
+                <Button Command="{Binding SaveCommand}" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" IsDefault="True"/>
             </ToolBar>
         </ToolBarTray>
 
