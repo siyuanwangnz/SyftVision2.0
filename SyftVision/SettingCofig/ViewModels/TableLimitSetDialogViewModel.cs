@@ -42,9 +42,8 @@ namespace SettingConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    //if (SelectedTreeNode.Parent == null) return;
                     DialogParameters param = new DialogParameters();
-                    //param.Add("selectedTreeNode", SelectedTreeNode);
+                    param.Add("TableSetList", TableSetList);
                     RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
                 });
             }

@@ -45,9 +45,13 @@ namespace SettingConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    //if (SelectedTreeNode.Parent == null) return;
+                    SettingValue SettingValue = new SettingValue();
+                    SettingValue.Value = Value;
+                    SettingValue.UpperLimit = UpperLimit;
+                    SettingValue.UnderLimit = UnderLimit;
+
                     DialogParameters param = new DialogParameters();
-                    //param.Add("selectedTreeNode", SelectedTreeNode);
+                    param.Add("SettingValue", SettingValue);
                     RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
                 });
             }

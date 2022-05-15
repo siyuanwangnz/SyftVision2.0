@@ -13,7 +13,14 @@ namespace Public.SettingConfig
         public double UpperLimit { get; set; }
         public static double GetValue(string content)
         {
-            return double.Parse(content);
+            try
+            {
+                return double.Parse(content);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
         }
     }
 }

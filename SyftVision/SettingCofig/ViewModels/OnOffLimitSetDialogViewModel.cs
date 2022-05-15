@@ -44,9 +44,12 @@ namespace SettingConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    //if (SelectedTreeNode.Parent == null) return;
+                    SettingOnOff SettingOnOff = new SettingOnOff();
+                    SettingOnOff.OnOff = OnOff;
+                    SettingOnOff.ReferOnOff = ReferOnOff;
+
                     DialogParameters param = new DialogParameters();
-                    //param.Add("selectedTreeNode", SelectedTreeNode);
+                    param.Add("SettingOnOff", SettingOnOff);
                     RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
                 });
             }

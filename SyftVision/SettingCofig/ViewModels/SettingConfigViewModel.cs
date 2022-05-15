@@ -171,7 +171,24 @@ namespace SettingConfig.ViewModels
                     {
                         if (arg.Result == ButtonResult.OK)
                         {
-
+                            switch (SelectedSetting.Type.Name)
+                            {
+                                case "Map":
+                                    SelectedSetting.MapSetList = arg.Parameters.GetValue<ObservableCollection<SettingMap>>("MapSetList");
+                                    break;
+                                case "Table":
+                                    SelectedSetting.TableSetList = arg.Parameters.GetValue<ObservableCollection<SettingTable>>("TableSetList");
+                                    break;
+                                case "OnOff":
+                                    SelectedSetting.OnOff = arg.Parameters.GetValue<SettingOnOff>("SettingOnOff");
+                                    break;
+                                case "Value":
+                                    SelectedSetting.Value = arg.Parameters.GetValue<SettingValue>("SettingValue");
+                                    break;
+                                case "Text":
+                                    SelectedSetting.Text = arg.Parameters.GetValue<SettingText>("SettingText");
+                                    break;
+                            }
                         }
                     });
                 });

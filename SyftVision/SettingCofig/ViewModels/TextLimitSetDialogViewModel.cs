@@ -44,9 +44,12 @@ namespace SettingConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    //if (SelectedTreeNode.Parent == null) return;
+                    SettingText SettingText = new SettingText();
+                    SettingText.Text = Text;
+                    SettingText.ReferText = ReferText;
+
                     DialogParameters param = new DialogParameters();
-                    //param.Add("selectedTreeNode", SelectedTreeNode);
+                    param.Add("SettingText", SettingText);
                     RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
                 });
             }
