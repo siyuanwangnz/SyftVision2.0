@@ -30,7 +30,7 @@ namespace SettingConfig.ViewModels
 
             SettingName = SelectedSetting.Name;
 
-            Text = new SettingText(SelectedSetting.Content).Text;
+            Text = SettingText.GetText(SelectedSetting.Content);
         }
         private string _settingName;
         public string SettingName
