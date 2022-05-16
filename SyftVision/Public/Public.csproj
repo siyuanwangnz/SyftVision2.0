@@ -102,6 +102,7 @@
     <Compile Include="SettingConfig\Setting.cs" />
     <Compile Include="SettingConfig\SettingMap.cs" />
     <Compile Include="SettingConfig\SettingOnOff.cs" />
+    <Compile Include="SettingConfig\SettingProp.cs" />
     <Compile Include="SettingConfig\SettingType.cs" />
     <Compile Include="SettingConfig\SettingTable.cs" />
     <Compile Include="SettingConfig\SettingText.cs" />

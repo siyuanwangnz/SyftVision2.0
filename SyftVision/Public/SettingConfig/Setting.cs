@@ -18,7 +18,7 @@ namespace Public.SettingConfig
             Type = GetSettingType();
         }
         public string Name { get; }
-        public string Content { get; }
+        public string Content { get; set; }
         public ObservableCollection<SettingType> TypeList { get; }
         public SettingType Type { get; set; }
         private SettingType GetSettingType()

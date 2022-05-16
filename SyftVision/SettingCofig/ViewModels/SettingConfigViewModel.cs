@@ -23,26 +23,13 @@ namespace SettingConfig.ViewModels
         private readonly IDialogService _dialogService;
         private readonly SyftServer _syftServer;
         private InstrumentServer _instrumentServer;
+        private SettingProp SettingProp;
         public SettingConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
             _dialogService = dialogService;
             _syftServer = new SyftServer();
-            #region Test
-            FilterOffList = new ObservableCollection<FilterOff>() { new FilterOff(), new FilterOff() };
-            SettingList = new ObservableCollection<Setting>() {
-                new Setting("NeoSelectionZone.ZoneSetting.lens14MassTable",
-                "-400.0,-126.0;-46.0,-126.0;-32.0,-95.4;-17.0,-95.4;-16.0,-126.0;-0.1,-126.0;0.1,42.5;19.0,42.5;30.0,42.5;32.0,42.5;400.0,42.5;"),
-                new Setting("NeoDetectionZone.ZoneSetting.attenuationFactorMap",
-                "(H3O+,19+,6.578)(NO+,30+,10.22)(O2+,32+,10.19)(H3O+,37+,10.6)(H3O+,55+,18.10)(OH-,17-,2.756)(O2-,32-,11.90)(O-,16-,2.220)(NO2-,46-,11.40)" ),
-                new Setting("NeoDetectionZone.ZoneSetting.detectorDiscriminatorVolts",
-                "-2.5"),
-            new Setting("NeoDetectionZone.ZoneSetting.igRfMassDriven",
-                "false"),
-            new Setting("NeoHeaterZone.ZoneSetting.h22Name",
-                "Source heater 2")};
-            #endregion
         }
 
         #region Toolbar
@@ -128,7 +115,9 @@ namespace SettingConfig.ViewModels
                             {
                                 TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
-                                
+                                SettingProp = _instrumentServer.DownloadSetting(treeNode, FilterOffList);
+
+                                SettingList = SettingProp.SettingList;
                             }
                         });
 
@@ -154,7 +143,7 @@ namespace SettingConfig.ViewModels
         }
         #endregion
 
-        private ObservableCollection<FilterOff> _filterOffList;
+        private ObservableCollection<FilterOff> _filterOffList = new ObservableCollection<FilterOff>() { new FilterOff() };
         public ObservableCollection<FilterOff> FilterOffList
         {
             get => _filterOffList;

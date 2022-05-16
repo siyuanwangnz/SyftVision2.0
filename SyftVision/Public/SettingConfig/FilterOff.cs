@@ -11,5 +11,9 @@ namespace Public.SettingConfig
     {
         public string Wildcard { get; set; } = "";
         public string Regular => "^" + Regex.Escape(Wildcard).Replace("\\?", ".").Replace("\\*", ".*") + "$";
+        public bool IsMatched(string name)
+        {
+            return Regex.IsMatch(name, Regular);
+        }
     }
 }

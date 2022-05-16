@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
 using Public.TreeList;
+using Public.SettingConfig;
 
 namespace Public.SFTP
 {
@@ -23,6 +24,10 @@ namespace Public.SFTP
         private readonly string LocalBatchTempFile = "BatchTemp.xml";
         private string LocalBatchTempFilePath => LocalBatchPath + LocalBatchTempFile;
 
+        private readonly string LocalSettingScanPath = "./Temp/SettingScan/";
+        private readonly string LocalSettingScanTempFile = "SettingScanTemp.xml";
+        private string LocalSettingScanTempFilePath => LocalSettingScanPath + LocalSettingScanTempFile;
+
         private readonly string RemoteScanPath = "/usr/local/syft/data/";
         private static readonly string LocalScanPath = "./Temp/Scan/";
 
@@ -31,6 +36,7 @@ namespace Public.SFTP
             // Check local directory
             if (!Directory.Exists(LocalBatchPath)) Directory.CreateDirectory(LocalBatchPath);
             if (!Directory.Exists(LocalScanPath)) Directory.CreateDirectory(LocalScanPath);
+            if (!Directory.Exists(LocalSettingScanPath)) Directory.CreateDirectory(LocalSettingScanPath);
         }
 
         public ObservableCollection<string> GetBatchFileList()
@@ -204,6 +210,26 @@ namespace Public.SFTP
                 Disconnect();
 
                 return treeNodes;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public SettingProp DownloadSetting(TreeNode treeNode, ObservableCollection<FilterOff> filterOffList)
+        {
+            try
+            {
+                Connect();
+                DownloadFile(RemoteScanPath + treeNode.Parent + "/" + treeNode.Name, LocalSettingScanTempFilePath);
+                Disconnect();
+
+                return new SettingProp(XElement.Load(LocalSettingScanTempFilePath), filterOffList);
             }
             catch (Exception)
             {
