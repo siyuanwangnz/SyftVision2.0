@@ -62,6 +62,7 @@ namespace Public.SFTP
 
                 Connect();
                 List<string> folders = GetDirectoryList(remotePath);
+                folders.Sort();
                 ObservableCollection<TreeNode> treeNodes = new ObservableCollection<TreeNode>();
                 foreach (var folder in folders)
                 {
@@ -71,6 +72,7 @@ namespace Public.SFTP
                     treeNode.Name = folder;
                     // Set child nodes
                     List<string> files = GetFileList(remotePath + folder, "xml");
+                    files.Sort();
                     List<TreeNode> treeChildNodes = new List<TreeNode>();
                     foreach (string file in files)
                     {

@@ -22,6 +22,7 @@ namespace SettingConfig.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IDialogService _dialogService;
         private readonly SyftServer _syftServer;
+        private InstrumentServer _instrumentServer;
         public SettingConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -99,13 +100,43 @@ namespace SettingConfig.ViewModels
                 });
             }
         }
+        private string _ipAddress = "10.0.17.";
+        public string IPAddress
+        {
+            get => _ipAddress;
+            set => SetProperty(ref _ipAddress, value);
+        }
         public DelegateCommand NewCommand
         {
             get
             {
                 return new DelegateCommand(() =>
                 {
+                    _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
 
+                    try
+                    {
+                        // Get tree nodes
+                        ObservableCollection<TreeNode> treeNodes = _instrumentServer.GetScanFileTreeNodes();
+
+                        // Navigate to dialog
+                        DialogParameters param = new DialogParameters();
+                        param.Add("treeNodes", treeNodes);
+                        _dialogService.ShowDialog("InstruScanDialogView", param, arg =>
+                        {
+                            if (arg.Result == ButtonResult.OK)
+                            {
+                                TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+
+                                
+                            }
+                        });
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 });
             }
         }

@@ -63,6 +63,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SettingConfigModule.cs" />
+    <Compile Include="ViewModels\InstruScanDialogViewModel.cs" />
     <Compile Include="ViewModels\MapLimitSetDialogViewModel.cs" />
     <Compile Include="ViewModels\OnOffLimitSetDialogViewModel.cs" />
     <Compile Include="ViewModels\SettingConfigViewModel.cs" />
@@ -70,6 +71,9 @@
     <Compile Include="ViewModels\TableLimitSetDialogViewModel.cs" />
     <Compile Include="ViewModels\TextLimitSetDialogViewModel.cs" />
     <Compile Include="ViewModels\ValueLimitSetDialogViewModel.cs" />
+    <Compile Include="Views\InstruScanDialogView.xaml.cs">
+      <DependentUpon>InstruScanDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MapLimitSetDialogView.xaml.cs">
       <DependentUpon>MapLimitSetDialogView.xaml</DependentUpon>
     </Compile>
@@ -112,6 +116,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\InstruScanDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MapLimitSetDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

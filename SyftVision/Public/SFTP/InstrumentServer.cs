@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Text.RegularExpressions;
+using Public.TreeList;
 
 namespace Public.SFTP
 {
@@ -162,6 +163,56 @@ namespace Public.SFTP
             // Copy all the files & Replaces any files with the same name
             foreach (string newPath in Directory.GetFiles(LocalScanPath, "*.*", SearchOption.AllDirectories))
                 File.Copy(newPath, newPath.Replace(LocalScanPath, folderPath + "/"), true);
+        }
+
+        public ObservableCollection<TreeNode> GetScanFileTreeNodes()
+        {
+            try
+            {
+                Connect();
+                List<string> folders = GetDirectoryList(RemoteScanPath);
+
+                // Filter and re-order folders
+                folders = folders.Where(x => Regex.IsMatch(x, @"^\d{4}-\d{2}-\d{2}$")).ToList();
+                folders.Sort((a, b) => b.CompareTo(a));
+
+                ObservableCollection<TreeNode> treeNodes = new ObservableCollection<TreeNode>();
+                foreach (var folder in folders)
+                {
+                    if (folder == "." || folder == "..") continue;
+                    // Set name
+                    TreeNode treeNode = new TreeNode();
+                    treeNode.Name = folder;
+                    // Set child nodes
+                    List<string> files = GetFileList(RemoteScanPath + folder, "xml");
+
+                    // Re-order files
+                    files.Sort((a, b) => Regex.Match(b, @"-(\d{8}-\d{6})\.xml$").Groups[1].Value.CompareTo(Regex.Match(a, @"-(\d{8}-\d{6})\.xml$").Groups[1].Value));
+
+                    List<TreeNode> treeChildNodes = new List<TreeNode>();
+                    foreach (string file in files)
+                    {
+                        TreeNode treeChildNode = new TreeNode();
+                        treeChildNode.Name = file;
+                        treeChildNode.Parent = folder;
+                        treeChildNodes.Add(treeChildNode);
+                    }
+                    treeNode.ChildNodes = treeChildNodes;
+
+                    treeNodes.Add(treeNode);
+                }
+                Disconnect();
+
+                return treeNodes;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
         }
     }
 }

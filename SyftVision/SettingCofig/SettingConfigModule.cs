@@ -22,6 +22,7 @@ namespace SettingConfig
             containerRegistry.RegisterDialog<TableLimitSetDialogView, TableLimitSetDialogViewModel>();
             containerRegistry.RegisterDialog<MapLimitSetDialogView, MapLimitSetDialogViewModel>();
             containerRegistry.RegisterDialog<SyftSettingDialogView, SyftSettingDialogViewModel>();
+            containerRegistry.RegisterDialog<InstruScanDialogView, InstruScanDialogViewModel>();
         }
     }
 }
