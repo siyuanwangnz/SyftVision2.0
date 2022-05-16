@@ -35,6 +35,8 @@ namespace Public.SettingConfig
                 content = content.Remove(0, content.IndexOf(")") + 1);
             }
 
+            if (mapSetList.Count == 0) mapSetList.Add(new SettingMap());
+
             return mapSetList;
 
         }

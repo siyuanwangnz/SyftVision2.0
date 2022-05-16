@@ -35,6 +35,8 @@ namespace Public.SettingConfig
                 content = content.Remove(0, content.IndexOf(";") + 1);
             }
 
+            if (tableSetList.Count == 0) tableSetList.Add(new SettingTable());
+
             return tableSetList;
         }
     }

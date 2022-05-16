@@ -42,6 +42,7 @@ namespace SettingConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (TableSetList.Count == 0) TableSetList = null;
                     DialogParameters param = new DialogParameters();
                     param.Add("TableSetList", TableSetList);
                     RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
