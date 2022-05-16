@@ -155,6 +155,17 @@ namespace SettingConfig.ViewModels
             get => _selectedFilterOff;
             set => SetProperty(ref _selectedFilterOff, value);
         }
+        public DelegateCommand DeleteCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    FilterOffList.Remove(SelectedFilterOff);
+                    if (FilterOffList.Count == 0) FilterOffList.Add(new FilterOff());
+                });
+            }
+        }
         public DelegateCommand AddCommand
         {
             get
