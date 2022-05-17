@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Public.SettingConfig
 {
@@ -50,6 +51,28 @@ namespace Public.SettingConfig
         public SettingOnOff OnOff { get; set; }
         public SettingValue Value { get; set; }
         public SettingText Text { get; set; }
+        public static ObservableCollection<Setting> GetSettingList(XElement rootNode, ObservableCollection<FilterOff> filterOffList)
+        {
+            try
+            {
+                List<Setting> settingList = new List<Setting>();
+                foreach (var settingNode in rootNode.Element("settings").Elements("setting"))
+                {
+                    string name = settingNode.Attribute("name").Value;
+                    string content = settingNode.Value;
+
+                    if (filterOffList.Select(a => a.IsMatched(name)).ToList().Contains(true)) continue;
+
+                    settingList.Add(new Setting(name, content));
+                }
+                settingList.Sort((a, b) => a.Name.CompareTo(b.Name));
+                return new ObservableCollection<Setting>(settingList);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
 
     }
 }

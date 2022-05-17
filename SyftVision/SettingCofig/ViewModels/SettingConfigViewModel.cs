@@ -23,7 +23,6 @@ namespace SettingConfig.ViewModels
         private readonly IDialogService _dialogService;
         private readonly SyftServer _syftServer;
         private InstrumentServer _instrumentServer;
-        private SettingProp SettingProp;
         public SettingConfigViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -115,9 +114,7 @@ namespace SettingConfig.ViewModels
                             {
                                 TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
-                                SettingProp = _instrumentServer.DownloadSetting(treeNode, FilterOffList);
-
-                                SettingList = SettingProp.SettingList;
+                                SettingList = _instrumentServer.GetSettingListFromScanFile(treeNode, FilterOffList);
                             }
                         });
 

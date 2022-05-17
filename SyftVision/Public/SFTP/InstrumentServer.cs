@@ -39,6 +39,7 @@ namespace Public.SFTP
             if (!Directory.Exists(LocalSettingScanPath)) Directory.CreateDirectory(LocalSettingScanPath);
         }
 
+        // Batch file for batch config
         public ObservableCollection<string> GetBatchFileList()
         {
             try
@@ -79,6 +80,7 @@ namespace Public.SFTP
 
         }
 
+        // Scan file for batch analysis
         public List<ScanFile> GetScanFileList(DateTime date, DateTime time)
         {
             try
@@ -171,6 +173,7 @@ namespace Public.SFTP
                 File.Copy(newPath, newPath.Replace(LocalScanPath, folderPath + "/"), true);
         }
 
+        // Scan file for setting config
         public ObservableCollection<TreeNode> GetScanFileTreeNodes()
         {
             try
@@ -221,7 +224,7 @@ namespace Public.SFTP
             }
         }
 
-        public SettingProp DownloadSetting(TreeNode treeNode, ObservableCollection<FilterOff> filterOffList)
+        public ObservableCollection<Setting> GetSettingListFromScanFile(TreeNode treeNode, ObservableCollection<FilterOff> filterOffList)
         {
             try
             {
@@ -229,7 +232,7 @@ namespace Public.SFTP
                 DownloadFile(RemoteScanPath + treeNode.Parent + "/" + treeNode.Name, LocalSettingScanTempFilePath);
                 Disconnect();
 
-                return new SettingProp(XElement.Load(LocalSettingScanTempFilePath), filterOffList);
+                return Setting.GetSettingList(XElement.Load(LocalSettingScanTempFilePath), filterOffList);
             }
             catch (Exception)
             {
