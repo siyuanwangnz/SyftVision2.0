@@ -142,6 +142,28 @@ namespace Public.SettingConfig
             }
             return rootNode;
         }
+        public bool IsInvalid()
+        {
+            switch (Type.Name)
+            {
+                case "Map":
+                    if (MapSetList == null) return true;
+                    break;
+                case "Table":
+                    if (TableSetList == null) return true;
+                    break;
+                case "OnOff":
+                    if (OnOff == null) return true;
+                    break;
+                case "Value":
+                    if (Value == null) return true;
+                    break;
+                case "Text":
+                    if (Text == null) return true;
+                    break;
+            }
+            return false;
+        }
         public static ObservableCollection<Setting> GetSettingList(XElement rootNode, ObservableCollection<FilterOff> filterOffList)
         {
             try

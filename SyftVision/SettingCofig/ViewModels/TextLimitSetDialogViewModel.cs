@@ -66,7 +66,7 @@ namespace SettingConfig.ViewModels
             get => _text;
             set => SetProperty(ref _text, value);
         }
-        private string _referText;
+        private string _referText = "";
         public string ReferText
         {
             get => _referText;

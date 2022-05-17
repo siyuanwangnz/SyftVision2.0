@@ -14,8 +14,8 @@ namespace Public.SettingConfig
         {
             Tittle = title;
             SubTittle = subTitle;
-            FilterOffList = filterOffList;
-            SettingList = settingList;
+            FilterOffList = new ObservableCollection<FilterOff>(filterOffList.Where(a => a.Wildcard != ""));
+            SettingList = new ObservableCollection<Setting>(settingList.Where(a => !a.IsInvalid()));
         }
         public SettingProp(XElement rootNode)
         {
