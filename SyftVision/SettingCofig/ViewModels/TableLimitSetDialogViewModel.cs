@@ -42,9 +42,12 @@ namespace SettingConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    if (TableSetList.Count == 0) TableSetList = null;
+                    // Re-order list
+                    List<SettingTable> list = TableSetList.ToList();
+                    list.Sort((a, b) => a.Key.CompareTo(b.Key));
+
                     DialogParameters param = new DialogParameters();
-                    param.Add("TableSetList", TableSetList);
+                    param.Add("TableSetList", list.Count == 0 ? null : new ObservableCollection<SettingTable>(list));
                     RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
                 });
             }

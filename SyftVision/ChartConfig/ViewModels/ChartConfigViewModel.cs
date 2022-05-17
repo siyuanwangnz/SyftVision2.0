@@ -161,7 +161,7 @@ namespace ChartConfig.ViewModels
         #endregion
 
         #region Component list
-        private ObservableCollection<Component> _componentList;
+        private ObservableCollection<Component> _componentList = new ObservableCollection<Component>();
         public ObservableCollection<Component> ComponentList
         {
             get => _componentList;

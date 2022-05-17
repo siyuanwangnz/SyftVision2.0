@@ -18,8 +18,59 @@ namespace Public.SettingConfig
             TypeList = SettingType.ReferList;
             Type = GetSettingType();
         }
+        public Setting(XElement rootNode)
+        {
+            TypeList = SettingType.ReferList;
+            try
+            {
+                Name = rootNode.Attribute("Name").Value;
+                Type = TypeList.Single(a => a.Name == rootNode.Attribute("Type").Value);
+                switch (Type.Name)
+                {
+                    case "Map":
+                        if (rootNode.Elements("Map").Count() == 0) break;
+                        MapSetList = new ObservableCollection<SettingMap>();
+                        foreach (var map in rootNode.Elements("Map"))
+                        {
+                            SettingMap settingMap = new SettingMap();
+                            settingMap.UpdateKeyAndValue(map);
+                            MapSetList.Add(settingMap);
+                        }
+                        break;
+                    case "Table":
+                        if (rootNode.Elements("Table").Count() == 0) break;
+                        TableSetList = new ObservableCollection<SettingTable>();
+                        foreach (var table in rootNode.Elements("Table"))
+                        {
+                            SettingTable settingTable = new SettingTable();
+                            settingTable.UpdateKeyAndValue(table);
+                            TableSetList.Add(settingTable);
+                        }
+                        break;
+                    case "OnOff":
+                        if (rootNode.Element("OnOff") == null) break;
+                        OnOff = new SettingOnOff();
+                        OnOff.ReferOnOffUpdate(rootNode.Element("OnOff"));
+                        break;
+                    case "Value":
+                        if (rootNode.Element("Value") == null) break;
+                        Value = new SettingValue();
+                        Value.LimitUpdate(rootNode.Element("Value"));
+                        break;
+                    case "Text":
+                        if (rootNode.Element("Text") == null) break;
+                        Text = new SettingText();
+                        Text.ReferTextUpdate(rootNode.Element("Text"));
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         public string Name { get; }
-        public string Content { get; set; }
+        public string Content { get; set; } = "";
         public ObservableCollection<SettingType> TypeList { get; }
         public SettingType Type { get; set; }
         private SettingType GetSettingType()
@@ -51,17 +102,58 @@ namespace Public.SettingConfig
         public SettingOnOff OnOff { get; set; }
         public SettingValue Value { get; set; }
         public SettingText Text { get; set; }
+        public XElement XMLGeneration()
+        {
+            XElement rootNode = new XElement("Setting", new XAttribute("Name", Name), new XAttribute("Type", Type.Name));
+            switch (Type.Name)
+            {
+                case "Map":
+                    if (MapSetList != null)
+                    {
+                        foreach (var map in MapSetList)
+                            rootNode.Add(map.XMLGeneration());
+                    }
+                    break;
+                case "Table":
+                    if (TableSetList != null)
+                    {
+                        foreach (var table in TableSetList)
+                            rootNode.Add(table.XMLGeneration());
+                    }
+                    break;
+                case "OnOff":
+                    if (OnOff != null)
+                    {
+                        rootNode.Add(OnOff.XMLGeneration());
+                    }
+                    break;
+                case "Value":
+                    if (Value != null)
+                    {
+                        rootNode.Add(Value.XMLGeneration());
+                    }
+                    break;
+                case "Text":
+                    if (Text != null)
+                    {
+                        rootNode.Add(Text.XMLGeneration());
+                    }
+                    break;
+            }
+            return rootNode;
+        }
         public static ObservableCollection<Setting> GetSettingList(XElement rootNode, ObservableCollection<FilterOff> filterOffList)
         {
             try
             {
+                List<FilterOff> _filterOffList = filterOffList.Where(a => a.Wildcard != "").ToList();
                 List<Setting> settingList = new List<Setting>();
                 foreach (var settingNode in rootNode.Element("settings").Elements("setting"))
                 {
                     string name = settingNode.Attribute("name").Value;
                     string content = settingNode.Value;
 
-                    if (filterOffList.Select(a => a.IsMatched(name)).ToList().Contains(true)) continue;
+                    if (_filterOffList.Select(a => a.IsMatched(name)).ToList().Contains(true)) continue;
 
                     settingList.Add(new Setting(name, content));
                 }

@@ -52,9 +52,12 @@ namespace SettingConfig.ViewModels
                             {
                                 TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
-                                //ChartProp chartProp = _syftServer.DownloadChart(treeNode);
+                                SettingProp settingProp = _syftServer.DownloadSetting(treeNode);
 
-
+                                Tittle = settingProp.Tittle;
+                                SubTittle = settingProp.SubTittle;
+                                FilterOffList = settingProp.FilterOffList;
+                                SettingList = settingProp.SettingList;
                             }
                         });
                     }
@@ -71,13 +74,17 @@ namespace SettingConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (Tittle == null || Tittle == "" || SubTittle == null || SubTittle == "")
+                    {
+                        MessageBox.Show($"Tittle, Sub-Tittle can not be empty", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    SettingProp settingProp = new SettingProp(Tittle, SubTittle, FilterOffList, SettingList);
 
                     try
                     {
-                        foreach (var item in SettingList)
-                        {
-                            Console.WriteLine($"Selected Item : {item.Type.Name}");
-                        }
+                        _syftServer.UploadSetting(settingProp);
                     }
                     catch (Exception ex)
                     {

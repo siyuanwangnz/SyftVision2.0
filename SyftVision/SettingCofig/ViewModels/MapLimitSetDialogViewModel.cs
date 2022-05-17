@@ -43,9 +43,8 @@ namespace SettingConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    if (MapSetList.Count == 0) MapSetList = null;
                     DialogParameters param = new DialogParameters();
-                    param.Add("MapSetList", MapSetList);
+                    param.Add("MapSetList", MapSetList.Count == 0 ? null : MapSetList);
                     RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
                 });
             }

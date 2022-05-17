@@ -1,5 +1,6 @@
 ﻿using Public.BatchConfig;
 using Public.ChartConfig;
+using Public.SettingConfig;
 using Public.TreeList;
 using System;
 using System.Collections.Generic;
@@ -128,7 +129,7 @@ namespace Public.SFTP
                 chartProp.XMLGeneration().Save(LocalChartTempFilePath);
 
                 Connect();
-                // Check existing chart config
+                // Check existing file
                 if (Exist(remoteFolderPath + chartProp.File))
                 {
                     MessageBoxResult messageBoxResult = MessageBox.Show($"The chart file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -180,7 +181,7 @@ namespace Public.SFTP
                 batchProp.XMLGeneration().Save(LocalBatchTempFilePath);
 
                 Connect();
-                // Check existing chart config
+                // Check existing file
                 if (Exist(remoteFolderPath + batchProp.File))
                 {
                     MessageBoxResult messageBoxResult = MessageBox.Show($"The batch file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -192,6 +193,58 @@ namespace Public.SFTP
                 UploadFile(remoteFolderPath + batchProp.File, LocalBatchTempFilePath);
                 Disconnect();
                 MessageBox.Show("Batch has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public SettingProp DownloadSetting(TreeNode treeNode)
+        {
+            try
+            {
+                Connect();
+                DownloadFile(RemoteSettingPath + treeNode.Parent + "/" + treeNode.Name, LocalSettingTempFilePath);
+                Disconnect();
+
+                return new SettingProp(XElement.Load(LocalSettingTempFilePath));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public void UploadSetting(SettingProp settingProp)
+        {
+            try
+            {
+                string remoteFolderPath = RemoteSettingPath + settingProp.Tittle + "/";
+
+                settingProp.XMLGeneration().Save(LocalSettingTempFilePath);
+
+                Connect();
+                // Check existing file
+                if (Exist(remoteFolderPath + settingProp.File))
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"The setting file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageBoxResult == MessageBoxResult.No) return;
+                }
+
+                // Upload file
+                if (!Exist(remoteFolderPath)) CreateDirectory(remoteFolderPath);
+                UploadFile(remoteFolderPath + settingProp.File, LocalSettingTempFilePath);
+                Disconnect();
+                MessageBox.Show("Setting has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception)
             {

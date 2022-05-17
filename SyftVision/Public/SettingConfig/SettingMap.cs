@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Public.SettingConfig
 {
@@ -11,6 +12,15 @@ namespace Public.SettingConfig
     {
         public string Key { get; set; } = "";
         public SettingValue Value { get; set; } = new SettingValue();
+        public void UpdateKeyAndValue(XElement rootNode)
+        {
+            Key = rootNode.Attribute("Key").Value;
+            Value.LimitUpdate(rootNode.Element("Value"));
+        }
+        public XElement XMLGeneration()
+        {
+            return new XElement("Map", new XAttribute("Key", Key), Value.XMLGeneration());
+        }
         public static ObservableCollection<SettingMap> GetMapSetList(string content)
         {
             ObservableCollection<SettingMap> mapSetList = new ObservableCollection<SettingMap>();
