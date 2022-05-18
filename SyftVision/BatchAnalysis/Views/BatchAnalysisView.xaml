@@ -56,7 +56,7 @@
                                             <materialDesign:Badged ToolBar.OverflowMode="AsNeeded" CornerRadius="5">
                                                 <materialDesign:Badged.Badge>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <ToggleButton IsChecked="{Binding LocalMatchIsChecked}" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="Match Batch From Local" Width="30" Height="15" VerticalAlignment="Center">
+                                                        <ToggleButton Name="LocalMatchCheckBox" IsChecked="{Binding LocalMatchIsChecked}" Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" ToolTip="Match Batch From Local" Width="30" Height="15" VerticalAlignment="Center">
                                                             <materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>
                                                                 <SolidColorBrush Color="Yellow" />
                                                             </materialDesign:ToggleButtonAssist.SwitchTrackOnBackground>

@@ -310,7 +310,7 @@ namespace BatchAnalysis.ViewModels
                     {
                         try
                         {
-                            if (ScanFilesCollectionIsChecked && !LocalMatchIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
+                            if (ScanFilesCollectionIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
 
                             new SyftPDF(SyftDataHub, Comments, folderDlg.FileName);
                         }
@@ -345,7 +345,11 @@ namespace BatchAnalysis.ViewModels
         public bool LocalMatchIsChecked
         {
             get => _localMatchIsChecked;
-            set => SetProperty(ref _localMatchIsChecked, value);
+            set
+            {
+                SetProperty(ref _localMatchIsChecked, value);
+                if (_localMatchIsChecked == true) ScanFilesCollectionIsChecked = false;
+            }
         }
         public DelegateCommand MatchCommand
         {
