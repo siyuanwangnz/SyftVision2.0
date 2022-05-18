@@ -25,6 +25,7 @@ namespace SettingCheck.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IDialogService _dialogService;
         private readonly SyftServer _syftServer;
+        private InstrumentServer _instrumentServer;
         private SettingProp SettingProp;
         private Task Task;
         private bool TaskIsRunning()
@@ -98,6 +99,7 @@ namespace SettingCheck.ViewModels
 
                                 Tittle = SettingProp.Tittle;
                                 SubTittle = SettingProp.SubTittle;
+                                SettingList = SettingProp.SettingList;
                             }
                         }
                         else // Remote Selection
@@ -118,6 +120,7 @@ namespace SettingCheck.ViewModels
 
                                     Tittle = SettingProp.Tittle;
                                     SubTittle = SettingProp.SubTittle;
+                                    SettingList = SettingProp.SettingList;
                                 }
                             });
 
@@ -162,22 +165,37 @@ namespace SettingCheck.ViewModels
                 {
                     try
                     {
-                        // Get tree nodes
-                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Chart);
-
-                        // Navigate to dialog
-                        DialogParameters param = new DialogParameters();
-                        param.Add("treeNodes", treeNodes);
-                        _dialogService.ShowDialog("SyftSettingDialogView", param, arg =>
+                        if (LocalModeIsChecked) // Local Selection
                         {
-                            if (arg.Result == ButtonResult.OK)
+                            //Open file path selection dialog
+                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
+                            folderDlg.Title = "Select a Local Scan File";
+                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
-                                TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
-
-                                ChartProp chartProp = _syftServer.DownloadChart(treeNode);
+                                XElement.Load(folderDlg.FileName);
 
                             }
-                        });
+                        }
+                        else // Remote Selection
+                        {
+                            _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
+
+                            // Get tree nodes
+                            ObservableCollection<TreeNode> treeNodes = _instrumentServer.GetScanFileTreeNodes();
+
+                            // Navigate to dialog
+                            DialogParameters param = new DialogParameters();
+                            param.Add("treeNodes", treeNodes);
+                            _dialogService.ShowDialog("InstruScanDialogView", param, arg =>
+                            {
+                                if (arg.Result == ButtonResult.OK)
+                                {
+                                    TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+
+                                }
+                            });
+
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -192,7 +210,44 @@ namespace SettingCheck.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    
+                    try
+                    {
+                        if (LocalModeIsChecked) // Local Selection
+                        {
+                            //Open file path selection dialog
+                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
+                            folderDlg.Title = "Select a Local Scan File";
+                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                            {
+                                XElement.Load(folderDlg.FileName);
+
+                            }
+                        }
+                        else // Remote Selection
+                        {
+                            _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
+
+                            // Get tree nodes
+                            ObservableCollection<TreeNode> treeNodes = _instrumentServer.GetScanFileTreeNodes();
+
+                            // Navigate to dialog
+                            DialogParameters param = new DialogParameters();
+                            param.Add("treeNodes", treeNodes);
+                            _dialogService.ShowDialog("InstruScanDialogView", param, arg =>
+                            {
+                                if (arg.Result == ButtonResult.OK)
+                                {
+                                    TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+
+                                }
+                            });
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 });
             }
         }
@@ -210,7 +265,7 @@ namespace SettingCheck.ViewModels
                 {
                     try
                     {
-                        
+
                     }
                     catch (Exception ex)
                     {

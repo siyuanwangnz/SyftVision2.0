@@ -122,7 +122,7 @@
                     <DataGridTemplateColumn Header="Type">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Type}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding Type.Name}" VerticalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

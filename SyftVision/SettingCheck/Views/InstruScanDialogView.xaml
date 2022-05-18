@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="SettingCheck.Views.InstruScanDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+             xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+             xmlns:PublicTreeList ="clr-namespace:Public.TreeList;assembly=Public"
+             mc:Ignorable="d"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid Height="600" Width="600" Margin="10">
+        <TreeView ItemsSource="{Binding TreeNodes}" >
+            <b:Interaction.Behaviors>
+                <PublicTreeList:BindableSelectedItemBehavior SelectedItem="{Binding SelectedTreeNode, Mode=TwoWay}"/>
+            </b:Interaction.Behaviors>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type PublicTreeList:TreeNode}"  ItemsSource="{Binding Path=ChildNodes}">
+                    <TextBlock Text="{Binding Name}">
+                        <TextBlock.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding Path=DataContext.SelectedCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TreeView}}}" />
+                        </TextBlock.InputBindings>
+                    </TextBlock>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+    </Grid>
+</UserControl>
