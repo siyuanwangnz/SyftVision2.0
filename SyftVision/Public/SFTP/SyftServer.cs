@@ -276,5 +276,25 @@ namespace Public.SFTP
             }
 
         }
+        public void DownloadSettingConfigFolder(string targetFolder)
+        {
+            try
+            {
+                string localFolderPath = targetFolder + "/LocalSettingConfig/";
+                if (!Directory.Exists(localFolderPath)) Directory.CreateDirectory(localFolderPath);
+                Connect();
+                DownloadDirectory(RemoteSettingPath, localFolderPath);
+                Disconnect();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+
+        }
     }
 }

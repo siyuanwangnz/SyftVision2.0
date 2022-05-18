@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using Microsoft.WindowsAPICodePack.Dialogs;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
@@ -10,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
 
@@ -21,6 +23,16 @@ namespace SettingCheck.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IDialogService _dialogService;
         private readonly SyftServer _syftServer;
+        private Task Task;
+        private bool TaskIsRunning()
+        {
+            if (Task != null && !Task.IsCompleted)
+            {
+                MessageBox.Show($"In the process", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return true;
+            }
+            return false;
+        }
         public SettingCheckViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -30,6 +42,32 @@ namespace SettingCheck.ViewModels
         }
 
         #region Toolbar
+        public DelegateCommand DownloadCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    if (TaskIsRunning()) return;
+
+                    //Open folder path selection dialog
+                    CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
+                    folderDlg.IsFolderPicker = true;
+                    folderDlg.Title = "Select a Target Folder to Download Setting Config Files";
+                    if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                    {
+                        try
+                        {
+                            _syftServer.DownloadSettingConfigFolder(folderDlg.FileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                });
+            }
+        }
         public DelegateCommand OpenCommand
         {
             get
