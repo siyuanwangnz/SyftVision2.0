@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace SettingCheck.ViewModels
 {
-    public class SyftChartDialogViewModel : BindableBase, IDialogAware
+    public class SyftSettingDialogViewModel : BindableBase, IDialogAware
     {
         public string Title { get; } = "Select A Target Chart Config File";
         public event Action<IDialogResult> RequestClose;

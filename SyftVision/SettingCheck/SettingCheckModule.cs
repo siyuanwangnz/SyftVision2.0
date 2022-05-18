@@ -16,7 +16,7 @@ namespace SettingCheck
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterDialog<SyftChartDialogView, SyftChartDialogViewModel>();
+            containerRegistry.RegisterDialog<SyftSettingDialogView, SyftSettingDialogViewModel>();
         }
     }
 }

@@ -44,7 +44,7 @@ namespace SettingCheck.ViewModels
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
                         param.Add("treeNodes", treeNodes);
-                        _dialogService.ShowDialog("SyftChartDialogView", param, arg =>
+                        _dialogService.ShowDialog("SyftSettingDialogView", param, arg =>
                         {
                             if (arg.Result == ButtonResult.OK)
                             {
