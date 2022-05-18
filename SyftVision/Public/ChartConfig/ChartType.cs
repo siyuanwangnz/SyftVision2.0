@@ -11,7 +11,7 @@ namespace Public.ChartConfig
 {
     public class ChartType
     {
-        public static ObservableCollection<ChartType> ReferList = new ObservableCollection<ChartType>() {
+        public static List<ChartType> ReferList = new List<ChartType>() {
             new ChartType("Sensitivity", new Component(true, Component.Mode.RP), new BarChartFactory(new SensitivityXYFactory())),
             new ChartType("Impurity", new Component(true, Component.Mode.RP), new BarChartFactory(new ImpurityXYFactory())),
 

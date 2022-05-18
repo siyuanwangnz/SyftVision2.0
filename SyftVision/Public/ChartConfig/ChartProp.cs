@@ -11,7 +11,7 @@ namespace Public.ChartConfig
 {
     public class ChartProp
     {
-        public ChartProp(ChartType chartType, string tittle, string subTittle, string expectedRange, string phase, ObservableCollection<Component> componentList)
+        public ChartProp(ChartType chartType, string tittle, string subTittle, string expectedRange, string phase, List<Component> componentList)
         {
             ChartType = chartType;
             Tittle = tittle;
@@ -19,13 +19,13 @@ namespace Public.ChartConfig
             ExpectedRange = expectedRange;
             Phase = phase;
 
-            ComponentList = new ObservableCollection<Component>(componentList.Where(a =>
+            ComponentList = componentList.Where(a =>
             {
                 if (a.CompoundEnable == true && (string.IsNullOrEmpty(a.Compound) || string.IsNullOrWhiteSpace(a.Compound))) return false;
                 if (a.ReagentEnable == true && (string.IsNullOrEmpty(a.Reagent) || string.IsNullOrWhiteSpace(a.Reagent))) return false;
                 if (a.ProductionEnable == true && (string.IsNullOrEmpty(a.Production) || string.IsNullOrWhiteSpace(a.Production))) return false;
                 return true;
-            }));
+            }).ToList();
         }
         public ChartProp(XElement rootNode)
         {
@@ -37,7 +37,7 @@ namespace Public.ChartConfig
                 ExpectedRange = rootNode.Attribute("ExpectedRange").Value;
                 Phase = rootNode.Attribute("Phase").Value;
 
-                ComponentList = new ObservableCollection<Component>();
+                ComponentList = new List<Component>();
                 foreach (var componentNode in rootNode.Elements("Component"))
                 {
                     Component component = ChartType.Component.Copy();
@@ -65,7 +65,7 @@ namespace Public.ChartConfig
         public string ExpectedRange { get; private set; }
         public int ExpectedRangeColor { get => ExpectedRange == "Upper Limit" ? unchecked((int)0x80ff8080) : unchecked((int)0x8080ff80); }
         public string Phase { get; private set; }
-        public ObservableCollection<Component> ComponentList { get; private set; }
+        public List<Component> ComponentList { get; private set; }
         public Scan.Phase ScanPhase
         {
             get
