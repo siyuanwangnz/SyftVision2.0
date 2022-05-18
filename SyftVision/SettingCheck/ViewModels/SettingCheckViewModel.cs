@@ -5,6 +5,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
 using Public.ChartConfig;
+using Public.SettingConfig;
 using Public.SFTP;
 using Public.TreeList;
 using System;
@@ -23,6 +24,7 @@ namespace SettingCheck.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IDialogService _dialogService;
         private readonly SyftServer _syftServer;
+        private SettingProp SettingProp;
         private Task Task;
         private bool TaskIsRunning()
         {
@@ -64,6 +66,65 @@ namespace SettingCheck.ViewModels
                         {
                             MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
+                    }
+                });
+            }
+        }
+        private bool _localSelectIsChecked;
+        public bool LocalSelectIsChecked
+        {
+            get => _localSelectIsChecked;
+            set => SetProperty(ref _localSelectIsChecked, value);
+        }
+        public DelegateCommand SelectCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    if (TaskIsRunning()) return;
+
+                    try
+                    {
+                        if (LocalSelectIsChecked) // Local Selection
+                        {
+                            //Open file path selection dialog
+                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
+                            folderDlg.Title = "Select a Local Setting Config File";
+                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                            {
+                                SettingProp = new SettingProp(XElement.Load(folderDlg.FileName));
+
+                                Tittle = SettingProp.Tittle;
+                                SubTittle = SettingProp.SubTittle;
+                            }
+                        }
+                        else // Remote Selection
+                        {
+                            // Get tree nodes
+                            ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Setting);
+
+                            // Navigate to dialog
+                            DialogParameters param = new DialogParameters();
+                            param.Add("treeNodes", treeNodes);
+                            _dialogService.ShowDialog("SyftSettingDialogView", param, arg =>
+                            {
+                                if (arg.Result == ButtonResult.OK)
+                                {
+                                    TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+
+                                    SettingProp = _syftServer.DownloadSetting(treeNode);
+
+                                    Tittle = SettingProp.Tittle;
+                                    SubTittle = SettingProp.SubTittle;
+                                }
+                            });
+
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 });
             }
