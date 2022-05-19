@@ -12,7 +12,7 @@ namespace Public.SettingConfig
     {
         public double Key { get; set; }
         public SettingValue Value { get; set; } = new SettingValue();
-        public void UpdateKeyAndValue(XElement rootNode)
+        public void LimitUpdate(XElement rootNode)
         {
             Key = double.Parse(rootNode.Attribute("Key").Value);
             Value.LimitUpdate(rootNode.Element("Value"));
@@ -34,7 +34,7 @@ namespace Public.SettingConfig
                 {
                     SettingTable settingTable = new SettingTable();
                     settingTable.Key = double.Parse(temp.Substring(0, temp.IndexOf(",")));
-                    settingTable.Value.Value = double.Parse(temp.Substring(temp.IndexOf(",") + 1, temp.IndexOf(";") - temp.IndexOf(",") - 1));
+                    settingTable.Value.ValueList[0] = double.Parse(temp.Substring(temp.IndexOf(",") + 1, temp.IndexOf(";") - temp.IndexOf(",") - 1));
                     tableSetList.Add(settingTable);
                 }
                 catch (Exception)

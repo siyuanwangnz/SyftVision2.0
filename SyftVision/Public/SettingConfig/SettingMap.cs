@@ -12,7 +12,7 @@ namespace Public.SettingConfig
     {
         public string Key { get; set; } = "";
         public SettingValue Value { get; set; } = new SettingValue();
-        public void UpdateKeyAndValue(XElement rootNode)
+        public void LimitUpdate(XElement rootNode)
         {
             Key = rootNode.Attribute("Key").Value;
             Value.LimitUpdate(rootNode.Element("Value"));
@@ -34,7 +34,7 @@ namespace Public.SettingConfig
                 {
                     SettingMap settingMap = new SettingMap();
                     settingMap.Key = temp.Substring(temp.IndexOf("(") + 1, temp.LastIndexOf(",") - 1);
-                    settingMap.Value.Value = double.Parse(temp.Substring(temp.LastIndexOf(",") + 1, temp.IndexOf(")") - temp.LastIndexOf(",") - 1));
+                    settingMap.Value.ValueList[0] = double.Parse(temp.Substring(temp.LastIndexOf(",") + 1, temp.IndexOf(")") - temp.LastIndexOf(",") - 1));
                     mapSetList.Add(settingMap);
                 }
                 catch (Exception)

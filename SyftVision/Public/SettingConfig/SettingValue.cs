@@ -9,20 +9,20 @@ namespace Public.SettingConfig
 {
     public class SettingValue
     {
-        public double Value { get; set; }
+        public List<double> ValueList { get; set; } = new List<double>() { 0 };
         public double UnderLimit { get; set; }
         public double UpperLimit { get; set; }
-        public void ValueUpdate(XElement rootNode)// TODO: need change
-        {
-            try
-            {
-                Value = double.Parse(rootNode.Value);
-            }
-            catch (Exception)
-            {
+        //public void ValueUpdate(XElement rootNode)// TODO: need change
+        //{
+        //    try
+        //    {
+        //        Value = double.Parse(rootNode.Value);
+        //    }
+        //    catch (Exception)
+        //    {
 
-            }
-        }
+        //    }
+        //}
         public void LimitUpdate(XElement rootNode)
         {
             UnderLimit = double.Parse(rootNode.Attribute("UnderLimit").Value);

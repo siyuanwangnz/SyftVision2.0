@@ -9,13 +9,13 @@ namespace Public.SettingConfig
 {
     public class SettingOnOff
     {
-        public bool OnOff { get; set; }
+        public List<bool> OnOffList { get; set; } = new List<bool>() { false };
         public bool ReferOnOff { get; set; }
-        public void OnOffUpdate(XElement rootNode)
-        {
-            OnOff = rootNode.Value == "true";
-        }
-        public void ReferOnOffUpdate(XElement rootNode)
+        //public void OnOffUpdate(XElement rootNode)
+        //{
+        //    OnOff = rootNode.Value == "true";
+        //}
+        public void LimitUpdate(XElement rootNode)
         {
             ReferOnOff = rootNode.Attribute("ReferOnOff").Value == "true";
         }

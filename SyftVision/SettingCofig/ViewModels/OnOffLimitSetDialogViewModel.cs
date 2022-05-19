@@ -34,7 +34,7 @@ namespace SettingConfig.ViewModels
                 OnOff = SettingOnOff.GetOnOff(SelectedSetting.Content);
             else
             {
-                OnOff = SelectedSetting.OnOff.OnOff;
+                OnOff = SelectedSetting.OnOff.OnOffList[0];
                 ReferOnOff = SelectedSetting.OnOff.ReferOnOff;
             }
         }
@@ -45,7 +45,7 @@ namespace SettingConfig.ViewModels
                 return new DelegateCommand(() =>
                 {
                     SettingOnOff SettingOnOff = new SettingOnOff();
-                    SettingOnOff.OnOff = OnOff;
+                    SettingOnOff.OnOffList[0] = OnOff;
                     SettingOnOff.ReferOnOff = ReferOnOff;
 
                     DialogParameters param = new DialogParameters();

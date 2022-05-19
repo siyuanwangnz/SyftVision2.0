@@ -9,13 +9,13 @@ namespace Public.SettingConfig
 {
     public class SettingText
     {
-        public string Text { get; set; } = "";
+        public List<string> TextList { get; set; } = new List<string>() { "" };
         public string ReferText { get; set; } = "";
-        public void TextUpdate(XElement rootNode)
-        {
-            Text = rootNode.Value;
-        }
-        public void ReferTextUpdate(XElement rootNode)
+        //public void TextUpdate(XElement rootNode)
+        //{
+        //    Text = rootNode.Value;
+        //}
+        public void LimitUpdate(XElement rootNode)
         {
             ReferText = rootNode.Attribute("ReferText").Value;
         }

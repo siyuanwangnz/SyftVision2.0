@@ -34,7 +34,7 @@ namespace SettingConfig.ViewModels
                 Text = SettingText.GetText(SelectedSetting.Content);
             else
             {
-                Text = SelectedSetting.Text.Text;
+                Text = SelectedSetting.Text.TextList[0];
                 ReferText = SelectedSetting.Text.ReferText;
             }
         }
@@ -45,7 +45,7 @@ namespace SettingConfig.ViewModels
                 return new DelegateCommand(() =>
                 {
                     SettingText SettingText = new SettingText();
-                    SettingText.Text = Text;
+                    SettingText.TextList[0] = Text;
                     SettingText.ReferText = ReferText;
 
                     DialogParameters param = new DialogParameters();

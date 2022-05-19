@@ -34,7 +34,7 @@ namespace SettingConfig.ViewModels
                 Value = SettingValue.GetValue(SelectedSetting.Content);
             else
             {
-                Value = SelectedSetting.Value.Value;
+                Value = SelectedSetting.Value.ValueList[0];
                 UpperLimit = SelectedSetting.Value.UpperLimit;
                 UnderLimit = SelectedSetting.Value.UnderLimit;
             }
@@ -46,7 +46,7 @@ namespace SettingConfig.ViewModels
                 return new DelegateCommand(() =>
                 {
                     SettingValue SettingValue = new SettingValue();
-                    SettingValue.Value = Value;
+                    SettingValue.ValueList[0] = Value;
                     SettingValue.UpperLimit = UpperLimit;
                     SettingValue.UnderLimit = UnderLimit;
 

@@ -33,7 +33,7 @@ namespace Public.SettingConfig
                         foreach (var map in rootNode.Elements("Map"))
                         {
                             SettingMap settingMap = new SettingMap();
-                            settingMap.UpdateKeyAndValue(map);
+                            settingMap.LimitUpdate(map);
                             MapSetList.Add(settingMap);
                         }
                         break;
@@ -43,14 +43,14 @@ namespace Public.SettingConfig
                         foreach (var table in rootNode.Elements("Table"))
                         {
                             SettingTable settingTable = new SettingTable();
-                            settingTable.UpdateKeyAndValue(table);
+                            settingTable.LimitUpdate(table);
                             TableSetList.Add(settingTable);
                         }
                         break;
                     case "OnOff":
                         if (rootNode.Element("OnOff") == null) break;
                         OnOff = new SettingOnOff();
-                        OnOff.ReferOnOffUpdate(rootNode.Element("OnOff"));
+                        OnOff.LimitUpdate(rootNode.Element("OnOff"));
                         break;
                     case "Value":
                         if (rootNode.Element("Value") == null) break;
@@ -60,7 +60,7 @@ namespace Public.SettingConfig
                     case "Text":
                         if (rootNode.Element("Text") == null) break;
                         Text = new SettingText();
-                        Text.ReferTextUpdate(rootNode.Element("Text"));
+                        Text.LimitUpdate(rootNode.Element("Text"));
                         break;
                 }
             }

@@ -42,7 +42,7 @@
                 <DataGridTemplateColumn Header="Current Value">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBox Text="{Binding Value.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
+                            <TextBox Text="{Binding Value.ValueList[0], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
