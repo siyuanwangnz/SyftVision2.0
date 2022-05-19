@@ -32,7 +32,7 @@ namespace SettingConfig.ViewModels
             SettingName = SelectedSetting.Name;
 
             if (SelectedSetting.TableSetList == null)
-                TableSetList = new ObservableCollection<SettingTable>(SettingTable.GetTableSetList(SelectedSetting.Content));
+                TableSetList = new ObservableCollection<SettingTable>(SettingTable.GetTableSetList(SelectedSetting.ContentList[0]));
             else
                 TableSetList = new ObservableCollection<SettingTable>(SelectedSetting.TableSetList);
         }

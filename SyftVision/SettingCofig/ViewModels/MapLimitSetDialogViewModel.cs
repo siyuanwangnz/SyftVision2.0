@@ -32,7 +32,7 @@ namespace SettingConfig.ViewModels
             SettingName = SelectedSetting.Name;
 
             if (SelectedSetting.MapSetList == null)
-                MapSetList = new ObservableCollection<SettingMap>(SettingMap.GetMapSetList(SelectedSetting.Content));
+                MapSetList = new ObservableCollection<SettingMap>(SettingMap.GetMapSetList(SelectedSetting.ContentList[0]));
             else
                 MapSetList = new ObservableCollection<SettingMap>(SelectedSetting.MapSetList);
 

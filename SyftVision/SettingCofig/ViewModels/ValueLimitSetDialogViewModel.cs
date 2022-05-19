@@ -31,7 +31,7 @@ namespace SettingConfig.ViewModels
             SettingName = SelectedSetting.Name;
 
             if (SelectedSetting.Value == null)
-                Value = SettingValue.GetValue(SelectedSetting.Content);
+                Value = SettingValue.GetValue(SelectedSetting.ContentList[0]);
             else
             {
                 Value = SelectedSetting.Value.ValueList[0];

@@ -31,7 +31,7 @@ namespace SettingConfig.ViewModels
             SettingName = SelectedSetting.Name;
 
             if (SelectedSetting.Text == null)
-                Text = SettingText.GetText(SelectedSetting.Content);
+                Text = SettingText.GetText(SelectedSetting.ContentList[0]);
             else
             {
                 Text = SelectedSetting.Text.TextList[0];

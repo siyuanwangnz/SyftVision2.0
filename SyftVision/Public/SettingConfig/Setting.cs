@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Public.Instrument;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Public.SettingConfig
         public Setting(string name, string content)
         {
             Name = name;
-            Content = content;
+            ContentList[0] = content;
             TypeList = SettingType.ReferList;
             Type = GetSettingType();
         }
@@ -70,12 +71,13 @@ namespace Public.SettingConfig
             }
         }
         public string Name { get; }
-        public string Content { get; set; } = "";
+        public List<string> ContentList { get; set; } = new List<string>() { "" };
+        public List<ScanFile> ScanList { get; set; } = new List<ScanFile>();
         public List<SettingType> TypeList { get; }
         public SettingType Type { get; set; }
         private SettingType GetSettingType()
         {
-            if (Content == "") // Empty content
+            if (ContentList[0] == "") // Empty content
             {
                 if (Name.Contains("Map")) return TypeList.Single(a => a.Name == "Map");
                 else if (Name.Contains("Table")) return TypeList.Single(a => a.Name == "Table");
@@ -85,13 +87,13 @@ namespace Public.SettingConfig
             {
                 try
                 {
-                    double.Parse(Content);
+                    double.Parse(ContentList[0]);
                 }
                 catch (Exception)
                 {
-                    if (Regex.IsMatch(Content, @"^\(.*\)$")) return TypeList.Single(a => a.Name == "Map");
-                    else if (Content.Contains(",") && Content.Contains(";")) return TypeList.Single(a => a.Name == "Table");
-                    else if (Content == "false" || Content == "true") return TypeList.Single(a => a.Name == "OnOff");
+                    if (Regex.IsMatch(ContentList[0], @"^\(.*\)$")) return TypeList.Single(a => a.Name == "Map");
+                    else if (ContentList[0].Contains(",") && ContentList[0].Contains(";")) return TypeList.Single(a => a.Name == "Table");
+                    else if (ContentList[0] == "false" || ContentList[0] == "true") return TypeList.Single(a => a.Name == "OnOff");
                     else return TypeList.Single(a => a.Name == "Text");
                 }
                 return TypeList.Single(a => a.Name == "Value");
