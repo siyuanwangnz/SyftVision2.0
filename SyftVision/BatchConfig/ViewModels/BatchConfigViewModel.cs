@@ -123,8 +123,8 @@ namespace BatchConfig.ViewModels
 
                                 BatchTittle = batchProp.Tittle;
                                 BatchSubTittle = batchProp.SubTittle;
-                                MethodList = batchProp.MethodList;
-                                ChartPropList = batchProp.ChartPropList;
+                                MethodList = new ObservableCollection<Method>(batchProp.MethodList);
+                                ChartPropList = new ObservableCollection<ChartProp>(batchProp.ChartPropList);
                             }
                         });
                     }
@@ -147,7 +147,7 @@ namespace BatchConfig.ViewModels
                         return;
                     }
 
-                    BatchProp batchProp = new BatchProp(BatchTittle, BatchSubTittle, MethodList, ChartPropList);
+                    BatchProp batchProp = new BatchProp(BatchTittle, BatchSubTittle, MethodList.ToList(), ChartPropList.ToList());
 
                     try
                     {
@@ -221,7 +221,7 @@ namespace BatchConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    ObservableCollection<string> chartCodeList = SelectedMethod.ChartCodeList;
+                    List<string> chartCodeList = SelectedMethod.ChartCodeList.ToList();
 
                     MethodList.Remove(SelectedMethod);
 
@@ -233,9 +233,9 @@ namespace BatchConfig.ViewModels
                     }
 
                     // Get non-repetitive chart code list
-                    ObservableCollection<string> chartCodeFullList = new ObservableCollection<string>();
+                    List<string> chartCodeFullList = new List<string>();
                     foreach (var method in MethodList) chartCodeFullList.AddRange(method.ChartCodeList);
-                    chartCodeFullList = new ObservableCollection<string>(new HashSet<string>(chartCodeFullList));
+                    chartCodeFullList = new List<string>(new HashSet<string>(chartCodeFullList));
 
                     foreach (var chartCode in chartCodeList)
                     {
@@ -280,9 +280,9 @@ namespace BatchConfig.ViewModels
                         SelectedMethod.ChartCodeList.Remove(selectedChartCode);
 
                         // Get non-repetitive chart code list
-                        ObservableCollection<string> chartCodeFullList = new ObservableCollection<string>();
+                        List<string> chartCodeFullList = new List<string>();
                         foreach (var method in MethodList) chartCodeFullList.AddRange(method.ChartCodeList);
-                        chartCodeFullList = new ObservableCollection<string>(new HashSet<string>(chartCodeFullList));
+                        chartCodeFullList = new List<string>(new HashSet<string>(chartCodeFullList));
 
                         if (!chartCodeFullList.Contains(selectedChartCode) && ChartPropList.Select(a => a.Code).ToList().Contains(selectedChartCode))
                             ChartPropList.Remove(ChartPropList.Single(a => a.Code == selectedChartCode));
