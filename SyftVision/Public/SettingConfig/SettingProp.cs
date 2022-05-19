@@ -10,12 +10,12 @@ namespace Public.SettingConfig
 {
     public class SettingProp
     {
-        public SettingProp(string title, string subTitle, ObservableCollection<FilterOff> filterOffList, ObservableCollection<Setting> settingList)
+        public SettingProp(string title, string subTitle, List<FilterOff> filterOffList, List<Setting> settingList)
         {
             Tittle = title;
             SubTittle = subTitle;
-            FilterOffList = new ObservableCollection<FilterOff>(filterOffList.Where(a => a.Wildcard != ""));
-            SettingList = new ObservableCollection<Setting>(settingList.Where(a => !a.IsInvalid()));
+            FilterOffList = filterOffList.Where(a => a.Wildcard != "").ToList();
+            SettingList = settingList.Where(a => !a.IsInvalid()).ToList();
         }
         public SettingProp(XElement rootNode)
         {
@@ -24,7 +24,7 @@ namespace Public.SettingConfig
                 Tittle = rootNode.Attribute("Tittle").Value;
                 SubTittle = rootNode.Attribute("SubTittle").Value;
 
-                FilterOffList = new ObservableCollection<FilterOff>();
+                FilterOffList = new List<FilterOff>();
                 foreach (var wildcard in rootNode.Element("FilterOff").Elements("Wildcard"))
                 {
                     FilterOff filterOff = new FilterOff();
@@ -32,7 +32,7 @@ namespace Public.SettingConfig
                     FilterOffList.Add(filterOff);
                 }
 
-                SettingList = new ObservableCollection<Setting>();
+                SettingList = new List<Setting>();
                 foreach (var setting in rootNode.Elements("Setting"))
                 {
                     SettingList.Add(new Setting(setting));
@@ -47,8 +47,8 @@ namespace Public.SettingConfig
         public string SubTittle { get; private set; }
         public string Name => $"{Tittle}-{SubTittle}";
         public string File => $"{SubTittle}.xml";
-        public ObservableCollection<FilterOff> FilterOffList { get; private set; }
-        public ObservableCollection<Setting> SettingList { get; private set; }
+        public List<FilterOff> FilterOffList { get; private set; }
+        public List<Setting> SettingList { get; private set; }
         public XElement XMLGeneration()
         {
             XElement rootNode = new XElement("Settings",

@@ -40,7 +40,7 @@ namespace BatchConfig.ViewModels
                 {
                     try
                     {
-                        TreeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Chart);
+                        TreeNodes = new ObservableCollection<TreeNode>(_syftServer.GetTreeNodes(SyftServer.Type.Chart));
                     }
                     catch (Exception ex)
                     {
@@ -108,7 +108,7 @@ namespace BatchConfig.ViewModels
                     try
                     {
                         // Get tree nodes
-                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
+                        List<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
@@ -171,7 +171,7 @@ namespace BatchConfig.ViewModels
                     try
                     {
                         // Get batch file list
-                        ObservableCollection<string> batchFileList = _instrumentServer.GetBatchFileList();
+                        List<string> batchFileList = _instrumentServer.GetBatchFileList();
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
@@ -181,7 +181,7 @@ namespace BatchConfig.ViewModels
                             if (arg.Result == ButtonResult.OK)
                             {
                                 string selectedBatchFile = arg.Parameters.GetValue<string>("selectedBatchFile");
-                                MethodList = _instrumentServer.GetMethodListFromBatchFile(selectedBatchFile);
+                                MethodList = new ObservableCollection<Method>(_instrumentServer.GetMethodListFromBatchFile(selectedBatchFile));
                                 ChartPropList.Clear();
                             }
 

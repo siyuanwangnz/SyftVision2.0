@@ -175,7 +175,7 @@ namespace BatchAnalysis.ViewModels
                         else // Remote Selection
                         {
                             // Get tree nodes
-                            ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
+                            List<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
 
                             // Navigate to dialog
                             DialogParameters param = new DialogParameters();

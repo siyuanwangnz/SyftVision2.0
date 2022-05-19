@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
 
@@ -41,7 +42,7 @@ namespace SettingConfig.ViewModels
                     try
                     {
                         // Get tree nodes
-                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Setting);
+                        List<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Setting);
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
@@ -56,8 +57,8 @@ namespace SettingConfig.ViewModels
 
                                 Tittle = settingProp.Tittle;
                                 SubTittle = settingProp.SubTittle;
-                                FilterOffList = settingProp.FilterOffList;
-                                SettingList = settingProp.SettingList;
+                                FilterOffList = new ObservableCollection<FilterOff>(settingProp.FilterOffList);
+                                SettingList = new ObservableCollection<Setting>(settingProp.SettingList);
                             }
                         });
                     }
@@ -80,7 +81,7 @@ namespace SettingConfig.ViewModels
                         return;
                     }
 
-                    SettingProp settingProp = new SettingProp(Tittle, SubTittle, FilterOffList, SettingList);
+                    SettingProp settingProp = new SettingProp(Tittle, SubTittle, FilterOffList.ToList(), SettingList.ToList());
 
                     try
                     {
@@ -110,7 +111,7 @@ namespace SettingConfig.ViewModels
                     try
                     {
                         // Get tree nodes
-                        ObservableCollection<TreeNode> treeNodes = _instrumentServer.GetScanFileTreeNodes();
+                        List<TreeNode> treeNodes = _instrumentServer.GetScanFileTreeNodes();
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
@@ -121,7 +122,7 @@ namespace SettingConfig.ViewModels
                             {
                                 TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
-                                SettingList = _instrumentServer.GetSettingListFromScanFile(treeNode, FilterOffList);
+                                SettingList = new ObservableCollection<Setting>(_instrumentServer.GetSettingListFromScanFile(treeNode, FilterOffList.ToList()));
                             }
                         });
 
@@ -209,10 +210,10 @@ namespace SettingConfig.ViewModels
                             switch (SelectedSetting.Type.Name)
                             {
                                 case "Map":
-                                    SelectedSetting.MapSetList = arg.Parameters.GetValue<ObservableCollection<SettingMap>>("MapSetList");
+                                    SelectedSetting.MapSetList = arg.Parameters.GetValue<List<SettingMap>>("MapSetList");
                                     break;
                                 case "Table":
-                                    SelectedSetting.TableSetList = arg.Parameters.GetValue<ObservableCollection<SettingTable>>("TableSetList");
+                                    SelectedSetting.TableSetList = arg.Parameters.GetValue<List<SettingTable>>("TableSetList");
                                     break;
                                 case "OnOff":
                                     SelectedSetting.OnOff = arg.Parameters.GetValue<SettingOnOff>("SettingOnOff");

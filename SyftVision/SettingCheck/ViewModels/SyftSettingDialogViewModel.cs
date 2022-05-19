@@ -4,6 +4,7 @@ using Prism.Services.Dialogs;
 using Public.ChartConfig;
 using Public.TreeList;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace SettingCheck.ViewModels
@@ -24,7 +25,7 @@ namespace SettingCheck.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            TreeNodes = parameters.GetValue<ObservableCollection<TreeNode>>("treeNodes");
+            TreeNodes = new ObservableCollection<TreeNode>(parameters.GetValue<List<TreeNode>>("treeNodes"));
         }
         public DelegateCommand SelectedCommand
         {

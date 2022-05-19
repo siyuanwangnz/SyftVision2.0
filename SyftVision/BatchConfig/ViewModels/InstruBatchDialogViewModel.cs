@@ -27,11 +27,9 @@ namespace BatchConfig.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            BatchList = new ObservableCollection<InstruBatch>();
+            List<string> batchFileList = parameters.GetValue<List<string>>("batchFileList");
 
-            ObservableCollection<string> batchFileList = parameters.GetValue<ObservableCollection<string>>("batchFileList");
-
-            foreach (var batchFile in batchFileList) BatchList.Add(new InstruBatch(batchFile));
+            BatchList = new ObservableCollection<InstruBatch>(batchFileList.ConvertAll(a => new InstruBatch(a)));
         }
         public DelegateCommand SelectedCommand
         {

@@ -21,9 +21,9 @@ namespace Public.SettingConfig
         {
             return new XElement("Table", new XAttribute("Key", Key), Value.XMLGeneration());
         }
-        public static ObservableCollection<SettingTable> GetTableSetList(string content)
+        public static List<SettingTable> GetTableSetList(string content)
         {
-            ObservableCollection<SettingTable> tableSetList = new ObservableCollection<SettingTable>();
+            List<SettingTable> tableSetList = new List<SettingTable>();
 
             while (content.Contains(";"))
             {

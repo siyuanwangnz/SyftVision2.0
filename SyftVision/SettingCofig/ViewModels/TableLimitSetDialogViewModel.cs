@@ -32,9 +32,9 @@ namespace SettingConfig.ViewModels
             SettingName = SelectedSetting.Name;
 
             if (SelectedSetting.TableSetList == null)
-                TableSetList = SettingTable.GetTableSetList(SelectedSetting.Content);
+                TableSetList = new ObservableCollection<SettingTable>(SettingTable.GetTableSetList(SelectedSetting.Content));
             else
-                TableSetList = SelectedSetting.TableSetList;
+                TableSetList = new ObservableCollection<SettingTable>(SelectedSetting.TableSetList);
         }
         public DelegateCommand SaveCommand
         {
@@ -47,7 +47,7 @@ namespace SettingConfig.ViewModels
                     list.Sort((a, b) => a.Key.CompareTo(b.Key));
 
                     DialogParameters param = new DialogParameters();
-                    param.Add("TableSetList", list.Count == 0 ? null : new ObservableCollection<SettingTable>(list));
+                    param.Add("TableSetList", list.Count == 0 ? null : list);
                     RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
                 });
             }

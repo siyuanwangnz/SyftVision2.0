@@ -43,7 +43,7 @@ namespace Public.SFTP
             if (!Directory.Exists(LocalSettingPath)) Directory.CreateDirectory(LocalSettingPath);
         }
 
-        public ObservableCollection<TreeNode> GetTreeNodes(Type type)
+        public List<TreeNode> GetTreeNodes(Type type)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace Public.SFTP
                 Connect();
                 List<string> folders = GetDirectoryList(remotePath);
                 folders.Sort();
-                ObservableCollection<TreeNode> treeNodes = new ObservableCollection<TreeNode>();
+                List<TreeNode> treeNodes = new List<TreeNode>();
                 foreach (var folder in folders)
                 {
                     if (folder == "." || folder == "..") continue;

@@ -27,7 +27,7 @@ namespace SettingConfig.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            TreeNodes = parameters.GetValue<ObservableCollection<TreeNode>>("treeNodes");
+            TreeNodes = new ObservableCollection<TreeNode>(parameters.GetValue<List<TreeNode>>("treeNodes"));
         }
         public DelegateCommand SelectedCommand
         {

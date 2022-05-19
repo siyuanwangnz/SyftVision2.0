@@ -99,13 +99,13 @@ namespace SettingCheck.ViewModels
 
                                 Tittle = SettingProp.Tittle;
                                 SubTittle = SettingProp.SubTittle;
-                                SettingList = SettingProp.SettingList;
+                                SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
                             }
                         }
                         else // Remote Selection
                         {
                             // Get tree nodes
-                            ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Setting);
+                            List<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Setting);
 
                             // Navigate to dialog
                             DialogParameters param = new DialogParameters();
@@ -120,7 +120,7 @@ namespace SettingCheck.ViewModels
 
                                     Tittle = SettingProp.Tittle;
                                     SubTittle = SettingProp.SubTittle;
-                                    SettingList = SettingProp.SettingList;
+                                    SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
                                 }
                             });
 
@@ -181,7 +181,7 @@ namespace SettingCheck.ViewModels
                             _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
 
                             // Get tree nodes
-                            ObservableCollection<TreeNode> treeNodes = _instrumentServer.GetScanFileTreeNodes();
+                            List<TreeNode> treeNodes = _instrumentServer.GetScanFileTreeNodes();
 
                             // Navigate to dialog
                             DialogParameters param = new DialogParameters();
@@ -228,7 +228,7 @@ namespace SettingCheck.ViewModels
                             _instrumentServer = new InstrumentServer(IPAddress, new Public.Global.Options());
 
                             // Get tree nodes
-                            ObservableCollection<TreeNode> treeNodes = _instrumentServer.GetScanFileTreeNodes();
+                            List<TreeNode> treeNodes = _instrumentServer.GetScanFileTreeNodes();
 
                             // Navigate to dialog
                             DialogParameters param = new DialogParameters();

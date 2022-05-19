@@ -21,9 +21,9 @@ namespace Public.SettingConfig
         {
             return new XElement("Map", new XAttribute("Key", Key), Value.XMLGeneration());
         }
-        public static ObservableCollection<SettingMap> GetMapSetList(string content)
+        public static List<SettingMap> GetMapSetList(string content)
         {
-            ObservableCollection<SettingMap> mapSetList = new ObservableCollection<SettingMap>();
+            List<SettingMap> mapSetList = new List<SettingMap>();
 
             while (content.Contains(")"))
             {

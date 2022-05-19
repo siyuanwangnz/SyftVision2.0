@@ -40,14 +40,14 @@ namespace Public.SFTP
         }
 
         // Batch file for batch config
-        public ObservableCollection<string> GetBatchFileList()
+        public List<string> GetBatchFileList()
         {
             try
             {
                 Connect();
                 List<string> files = GetFileList(RemoteMethodPath, "sba");
                 Disconnect();
-                return new ObservableCollection<string>(files);
+                return files;
             }
             catch (Exception)
             {
@@ -59,7 +59,7 @@ namespace Public.SFTP
             }
         }
 
-        public ObservableCollection<Method> GetMethodListFromBatchFile(string batchFile)
+        public List<Method> GetMethodListFromBatchFile(string batchFile)
         {
             try
             {
@@ -174,7 +174,7 @@ namespace Public.SFTP
         }
 
         // Scan file for setting config
-        public ObservableCollection<TreeNode> GetScanFileTreeNodes()
+        public List<TreeNode> GetScanFileTreeNodes()
         {
             try
             {
@@ -185,7 +185,7 @@ namespace Public.SFTP
                 folders = folders.Where(x => Regex.IsMatch(x, @"^\d{4}-\d{2}-\d{2}$")).ToList();
                 folders.Sort((a, b) => b.CompareTo(a));
 
-                ObservableCollection<TreeNode> treeNodes = new ObservableCollection<TreeNode>();
+                List<TreeNode> treeNodes = new List<TreeNode>();
                 foreach (var folder in folders)
                 {
                     if (folder == "." || folder == "..") continue;
@@ -224,7 +224,7 @@ namespace Public.SFTP
             }
         }
 
-        public ObservableCollection<Setting> GetSettingListFromScanFile(TreeNode treeNode, ObservableCollection<FilterOff> filterOffList)
+        public List<Setting> GetSettingListFromScanFile(TreeNode treeNode, List<FilterOff> filterOffList)
         {
             try
             {

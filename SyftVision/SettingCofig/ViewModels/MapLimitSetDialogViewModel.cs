@@ -32,9 +32,9 @@ namespace SettingConfig.ViewModels
             SettingName = SelectedSetting.Name;
 
             if (SelectedSetting.MapSetList == null)
-                MapSetList = SettingMap.GetMapSetList(SelectedSetting.Content);
+                MapSetList = new ObservableCollection<SettingMap>(SettingMap.GetMapSetList(SelectedSetting.Content));
             else
-                MapSetList = SelectedSetting.MapSetList;
+                MapSetList = new ObservableCollection<SettingMap>(SelectedSetting.MapSetList);
 
         }
         public DelegateCommand SaveCommand
@@ -44,7 +44,7 @@ namespace SettingConfig.ViewModels
                 return new DelegateCommand(() =>
                 {
                     DialogParameters param = new DialogParameters();
-                    param.Add("MapSetList", MapSetList.Count == 0 ? null : MapSetList);
+                    param.Add("MapSetList", MapSetList.Count == 0 ? null : MapSetList.ToList());
                     RequestClose?.Invoke(new DialogResult(ButtonResult.OK, param));
                 });
             }

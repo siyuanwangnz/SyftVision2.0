@@ -29,7 +29,7 @@ namespace Public.SettingConfig
                 {
                     case "Map":
                         if (rootNode.Elements("Map").Count() == 0) break;
-                        MapSetList = new ObservableCollection<SettingMap>();
+                        MapSetList = new List<SettingMap>();
                         foreach (var map in rootNode.Elements("Map"))
                         {
                             SettingMap settingMap = new SettingMap();
@@ -39,7 +39,7 @@ namespace Public.SettingConfig
                         break;
                     case "Table":
                         if (rootNode.Elements("Table").Count() == 0) break;
-                        TableSetList = new ObservableCollection<SettingTable>();
+                        TableSetList = new List<SettingTable>();
                         foreach (var table in rootNode.Elements("Table"))
                         {
                             SettingTable settingTable = new SettingTable();
@@ -71,7 +71,7 @@ namespace Public.SettingConfig
         }
         public string Name { get; }
         public string Content { get; set; } = "";
-        public ObservableCollection<SettingType> TypeList { get; }
+        public List<SettingType> TypeList { get; }
         public SettingType Type { get; set; }
         private SettingType GetSettingType()
         {
@@ -97,8 +97,8 @@ namespace Public.SettingConfig
                 return TypeList.Single(a => a.Name == "Value");
             }
         }
-        public ObservableCollection<SettingMap> MapSetList { get; set; }
-        public ObservableCollection<SettingTable> TableSetList { get; set; }
+        public List<SettingMap> MapSetList { get; set; }
+        public List<SettingTable> TableSetList { get; set; }
         public SettingOnOff OnOff { get; set; }
         public SettingValue Value { get; set; }
         public SettingText Text { get; set; }
@@ -164,7 +164,7 @@ namespace Public.SettingConfig
             }
             return false;
         }
-        public static ObservableCollection<Setting> GetSettingList(XElement rootNode, ObservableCollection<FilterOff> filterOffList)
+        public static List<Setting> GetSettingList(XElement rootNode, List<FilterOff> filterOffList)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace Public.SettingConfig
                     settingList.Add(new Setting(name, content));
                 }
                 settingList.Sort((a, b) => a.Name.CompareTo(b.Name));
-                return new ObservableCollection<Setting>(settingList);
+                return settingList;
             }
             catch (Exception)
             {

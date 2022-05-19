@@ -40,7 +40,7 @@ namespace ChartConfig.ViewModels
                     try
                     {
                         // Get tree nodes
-                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Chart);
+                        List<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Chart);
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();

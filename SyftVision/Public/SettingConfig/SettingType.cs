@@ -11,7 +11,7 @@ namespace Public.SettingConfig
 {
     public class SettingType
     {
-        public static ObservableCollection<SettingType> ReferList = new ObservableCollection<SettingType>()
+        public static List<SettingType> ReferList = new List<SettingType>()
         {
             new SettingType("Text","TextLimitSetDialogView", new BarChartFactory(new SensitivityXYFactory())),
             new SettingType("Value","ValueLimitSetDialogView", new BarChartFactory(new SensitivityXYFactory())),
