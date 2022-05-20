@@ -130,7 +130,7 @@
                     <DataGridTemplateColumn Header="Current Content">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Content}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding ContentList[0]}" VerticalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
