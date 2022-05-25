@@ -12,6 +12,7 @@ namespace Public.SettingConfig
         public List<double> ValueList { get; private set; } = new List<double>() { 0 };
         public double UnderLimit { get; set; }
         public double UpperLimit { get; set; }
+        public bool IsOut => ValueList[0] <= UpperLimit && ValueList[0] >= UnderLimit ? false : true;
         public void LimitUpdate(XElement rootNode)
         {
             UnderLimit = double.Parse(rootNode.Attribute("UnderLimit").Value);

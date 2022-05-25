@@ -104,6 +104,7 @@ namespace Public.SettingConfig
         public SettingOnOff OnOff { get; set; }
         public SettingValue Value { get; set; }
         public SettingText Text { get; set; }
+        public bool IsOut { get; set; }
         public XElement XMLGeneration()
         {
             XElement rootNode = new XElement("Setting", new XAttribute("Name", Name), new XAttribute("Type", Type.Name));
@@ -213,6 +214,7 @@ namespace Public.SettingConfig
                         }
                         map.Value.SetValue(d);
                     }
+                    IsOut = MapSetList.Select(a => a.Value.IsOut).ToList().Contains(true) ? true : false;
                     break;
                 case "Table":
                     List<SettingTable> newTableSetList = SettingTable.GetTableSetList(content);
@@ -229,15 +231,19 @@ namespace Public.SettingConfig
                         }
                         table.Value.SetValue(d);
                     }
+                    IsOut = TableSetList.Select(a => a.Value.IsOut).ToList().Contains(true) ? true : false;
                     break;
                 case "OnOff":
                     OnOff.SetOnOff(content);
+                    IsOut = OnOff.IsOut;
                     break;
                 case "Value":
                     Value.SetValue(content);
+                    IsOut = Value.IsOut;
                     break;
                 case "Text":
                     Text.SetText(content);
+                    IsOut = Text.IsOut;
                     break;
             }
         }

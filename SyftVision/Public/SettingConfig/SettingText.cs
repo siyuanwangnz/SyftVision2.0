@@ -11,6 +11,7 @@ namespace Public.SettingConfig
     {
         public List<string> TextList { get; private set; } = new List<string>() { "" };
         public string ReferText { get; set; } = "";
+        public bool IsOut => TextList[0] == ReferText ? false : true;
         public void LimitUpdate(XElement rootNode)
         {
             ReferText = rootNode.Attribute("ReferText").Value;

@@ -11,6 +11,7 @@ namespace Public.SettingConfig
     {
         public List<bool> OnOffList { get; private set; } = new List<bool>() { false };
         public bool ReferOnOff { get; set; }
+        public bool IsOut => OnOffList[0] == ReferOnOff ? false : true;
         public void LimitUpdate(XElement rootNode)
         {
             ReferOnOff = rootNode.Attribute("ReferOnOff").Value == "true";
