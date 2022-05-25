@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BatchAnalysis.Models
+namespace Public.Instrument
 {
     public class SyftInfo
     {

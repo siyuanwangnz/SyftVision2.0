@@ -1,4 +1,5 @@
 ﻿using Public.Instrument;
+using SyftXML;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -51,6 +52,19 @@ namespace Public.SettingConfig
         public bool HasSet { get; private set; } = false;
         public List<FilterOff> FilterOffList { get; private set; }
         public List<Setting> SettingList { get; private set; }
+        public List<SyftInfo> SyftInfoList { get; private set; }
+        public void SetSyftInfoList(string scanPath)
+        {
+            SyftInfoList = new List<SyftInfo>();
+            Scan scan = new Scan(scanPath);
+            var InstruInfo = scan.GetInstrumentInfo();
+            SyftInfoList.Add(new SyftInfo("Instrument", "Number", InstruInfo.Number));
+            SyftInfoList.Add(new SyftInfo("Instrument", "Mode", InstruInfo.Model));
+            SyftInfoList.Add(new SyftInfo("Instrument", "Serial Number", InstruInfo.SN));
+            SyftInfoList.Add(new SyftInfo("Instrument", "Kiosk Version", InstruInfo.KioskVersion));
+
+            SyftInfoList = SyftInfoList.OrderBy(a => a.Category).ThenBy(e => e.Item).ToList();
+        }
         public XElement XMLGeneration()
         {
             XElement rootNode = new XElement("Settings",
@@ -93,6 +107,9 @@ namespace Public.SettingConfig
                 }
                 setting.SetContent(newSetting.ContentList[0], scanFile);
             }
+
+            SetSyftInfoList(scanFile.FullLocalFilePath);
+
             HasSet = true;
         }
         public void AddContentForSettingList(XElement rootNode, ScanFile scanFile)

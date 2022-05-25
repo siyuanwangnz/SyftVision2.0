@@ -9,7 +9,6 @@ using Public.Instrument;
 using Public.SettingConfig;
 using Public.SFTP;
 using Public.TreeList;
-using SettingCheck.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -178,9 +177,11 @@ namespace SettingCheck.ViewModels
                             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
                                 FileInfo fileInfo = new FileInfo(dlg.FileName);
-                                SettingProp.SetContentForSettingList(XElement.Load(dlg.FileName), new ScanFile(fileInfo.Name));
+                                SettingProp.SetContentForSettingList(XElement.Load(dlg.FileName), new ScanFile(fileInfo.Name) { FullLocalFolder = fileInfo.Directory.FullName });
 
                                 SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
+
+                                SyftInfoList = new ObservableCollection<SyftInfo>(SettingProp.SyftInfoList);
                             }
                         }
                         else // Remote Selection
@@ -206,6 +207,8 @@ namespace SettingCheck.ViewModels
                                     SettingProp.SetContentForSettingList(XElement.Load(scanFile.FullLocalFilePath), scanFile);
 
                                     SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
+
+                                    SyftInfoList = new ObservableCollection<SyftInfo>(SettingProp.SyftInfoList);
                                 }
                             });
 
