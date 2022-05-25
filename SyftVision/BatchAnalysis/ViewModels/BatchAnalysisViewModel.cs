@@ -55,63 +55,87 @@ namespace BatchAnalysis.ViewModels
             _syftServer = new SyftServer();
 
             #region chart list test
-            //// The data for the bar chart
-            //double[] data = { 85, 156, 179.5, 211, 123 };
-            //double[] data1 = { 35, 126, 79.5, 111, 213 };
-            //double[] datab = { 15, 46, 29.5, 51, 93 };
-            //double[] x = { 10, 20, 30, 40, 50 };
-            //double[] x1 = { 5, 15, 25, 35, 45 };
-            //double[] y1 = { 12000000, 11000000, 9000000, 7000000, 13000000, 12000000, 11000000, 9000000, 7000000, 13000000, 12000000, 11000000, 9000000, 7000000, 13000000 };
-            //double[] y2 = { 10000000, 12000000, 7000000, 13000000, 11000000, 10000000, 12000000, 7000000, 13000000, 11000000, 10000000, 12000000, 7000000, 13000000, 11000000 };
-            //// The labels for the bar chart
-            //List<string> l = new List<string>();
-            //for (int i = 0; i < 60; i++)
-            //{
-            //    l.Add($"{i}qweasdz-123456");
-            //}
-            //string[] labels = l.ToArray();
+            // The data for the bar chart
+            double[] data = { 85, 156, 179.5, 211, 123 };
+            double[] data1 = { 35, 126, 79.5, 111, 213 };
+            double[] data2 = { 45, 226, 99.5, 91, 153 };
+            double[] datab = { 15, 46, 29.5, 51, 93 };
+            string[] label1 = { "asd", "we", "asd", "czxc", "asd" };
+            double[] x = { 10, 20, 30, 40, 50 };
+            double[] x1 = { 5, 15, 25, 35, 45 };
+            double[] y1 = { 12000000, 11000000, 9000000, 7000000, 13000000, 12000000, 11000000, 9000000, 7000000, 13000000, 12000000, 11000000, 9000000, 7000000, 13000000 };
+            double[] y2 = { 10000000, 12000000, 7000000, 13000000, 11000000, 10000000, 12000000, 7000000, 13000000, 11000000, 10000000, 12000000, 7000000, 13000000, 11000000 };
+            // The labels for the bar chart
+            List<string> l = new List<string>();
+            for (int i = 0; i < 60; i++)
+            {
+                l.Add($"{i}qweasdz-123456");
+            }
+            string[] labels = l.ToArray();
 
-            //XYChart c = new XYChart(1116, 520);
+            XYChart c = new XYChart(1116, 520);
 
-            //// Set chart position, size and style
-            //c.setPlotArea(80, 30, c.getWidth() - 110, c.getHeight() - 100, -1, -1, -1, 0x40dddddd, 0x40dddddd);
+            // Set chart position, size and style
+            c.setPlotArea(60, 30, c.getWidth() - 90, c.getHeight() - 70, 0xf8f8f8, 0xffffff);
 
-            //// Add a title
-            //c.addTitle(Chart.TopCenter, "SKDNKSND-SDJJSDSN(sdsd#sdjsahd)", "Arial Bold", 16);
+            // Add a title
+            c.addTitle(Chart.TopCenter, "asdasd.asdasd.asdasd", "Arial Bold", 16);
 
-            //// Set the x and y axis stems and the label font
-            //c.xAxis().setColors(Chart.Transparent);
-            //c.yAxis().setColors(Chart.Transparent);
-            //c.xAxis().setLabelStyle("Arial", 10);
-            //c.yAxis().setLabelStyle("Arial", 10);
+            // Set x y axis stems and the label font
+            c.xAxis().setColors(Chart.Transparent);
+            c.yAxis().setColors(Chart.Transparent);
+            c.xAxis().setLabelStyle("Arial", 10);
+            c.yAxis().setLabelStyle("Arial", 10);
 
-            //// Add axis number format
-            //c.setNumberFormat(',');
+            c.xAxis().setLabels(label1);
 
-            //// Add layers
+            // Line layer
+            LineLayer lineLayer = c.addLineLayer2();
+            // Add the pareto line using deep blue (0000ff) as the color, with circle symbols
+            lineLayer.addDataSet(data, 0x0000ff).setDataSymbol(Chart.CircleShape, 9, 0x0000ff, 0x0000ff);
+            // Set the line width to 2 pixel
+            lineLayer.setLineWidth(2);
+            // Tool tip for the line layer
+            lineLayer.setHTMLImageMap("", "", "title='Top {={x}+1} items: {value|2}%'");
+            // Line layer
+            LineLayer lineLayer1 = c.addLineLayer2();
+            // Add the pareto line using deep blue (0000ff) as the color, with circle symbols
+            lineLayer1.addDataSet(data2, 0x00ffff).setDataSymbol(Chart.CircleShape, 9, 0x00ffff, 0x00ffff);
+            // Set the line width to 2 pixel
+            lineLayer1.setLineWidth(2);
+            // Tool tip for the line layer
+            lineLayer1.setHTMLImageMap("", "", "title='Top {={x}+1} items: {value|2}%'");
 
-            //LineLayer layer = c.addLineLayer2();
-            //layer.setLineWidth(1);
-            //layer.setFastLineMode();
-            //layer.addDataSet(y1, 0xee9944, $"ewerwerwerewrewr");
-            //layer.setHTMLImageMap("", "", "title='{value} cps ({dataSetName}) at {xLabel}'");
+            // Add a multi-bar layer
+            BarLayer layer = c.addBarLayer2(Chart.Side);
+            // Set 0% overlap between bars
+            layer.setOverlapRatio(0);
+            layer.setBorderColor(Chart.Transparent);
+            // Add data
+            // Bar layer
+            layer.addDataSet(data);
+            layer.addDataSet(data2);
 
-            //c.xAxis().setLabels(labels);
-            //c.xAxis().setLabelStyle("Arial", 8, Chart.TextColor, 30);
 
-            //LineLayer layer1 = c.addLineLayer2();
-            //layer1.setLineWidth(1);
-            //layer1.setFastLineMode();
-            //layer1.addDataSet(y2, 0x449944, $"1231313werewrewr");
-            //layer.setHTMLImageMap("", "", "title='{value} cps ({dataSetName}) at {xLabel}'");
+            layer.setHTMLImageMap("", "", "title='{value} & {xLabel} ({dataSetName})'");
 
-            //// Set step of labels
-            //int count = (int)Math.Round((double)labels.Count()/ 40);
-            //c.xAxis().setLabelStep(count);
+            // Upper limit mark
+            BoxWhiskerLayer markLayer1 = c.addBoxWhiskerLayer(null, null, null, null, data1, -1, 0x8080ff);
+            markLayer1.setLineWidth(3);
+            markLayer1.setDataGap(0.1);
+            // Tool tip for the mark layer
+            markLayer1.setHTMLImageMap("", "", "title='Lower Limit: {med} at {xLabel}'");
 
-            //SyftChart chart = new SyftChart(c);
+            // Under limit mark
+            BoxWhiskerLayer markLayer2 = c.addBoxWhiskerLayer(null, null, null, null, datab, -1, 0xff8080);
+            markLayer2.setLineWidth(3);
+            markLayer2.setDataGap(0.1);
+            // Tool tip for the mark layer
+            markLayer2.setHTMLImageMap("", "", "title='Upper Limit: {med} at {xLabel}'");
 
-            //SyftChartList = new ObservableCollection<SyftChart>() { chart };
+            SyftChart chart = new SyftChart(c);
+
+            SyftChartList = new ObservableCollection<SyftChart>() { chart };
             #endregion
 
         }

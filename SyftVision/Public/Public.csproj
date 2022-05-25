@@ -59,6 +59,8 @@
     <Compile Include="BatchConfig\Method.cs" />
     <Compile Include="ChartBuilder\ChartFactory.cs" />
     <Compile Include="ChartBuilder\BarChartFactory.cs" />
+    <Compile Include="ChartBuilder\ChartFactoryS.cs" />
+    <Compile Include="ChartBuilder\MixChartFactoryS.cs" />
     <Compile Include="ChartBuilder\OverlapLineChartFactory.cs" />
     <Compile Include="ChartBuilder\TraceLineChartFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_ConcXYFactory.cs" />
@@ -88,6 +90,8 @@
     <Compile Include="ChartBuilder\XY\TraceLineXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\Trace_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\Trace_CPSXYFactory.cs" />
+    <Compile Include="ChartBuilder\XY\XYFactoryS.cs" />
+    <Compile Include="ChartBuilder\XY\XYItemS.cs" />
     <Compile Include="ChartBuilder\XY\XYLegend.cs" />
     <Compile Include="ChartBuilder\XY\XYFactory.cs" />
     <Compile Include="ChartBuilder\XY\XYItem.cs" />

@@ -130,7 +130,7 @@
                     <DataGridTemplateColumn Header="Out">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsOut}"/>
+                                <TextBlock Text="{Binding IsOut}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
