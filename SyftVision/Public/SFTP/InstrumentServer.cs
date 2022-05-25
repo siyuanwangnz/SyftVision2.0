@@ -28,7 +28,7 @@ namespace Public.SFTP
         private readonly string LocalSettingScanTempFile = "SettingScanTemp.xml";
         private string LocalSettingScanTempFilePath => LocalSettingScanPath + LocalSettingScanTempFile;
 
-        private readonly string LocalLoadedSettingScanPath = "./Temp/SettingScan/Loaded/";
+        private readonly string LocalLoadedSettingScanPath = "./Temp/SettingScan/LoadedSettingScan/";
 
         private readonly string RemoteScanPath = "/usr/local/syft/data/";
         private static readonly string LocalScanPath = "./Temp/Scan/";
