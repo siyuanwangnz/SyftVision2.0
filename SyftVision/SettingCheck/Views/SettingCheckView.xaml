@@ -138,7 +138,7 @@
                     <DataGridTemplateColumn Header="Diff">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <CheckBox IsChecked="{Binding IsOut}"/>
+                                <TextBlock Text="{Binding IsDiff}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

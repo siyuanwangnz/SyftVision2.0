@@ -104,7 +104,8 @@ namespace Public.SettingConfig
         public SettingOnOff OnOff { get; set; }
         public SettingValue Value { get; set; }
         public SettingText Text { get; set; }
-        public bool IsOut { get; set; }
+        public bool IsOut { get; private set; }
+        public bool IsDiff => new HashSet<string>(ContentList.Select(a => a.ToLower().Replace(" ", ""))).Count > 1 ? true : false;
         public XElement XMLGeneration()
         {
             XElement rootNode = new XElement("Setting", new XAttribute("Name", Name), new XAttribute("Type", Type.Name));
