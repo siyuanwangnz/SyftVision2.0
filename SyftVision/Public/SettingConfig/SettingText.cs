@@ -9,12 +9,8 @@ namespace Public.SettingConfig
 {
     public class SettingText
     {
-        public List<string> TextList { get; set; } = new List<string>() { "" };
+        public List<string> TextList { get; private set; } = new List<string>() { "" };
         public string ReferText { get; set; } = "";
-        //public void TextUpdate(XElement rootNode)
-        //{
-        //    Text = rootNode.Value;
-        //}
         public void LimitUpdate(XElement rootNode)
         {
             ReferText = rootNode.Attribute("ReferText").Value;
@@ -26,6 +22,15 @@ namespace Public.SettingConfig
         public static string GetText(string content)
         {
             return content;
+        }
+        public void SetText(string content)
+        {
+            TextList.Clear();
+            TextList.Add(GetText(content));
+        }
+        public void AddText(string content)
+        {
+            TextList.Add(GetText(content));
         }
     }
 }

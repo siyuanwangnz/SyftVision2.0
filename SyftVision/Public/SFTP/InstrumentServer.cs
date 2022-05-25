@@ -28,6 +28,8 @@ namespace Public.SFTP
         private readonly string LocalSettingScanTempFile = "SettingScanTemp.xml";
         private string LocalSettingScanTempFilePath => LocalSettingScanPath + LocalSettingScanTempFile;
 
+        private readonly string LocalLoadedSettingScanPath = "./Temp/SettingScan/Loaded/";
+
         private readonly string RemoteScanPath = "/usr/local/syft/data/";
         private static readonly string LocalScanPath = "./Temp/Scan/";
 
@@ -37,6 +39,7 @@ namespace Public.SFTP
             if (!Directory.Exists(LocalBatchPath)) Directory.CreateDirectory(LocalBatchPath);
             if (!Directory.Exists(LocalScanPath)) Directory.CreateDirectory(LocalScanPath);
             if (!Directory.Exists(LocalSettingScanPath)) Directory.CreateDirectory(LocalSettingScanPath);
+            if (!Directory.Exists(LocalLoadedSettingScanPath)) Directory.CreateDirectory(LocalLoadedSettingScanPath);
         }
 
         // Batch file for batch config
@@ -233,6 +236,39 @@ namespace Public.SFTP
                 Disconnect();
 
                 return Setting.GetSettingList(XElement.Load(LocalSettingScanTempFilePath), filterOffList);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public void ClearLocalLoadedSettingScanPath()
+        {
+            if (Directory.Exists(LocalLoadedSettingScanPath))
+            {
+                foreach (FileInfo file in new DirectoryInfo(LocalLoadedSettingScanPath).GetFiles())
+                {
+                    file.Delete();
+                }
+            }
+        }
+
+        public ScanFile GetScanFile(TreeNode treeNode)
+        {
+            try
+            {
+                Connect();
+                DownloadFile(RemoteScanPath + treeNode.Parent + "/" + treeNode.Name, LocalLoadedSettingScanPath + treeNode.Name);
+                Disconnect();
+
+                ScanFile scanFile = new ScanFile(treeNode.Name);
+                scanFile.FullLocalFolder = LocalLoadedSettingScanPath;
+                return scanFile;
             }
             catch (Exception)
             {

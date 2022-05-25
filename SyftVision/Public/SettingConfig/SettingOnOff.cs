@@ -9,12 +9,8 @@ namespace Public.SettingConfig
 {
     public class SettingOnOff
     {
-        public List<bool> OnOffList { get; set; } = new List<bool>() { false };
+        public List<bool> OnOffList { get; private set; } = new List<bool>() { false };
         public bool ReferOnOff { get; set; }
-        //public void OnOffUpdate(XElement rootNode)
-        //{
-        //    OnOff = rootNode.Value == "true";
-        //}
         public void LimitUpdate(XElement rootNode)
         {
             ReferOnOff = rootNode.Attribute("ReferOnOff").Value == "true";
@@ -27,6 +23,15 @@ namespace Public.SettingConfig
         {
             if (content == "true") return true;
             return false;
+        }
+        public void SetOnOff(string content)
+        {
+            OnOffList.Clear();
+            OnOffList.Add(GetOnOff(content));
+        }
+        public void AddOnOff(string content)
+        {
+            OnOffList.Add(GetOnOff(content));
         }
     }
 }

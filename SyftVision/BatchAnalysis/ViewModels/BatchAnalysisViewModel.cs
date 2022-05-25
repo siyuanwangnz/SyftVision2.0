@@ -126,14 +126,14 @@ namespace BatchAnalysis.ViewModels
                     if (TaskIsRunning()) return;
 
                     //Open folder path selection dialog
-                    CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                    folderDlg.IsFolderPicker = true;
-                    folderDlg.Title = "Select a Target Folder to Download Batch Config Files";
-                    if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                    CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                    dlg.IsFolderPicker = true;
+                    dlg.Title = "Select a Target Folder to Download Batch Config Files";
+                    if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                     {
                         try
                         {
-                            _syftServer.DownloadBatchConfigFolder(folderDlg.FileName);
+                            _syftServer.DownloadBatchConfigFolder(dlg.FileName);
                         }
                         catch (Exception ex)
                         {
@@ -162,11 +162,11 @@ namespace BatchAnalysis.ViewModels
                         if (LocalBatchSelectIsChecked) // Local Selection
                         {
                             //Open file path selection dialog
-                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                            folderDlg.Title = "Select a Local Batch Config File";
-                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                            CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                            dlg.Title = "Select a Local Batch Config File";
+                            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
-                                SelectedBatchProp = new BatchProp(XElement.Load(folderDlg.FileName));
+                                SelectedBatchProp = new BatchProp(XElement.Load(dlg.FileName));
 
                                 Tittle = SelectedBatchProp.Tittle;
                                 SubTittle = SelectedBatchProp.SubTittle;
@@ -303,16 +303,16 @@ namespace BatchAnalysis.ViewModels
                     if (SyftDataHub == null || !SyftDataHub.IsAvailable) return;
 
                     //Open folder path selection dialog
-                    CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                    folderDlg.IsFolderPicker = true;
-                    folderDlg.Title = "Select a Target Folder to Save";
-                    if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                    CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                    dlg.IsFolderPicker = true;
+                    dlg.Title = "Select a Target Folder to Save";
+                    if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                     {
                         try
                         {
-                            if (ScanFilesCollectionIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
+                            if (ScanFilesCollectionIsChecked) InstrumentServer.CopyScanFile(dlg.FileName);
 
-                            new SyftPDF(SyftDataHub, Comments, folderDlg.FileName);
+                            new SyftPDF(SyftDataHub, Comments, dlg.FileName);
                         }
                         catch (Exception ex)
                         {
@@ -370,14 +370,14 @@ namespace BatchAnalysis.ViewModels
                         if (LocalMatchIsChecked) // Local Match
                         {
                             //Open folder path selection dialog
-                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                            folderDlg.IsFolderPicker = true;
-                            folderDlg.Title = "Select a Target Folder to Match";
-                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                            CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                            dlg.IsFolderPicker = true;
+                            dlg.Title = "Select a Target Folder to Match";
+                            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
                                 ScanFileList = new List<ScanFile>();
 
-                                DirectoryInfo folder = new DirectoryInfo(folderDlg.FileName);
+                                DirectoryInfo folder = new DirectoryInfo(dlg.FileName);
                                 foreach (var file in folder.GetFiles("*.xml", SearchOption.AllDirectories))
                                 {
                                     ScanFile scanFile = new ScanFile(file.Name);

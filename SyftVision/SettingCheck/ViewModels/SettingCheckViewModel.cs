@@ -5,6 +5,7 @@ using Prism.Mvvm;
 using Prism.Regions;
 using Prism.Services.Dialogs;
 using Public.ChartConfig;
+using Public.Instrument;
 using Public.SettingConfig;
 using Public.SFTP;
 using Public.TreeList;
@@ -55,14 +56,14 @@ namespace SettingCheck.ViewModels
                     if (TaskIsRunning()) return;
 
                     //Open folder path selection dialog
-                    CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                    folderDlg.IsFolderPicker = true;
-                    folderDlg.Title = "Select a Target Folder to Download Setting Config Files";
-                    if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                    CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                    dlg.IsFolderPicker = true;
+                    dlg.Title = "Select a Target Folder to Download Setting Config Files";
+                    if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                     {
                         try
                         {
-                            _syftServer.DownloadSettingConfigFolder(folderDlg.FileName);
+                            _syftServer.DownloadSettingConfigFolder(dlg.FileName);
                         }
                         catch (Exception ex)
                         {
@@ -91,15 +92,14 @@ namespace SettingCheck.ViewModels
                         if (LocalSelectIsChecked) // Local Selection
                         {
                             //Open file path selection dialog
-                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                            folderDlg.Title = "Select a Local Setting Config File";
-                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                            CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                            dlg.Title = "Select a Local Setting Config File";
+                            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
-                                SettingProp = new SettingProp(XElement.Load(folderDlg.FileName));
+                                SettingProp = new SettingProp(XElement.Load(dlg.FileName));
 
                                 Tittle = SettingProp.Tittle;
                                 SubTittle = SettingProp.SubTittle;
-                                SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
                             }
                         }
                         else // Remote Selection
@@ -120,7 +120,6 @@ namespace SettingCheck.ViewModels
 
                                     Tittle = SettingProp.Tittle;
                                     SubTittle = SettingProp.SubTittle;
-                                    SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
                                 }
                             });
 
@@ -163,17 +162,25 @@ namespace SettingCheck.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (SettingProp == null)
+                    {
+                        MessageBox.Show($"Please select a Setting Config", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
                     try
                     {
                         if (LocalModeIsChecked) // Local Selection
                         {
                             //Open file path selection dialog
-                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                            folderDlg.Title = "Select a Local Scan File";
-                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                            CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                            dlg.Title = "Select a Local Scan File";
+                            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
-                                XElement.Load(folderDlg.FileName);
+                                FileInfo fileInfo = new FileInfo(dlg.FileName);
+                                SettingProp.SetContentForSettingList(XElement.Load(dlg.FileName), new ScanFile(fileInfo.Name));
 
+                                SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
                             }
                         }
                         else // Remote Selection
@@ -192,6 +199,13 @@ namespace SettingCheck.ViewModels
                                 {
                                     TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
+                                    _instrumentServer.ClearLocalLoadedSettingScanPath();
+
+                                    ScanFile scanFile = _instrumentServer.GetScanFile(treeNode);
+
+                                    SettingProp.SetContentForSettingList(XElement.Load(scanFile.FullLocalFilePath), scanFile);
+
+                                    SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
                                 }
                             });
 
@@ -210,17 +224,31 @@ namespace SettingCheck.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (SettingProp == null)
+                    {
+                        MessageBox.Show($"Please select a Setting Config", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    if (SettingProp != null && SettingProp.HasSet == false)
+                    {
+                        MessageBox.Show($"Please open a scan first", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
                     try
                     {
                         if (LocalModeIsChecked) // Local Selection
                         {
                             //Open file path selection dialog
-                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                            folderDlg.Title = "Select a Local Scan File";
-                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                            CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                            dlg.Title = "Select a Local Scan File";
+                            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
-                                XElement.Load(folderDlg.FileName);
+                                FileInfo fileInfo = new FileInfo(dlg.FileName);
+                                SettingProp.AddContentForSettingList(XElement.Load(dlg.FileName), new ScanFile(fileInfo.Name));
 
+                                SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
                             }
                         }
                         else // Remote Selection
@@ -239,6 +267,11 @@ namespace SettingCheck.ViewModels
                                 {
                                     TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
+                                    ScanFile scanFile = _instrumentServer.GetScanFile(treeNode);
+
+                                    SettingProp.AddContentForSettingList(XElement.Load(scanFile.FullLocalFilePath), scanFile);
+
+                                    SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
                                 }
                             });
 

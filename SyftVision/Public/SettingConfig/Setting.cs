@@ -71,8 +71,8 @@ namespace Public.SettingConfig
             }
         }
         public string Name { get; }
-        public List<string> ContentList { get; set; } = new List<string>() { "" };
-        public List<ScanFile> ScanList { get; set; } = new List<ScanFile>();
+        public List<string> ContentList { get; private set; } = new List<string>() { "" };
+        public List<ScanFile> ScanList { get; private set; } = new List<ScanFile>();
         public List<SettingType> TypeList { get; }
         public SettingType Type { get; set; }
         private SettingType GetSettingType()
@@ -189,6 +189,107 @@ namespace Public.SettingConfig
                 throw;
             }
         }
+        public void SetContent(string content, ScanFile scanFile)
+        {
+            ContentList.Clear();
+            ContentList.Add(content);
+            ScanList.Clear();
+            ScanList.Add(scanFile);
 
+            switch (Type.Name)
+            {
+                case "Map":
+                    List<SettingMap> newMapSetList = SettingMap.GetMapSetList(content);
+                    foreach (var map in MapSetList)
+                    {
+                        double d;
+                        try
+                        {
+                            d = newMapSetList.Single(a => a.Key == map.Key).Value.ValueList[0];
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        map.Value.SetValue(d);
+                    }
+                    break;
+                case "Table":
+                    List<SettingTable> newTableSetList = SettingTable.GetTableSetList(content);
+                    foreach (var table in TableSetList)
+                    {
+                        double d;
+                        try
+                        {
+                            d = newTableSetList.Single(a => a.Key == table.Key).Value.ValueList[0];
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        table.Value.SetValue(d);
+                    }
+                    break;
+                case "OnOff":
+                    OnOff.SetOnOff(content);
+                    break;
+                case "Value":
+                    Value.SetValue(content);
+                    break;
+                case "Text":
+                    Text.SetText(content);
+                    break;
+            }
+        }
+        public void AddContent(string content, ScanFile scanFile)
+        {
+            ContentList.Add(content);
+            ScanList.Add(scanFile);
+
+            switch (Type.Name)
+            {
+                case "Map":
+                    List<SettingMap> newMapSetList = SettingMap.GetMapSetList(content);
+                    foreach (var map in MapSetList)
+                    {
+                        double d;
+                        try
+                        {
+                            d = newMapSetList.Single(a => a.Key == map.Key).Value.ValueList[0];
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        map.Value.AddValue(d);
+                    }
+                    break;
+                case "Table":
+                    List<SettingTable> newTableSetList = SettingTable.GetTableSetList(content);
+                    foreach (var table in TableSetList)
+                    {
+                        double d;
+                        try
+                        {
+                            d = newTableSetList.Single(a => a.Key == table.Key).Value.ValueList[0];
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+                        table.Value.AddValue(d);
+                    }
+                    break;
+                case "OnOff":
+                    OnOff.AddOnOff(content);
+                    break;
+                case "Value":
+                    Value.AddValue(content);
+                    break;
+                case "Text":
+                    Text.AddText(content);
+                    break;
+            }
+        }
     }
 }

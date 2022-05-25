@@ -9,20 +9,9 @@ namespace Public.SettingConfig
 {
     public class SettingValue
     {
-        public List<double> ValueList { get; set; } = new List<double>() { 0 };
+        public List<double> ValueList { get; private set; } = new List<double>() { 0 };
         public double UnderLimit { get; set; }
         public double UpperLimit { get; set; }
-        //public void ValueUpdate(XElement rootNode)// TODO: need change
-        //{
-        //    try
-        //    {
-        //        Value = double.Parse(rootNode.Value);
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //    }
-        //}
         public void LimitUpdate(XElement rootNode)
         {
             UnderLimit = double.Parse(rootNode.Attribute("UnderLimit").Value);
@@ -43,5 +32,24 @@ namespace Public.SettingConfig
                 return 0;
             }
         }
+        public void SetValue(string content)
+        {
+            ValueList.Clear();
+            ValueList.Add(GetValue(content));
+        }
+        public void SetValue(double value)
+        {
+            ValueList.Clear();
+            ValueList.Add(value);
+        }
+        public void AddValue(string content)
+        {
+            ValueList.Add(GetValue(content));
+        }
+        public void AddValue(double value)
+        {
+            ValueList.Add(value);
+        }
+
     }
 }

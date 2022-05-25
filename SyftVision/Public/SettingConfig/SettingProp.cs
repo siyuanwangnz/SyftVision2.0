@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Public.Instrument;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -47,6 +48,7 @@ namespace Public.SettingConfig
         public string SubTittle { get; private set; }
         public string Name => $"{Tittle}-{SubTittle}";
         public string File => $"{SubTittle}.xml";
+        public bool HasSet { get; private set; } = false;
         public List<FilterOff> FilterOffList { get; private set; }
         public List<Setting> SettingList { get; private set; }
         public XElement XMLGeneration()
@@ -74,6 +76,41 @@ namespace Public.SettingConfig
             }
 
             return rootNode;
+        }
+        public void SetContentForSettingList(XElement rootNode, ScanFile scanFile)
+        {
+            List<Setting> newSettingList = Setting.GetSettingList(rootNode, FilterOffList);
+            foreach (var setting in SettingList)
+            {
+                Setting newSetting;
+                try
+                {
+                    newSetting = newSettingList.Single(a => a.Name == setting.Name);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+                setting.SetContent(newSetting.ContentList[0], scanFile);
+            }
+            HasSet = true;
+        }
+        public void AddContentForSettingList(XElement rootNode, ScanFile scanFile)
+        {
+            List<Setting> newSettingList = Setting.GetSettingList(rootNode, FilterOffList);
+            foreach (var setting in SettingList)
+            {
+                Setting newSetting;
+                try
+                {
+                    newSetting = newSettingList.Single(a => a.Name == setting.Name);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+                setting.AddContent(newSetting.ContentList[0], scanFile);
+            }
         }
     }
 }
