@@ -55,7 +55,7 @@ namespace Public.ChartBuilder
             // Add data
             foreach (var yLayer in xyItemS.YLayerList)
             {
-                layer.addDataSet(yLayer.YList.ToArray(), yLayer.XYLegend.Color, yLayer.XYLegend.Content);
+                layer.addDataSet(yLayer.YList.ToArray(), unchecked((int)(yLayer.XYLegend.Color + 0x80000000)), yLayer.XYLegend.Content);
             }
             layer.setHTMLImageMap("", "", "title='{value} & {xLabel} ({dataSetName})'");
 

@@ -42,7 +42,7 @@ namespace Public.ChartBuilder
             c.xAxis().setLabels(xyItemS.LabelList.ToArray());
 
             // Set bar layer
-            BarLayer layer = c.addBarLayer3(xyItemS.YLayerList.Select(a => a.YList.First()).ToArray(), xyItemS.YLayerList.Select(a => a.XYLegend.Color).ToArray());
+            BarLayer layer = c.addBarLayer3(xyItemS.YLayerList.Select(a => a.YList.First()).ToArray(), xyItemS.YLayerList.Select(a => unchecked((int)(a.XYLegend.Color + 0x80000000))).ToArray());
             // Set the bar gap to 10%
             layer.setBarGap(0.1);
             // Set border color
