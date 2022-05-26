@@ -1,4 +1,6 @@
-﻿using Public.Instrument;
+﻿using ChartDirector;
+using Public.ChartBuilder.XY;
+using Public.Instrument;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -73,6 +75,8 @@ namespace Public.SettingConfig
         public string Name { get; }
         public List<string> ContentList { get; private set; } = new List<string>() { "" };
         public List<ScanFile> ScanList { get; private set; } = new List<ScanFile>();
+        public List<XYLegend> XYLegendList { get; private set; } = new List<XYLegend>();
+        public BaseChart Chart { get; private set; }
         public List<SettingType> TypeList { get; }
         public SettingType Type { get; set; }
         private SettingType GetSettingType()
@@ -191,6 +195,11 @@ namespace Public.SettingConfig
                 throw;
             }
         }
+        private void SetChart()
+        {
+            XYLegendList = Type.ChartFactoryS.GetXYLegendList(this);
+            Chart = Type.ChartFactoryS.GetChart();
+        }
         public void SetContent(string content, ScanFile scanFile)
         {
             ContentList.Clear();
@@ -247,6 +256,7 @@ namespace Public.SettingConfig
                     IsOut = Text.IsOut;
                     break;
             }
+            SetChart();
         }
         public void AddContent(string content, ScanFile scanFile)
         {
@@ -259,32 +269,39 @@ namespace Public.SettingConfig
                     List<SettingMap> newMapSetList = SettingMap.GetMapSetList(content);
                     foreach (var map in MapSetList)
                     {
-                        double d;
+                        double d = 0;
                         try
                         {
                             d = newMapSetList.Single(a => a.Key == map.Key).Value.ValueList[0];
                         }
                         catch (Exception)
                         {
-                            continue;
+
                         }
-                        map.Value.AddValue(d);
+                        finally
+                        {
+                            map.Value.AddValue(d);
+                        }
+
                     }
                     break;
                 case "Table":
                     List<SettingTable> newTableSetList = SettingTable.GetTableSetList(content);
                     foreach (var table in TableSetList)
                     {
-                        double d;
+                        double d = 0;
                         try
                         {
                             d = newTableSetList.Single(a => a.Key == table.Key).Value.ValueList[0];
                         }
                         catch (Exception)
                         {
-                            continue;
+
                         }
-                        table.Value.AddValue(d);
+                        finally
+                        {
+                            table.Value.AddValue(d);
+                        }
                     }
                     break;
                 case "OnOff":
@@ -297,6 +314,7 @@ namespace Public.SettingConfig
                     Text.AddText(content);
                     break;
             }
+            SetChart();
         }
     }
 }

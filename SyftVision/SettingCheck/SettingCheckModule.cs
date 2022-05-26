@@ -17,6 +17,8 @@ namespace SettingCheck
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialog<SyftSettingDialogView, SyftSettingDialogViewModel>();
+            containerRegistry.RegisterDialog<InstruScanDialogView, InstruScanDialogViewModel>();
+            containerRegistry.RegisterDialog<ChartDialogView, ChartDialogViewModel>();
         }
     }
 }

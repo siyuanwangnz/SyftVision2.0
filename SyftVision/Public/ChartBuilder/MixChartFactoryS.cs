@@ -19,6 +19,8 @@ namespace Public.ChartBuilder
         {
             XYChart c = new XYChart(1116, 520);
 
+            if (xyItemS == null) return c;
+
             // Set chart position, size and style
             c.setPlotArea(60, 30, c.getWidth() - 90, c.getHeight() - 70, 0xf8f8f8, 0xffffff);
 

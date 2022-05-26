@@ -13,20 +13,20 @@ namespace Public.SettingConfig
     {
         public static List<SettingType> ReferList = new List<SettingType>()
         {
-            new SettingType("Text","TextLimitSetDialogView", new BarChartFactory(new SensitivityXYFactory())),
-            new SettingType("Value","ValueLimitSetDialogView", new BarChartFactory(new SensitivityXYFactory())),
-            new SettingType("OnOff","OnOffLimitSetDialogView", new BarChartFactory(new SensitivityXYFactory())),
-            new SettingType("Table","TableLimitSetDialogView", new BarChartFactory(new SensitivityXYFactory())),
-            new SettingType("Map","MapLimitSetDialogView", new BarChartFactory(new SensitivityXYFactory())),
+            new SettingType("Text","TextLimitSetDialogView", new MixChartFactoryS(new MixXYFactoryS())),
+            new SettingType("Value","ValueLimitSetDialogView", new MixChartFactoryS(new MixXYFactoryS())),
+            new SettingType("OnOff","OnOffLimitSetDialogView", new MixChartFactoryS(new MixXYFactoryS())),
+            new SettingType("Table","TableLimitSetDialogView", new MixChartFactoryS(new MixXYFactoryS())),
+            new SettingType("Map","MapLimitSetDialogView", new MixChartFactoryS(new MixXYFactoryS())),
         };
-        public SettingType(string name, string limitSetDialog, ChartFactory chartFactory)
+        public SettingType(string name, string limitSetDialog, ChartFactoryS chartFactoryS)
         {
             Name = name;
             LimitSetDialog = limitSetDialog;
-            ChartFactory = chartFactory;
+            ChartFactoryS = chartFactoryS;
         }
         public string Name { get; }
         public string LimitSetDialog { get; }
-        public ChartFactory ChartFactory { get; }
+        public ChartFactoryS ChartFactoryS { get; }
     }
 }

@@ -22,6 +22,7 @@ namespace Public.ChartBuilder
         {
             Setting = setting;
             XYItemS = XYFactoryS.GetXYItemS(Setting);
+            if (XYItemS == null) return new List<XYLegend>();
             return XYItemS.YLayerList.Select(a => a.XYLegend).ToList();
         }
         public BaseChart GetChart()

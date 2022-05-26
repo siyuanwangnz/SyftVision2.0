@@ -336,33 +336,14 @@ namespace SettingCheck.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    //// Navigate to dialog
-                    //DialogParameters param = new DialogParameters();
-                    //param.Add("SelectedSetting", SelectedSetting);
-                    //_dialogService.ShowDialog(SelectedSetting.Type.LimitSetDialog, param, arg =>
-                    //{
-                    //    if (arg.Result == ButtonResult.OK)
-                    //    {
-                    //        switch (SelectedSetting.Type.Name)
-                    //        {
-                    //            case "Map":
-                    //                SelectedSetting.MapSetList = arg.Parameters.GetValue<ObservableCollection<SettingMap>>("MapSetList");
-                    //                break;
-                    //            case "Table":
-                    //                SelectedSetting.TableSetList = arg.Parameters.GetValue<ObservableCollection<SettingTable>>("TableSetList");
-                    //                break;
-                    //            case "OnOff":
-                    //                SelectedSetting.OnOff = arg.Parameters.GetValue<SettingOnOff>("SettingOnOff");
-                    //                break;
-                    //            case "Value":
-                    //                SelectedSetting.Value = arg.Parameters.GetValue<SettingValue>("SettingValue");
-                    //                break;
-                    //            case "Text":
-                    //                SelectedSetting.Text = arg.Parameters.GetValue<SettingText>("SettingText");
-                    //                break;
-                    //        }
-                    //    }
-                    //});
+                    // Navigate to dialog
+                    DialogParameters param = new DialogParameters();
+                    param.Add("Chart", SelectedSetting.Chart);
+                    param.Add("ScanFileList", SelectedSetting.ScanList);
+                    param.Add("XYLegendList", SelectedSetting.XYLegendList);
+                    _dialogService.ShowDialog("ChartDialogView", param, arg =>
+                    {
+                    });
                 });
             }
         }

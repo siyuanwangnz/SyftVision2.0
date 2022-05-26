@@ -24,7 +24,7 @@ namespace Public.ChartBuilder.XY
                     upperLimitList = setting.MapSetList.Select(a => a.Value.UpperLimit).ToList();
                     underLimitList = setting.MapSetList.Select(a => a.Value.UnderLimit).ToList();
                     yLayerList = new List<XYItemS.YLayer>();
-                    for (int i = 0; i < setting.MapSetList.Count; i++)
+                    for (int i = 0; i < setting.ScanList.Count; i++)
                     {
                         yLayerList.Add(new XYItemS.YLayer(new XYLegend(setting.ScanList[i].Name, MyColor.Pool[i]),
                             setting.MapSetList.Select(a => a.Value.ValueList[i]).ToList()));
@@ -35,16 +35,24 @@ namespace Public.ChartBuilder.XY
                     upperLimitList = setting.TableSetList.Select(a => a.Value.UpperLimit).ToList();
                     underLimitList = setting.TableSetList.Select(a => a.Value.UnderLimit).ToList();
                     yLayerList = new List<XYItemS.YLayer>();
-                    for (int i = 0; i < setting.TableSetList.Count; i++)
+                    for (int i = 0; i < setting.ScanList.Count; i++)
                     {
                         yLayerList.Add(new XYItemS.YLayer(new XYLegend(setting.ScanList[i].Name, MyColor.Pool[i]),
                             setting.TableSetList.Select(a => a.Value.ValueList[i]).ToList()));
                     }
                     return new XYItemS(labelList, yLayerList, upperLimitList, underLimitList);
                 case "Value":
-
-                    break;
+                    labelList = setting.ScanList.Select(a => a.Date_Time).ToList();
+                    upperLimitList = new List<double>();
+                    underLimitList = new List<double>();
+                    foreach (var item in setting.ScanList)
+                    {
+                        upperLimitList.Add(setting.Value.UpperLimit);
+                        underLimitList.Add(setting.Value.UnderLimit);
+                    }
+                    return new XYItemS(labelList, new List<XYItemS.YLayer>() { new XYItemS.YLayer(new XYLegend("N/A", MyColor.Pool.First()), setting.Value.ValueList) }, upperLimitList, underLimitList);
             }
+            return null;
         }
     }
 }

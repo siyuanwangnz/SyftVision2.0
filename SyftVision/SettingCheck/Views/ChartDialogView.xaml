@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="SettingCheck.Views.ChartDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:ChartDirector="clr-namespace:ChartDirector;assembly=netchartdir"
+             xmlns:at="clr-namespace:SettingCheck.ViewModels"
+             xmlns:materialDesignConverters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
+             xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+             xmlns:PublicTreeList ="clr-namespace:Public.TreeList;assembly=Public"
+             mc:Ignorable="d"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:prism="http://prismlibrary.com/"
+             prism:ViewModelLocator.AutoWireViewModel="True">
+    <Grid Height="600" Width="1000" Margin="10">
+        <StackPanel Orientation="Vertical">
+            <Expander HorizontalAlignment="Stretch" Header="Chart Info">
+                <Grid Height="300">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" BorderBrush="Gainsboro" BorderThickness="5">
+                        <DataGrid Name="ScanFileList" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ItemsSource="{Binding ScanFileList}">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{Binding Path=Items.Count, ElementName=ScanFileList,StringFormat='Scan File List: Count ({0})'}"/>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding File}"/>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+
+                    <Border Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="5">
+                        <DataGrid Name="LegendList" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ItemsSource="{Binding XYLegendList}">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <TextBlock Text="{Binding Path=Items.Count, ElementName=LegendList,StringFormat='Legend List: Count ({0})'}"/>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <materialDesign:Card Background="{Binding Brush}" Foreground="White" Padding="5">
+                                                <TextBlock Text="{Binding Content}"/>
+                                            </materialDesign:Card>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Border>
+                </Grid>
+            </Expander>
+            <ChartDirector:WPFChartViewer at:ChartDialogViewModel.AttachedChart="{Binding Chart}" ToolTipService.ShowDuration="30000" Loaded="WPFChartViewer_Loaded"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -63,9 +63,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ViewModels\ChartDialogViewModel.cs" />
     <Compile Include="ViewModels\InstruScanDialogViewModel.cs" />
     <Compile Include="ViewModels\SettingCheckViewModel.cs" />
     <Compile Include="ViewModels\SyftSettingDialogViewModel.cs" />
+    <Compile Include="Views\ChartDialogView.xaml.cs">
+      <DependentUpon>ChartDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InstruScanDialogView.xaml.cs">
       <DependentUpon>InstruScanDialogView.xaml</DependentUpon>
     </Compile>
@@ -96,6 +100,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\ChartDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\InstruScanDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
