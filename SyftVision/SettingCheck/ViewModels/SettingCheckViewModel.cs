@@ -9,10 +9,12 @@ using Public.Instrument;
 using Public.SettingConfig;
 using Public.SFTP;
 using Public.TreeList;
+using SettingCheck.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
@@ -153,7 +155,11 @@ namespace SettingCheck.ViewModels
         public bool LocalModeIsChecked
         {
             get => _localModeIsChecked;
-            set => SetProperty(ref _localModeIsChecked, value);
+            set
+            {
+                SetProperty(ref _localModeIsChecked, value);
+                if (_localModeIsChecked == true) ScanFileCollectionIsChecked = false;
+            }
         }
         public DelegateCommand OpenCommand
         {
@@ -293,19 +299,41 @@ namespace SettingCheck.ViewModels
             get => _comments;
             set => SetProperty(ref _comments, value);
         }
+        private bool _scanFileCollectionIsChecked;
+        public bool ScanFileCollectionIsChecked
+        {
+            get => _scanFileCollectionIsChecked;
+            set => SetProperty(ref _scanFileCollectionIsChecked, value);
+        }
         public DelegateCommand SaveCommand
         {
             get
             {
                 return new DelegateCommand(() =>
                 {
-                    try
-                    {
 
-                    }
-                    catch (Exception ex)
+                    if (SettingProp == null || !SettingProp.HasSet) return;
+
+                    //Open folder path selection dialog
+                    CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                    dlg.IsFolderPicker = true;
+                    dlg.Title = "Select a Target Folder to Save";
+                    if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                     {
-                        MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        try
+                        {
+                            if (ScanFileCollectionIsChecked)
+                            {
+                                ScanFile scanFile = SettingProp.SettingList.First().ScanList.First();
+                                if (scanFile.RemoteFilePath != "") File.Copy(scanFile.FullLocalFilePath, dlg.FileName + scanFile.File, true);
+                            }
+
+                            new SyftPDF(SettingProp, Comments, dlg.FileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"{ex.Message}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 });
             }
