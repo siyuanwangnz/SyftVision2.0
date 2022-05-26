@@ -127,18 +127,42 @@
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Out">
+                    <DataGridTemplateColumn Header="Is Out">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding IsOut}"/>
+                                <materialDesign:Card Foreground="White" Padding="5">
+                                    <TextBlock Text="{Binding IsOut}"/>
+                                    <materialDesign:Card.Style>
+                                        <Style TargetType="materialDesign:Card">
+                                            <Setter Property="Background" Value="Green" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsOut}" Value="True">
+                                                    <Setter Property="Background" Value="Red" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </materialDesign:Card.Style>
+                                </materialDesign:Card>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Header="Diff">
+                    <DataGridTemplateColumn Header="Is Diff">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding IsDiff}"/>
+                                <materialDesign:Card Foreground="White" Padding="5">
+                                    <TextBlock Text="{Binding IsDiff}"/>
+                                    <materialDesign:Card.Style>
+                                        <Style TargetType="materialDesign:Card">
+                                            <Setter Property="Background" Value="Green" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDiff}" Value="True">
+                                                    <Setter Property="Background" Value="Red" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </materialDesign:Card.Style>
+                                </materialDesign:Card>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
