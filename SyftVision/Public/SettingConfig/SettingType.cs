@@ -13,9 +13,9 @@ namespace Public.SettingConfig
     {
         public static List<SettingType> ReferList = new List<SettingType>()
         {
-            new SettingType("Text","TextLimitSetDialogView", new MixChartFactoryS(new MixXYFactoryS())),
+            new SettingType("Text","TextLimitSetDialogView", new TextChartFactoryS(new MixXYFactoryS())),
             new SettingType("Value","ValueLimitSetDialogView", new MixChartFactoryS(new MixXYFactoryS())),
-            new SettingType("OnOff","OnOffLimitSetDialogView", new MixChartFactoryS(new MixXYFactoryS())),
+            new SettingType("OnOff","OnOffLimitSetDialogView", new TextChartFactoryS(new MixXYFactoryS())),
             new SettingType("Table","TableLimitSetDialogView", new MixChartFactoryS(new MixXYFactoryS())),
             new SettingType("Map","MapLimitSetDialogView", new MixChartFactoryS(new MixXYFactoryS())),
         };

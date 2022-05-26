@@ -13,10 +13,10 @@
              xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid Height="600" Width="1000" Margin="10">
+    <Grid MinHeight="500" MinWidth="1000" Margin="10">
         <StackPanel Orientation="Vertical">
             <Expander HorizontalAlignment="Stretch" Header="Chart Info">
-                <Grid Height="300">
+                <Grid Height="200">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>

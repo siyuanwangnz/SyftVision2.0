@@ -17,9 +17,9 @@ namespace Public.ChartBuilder
 
         public override BaseChart SetChart(Setting setting, XYItemS xyItemS)
         {
-            XYChart c = new XYChart(1116, 520);
+            XYChart c = new XYChart(1000, 500);
 
-            if (xyItemS == null) return c;
+            if (xyItemS == null) return null;
 
             // Set chart position, size and style
             c.setPlotArea(60, 30, c.getWidth() - 90, c.getHeight() - 70, 0xf8f8f8, 0xffffff);

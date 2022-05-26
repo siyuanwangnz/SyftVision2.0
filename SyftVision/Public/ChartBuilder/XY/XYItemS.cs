@@ -15,6 +15,11 @@ namespace Public.ChartBuilder.XY
             UpperList = upperList;
             UnderList = underList;
         }
+        public XYItemS(List<string> labelList, List<YLayer> yLayerList)
+        {
+            LabelList = labelList;
+            YLayerList = yLayerList;
+        }
         public List<YLayer> YLayerList { get; }
         public List<double> UpperList { get; }
         public List<double> UnderList { get; }

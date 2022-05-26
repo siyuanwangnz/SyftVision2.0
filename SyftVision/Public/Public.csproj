@@ -62,6 +62,7 @@
     <Compile Include="ChartBuilder\ChartFactoryS.cs" />
     <Compile Include="ChartBuilder\MixChartFactoryS.cs" />
     <Compile Include="ChartBuilder\OverlapLineChartFactory.cs" />
+    <Compile Include="ChartBuilder\TextChartFactoryS.cs" />
     <Compile Include="ChartBuilder\TraceLineChartFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_ConcXYFactory.cs" />
     <Compile Include="ChartBuilder\XY\DEV_CPSXYFactory.cs" />

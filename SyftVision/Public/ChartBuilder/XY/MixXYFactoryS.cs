@@ -26,18 +26,18 @@ namespace Public.ChartBuilder.XY
                     yLayerList = new List<XYItemS.YLayer>();
                     for (int i = 0; i < setting.ScanList.Count; i++)
                     {
-                        yLayerList.Add(new XYItemS.YLayer(new XYLegend(setting.ScanList[i].Name, MyColor.Pool[i]),
+                        yLayerList.Add(new XYItemS.YLayer(new XYLegend(setting.ScanList[i].File, MyColor.Pool[i]),
                             setting.MapSetList.Select(a => a.Value.ValueList[i]).ToList()));
                     }
                     return new XYItemS(labelList, yLayerList, upperLimitList, underLimitList);
                 case "Table":
-                    labelList = setting.TableSetList.Select(a => a.Key.ToString()).ToList();
+                    labelList = setting.TableSetList.Select(a => a.Key < 0 ? "\\" + a.Key.ToString() : a.Key.ToString()).ToList();
                     upperLimitList = setting.TableSetList.Select(a => a.Value.UpperLimit).ToList();
                     underLimitList = setting.TableSetList.Select(a => a.Value.UnderLimit).ToList();
                     yLayerList = new List<XYItemS.YLayer>();
                     for (int i = 0; i < setting.ScanList.Count; i++)
                     {
-                        yLayerList.Add(new XYItemS.YLayer(new XYLegend(setting.ScanList[i].Name, MyColor.Pool[i]),
+                        yLayerList.Add(new XYItemS.YLayer(new XYLegend(setting.ScanList[i].File, MyColor.Pool[i]),
                             setting.TableSetList.Select(a => a.Value.ValueList[i]).ToList()));
                     }
                     return new XYItemS(labelList, yLayerList, upperLimitList, underLimitList);
@@ -51,6 +51,24 @@ namespace Public.ChartBuilder.XY
                         underLimitList.Add(setting.Value.UnderLimit);
                     }
                     return new XYItemS(labelList, new List<XYItemS.YLayer>() { new XYItemS.YLayer(new XYLegend("N/A", MyColor.Pool.First()), setting.Value.ValueList) }, upperLimitList, underLimitList);
+                case "OnOff":
+                    labelList = new List<string>() { "Expect" };
+                    labelList.AddRange(setting.ScanList.Select(a => a.Date_Time).ToList());
+                    yLayerList = new List<XYItemS.YLayer>() { new XYItemS.YLayer(new XYLegend(setting.OnOff.ReferOnOff.ToString(), MyColor.Pool[0]), new List<double>() { 10 }) };
+                    for (int i = 0; i < setting.ScanList.Count; i++)
+                    {
+                        yLayerList.Add(new XYItemS.YLayer(new XYLegend(setting.OnOff.OnOffList[i].ToString(), MyColor.Pool[i + 1]), new List<double>() { 10 }));
+                    }
+                    return new XYItemS(labelList, yLayerList);
+                case "Text":
+                    labelList = new List<string>() { "Expect" };
+                    labelList.AddRange(setting.ScanList.Select(a => a.Date_Time).ToList());
+                    yLayerList = new List<XYItemS.YLayer>() { new XYItemS.YLayer(new XYLegend(setting.Text.ReferText, MyColor.Pool[0]), new List<double>() { 10 }) };
+                    for (int i = 0; i < setting.ScanList.Count; i++)
+                    {
+                        yLayerList.Add(new XYItemS.YLayer(new XYLegend(setting.Text.TextList[i], MyColor.Pool[i + 1]), new List<double>() { 10 }));
+                    }
+                    return new XYItemS(labelList, yLayerList);
             }
             return null;
         }
