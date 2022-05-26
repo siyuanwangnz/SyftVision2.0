@@ -1,4 +1,5 @@
 ﻿using ChartDirector;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using Public.ChartBuilder.XY;
@@ -51,6 +52,16 @@ namespace SettingCheck.ViewModels
         {
             get => _xyLegendList;
             set => SetProperty(ref _xyLegendList, value);
+        }
+        public DelegateCommand CloseCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel));
+                });
+            }
         }
         #region Attached Property
         public static BaseChart GetAttachedChart(DependencyObject obj)

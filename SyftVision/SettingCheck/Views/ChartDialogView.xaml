@@ -14,6 +14,7 @@
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid MinHeight="500" MinWidth="1000" Margin="10">
+        <Button Command="{Binding CloseCommand}" IsCancel="True" BorderBrush="{x:Null}" Background="{x:Null}"/>
         <StackPanel Orientation="Vertical">
             <Expander HorizontalAlignment="Stretch" Header="Chart Info">
                 <Grid Height="200">

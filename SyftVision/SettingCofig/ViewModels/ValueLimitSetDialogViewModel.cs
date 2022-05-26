@@ -80,5 +80,15 @@ namespace SettingConfig.ViewModels
             get => _underLimit;
             set => SetProperty(ref _underLimit, value);
         }
+        public DelegateCommand CloseCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel));
+                });
+            }
+        }
     }
 }

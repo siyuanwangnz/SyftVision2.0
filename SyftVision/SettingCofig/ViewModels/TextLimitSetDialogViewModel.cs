@@ -72,5 +72,15 @@ namespace SettingConfig.ViewModels
             get => _referText;
             set => SetProperty(ref _referText, value);
         }
+        public DelegateCommand CloseCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel));
+                });
+            }
+        }
     }
 }

@@ -80,5 +80,15 @@ namespace SettingConfig.ViewModels
             get => _settingName;
             set => SetProperty(ref _settingName, value);
         }
+        public DelegateCommand CloseCommand
+        {
+            get
+            {
+                return new DelegateCommand(() =>
+                {
+                    RequestClose?.Invoke(new DialogResult(ButtonResult.Cancel));
+                });
+            }
+        }
     }
 }

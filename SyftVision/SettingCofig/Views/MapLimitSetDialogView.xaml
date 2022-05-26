@@ -25,6 +25,7 @@
                 </Grid>
                 <Separator/>
                 <Button Command="{Binding SaveCommand}" Content="{materialDesign:PackIcon Kind=ContentSaveOutline}" IsDefault="True"/>
+                <Button Command="{Binding CloseCommand}" Content="{materialDesign:PackIcon Kind=CloseCircleOutline}" IsCancel="True"/>
             </ToolBar>
         </ToolBarTray>
 
