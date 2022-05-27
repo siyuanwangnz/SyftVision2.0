@@ -1,5 +1,6 @@
 ﻿using Public.BatchConfig;
 using Public.ChartConfig;
+using Public.SettingConfig;
 using Public.TreeList;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Public.SFTP
 {
     public class SyftServer : SFTPServices
     {
-        public enum Type { Chart, Batch }
+        public enum Type { Chart, Batch, Setting }
 
         private readonly string LocalChartPath = "./Temp/ChartConfig/";
         private readonly string LocalChartTempFile = "ChartTemp.xml";
@@ -23,20 +24,26 @@ namespace Public.SFTP
         private readonly string LocalBatchPath = "./Temp/BatchConfig/";
         private readonly string LocalBatchTempFile = "BatchTemp.xml";
 
+        private readonly string LocalSettingPath = "./Temp/SettingConfig/";
+        private readonly string LocalSettingTempFile = "SettingTemp.xml";
+
         private readonly string RemoteChartPath = "/home/sftp/files/syft-vision2/ChartConfig/";
         private readonly string RemoteBatchPath = "/home/sftp/files/syft-vision2/BatchConfig/";
+        private readonly string RemoteSettingPath = "/home/sftp/files/syft-vision2/SettingConfig/";
 
         private string LocalChartTempFilePath => LocalChartPath + LocalChartTempFile;
         private string LocalBatchTempFilePath => LocalBatchPath + LocalBatchTempFile;
+        private string LocalSettingTempFilePath => LocalSettingPath + LocalSettingTempFile;
 
         public SyftServer() : base("tools.syft.com", "22", "sftp", "MuhPEzxNchfr8nyZ")
         {
             // Check local directory
             if (!Directory.Exists(LocalChartPath)) Directory.CreateDirectory(LocalChartPath);
             if (!Directory.Exists(LocalBatchPath)) Directory.CreateDirectory(LocalBatchPath);
+            if (!Directory.Exists(LocalSettingPath)) Directory.CreateDirectory(LocalSettingPath);
         }
 
-        public ObservableCollection<TreeNode> GetTreeNodes(Type type)
+        public List<TreeNode> GetTreeNodes(Type type)
         {
             try
             {
@@ -49,11 +56,15 @@ namespace Public.SFTP
                     case Type.Batch:
                         remotePath = RemoteBatchPath;
                         break;
+                    case Type.Setting:
+                        remotePath = RemoteSettingPath;
+                        break;
                 }
 
                 Connect();
                 List<string> folders = GetDirectoryList(remotePath);
-                ObservableCollection<TreeNode> treeNodes = new ObservableCollection<TreeNode>();
+                folders.Sort();
+                List<TreeNode> treeNodes = new List<TreeNode>();
                 foreach (var folder in folders)
                 {
                     if (folder == "." || folder == "..") continue;
@@ -62,6 +73,7 @@ namespace Public.SFTP
                     treeNode.Name = folder;
                     // Set child nodes
                     List<string> files = GetFileList(remotePath + folder, "xml");
+                    files.Sort();
                     List<TreeNode> treeChildNodes = new List<TreeNode>();
                     foreach (string file in files)
                     {
@@ -117,7 +129,7 @@ namespace Public.SFTP
                 chartProp.XMLGeneration().Save(LocalChartTempFilePath);
 
                 Connect();
-                // Check existing chart config
+                // Check existing file
                 if (Exist(remoteFolderPath + chartProp.File))
                 {
                     MessageBoxResult messageBoxResult = MessageBox.Show($"The chart file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -169,7 +181,7 @@ namespace Public.SFTP
                 batchProp.XMLGeneration().Save(LocalBatchTempFilePath);
 
                 Connect();
-                // Check existing chart config
+                // Check existing file
                 if (Exist(remoteFolderPath + batchProp.File))
                 {
                     MessageBoxResult messageBoxResult = MessageBox.Show($"The batch file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -192,6 +204,58 @@ namespace Public.SFTP
             }
         }
 
+        public SettingProp DownloadSetting(TreeNode treeNode)
+        {
+            try
+            {
+                Connect();
+                DownloadFile(RemoteSettingPath + treeNode.Parent + "/" + treeNode.Name, LocalSettingTempFilePath);
+                Disconnect();
+
+                return new SettingProp(XElement.Load(LocalSettingTempFilePath));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
+        public void UploadSetting(SettingProp settingProp)
+        {
+            try
+            {
+                string remoteFolderPath = RemoteSettingPath + settingProp.Tittle + "/";
+
+                settingProp.XMLGeneration().Save(LocalSettingTempFilePath);
+
+                Connect();
+                // Check existing file
+                if (Exist(remoteFolderPath + settingProp.File))
+                {
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"The setting file already exists, do you want to replace it?", "QUESTION", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (messageBoxResult == MessageBoxResult.No) return;
+                }
+
+                // Upload file
+                if (!Exist(remoteFolderPath)) CreateDirectory(remoteFolderPath);
+                UploadFile(remoteFolderPath + settingProp.File, LocalSettingTempFilePath);
+                Disconnect();
+                MessageBox.Show("Setting has been saved", "INFO", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+        }
+
         public void DownloadBatchConfigFolder(string targetFolder)
         {
             try
@@ -200,6 +264,26 @@ namespace Public.SFTP
                 if (!Directory.Exists(localFolderPath)) Directory.CreateDirectory(localFolderPath);
                 Connect();
                 DownloadDirectory(RemoteBatchPath, localFolderPath);
+                Disconnect();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                Disconnect();
+            }
+
+        }
+        public void DownloadSettingConfigFolder(string targetFolder)
+        {
+            try
+            {
+                string localFolderPath = targetFolder + "/LocalSettingConfig/";
+                if (!Directory.Exists(localFolderPath)) Directory.CreateDirectory(localFolderPath);
+                Connect();
+                DownloadDirectory(RemoteSettingPath, localFolderPath);
                 Disconnect();
             }
             catch (Exception)

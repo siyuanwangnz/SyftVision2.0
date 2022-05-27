@@ -11,11 +11,11 @@ namespace Public.BatchConfig
 {
     public class BatchProp
     {
-        public BatchProp(string tittle, string subTittle, ObservableCollection<Method> methodList, ObservableCollection<ChartProp> chartPropList)
+        public BatchProp(string tittle, string subTittle, List<Method> methodList, List<ChartProp> chartPropList)
         {
             Tittle = tittle;
             SubTittle = subTittle;
-            MethodList = new ObservableCollection<Method>(methodList.Where(a => !(string.IsNullOrEmpty(a.Name) || string.IsNullOrWhiteSpace(a.Name))));
+            MethodList = methodList.Where(a => !(string.IsNullOrEmpty(a.Name) || string.IsNullOrWhiteSpace(a.Name))).ToList();
             ChartPropList = chartPropList;
         }
         public BatchProp(XElement rootNode)
@@ -25,7 +25,7 @@ namespace Public.BatchConfig
                 Tittle = rootNode.Attribute("Tittle").Value;
                 SubTittle = rootNode.Attribute("SubTittle").Value;
 
-                MethodList = new ObservableCollection<Method>();
+                MethodList = new List<Method>();
                 foreach (var methodNode in rootNode.Elements("Method"))
                 {
                     Method method = new Method();
@@ -37,7 +37,7 @@ namespace Public.BatchConfig
                     MethodList.Add(method);
                 }
 
-                ChartPropList = new ObservableCollection<ChartProp>();
+                ChartPropList = new List<ChartProp>();
                 foreach (var chartNode in rootNode.Elements("Chart"))
                     ChartPropList.Add(new ChartProp(chartNode));
 
@@ -51,8 +51,8 @@ namespace Public.BatchConfig
         public string SubTittle { get; private set; }
         public string Name => $"{Tittle}-{SubTittle}";
         public string File => $"{SubTittle}.xml";
-        public ObservableCollection<Method> MethodList { get; private set; }
-        public ObservableCollection<ChartProp> ChartPropList { get; private set; }
+        public List<Method> MethodList { get; private set; }
+        public List<ChartProp> ChartPropList { get; private set; }
 
         public XElement XMLGeneration()
         {

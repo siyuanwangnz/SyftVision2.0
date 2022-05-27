@@ -58,7 +58,9 @@ namespace BatchAnalysis.ViewModels
             //// The data for the bar chart
             //double[] data = { 85, 156, 179.5, 211, 123 };
             //double[] data1 = { 35, 126, 79.5, 111, 213 };
+            //double[] data2 = { 45, 226, 99.5, 91, 153 };
             //double[] datab = { 15, 46, 29.5, 51, 93 };
+            //string[] label1 = { "asd", "we", "asd", "czxc", "asd" };
             //double[] x = { 10, 20, 30, 40, 50 };
             //double[] x1 = { 5, 15, 25, 35, 45 };
             //double[] y1 = { 12000000, 11000000, 9000000, 7000000, 13000000, 12000000, 11000000, 9000000, 7000000, 13000000, 12000000, 11000000, 9000000, 7000000, 13000000 };
@@ -71,43 +73,48 @@ namespace BatchAnalysis.ViewModels
             //}
             //string[] labels = l.ToArray();
 
-            //XYChart c = new XYChart(1116, 520);
+            //XYChart c = new XYChart(1000, 500);
+
 
             //// Set chart position, size and style
-            //c.setPlotArea(80, 30, c.getWidth() - 110, c.getHeight() - 100, -1, -1, -1, 0x40dddddd, 0x40dddddd);
+            //c.setPlotArea(150, 30, c.getWidth() - 200, c.getHeight() - 70, Chart.Transparent, Chart.Transparent, Chart.Transparent, Chart.Transparent, Chart.Transparent);
 
             //// Add a title
-            //c.addTitle(Chart.TopCenter, "SKDNKSND-SDJJSDSN(sdsd#sdjsahd)", "Arial Bold", 16);
+            //c.addTitle(Chart.TopCenter, "asdasdsa", "Arial Bold", 16);
 
-            //// Set the x and y axis stems and the label font
-            //c.xAxis().setColors(Chart.Transparent);
-            //c.yAxis().setColors(Chart.Transparent);
+            //// Set x y axis stems and the label font
+            //c.xAxis().setColors(Chart.Transparent, Chart.Transparent);
+            //c.yAxis().setColors(Chart.Transparent, Chart.Transparent);
             //c.xAxis().setLabelStyle("Arial", 10);
-            //c.yAxis().setLabelStyle("Arial", 10);
+            ////c.yAxis().setLabelStyle("Arial", 10);
 
-            //// Add axis number format
-            //c.setNumberFormat(',');
+            //// Swap the axis so that the bars are drawn horizontally
+            //c.swapXY(true);
 
-            //// Add layers
+            //// Set x axis
+            //c.xAxis().setLabels(new string[] { "\\-123", "\\asdhkhkjhjkhkjhkj", "wqe", "vcb", "dfg", "iuy" });
 
-            //LineLayer layer = c.addLineLayer2();
-            //layer.setLineWidth(1);
-            //layer.setFastLineMode();
-            //layer.addDataSet(y1, 0xee9944, $"ewerwerwerewrewr");
-            //layer.setHTMLImageMap("", "", "title='{value} cps ({dataSetName}) at {xLabel}'");
+            //c.xAxis().setReverse(true);
 
-            //c.xAxis().setLabels(labels);
-            //c.xAxis().setLabelStyle("Arial", 8, Chart.TextColor, 30);
+            //c.yAxis().setLinearScale(0, 10, 5);
 
-            //LineLayer layer1 = c.addLineLayer2();
-            //layer1.setLineWidth(1);
-            //layer1.setFastLineMode();
-            //layer1.addDataSet(y2, 0x449944, $"1231313werewrewr");
-            //layer.setHTMLImageMap("", "", "title='{value} cps ({dataSetName}) at {xLabel}'");
+            //// Add a bar chart layer using the given data. Use a gradient color for the bars, where
+            //// the gradient is from dark green (0x008000) to white (0xffffff)
+            //BarLayer layer = c.addBarLayer3(new double[] { 10, 10, 10, 10, 10, 10 },
+            //    new int[] { 0x008000, 0x008800, 0x008800, 0x008800, 0x008800, 0x008800 }
+            //);
 
-            //// Set step of labels
-            //int count = (int)Math.Round((double)labels.Count()/ 40);
-            //c.xAxis().setLabelStep(count);
+            //// Set the bar gap to 10%
+            //layer.setBarGap(0.1);
+
+            //// Set border color
+            //layer.setBorderColor(Chart.Transparent);
+
+            //// Use the format "US$ xxx millions" as the bar label
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    layer.addCustomDataLabel(i, i, $"asjhgjhjhjkhjkhjkhjggygyuturretretretrertrgjhghjgjhghjd{i}", "Arial Bold", 10, 0xffffff);
+            //}
 
             //SyftChart chart = new SyftChart(c);
 
@@ -126,14 +133,14 @@ namespace BatchAnalysis.ViewModels
                     if (TaskIsRunning()) return;
 
                     //Open folder path selection dialog
-                    CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                    folderDlg.IsFolderPicker = true;
-                    folderDlg.Title = "Select a Target Folder to Download Batch Config Files";
-                    if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                    CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                    dlg.IsFolderPicker = true;
+                    dlg.Title = "Select a Target Folder to Download Batch Config Files";
+                    if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                     {
                         try
                         {
-                            _syftServer.DownloadBatchConfigFolder(folderDlg.FileName);
+                            _syftServer.DownloadBatchConfigFolder(dlg.FileName);
                         }
                         catch (Exception ex)
                         {
@@ -162,11 +169,11 @@ namespace BatchAnalysis.ViewModels
                         if (LocalBatchSelectIsChecked) // Local Selection
                         {
                             //Open file path selection dialog
-                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                            folderDlg.Title = "Select a Local Batch Config File";
-                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                            CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                            dlg.Title = "Select a Local Batch Config File";
+                            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
-                                SelectedBatchProp = new BatchProp(XElement.Load(folderDlg.FileName));
+                                SelectedBatchProp = new BatchProp(XElement.Load(dlg.FileName));
 
                                 Tittle = SelectedBatchProp.Tittle;
                                 SubTittle = SelectedBatchProp.SubTittle;
@@ -175,7 +182,7 @@ namespace BatchAnalysis.ViewModels
                         else // Remote Selection
                         {
                             // Get tree nodes
-                            ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
+                            List<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
 
                             // Navigate to dialog
                             DialogParameters param = new DialogParameters();
@@ -303,16 +310,16 @@ namespace BatchAnalysis.ViewModels
                     if (SyftDataHub == null || !SyftDataHub.IsAvailable) return;
 
                     //Open folder path selection dialog
-                    CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                    folderDlg.IsFolderPicker = true;
-                    folderDlg.Title = "Select a Target Folder to Save";
-                    if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                    CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                    dlg.IsFolderPicker = true;
+                    dlg.Title = "Select a Target Folder to Save";
+                    if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                     {
                         try
                         {
-                            if (ScanFilesCollectionIsChecked && !LocalMatchIsChecked) InstrumentServer.CopyScanFile(folderDlg.FileName);
+                            if (ScanFilesCollectionIsChecked) InstrumentServer.CopyScanFile(dlg.FileName);
 
-                            new SyftPDF(SyftDataHub, Comments, folderDlg.FileName);
+                            new SyftPDF(SyftDataHub, Comments, dlg.FileName);
                         }
                         catch (Exception ex)
                         {
@@ -345,7 +352,11 @@ namespace BatchAnalysis.ViewModels
         public bool LocalMatchIsChecked
         {
             get => _localMatchIsChecked;
-            set => SetProperty(ref _localMatchIsChecked, value);
+            set
+            {
+                SetProperty(ref _localMatchIsChecked, value);
+                if (_localMatchIsChecked == true) ScanFilesCollectionIsChecked = false;
+            }
         }
         public DelegateCommand MatchCommand
         {
@@ -366,14 +377,14 @@ namespace BatchAnalysis.ViewModels
                         if (LocalMatchIsChecked) // Local Match
                         {
                             //Open folder path selection dialog
-                            CommonOpenFileDialog folderDlg = new CommonOpenFileDialog();
-                            folderDlg.IsFolderPicker = true;
-                            folderDlg.Title = "Select a Target Folder to Match";
-                            if (folderDlg.ShowDialog() == CommonFileDialogResult.Ok)
+                            CommonOpenFileDialog dlg = new CommonOpenFileDialog();
+                            dlg.IsFolderPicker = true;
+                            dlg.Title = "Select a Target Folder to Match";
+                            if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
                                 ScanFileList = new List<ScanFile>();
 
-                                DirectoryInfo folder = new DirectoryInfo(folderDlg.FileName);
+                                DirectoryInfo folder = new DirectoryInfo(dlg.FileName);
                                 foreach (var file in folder.GetFiles("*.xml", SearchOption.AllDirectories))
                                 {
                                     ScanFile scanFile = new ScanFile(file.Name);

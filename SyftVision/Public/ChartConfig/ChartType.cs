@@ -11,7 +11,7 @@ namespace Public.ChartConfig
 {
     public class ChartType
     {
-        public static ObservableCollection<ChartType> ReferList = new ObservableCollection<ChartType>() {
+        public static List<ChartType> ReferList = new List<ChartType>() {
             new ChartType("Sensitivity", new Component(true, Component.Mode.RP), new BarChartFactory(new SensitivityXYFactory())),
             new ChartType("Impurity", new Component(true, Component.Mode.RP), new BarChartFactory(new ImpurityXYFactory())),
 
@@ -20,6 +20,7 @@ namespace Public.ChartConfig
 
             new ChartType("Mean_Conc", new Component(true, Component.Mode.RP), new BarChartFactory(new Mean_ConcXYFactory())),
             new ChartType("Mean_AConc", new Component(true, Component.Mode.C), new BarChartFactory(new Mean_AConcXYFactory())),
+            new ChartType("Mean_CPS", new Component(true, Component.Mode.RP), new BarChartFactory(new Mean_CPSXYFactory())),
 
             new ChartType("RSD_Conc", new Component(true, Component.Mode.RP), new BarChartFactory(new RSD_ConcXYFactory())),
             new ChartType("RSD_CPS", new Component(true, Component.Mode.RP), new BarChartFactory(new RSD_CPSXYFactory())),

@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
 
@@ -39,7 +40,7 @@ namespace ChartConfig.ViewModels
                     try
                     {
                         // Get tree nodes
-                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Chart);
+                        List<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Chart);
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
@@ -57,7 +58,7 @@ namespace ChartConfig.ViewModels
                                 SubTittle = chartProp.SubTittle;
                                 SelectedExpectedRange = chartProp.ExpectedRange;
                                 SelectedPhase = chartProp.Phase;
-                                ComponentList = chartProp.ComponentList;
+                                ComponentList = new ObservableCollection<Component>(chartProp.ComponentList);
                             }
                         });
                     }
@@ -80,7 +81,7 @@ namespace ChartConfig.ViewModels
                         return;
                     }
 
-                    ChartProp chartProp = new ChartProp(SelectedChartType, Tittle, SubTittle, SelectedExpectedRange, SelectedPhase, ComponentList);
+                    ChartProp chartProp = new ChartProp(SelectedChartType, Tittle, SubTittle, SelectedExpectedRange, SelectedPhase, ComponentList.ToList());
 
                     try
                     {
@@ -121,7 +122,7 @@ namespace ChartConfig.ViewModels
             get => _subTittle;
             set => SetProperty(ref _subTittle, value);
         }
-        private ObservableCollection<ChartType> _chartTypeList = ChartType.ReferList;
+        private ObservableCollection<ChartType> _chartTypeList = new ObservableCollection<ChartType>(ChartType.ReferList);
         public ObservableCollection<ChartType> ChartTypeList
         {
             get => _chartTypeList;
@@ -161,7 +162,7 @@ namespace ChartConfig.ViewModels
         #endregion
 
         #region Component list
-        private ObservableCollection<Component> _componentList;
+        private ObservableCollection<Component> _componentList = new ObservableCollection<Component>();
         public ObservableCollection<Component> ComponentList
         {
             get => _componentList;

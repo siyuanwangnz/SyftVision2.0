@@ -40,7 +40,7 @@ namespace BatchConfig.ViewModels
                 {
                     try
                     {
-                        TreeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Chart);
+                        TreeNodes = new ObservableCollection<TreeNode>(_syftServer.GetTreeNodes(SyftServer.Type.Chart));
                     }
                     catch (Exception ex)
                     {
@@ -108,7 +108,7 @@ namespace BatchConfig.ViewModels
                     try
                     {
                         // Get tree nodes
-                        ObservableCollection<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
+                        List<TreeNode> treeNodes = _syftServer.GetTreeNodes(SyftServer.Type.Batch);
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
@@ -123,8 +123,8 @@ namespace BatchConfig.ViewModels
 
                                 BatchTittle = batchProp.Tittle;
                                 BatchSubTittle = batchProp.SubTittle;
-                                MethodList = batchProp.MethodList;
-                                ChartPropList = batchProp.ChartPropList;
+                                MethodList = new ObservableCollection<Method>(batchProp.MethodList);
+                                ChartPropList = new ObservableCollection<ChartProp>(batchProp.ChartPropList);
                             }
                         });
                     }
@@ -147,7 +147,7 @@ namespace BatchConfig.ViewModels
                         return;
                     }
 
-                    BatchProp batchProp = new BatchProp(BatchTittle, BatchSubTittle, MethodList, ChartPropList);
+                    BatchProp batchProp = new BatchProp(BatchTittle, BatchSubTittle, MethodList.ToList(), ChartPropList.ToList());
 
                     try
                     {
@@ -171,7 +171,7 @@ namespace BatchConfig.ViewModels
                     try
                     {
                         // Get batch file list
-                        ObservableCollection<string> batchFileList = _instrumentServer.GetBatchFileList();
+                        List<string> batchFileList = _instrumentServer.GetBatchFileList();
 
                         // Navigate to dialog
                         DialogParameters param = new DialogParameters();
@@ -181,7 +181,7 @@ namespace BatchConfig.ViewModels
                             if (arg.Result == ButtonResult.OK)
                             {
                                 string selectedBatchFile = arg.Parameters.GetValue<string>("selectedBatchFile");
-                                MethodList = _instrumentServer.GetMethodListFromBatchFile(selectedBatchFile);
+                                MethodList = new ObservableCollection<Method>(_instrumentServer.GetMethodListFromBatchFile(selectedBatchFile));
                                 ChartPropList.Clear();
                             }
 
@@ -221,7 +221,7 @@ namespace BatchConfig.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
-                    ObservableCollection<string> chartCodeList = SelectedMethod.ChartCodeList;
+                    List<string> chartCodeList = SelectedMethod.ChartCodeList.ToList();
 
                     MethodList.Remove(SelectedMethod);
 
@@ -233,9 +233,9 @@ namespace BatchConfig.ViewModels
                     }
 
                     // Get non-repetitive chart code list
-                    ObservableCollection<string> chartCodeFullList = new ObservableCollection<string>();
+                    List<string> chartCodeFullList = new List<string>();
                     foreach (var method in MethodList) chartCodeFullList.AddRange(method.ChartCodeList);
-                    chartCodeFullList = new ObservableCollection<string>(new HashSet<string>(chartCodeFullList));
+                    chartCodeFullList = new List<string>(new HashSet<string>(chartCodeFullList));
 
                     foreach (var chartCode in chartCodeList)
                     {
@@ -280,9 +280,9 @@ namespace BatchConfig.ViewModels
                         SelectedMethod.ChartCodeList.Remove(selectedChartCode);
 
                         // Get non-repetitive chart code list
-                        ObservableCollection<string> chartCodeFullList = new ObservableCollection<string>();
+                        List<string> chartCodeFullList = new List<string>();
                         foreach (var method in MethodList) chartCodeFullList.AddRange(method.ChartCodeList);
-                        chartCodeFullList = new ObservableCollection<string>(new HashSet<string>(chartCodeFullList));
+                        chartCodeFullList = new List<string>(new HashSet<string>(chartCodeFullList));
 
                         if (!chartCodeFullList.Contains(selectedChartCode) && ChartPropList.Select(a => a.Code).ToList().Contains(selectedChartCode))
                             ChartPropList.Remove(ChartPropList.Single(a => a.Code == selectedChartCode));

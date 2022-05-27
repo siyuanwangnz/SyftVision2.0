@@ -162,6 +162,14 @@
       <Project>{332efbaa-ec66-4479-a4e4-0a8cdbf77099}</Project>
       <Name>Public</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SettingCheck\SettingCheck.csproj">
+      <Project>{4df2ca52-308f-4308-8e2f-d167c4bd1a96}</Project>
+      <Name>SettingCheck</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SettingCofig\SettingConfig.csproj">
+      <Project>{a9b28a0e-bcda-4f3f-a2db-b5a67e788e48}</Project>
+      <Name>SettingConfig</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

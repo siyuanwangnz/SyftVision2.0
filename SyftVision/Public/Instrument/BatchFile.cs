@@ -15,7 +15,7 @@ namespace Public.Instrument
         {
             try
             {
-                ItemList = new ObservableCollection<BatchItem>();
+                ItemList = new List<BatchItem>();
                 foreach (var item in rootNode.Elements("item"))
                 {
                     BatchItem batchItem = new BatchItem();
@@ -32,9 +32,9 @@ namespace Public.Instrument
             }
         }
 
-        public ObservableCollection<BatchItem> ItemList { get; private set; }
+        public List<BatchItem> ItemList { get; private set; }
 
-        public ObservableCollection<Method> GetMethodList()
+        public List<Method> GetMethodList()
         {
             List<string> mainList = new List<string>();
             if (ItemList != null)
@@ -114,14 +114,7 @@ namespace Public.Instrument
 
             }
 
-            ObservableCollection<Method> methodsList = new ObservableCollection<Method>();
-            foreach (var methodName in mainList)
-            {
-                Method method = new Method();
-                method.Name = methodName;
-                methodsList.Add(method);
-            }
-            return methodsList;
+            return mainList.ConvertAll(a => new Method { Name = a });
         }
     }
 }
