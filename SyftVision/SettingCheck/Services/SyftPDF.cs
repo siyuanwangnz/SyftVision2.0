@@ -130,17 +130,17 @@ namespace SettingCheck.Services
                 {
                     case "Map":
                         // Add table
-                        columnWidths = new float[] { 2, 1, 2, 1 };
+                        columnWidths = new float[] { 2, 2, 2, 1 };
                         table = new Table(UnitValue.CreatePercentArray(columnWidths)).UseAllAvailableWidth();
                         table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                         table.SetFontSize(9);
                         // Add title cell
-                        cell = new Cell(1, 4).Add(new Paragraph(setting.Name).SetMarginLeft(10));
+                        cell = new Cell(1, 4).Add(new Paragraph(setting.Name).SetMarginLeft(5).SetBold());
                         cell.SetFontColor(new DeviceRgb(255, 255, 255));
                         cell.SetBackgroundColor(new DeviceRgb(63, 81, 181));
                         table.AddCell(cell);
                         // Add content
-                        cell = new Cell(1, 4).Add(new Paragraph(setting.ContentList.First()));
+                        cell = new Cell(1, 4).Add(new Paragraph(setting.ContentList.First()).SetMaxWidth(520));
                         table.AddCell(cell);
                         foreach (var map in setting.MapSetList)
                         {
@@ -154,17 +154,17 @@ namespace SettingCheck.Services
                         break;
                     case "Table":
                         // Add table
-                        columnWidths = new float[] { 2, 1, 2, 1 };
+                        columnWidths = new float[] { 2, 2, 2, 1 };
                         table = new Table(UnitValue.CreatePercentArray(columnWidths)).UseAllAvailableWidth();
                         table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                         table.SetFontSize(9);
                         // Add title cell
-                        cell = new Cell(1, 4).Add(new Paragraph(setting.Name).SetMarginLeft(10));
+                        cell = new Cell(1, 4).Add(new Paragraph(setting.Name).SetMarginLeft(5).SetBold());
                         cell.SetFontColor(new DeviceRgb(255, 255, 255));
                         cell.SetBackgroundColor(new DeviceRgb(63, 81, 181));
                         table.AddCell(cell);
                         // Add content
-                        cell = new Cell(1, 4).Add(new Paragraph(setting.ContentList.First()));
+                        cell = new Cell(1, 4).Add(new Paragraph(setting.ContentList.First()).SetMaxWidth(520));
                         table.AddCell(cell);
                         foreach (var t in setting.TableSetList)
                         {
@@ -178,12 +178,12 @@ namespace SettingCheck.Services
                         break;
                     case "OnOff":
                         // Add table
-                        columnWidths = new float[] { 2, 3, 1 };
+                        columnWidths = new float[] { 3, 3, 1 };
                         table = new Table(UnitValue.CreatePercentArray(columnWidths)).UseAllAvailableWidth();
                         table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                         table.SetFontSize(9);
                         // Add title cell
-                        cell = new Cell(1, 3).Add(new Paragraph(setting.Name).SetMarginLeft(10));
+                        cell = new Cell(1, 3).Add(new Paragraph(setting.Name).SetMarginLeft(5).SetBold());
                         cell.SetFontColor(new DeviceRgb(255, 255, 255));
                         cell.SetBackgroundColor(new DeviceRgb(63, 81, 181));
                         table.AddCell(cell);
@@ -196,12 +196,12 @@ namespace SettingCheck.Services
                         break;
                     case "Value":
                         // Add table
-                        columnWidths = new float[] { 2, 3, 1 };
+                        columnWidths = new float[] { 3, 3, 1 };
                         table = new Table(UnitValue.CreatePercentArray(columnWidths)).UseAllAvailableWidth();
                         table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                         table.SetFontSize(9);
                         // Add title cell
-                        cell = new Cell(1, 3).Add(new Paragraph(setting.Name).SetMarginLeft(10));
+                        cell = new Cell(1, 3).Add(new Paragraph(setting.Name).SetMarginLeft(5).SetBold());
                         cell.SetFontColor(new DeviceRgb(255, 255, 255));
                         cell.SetBackgroundColor(new DeviceRgb(63, 81, 181));
                         table.AddCell(cell);
@@ -213,12 +213,12 @@ namespace SettingCheck.Services
                         Doc.Add(table);
                         break;
                     case "Text":
-                        columnWidths = new float[] { 2, 3, 1 };
+                        columnWidths = new float[] { 3, 3, 1 };
                         table = new Table(UnitValue.CreatePercentArray(columnWidths)).UseAllAvailableWidth();
                         table.SetHorizontalAlignment(HorizontalAlignment.CENTER);
                         table.SetFontSize(9);
                         // Add title cell
-                        cell = new Cell(1, 3).Add(new Paragraph(setting.Name).SetMarginLeft(10));
+                        cell = new Cell(1, 3).Add(new Paragraph(setting.Name).SetMarginLeft(5).SetBold());
                         cell.SetFontColor(new DeviceRgb(255, 255, 255));
                         cell.SetBackgroundColor(new DeviceRgb(63, 81, 181));
                         table.AddCell(cell);
