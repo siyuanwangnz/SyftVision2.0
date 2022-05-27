@@ -13,6 +13,7 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="56"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -121,7 +122,9 @@
             </ToolBarTray>
         </Grid>
 
-        <Grid Grid.Row="1" Margin="0 10 0 0">
+        <ProgressBar Grid.Row="1" Height="5" Value="{Binding Progress}" />
+
+        <Grid Grid.Row="2" Margin="0 10 0 0">
             <DataGrid AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       ItemsSource="{Binding SettingList}" SelectedItem="{Binding SelectedSetting}">
                 <DataGrid.Columns>

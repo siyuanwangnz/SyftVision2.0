@@ -96,7 +96,7 @@ namespace Public.SettingConfig
 
             return rootNode;
         }
-        public void SetContentForSettingList(XElement rootNode, ScanFile scanFile)
+        public void SetContentForSettingList(XElement rootNode, ScanFile scanFile, Action progress)
         {
             List<Setting> newSettingList = Setting.GetSettingList(rootNode, FilterOffList);
             foreach (var setting in SettingList)
@@ -108,16 +108,18 @@ namespace Public.SettingConfig
                 }
                 catch (Exception)
                 {
+                    progress.Invoke();
                     continue;
                 }
                 setting.SetContent(newSetting.ContentList[0], scanFile);
+                progress.Invoke();
             }
 
             SetSyftInfoList(scanFile.FullLocalFilePath);
 
             HasSet = true;
         }
-        public void AddContentForSettingList(XElement rootNode, ScanFile scanFile)
+        public void AddContentForSettingList(XElement rootNode, ScanFile scanFile, Action progress)
         {
             List<Setting> newSettingList = Setting.GetSettingList(rootNode, FilterOffList);
             foreach (var setting in SettingList)
@@ -129,9 +131,11 @@ namespace Public.SettingConfig
                 }
                 catch (Exception)
                 {
+                    progress.Invoke();
                     continue;
                 }
                 setting.AddContent(newSetting.ContentList[0], scanFile);
+                progress.Invoke();
             }
         }
     }

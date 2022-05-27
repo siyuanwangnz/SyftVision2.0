@@ -39,6 +39,11 @@ namespace SettingCheck.ViewModels
             }
             return false;
         }
+        private Action GetProgressAction(double range, int scanCount)
+        {
+            double step = range / scanCount;
+            return new Action(() => Progress += step);
+        }
         public SettingCheckViewModel(IRegionManager regionManager, IEventAggregator eventAggregator, IDialogService dialogService)
         {
             _regionManager = regionManager;
@@ -167,6 +172,8 @@ namespace SettingCheck.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (TaskIsRunning()) return;
+
                     if (SettingProp == null)
                     {
                         MessageBox.Show($"Please select a Setting Config", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -182,12 +189,17 @@ namespace SettingCheck.ViewModels
                             dlg.Title = "Select a Local Scan File";
                             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
-                                FileInfo fileInfo = new FileInfo(dlg.FileName);
-                                SettingProp.SetContentForSettingList(XElement.Load(dlg.FileName), new ScanFile(fileInfo.Name) { FullLocalFolder = fileInfo.Directory.FullName });
+                                Task = Task.Run(() =>
+                                {
+                                    Progress = 10;
 
-                                SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
+                                    FileInfo fileInfo = new FileInfo(dlg.FileName);
+                                    SettingProp.SetContentForSettingList(XElement.Load(dlg.FileName), new ScanFile(fileInfo.Name) { FullLocalFolder = fileInfo.Directory.FullName }, GetProgressAction(90, SettingProp.SettingList.Count));
 
-                                SyftInfoList = new ObservableCollection<SyftInfo>(SettingProp.SyftInfoList);
+                                    SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
+
+                                    SyftInfoList = new ObservableCollection<SyftInfo>(SettingProp.SyftInfoList);
+                                });
                             }
                         }
                         else // Remote Selection
@@ -204,17 +216,24 @@ namespace SettingCheck.ViewModels
                             {
                                 if (arg.Result == ButtonResult.OK)
                                 {
-                                    TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+                                    Task = Task.Run(() =>
+                                    {
+                                        Progress = 0;
 
-                                    _instrumentServer.ClearLocalLoadedSettingScanPath();
+                                        TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
-                                    ScanFile scanFile = _instrumentServer.GetScanFile(treeNode);
+                                        _instrumentServer.ClearLocalLoadedSettingScanPath();
 
-                                    SettingProp.SetContentForSettingList(XElement.Load(scanFile.FullLocalFilePath), scanFile);
+                                        ScanFile scanFile = _instrumentServer.GetScanFile(treeNode);
 
-                                    SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
+                                        Progress = 10;
 
-                                    SyftInfoList = new ObservableCollection<SyftInfo>(SettingProp.SyftInfoList);
+                                        SettingProp.SetContentForSettingList(XElement.Load(scanFile.FullLocalFilePath), scanFile, GetProgressAction(90, SettingProp.SettingList.Count));
+
+                                        SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
+
+                                        SyftInfoList = new ObservableCollection<SyftInfo>(SettingProp.SyftInfoList);
+                                    });
                                 }
                             });
 
@@ -233,6 +252,8 @@ namespace SettingCheck.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (TaskIsRunning()) return;
+
                     if (SettingProp == null)
                     {
                         MessageBox.Show($"Please select a Setting Config", "WARNING", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -254,10 +275,15 @@ namespace SettingCheck.ViewModels
                             dlg.Title = "Select a Local Scan File";
                             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
-                                FileInfo fileInfo = new FileInfo(dlg.FileName);
-                                SettingProp.AddContentForSettingList(XElement.Load(dlg.FileName), new ScanFile(fileInfo.Name));
+                                Task = Task.Run(() =>
+                                {
+                                    Progress = 10;
 
-                                SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
+                                    FileInfo fileInfo = new FileInfo(dlg.FileName);
+                                    SettingProp.AddContentForSettingList(XElement.Load(dlg.FileName), new ScanFile(fileInfo.Name), GetProgressAction(90, SettingProp.SettingList.Count));
+
+                                    SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
+                                });
                             }
                         }
                         else // Remote Selection
@@ -274,13 +300,20 @@ namespace SettingCheck.ViewModels
                             {
                                 if (arg.Result == ButtonResult.OK)
                                 {
-                                    TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
+                                    Task = Task.Run(() =>
+                                    {
+                                        Progress = 0;
 
-                                    ScanFile scanFile = _instrumentServer.GetScanFile(treeNode);
+                                        TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
-                                    SettingProp.AddContentForSettingList(XElement.Load(scanFile.FullLocalFilePath), scanFile);
+                                        ScanFile scanFile = _instrumentServer.GetScanFile(treeNode);
 
-                                    SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
+                                        Progress = 10;
+
+                                        SettingProp.AddContentForSettingList(XElement.Load(scanFile.FullLocalFilePath), scanFile, GetProgressAction(90, SettingProp.SettingList.Count));
+
+                                        SettingList = new ObservableCollection<Setting>(SettingProp.SettingList);
+                                    });
                                 }
                             });
 
@@ -311,6 +344,7 @@ namespace SettingCheck.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (TaskIsRunning()) return;
 
                     if (SettingProp == null || !SettingProp.HasSet) return;
 
@@ -345,7 +379,12 @@ namespace SettingCheck.ViewModels
             set => SetProperty(ref _syftInfoList, value);
         }
         #endregion
-
+        private double _progress;
+        public double Progress
+        {
+            get => _progress;
+            set => SetProperty(ref _progress, value);
+        }
         private ObservableCollection<Setting> _settingList;
         public ObservableCollection<Setting> SettingList
         {
@@ -364,6 +403,7 @@ namespace SettingCheck.ViewModels
             {
                 return new DelegateCommand(() =>
                 {
+                    if (TaskIsRunning()) return;
                     // Navigate to dialog
                     DialogParameters param = new DialogParameters();
                     param.Add("Chart", SelectedSetting.Chart);
