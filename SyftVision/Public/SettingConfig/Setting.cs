@@ -217,12 +217,12 @@ namespace Public.SettingConfig
                         try
                         {
                             d = newMapSetList.Single(a => a.Key == map.Key).Value.ValueList[0];
+                            map.Value.SetValue(d);
                         }
                         catch (Exception)
                         {
-                            continue;
+                            map.Value.SetValue(0);
                         }
-                        map.Value.SetValue(d);
                     }
                     IsOut = MapSetList.Select(a => a.Value.IsOut).ToList().Contains(true) ? true : false;
                     break;
@@ -234,12 +234,12 @@ namespace Public.SettingConfig
                         try
                         {
                             d = newTableSetList.Single(a => a.Key == table.Key).Value.ValueList[0];
+                            table.Value.SetValue(d);
                         }
                         catch (Exception)
                         {
-                            continue;
+                            table.Value.SetValue(0);
                         }
-                        table.Value.SetValue(d);
                     }
                     IsOut = TableSetList.Select(a => a.Value.IsOut).ToList().Contains(true) ? true : false;
                     break;

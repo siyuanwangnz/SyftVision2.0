@@ -63,6 +63,7 @@ namespace Public.SettingConfig
             SyftInfoList.Add(new SyftInfo("Instrument", "Mode", InstruInfo.Model));
             SyftInfoList.Add(new SyftInfo("Instrument", "Serial Number", InstruInfo.SN));
             SyftInfoList.Add(new SyftInfo("Instrument", "Kiosk Version", InstruInfo.KioskVersion));
+            SyftInfoList.Add(new SyftInfo("Setting", "Name", Name));
             SyftInfoList.Add(new SyftInfo("Scan", "Name", FileInfo.ScanName));
             SyftInfoList.Add(new SyftInfo("Scan", "Date", FileInfo.ScanDate));
             SyftInfoList.Add(new SyftInfo("Scan", "ID", FileInfo.ScanID));
