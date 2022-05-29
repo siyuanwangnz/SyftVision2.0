@@ -45,7 +45,7 @@
                             </StackPanel>
                         </Grid>
                     </materialDesign:PopupBox>
-                    <RadioButton HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Chart Config" Click="C_Btn_Click">
+                    <RadioButton HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Chart Config" Click="C_Btn_Click" BorderBrush="#E0E0E0">
                         <RadioButton.Style>
                             <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignTabRadioButton}">
                                 <Setter Property="Visibility" Value="Visible" />
@@ -57,7 +57,7 @@
                             </Style>
                         </RadioButton.Style>
                     </RadioButton>
-                    <RadioButton HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Batch Config" Click="B_Btn_Click">
+                    <RadioButton HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Batch Config" Click="B_Btn_Click" BorderBrush="#E0E0E0">
                         <RadioButton.Style>
                             <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignTabRadioButton}">
                                 <Setter Property="Visibility" Value="Visible" />
@@ -70,7 +70,7 @@
                         </RadioButton.Style>
                     </RadioButton>
                     <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" IsChecked="True" HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Batch Analysis" Click="BA_Btn_Click"/>
-                    <RadioButton HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Setting Config" Click="S_Btn_Click">
+                    <RadioButton HorizontalAlignment="Left" Height="35" Width="150" Margin="2" Content="Setting Config" Click="S_Btn_Click" BorderBrush="#E0E0E0">
                         <RadioButton.Style>
                             <Style TargetType="RadioButton" BasedOn="{StaticResource MaterialDesignTabRadioButton}">
                                 <Setter Property="Visibility" Value="Visible" />
