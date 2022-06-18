@@ -17,9 +17,9 @@ namespace Public.SettingConfig
             Tittle = title;
             SubTittle = subTitle;
             FilterOffList = filterOffList.Where(a => a.Wildcard != "").ToList();
-            SettingList = settingList.Where(a => !a.IsInvalid()).ToList();
+            SettingList = settingList;
         }
-        public SettingProp(XElement rootNode)
+        public SettingProp(XElement rootNode, bool filter)
         {
             try
             {
@@ -39,6 +39,7 @@ namespace Public.SettingConfig
                 {
                     SettingList.Add(new Setting(setting));
                 }
+                if (filter) SettingList = SettingList.Where(a => !a.IsInvalid()).ToList();
             }
             catch (Exception)
             {

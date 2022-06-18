@@ -102,7 +102,7 @@ namespace SettingCheck.ViewModels
                             dlg.Title = "Select a Local Setting Config File";
                             if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                             {
-                                SettingProp = new SettingProp(XElement.Load(dlg.FileName));
+                                SettingProp = new SettingProp(XElement.Load(dlg.FileName), true);
 
                                 Tittle = SettingProp.Tittle;
                                 SubTittle = SettingProp.SubTittle;
@@ -122,7 +122,7 @@ namespace SettingCheck.ViewModels
                                 {
                                     TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
-                                    SettingProp = _syftServer.DownloadSetting(treeNode);
+                                    SettingProp = _syftServer.DownloadSetting(treeNode, true);
 
                                     Tittle = SettingProp.Tittle;
                                     SubTittle = SettingProp.SubTittle;

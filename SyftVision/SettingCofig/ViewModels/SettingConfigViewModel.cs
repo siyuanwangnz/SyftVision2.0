@@ -53,7 +53,7 @@ namespace SettingConfig.ViewModels
                             {
                                 TreeNode treeNode = arg.Parameters.GetValue<TreeNode>("selectedTreeNode");
 
-                                SettingProp settingProp = _syftServer.DownloadSetting(treeNode);
+                                SettingProp settingProp = _syftServer.DownloadSetting(treeNode, false);
 
                                 Tittle = settingProp.Tittle;
                                 SubTittle = settingProp.SubTittle;

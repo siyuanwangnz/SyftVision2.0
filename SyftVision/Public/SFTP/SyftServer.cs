@@ -204,7 +204,7 @@ namespace Public.SFTP
             }
         }
 
-        public SettingProp DownloadSetting(TreeNode treeNode)
+        public SettingProp DownloadSetting(TreeNode treeNode, bool filter)
         {
             try
             {
@@ -212,7 +212,7 @@ namespace Public.SFTP
                 DownloadFile(RemoteSettingPath + treeNode.Parent + "/" + treeNode.Name, LocalSettingTempFilePath);
                 Disconnect();
 
-                return new SettingProp(XElement.Load(LocalSettingTempFilePath));
+                return new SettingProp(XElement.Load(LocalSettingTempFilePath), filter);
             }
             catch (Exception)
             {
