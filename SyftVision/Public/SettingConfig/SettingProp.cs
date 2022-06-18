@@ -39,7 +39,7 @@ namespace Public.SettingConfig
                 {
                     SettingList.Add(new Setting(setting));
                 }
-                if (filter) SettingList = SettingList.Where(a => !a.IsInvalid()).ToList();
+                if (filter) SettingList = SettingList.Where(a => a.IsValid).ToList();
             }
             catch (Exception)
             {

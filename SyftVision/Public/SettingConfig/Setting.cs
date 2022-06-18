@@ -150,27 +150,30 @@ namespace Public.SettingConfig
             }
             return rootNode;
         }
-        public bool IsInvalid()
+        public bool IsValid
         {
-            switch (Type.Name)
+            get
             {
-                case "Map":
-                    if (MapSetList == null) return true;
-                    break;
-                case "Table":
-                    if (TableSetList == null) return true;
-                    break;
-                case "OnOff":
-                    if (OnOff == null) return true;
-                    break;
-                case "Value":
-                    if (Value == null) return true;
-                    break;
-                case "Text":
-                    if (Text == null) return true;
-                    break;
+                switch (Type.Name)
+                {
+                    case "Map":
+                        if (MapSetList == null) return false;
+                        break;
+                    case "Table":
+                        if (TableSetList == null) return false;
+                        break;
+                    case "OnOff":
+                        if (OnOff == null) return false;
+                        break;
+                    case "Value":
+                        if (Value == null) return false;
+                        break;
+                    case "Text":
+                        if (Text == null) return false;
+                        break;
+                }
+                return true;
             }
-            return false;
         }
         public static List<Setting> GetSettingList(XElement rootNode, List<FilterOff> filterOffList)
         {

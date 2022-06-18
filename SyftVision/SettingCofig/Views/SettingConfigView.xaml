@@ -58,6 +58,26 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
 
+                        <DataGridTemplateColumn Header="Is Valid">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <materialDesign:Card Foreground="White" Padding="5">
+                                        <TextBlock Text="{Binding IsValid}"/>
+                                        <materialDesign:Card.Style>
+                                            <Style TargetType="materialDesign:Card">
+                                                <Setter Property="Background" Value="Red" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsValid}" Value="True">
+                                                        <Setter Property="Background" Value="Green" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </materialDesign:Card.Style>
+                                    </materialDesign:Card>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
                         <DataGridTemplateColumn Header="Current Content">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
