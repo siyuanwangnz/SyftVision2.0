@@ -1,4 +1,5 @@
 ﻿using ChartDirector;
+using Prism.Mvvm;
 using Public.ChartBuilder.XY;
 using Public.Instrument;
 using System;
@@ -12,7 +13,7 @@ using System.Xml.Linq;
 
 namespace Public.SettingConfig
 {
-    public class Setting
+    public class Setting : BindableBase
     {
         public Setting(string name, string content)
         {
@@ -66,6 +67,7 @@ namespace Public.SettingConfig
                         Text.LimitUpdate(rootNode.Element("Text"));
                         break;
                 }
+                UpdateValid();
             }
             catch (Exception)
             {
@@ -150,29 +152,32 @@ namespace Public.SettingConfig
             }
             return rootNode;
         }
+
+        private bool _isValid;
         public bool IsValid
         {
-            get
+            get => _isValid;
+            set => SetProperty(ref _isValid, value);
+        }
+        public void UpdateValid()
+        {
+            switch (Type.Name)
             {
-                switch (Type.Name)
-                {
-                    case "Map":
-                        if (MapSetList == null) return false;
-                        break;
-                    case "Table":
-                        if (TableSetList == null) return false;
-                        break;
-                    case "OnOff":
-                        if (OnOff == null) return false;
-                        break;
-                    case "Value":
-                        if (Value == null) return false;
-                        break;
-                    case "Text":
-                        if (Text == null) return false;
-                        break;
-                }
-                return true;
+                case "Map":
+                    IsValid = MapSetList != null;
+                    break;
+                case "Table":
+                    IsValid = TableSetList != null;
+                    break;
+                case "OnOff":
+                    IsValid = OnOff != null;
+                    break;
+                case "Value":
+                    IsValid = Value != null;
+                    break;
+                case "Text":
+                    IsValid = Text != null;
+                    break;
             }
         }
         public static List<Setting> GetSettingList(XElement rootNode, List<FilterOff> filterOffList)

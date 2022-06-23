@@ -225,6 +225,7 @@ namespace SettingConfig.ViewModels
                                     SelectedSetting.Text = arg.Parameters.GetValue<SettingText>("SettingText");
                                     break;
                             }
+                            SelectedSetting.UpdateValid();
                         }
                     });
                 });
