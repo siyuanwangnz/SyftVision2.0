@@ -204,7 +204,7 @@ namespace BatchAnalysis.Services
                 table.AddCell(new Cell().Add(new Paragraph(text)).SetFontSize(9).SetTextAlignment(TextAlignment.CENTER));
                 // Add result
                 text = new Text(scan.Result);
-                if (scan.Status == "BAD") text.SetFontColor(ColorConstants.RED);
+                if (scan.Result == "BAD") text.SetFontColor(ColorConstants.RED);
                 else text.SetFontColor(ColorConstants.GREEN);
                 table.AddCell(new Cell().Add(new Paragraph(text)).SetFontSize(9).SetTextAlignment(TextAlignment.CENTER));
             }
